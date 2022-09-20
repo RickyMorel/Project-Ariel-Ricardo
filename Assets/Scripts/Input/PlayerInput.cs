@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
 {
     #region Editor Fields
 
+    [SerializeField] private int _playerIndex = 0;
     [SerializeField] private InputMaster _inputMaster;
 
     #endregion
@@ -23,6 +24,7 @@ public class PlayerInput : MonoBehaviour
 
     #region Public Properties
 
+    public int PlayerIndex => _playerIndex;
     public event Action OnJump;
     public Vector2 MoveDirection => _moveDirection;
 
