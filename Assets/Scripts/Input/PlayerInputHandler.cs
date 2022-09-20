@@ -1,18 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Private Variables
+
+    private Vector2 _moveDirection;
+
+    #endregion
+
+    #region Public Properties
+
+    public event Action OnJump;
+    public Vector2 MoveDirection => _moveDirection;
+
+    #endregion
+
+    public void Move(InputAction.CallbackContext obj)
     {
-        
+        _moveDirection = obj.ReadValue<Vector2>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Jump(InputAction.CallbackContext obj)
     {
-        
+        OnJump?.Invoke();
     }
 }

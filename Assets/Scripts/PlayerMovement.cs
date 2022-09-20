@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerMovement : MonoBehaviour
 {
     #region Editor Fields
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Private Variables
 
-    private PlayerInput _playerInput;
+    private PlayerInputHandler _playerInput;
     private Animator _anim;
     private Rigidbody _rb;
 
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInputHandler>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
 
@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
+        if(_playerInput == null) { return; }
+
         _playerInput.OnJump -= HandleJump;
     }
 
