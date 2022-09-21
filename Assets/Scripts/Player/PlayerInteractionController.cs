@@ -1,0 +1,70 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerInteractionController : MonoBehaviour
+{
+    #region Editor Fields
+
+    [SerializeField] private int _currentInteraction = 0;
+
+    #endregion
+
+    #region Private Variables
+
+    private PlayerInputHandler _playerInput;
+    private Animator _anim;
+    private Interactable _currentInteractable;
+
+    #endregion
+
+    #region Unity Loops
+
+    private void Start()
+    {
+        _playerInput = GetComponent<PlayerInputHandler>();
+        _anim = GetComponent<Animator>();
+
+        _playerInput.OnInteract += HandleInteraction;
+    }
+
+    private void LateUpdate()
+    {
+        CheckExitInteraction();
+    }
+
+    #endregion
+
+    private void CheckExitInteraction()
+    {
+        //if is not doing interaction, return
+        if (_currentInteraction == 0) { return; }
+
+        //if player moves, exit interaction
+        if(_playerInput.MoveDirection.magnitude == 0) { return; }
+
+        SetInteraction(0, transform);
+    }
+
+    //This calls when the player presses the interact button
+    private void HandleInteraction()
+    {
+        if(_currentInteractable == null) { return; }
+
+        SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
+    }
+
+    public void SetCurrentInteractable(Interactable interactable)
+    {
+        _currentInteractable = interactable;
+    }
+
+    public void SetInteraction(int interactionType, Transform playerPositionTransform)
+    {
+        _currentInteraction = interactionType;
+
+        _anim.SetInteger("Interaction", interactionType);
+        transform.position = playerPositionTransform.position;
+    }
+}

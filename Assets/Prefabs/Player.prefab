@@ -5505,9 +5505,11 @@ GameObject:
   - component: {fileID: 8235309464947500818}
   - component: {fileID: 8235309464947500829}
   - component: {fileID: 8235309464947500828}
+  - component: {fileID: 6133349847735832925}
   - component: {fileID: -383538608114217258}
   - component: {fileID: 8235309464947500831}
   - component: {fileID: 8235309464947500830}
+  - component: {fileID: 31071801577900501}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5580,6 +5582,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6133349847735832925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235309464947500824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b1c008bd6a2a04fae06df6b5ab1e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rb: {fileID: 0}
+  _anim: {fileID: 0}
+  _playerInputHandler: {fileID: 0}
+  _playerMovement: {fileID: 0}
+  _playerInteractionController: {fileID: 0}
 --- !u!114 &-383538608114217258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5637,6 +5656,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 01a96b53-1d48-492e-9759-4e8abbf59079
     m_ActionName: Player/Jump[/Keyboard/space,/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8235309464947500831}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 63d43b24-2884-4e4b-9cdc-079f434990ac
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5654,7 +5689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeaaedc792b8e549bedda531eb4fb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerIndex: 0
 --- !u!114 &8235309464947500830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5674,3 +5708,15 @@ MonoBehaviour:
   _jumpCoolDown: 2
   _canJump: 1
   _isGrounded: 1
+--- !u!114 &31071801577900501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235309464947500824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82e8a04c9320f642bd67356d8b4c677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
