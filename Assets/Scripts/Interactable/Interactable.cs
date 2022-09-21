@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Outline))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SphereCollider))]
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
     #region Editor Fields
 
@@ -27,12 +27,14 @@ public class Interactable : MonoBehaviour
 
     #endregion
 
+    #region Unity Loops
+
     private void Start()
     {
         _outline = GetComponent<Outline>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
 
@@ -41,10 +43,12 @@ public class Interactable : MonoBehaviour
         playerInteractionController.SetCurrentInteractable(this);
     }
 
-    private void OnTriggerExit(Collider other)
+    public virtual void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerInputHandler>() == null) { return; }
 
         _outline.enabled = false;
     }
+
+    #endregion
 }
