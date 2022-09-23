@@ -33,6 +33,30 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""63d43b24-2884-4e4b-9cdc-079f434990ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Upgrade"",
+                    ""type"": ""Button"",
+                    ""id"": ""b8199940-3fff-4dce-8316-d83700ec4b7d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Value"",
+                    ""id"": ""decb82fa-cab2-4ff4-bebc-6fde55c04c26"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -147,61 +171,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Dpad gamepad"",
-                    ""id"": ""4dc17ee6-945c-43ac-9d23-0786ff0166e4"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""c5db7a9a-38a9-43f5-8b96-89156f1bdb43"",
-                    ""path"": ""<Gamepad>/dpad/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""2f07e13b-b159-4a00-b5fe-19ce02ca7c46"",
-                    ""path"": ""<Gamepad>/dpad/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""f729232f-0815-4b11-9388-53aa7dd42d61"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""5addf566-6a72-439f-beda-ca6e8e97e367"",
-                    ""path"": ""<Gamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""900bbf26-f0b4-4c70-a441-0b8939c763ca"",
                     ""path"": ""<Keyboard>/space"",
@@ -225,170 +194,47 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5a04551e-9752-4084-bd89-24370d122073"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Ship"",
-            ""id"": ""b132e3b0-3e46-49dd-9c2b-a6cbaf34afa4"",
-            ""actions"": [
-                {
-                    ""name"": ""Rotate booster"",
-                    ""type"": ""Button"",
-                    ""id"": ""fb4372e6-cc21-4562-ba2a-c545dd0bf566"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Boost"",
-                    ""type"": ""Button"",
-                    ""id"": ""c937a669-9b6b-4d48-be18-118eca11f531"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""c9b0f09a-3964-4871-8277-44c40f3a50a4"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
+                    ""id"": ""4adb01ab-2275-4235-9b52-2a7a551c8b7c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Boost"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""47d0d2ae-f71b-49dc-b4f7-bdc6ca7eaadb"",
-                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""id"": ""fc6e7b94-716b-487e-bad7-bc97e60f576c"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS4"",
-                    ""action"": ""Boost"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6ce2fef8-a75e-43f6-b56f-6032a2706b82"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Boost"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Rotation"",
-                    ""id"": ""53233f4e-0668-4aec-8e73-21c09f128f26"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate booster"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""884dd2cf-e62b-4674-8479-63aa5f5b9ece"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""id"": ""c6a75952-7f93-4db4-83a8-7bb7435d6630"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Rotate booster"",
+                    ""action"": ""Upgrade"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""positive"",
-                    ""id"": ""32d96ebf-b984-4c2d-a7b6-989df8e026e3"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
+                    ""name"": """",
+                    ""id"": ""c94f38f2-4be3-47e6-a963-d51325403eea"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Rotate booster"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Rotation"",
-                    ""id"": ""041a6e44-c440-4b17-b875-0eb3096dbb9c"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate booster"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""df4904d7-ca31-4748-829e-9223aacda352"",
-                    ""path"": ""<DualShockGamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PS4"",
-                    ""action"": ""Rotate booster"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""14066557-d000-4650-b039-c2dd0b6973b6"",
-                    ""path"": ""<DualShockGamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PS4"",
-                    ""action"": ""Rotate booster"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Rotation"",
-                    ""id"": ""603fb9b5-b930-46a4-9eb2-f7cf88453ae2"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate booster"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""61cbd869-87f6-4e68-ba7f-084f89e219fe"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Rotate booster"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""5e7c6426-8ebd-4837-9a29-8f5ca904e965"",
-                    ""path"": ""<Gamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Rotate booster"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -420,17 +266,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Gamepad"",
-            ""bindingGroup"": ""Gamepad"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": true,
-                    ""isOR"": false
-                }
-            ]
         }
     ]
 }");
@@ -438,10 +273,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        // Ship
-        m_Ship = asset.FindActionMap("Ship", throwIfNotFound: true);
-        m_Ship_Rotatebooster = m_Ship.FindAction("Rotate booster", throwIfNotFound: true);
-        m_Ship_Boost = m_Ship.FindAction("Boost", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Upgrade = m_Player.FindAction("Upgrade", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -493,12 +327,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Upgrade;
+    private readonly InputAction m_Player_Shoot;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
         public PlayerActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Upgrade => m_Wrapper.m_Player_Upgrade;
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -514,6 +354,15 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Upgrade.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUpgrade;
+                @Upgrade.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUpgrade;
+                @Upgrade.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUpgrade;
+                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -524,51 +373,19 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Upgrade.started += instance.OnUpgrade;
+                @Upgrade.performed += instance.OnUpgrade;
+                @Upgrade.canceled += instance.OnUpgrade;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-
-    // Ship
-    private readonly InputActionMap m_Ship;
-    private IShipActions m_ShipActionsCallbackInterface;
-    private readonly InputAction m_Ship_Rotatebooster;
-    private readonly InputAction m_Ship_Boost;
-    public struct ShipActions
-    {
-        private @InputMaster m_Wrapper;
-        public ShipActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Rotatebooster => m_Wrapper.m_Ship_Rotatebooster;
-        public InputAction @Boost => m_Wrapper.m_Ship_Boost;
-        public InputActionMap Get() { return m_Wrapper.m_Ship; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ShipActions set) { return set.Get(); }
-        public void SetCallbacks(IShipActions instance)
-        {
-            if (m_Wrapper.m_ShipActionsCallbackInterface != null)
-            {
-                @Rotatebooster.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnRotatebooster;
-                @Rotatebooster.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnRotatebooster;
-                @Rotatebooster.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnRotatebooster;
-                @Boost.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnBoost;
-                @Boost.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnBoost;
-                @Boost.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnBoost;
-            }
-            m_Wrapper.m_ShipActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Rotatebooster.started += instance.OnRotatebooster;
-                @Rotatebooster.performed += instance.OnRotatebooster;
-                @Rotatebooster.canceled += instance.OnRotatebooster;
-                @Boost.started += instance.OnBoost;
-                @Boost.performed += instance.OnBoost;
-                @Boost.canceled += instance.OnBoost;
-            }
-        }
-    }
-    public ShipActions @Ship => new ShipActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -587,23 +404,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_PS4SchemeIndex];
         }
     }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
-        {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
-        }
-    }
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-    }
-    public interface IShipActions
-    {
-        void OnRotatebooster(InputAction.CallbackContext context);
-        void OnBoost(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnUpgrade(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
