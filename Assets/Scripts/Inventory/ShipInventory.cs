@@ -18,13 +18,19 @@ public class ShipInventory : MonoBehaviour
 
     #endregion
 
+    #region Public Properties
+
+    public Dictionary<Item, ItemQuantity> Inventory => _inventory;
+
+    #endregion
+
     //This is temporary while we don't have an inventory system
     private void Start()
     {
-        //foreach (Item itemQuantity in _preloadedItems)
-        //{
-        //    _inventory.Add(itemQuantity);
-        //}
+        foreach (ItemQuantity itemQuantity in _preloadedItems)
+        {
+            _inventory.Add(itemQuantity.Item, itemQuantity);
+        }
     }
     //
 }

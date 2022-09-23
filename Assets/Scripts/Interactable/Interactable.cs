@@ -20,18 +20,27 @@ public abstract class Interactable : MonoBehaviour
 
     #endregion
 
+    #region Protected Variables
+
+    protected PlayerInputHandler _currentPlayer;
+
+    #endregion
+
     #region Public Properties
 
     public InteractionType InteractionType => _interactionType;
     public Transform PlayerPositionTransform => _playerPositionTransform;
+    public PlayerInputHandler CurrentPlayer => _currentPlayer;
 
     #endregion
 
     #region Unity Loops
 
-    private void Start()
+    private void Awake()
     {
         _outline = GetComponent<Outline>();
+
+        _outline.enabled = false;
     }
 
     public virtual void OnTriggerEnter(Collider other)
@@ -48,6 +57,16 @@ public abstract class Interactable : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerInputHandler>() == null) { return; }
 
         _outline.enabled = false;
+    }
+
+    public void SetCurrentPlayer(PlayerInputHandler playerInput)
+    {
+        _currentPlayer = playerInput;
+    }
+
+    public virtual void UseInteractable()
+    {
+        Debug.Log("Use Interactable");
     }
 
     #endregion

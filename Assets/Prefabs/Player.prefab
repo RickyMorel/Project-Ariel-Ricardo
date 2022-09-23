@@ -5672,6 +5672,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 63d43b24-2884-4e4b-9cdc-079f434990ac
     m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8235309464947500831}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b8199940-3fff-4dce-8316-d83700ec4b7d
+    m_ActionName: Player/Upgrade[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8235309464947500831}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: Shoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: decb82fa-cab2-4ff4-bebc-6fde55c04c26
+    m_ActionName: Player/Shoot[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5689,6 +5721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeaaedc792b8e549bedda531eb4fb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isShooting: 0
 --- !u!114 &8235309464947500830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5720,3 +5753,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82e8a04c9320f642bd67356d8b4c677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentInteraction: 0

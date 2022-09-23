@@ -9,6 +9,7 @@ public class PlayerInputHandler : MonoBehaviour
     #region Private Variables
 
     private Vector2 _moveDirection;
+    private bool _isShooting;
 
     #endregion
 
@@ -16,7 +17,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     public event Action OnJump;
     public event Action OnInteract;
+    public event Action OnUpgrade;
     public Vector2 MoveDirection => _moveDirection;
+    public bool IsShooting => _isShooting;
 
     #endregion
 
@@ -33,5 +36,18 @@ public class PlayerInputHandler : MonoBehaviour
     public void Interact(InputAction.CallbackContext obj)
     {
         OnInteract?.Invoke();
+    }
+
+    public void Upgrade(InputAction.CallbackContext obj)
+    {
+        //prevents from spam calling this function
+        if (!obj.started) { return; }
+
+        OnUpgrade?.Invoke();
+    }
+
+    public void Shoot(InputAction.CallbackContext obj)
+    {
+        _isShooting = obj.ReadValue<float>() == 1f ? true : false;
     }
 }

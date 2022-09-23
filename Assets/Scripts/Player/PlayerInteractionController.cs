@@ -15,6 +15,7 @@ public class PlayerInteractionController : MonoBehaviour
 
     private PlayerInputHandler _playerInput;
     private Animator _anim;
+    private ShipInventory _shipInventory;
     private Interactable _currentInteractable;
 
     #endregion
@@ -25,13 +26,21 @@ public class PlayerInteractionController : MonoBehaviour
     {
         _playerInput = GetComponent<PlayerInputHandler>();
         _anim = GetComponent<Animator>();
+        _shipInventory = FindObjectOfType<ShipInventory>();
 
         _playerInput.OnInteract += HandleInteraction;
+        _playerInput.OnUpgrade += HandleUpgrade;
     }
 
     private void LateUpdate()
     {
         CheckExitInteraction();
+    }
+
+    private void OnDestroy()
+    {
+        _playerInput.OnInteract -= HandleInteraction;
+        _playerInput.OnUpgrade -= HandleUpgrade;
     }
 
     #endregion
@@ -52,7 +61,20 @@ public class PlayerInteractionController : MonoBehaviour
     {
         if(_currentInteractable == null) { return; }
 
+        if(_currentInteractable.CurrentPlayer == _playerInput) { return; }
+
         SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
+    }
+
+    //This calls when the player presses the upgrade button
+    private void HandleUpgrade()
+    {
+        if (_currentInteractable == null) { return; }
+
+        if((_currentInteractable is Upgradable) == false) { return; }
+
+        Upgradable upgradable = _currentInteractable as Upgradable;
+        upgradable.TryUpgrade(_shipInventory.Inventory);
     }
 
     public void SetCurrentInteractable(Interactable interactable)
@@ -62,6 +84,9 @@ public class PlayerInteractionController : MonoBehaviour
 
     public void SetInteraction(int interactionType, Transform playerPositionTransform)
     {
+        PlayerInputHandler playerInput = interactionType == 0 ? null : _playerInput;
+
+        _currentInteractable.SetCurrentPlayer(playerInput);
         _currentInteraction = interactionType;
 
         _anim.SetInteger("Interaction", interactionType);

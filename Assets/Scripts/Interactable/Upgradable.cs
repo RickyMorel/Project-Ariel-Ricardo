@@ -9,6 +9,9 @@ public class Upgradable : Interactable
     [SerializeField] private Upgrade[] _upgrades;
     [SerializeField] private Canvas _upgradesCanvas;
 
+    [Header("FX")]
+    [SerializeField] private ParticleSystem _upgradeParticles;
+
     #endregion
 
     #region Private Variables
@@ -33,8 +36,10 @@ public class Upgradable : Interactable
         _upgradesCanvas.enabled = true;
     }
 
-    private void OnTriggerExit(Collider other)
+    public override void OnTriggerExit(Collider other)
     {
+        base.OnTriggerExit(other);
+
         _upgradesCanvas.enabled = false;
     }
 
@@ -56,9 +61,17 @@ public class Upgradable : Interactable
 
     public void Upgrade()
     {
+        if(_currentLevel + 1 > _upgrades.Length - 1) { return; }
+
         _currentLevel++;
 
         EnableUpgradeMesh();
+        PlayUpgradeFX();
+    }
+
+    private void PlayUpgradeFX()
+    {
+        _upgradeParticles.Play();
     }
 
     public void EnableUpgradeMesh()
