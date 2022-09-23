@@ -31,8 +31,10 @@ public class ShipMovement : MonoBehaviour
 
     private void Rotate()
     {
-        _posX = RotationCenter.position.x+_playerInput.BoosterRotation.x*RotationRadius;
-        _posY = RotationCenter.position.y+_playerInput.BoosterRotation.y*RotationRadius;
+        _posX = RotationCenter.position.x+_playerInput.MoveDirection.x*RotationRadius;
+        Debug.Log("posX =" + _posX);
+        _posY = RotationCenter.position.y+_playerInput.MoveDirection.y*RotationRadius;
+        Debug.Log("posY =" + _posY);
         transform.position = new Vector3(_posX, _posY, 0);
         gameObject.transform.rotation = Quaternion.Euler(0, 0, _angle);
     }

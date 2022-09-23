@@ -107,7 +107,6 @@ GameObject:
   - component: {fileID: 319713644502076378}
   - component: {fileID: 594206252435764195}
   - component: {fileID: 4798916730714790722}
-  - component: {fileID: 7046554662875113593}
   - component: {fileID: 5426434264547418516}
   m_Layer: 0
   m_Name: Main Ship
@@ -169,7 +168,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: b132e3b0-3e46-49dd-9c2b-a6cbaf34afa4
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &4798916730714790722
@@ -184,21 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeaaedc792b8e549bedda531eb4fb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7046554662875113593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4471484184268937319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9821f80b2f4d884b8d75f090f7079b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AngularSpeed: 1
-  RotationRadius: 12
-  RotationCenter: {fileID: 6966078651353121503}
 --- !u!114 &5426434264547418516
 MonoBehaviour:
   m_ObjectHideFlags: 0
