@@ -46,7 +46,5 @@ public class Weapon : Upgradable
         _timeSinceLastShot = 0f;
 
         Instantiate(_projectilePrefab, _shootTransform.position, transform.rotation);
-
-        Debug.Log("IS SHOOTING");
     }
 }
