@@ -15,6 +15,8 @@ public class PlayerInputHandler : MonoBehaviour
     #region Public Properties
 
     public event Action OnJump;
+    
+    public event Action OnBoost;
     public Vector2 MoveDirection => _moveDirection;
 
     #endregion
@@ -27,5 +29,10 @@ public class PlayerInputHandler : MonoBehaviour
     public void Jump(InputAction.CallbackContext obj)
     {
         OnJump?.Invoke();
+    }
+
+    public void Boost(InputAction.CallbackContext obj)
+    {
+        OnBoost?.Invoke();
     }
 }
