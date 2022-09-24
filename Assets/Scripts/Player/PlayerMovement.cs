@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     #region Private Variables
 
     private PlayerInputHandler _playerInput;
+    private PlayerInteractionController _playerInteraction;
     private Animator _anim;
     private Rigidbody _rb;
 
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _playerInput = GetComponent<PlayerInputHandler>();
+        _playerInteraction = GetComponent<PlayerInteractionController>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
 
@@ -65,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_playerInteraction.IsInteracting()) { return; }
+
         Move();
         RotateTowardsMove();
         UpdateJumpState();
