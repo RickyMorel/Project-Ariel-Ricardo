@@ -6,7 +6,7 @@ public class ShipMovement : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private Transform _shipBooster;
+    [SerializeField] private Transform _rotationCenter;
 
     #endregion
 
@@ -38,11 +38,7 @@ public class ShipMovement : MonoBehaviour
 
     private void Rotate()
     {
-        _posX = RotationCenter.position.x + _playerInput.MoveDirection.x * RotationRadius;
-        Debug.Log("posX =" + _posX);
-        _posY = RotationCenter.position.y + _playerInput.MoveDirection.y * RotationRadius;
-        Debug.Log("posY =" + _posY);
-        _shipBooster.position = new Vector3(_posX, _posY, 0);
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, _angle);
+        _angle = (Mathf.Acos(_playerInput.MoveDirection.x) + Mathf.Asin(_playerInput.MoveDirection.y))/2;
+        _rotationCenter.transform.rotation = Quaternion.Euler(0, 0, _angle);
     }
 }
