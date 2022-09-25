@@ -16,12 +16,13 @@ public class PlayerInputHandler : MonoBehaviour
     #region Public Properties
 
     public event Action OnJump;
-    
-    public event Action OnBoost;
 
     public event Action OnInteract;
+    
     public event Action OnUpgrade;
+   
     public Vector2 MoveDirection => _moveDirection;
+   
     public bool IsShooting => _isShooting;
 
     #endregion
@@ -35,10 +36,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         OnJump?.Invoke();
     }
-    public void Boost(InputAction.CallbackContext obj)
-    {
-        OnBoost?.Invoke();
-    }
+
     public void Interact(InputAction.CallbackContext obj)
     {
         OnInteract?.Invoke();
