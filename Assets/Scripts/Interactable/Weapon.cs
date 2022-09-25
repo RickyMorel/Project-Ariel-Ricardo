@@ -13,6 +13,7 @@ public class Weapon : Upgradable
 
     [Header("Rotation Variables")]
     [SerializeField] private Transform _turretHead;
+    [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private Vector2 _rotationLimits; 
 
     #endregion
@@ -20,10 +21,18 @@ public class Weapon : Upgradable
     #region Private Variables
 
     private float _timeSinceLastShot;
+    private float _rotationX;
 
     #endregion
 
     #region Unity Loops
+
+    public override void Start()
+    {
+        base.Start();
+
+        _rotationX = _turretHead.localEulerAngles.x;
+    }
 
     private void Update()
     {
@@ -44,8 +53,11 @@ public class Weapon : Upgradable
 
     private void CheckRotationInput()
     {
-        //float rotationAngle = 
-        //_turretHead.Rotate()
+         if(_currentPlayer.MoveDirection.x == 0) { return; }
+
+        _rotationX += _rotationSpeed * _currentPlayer.MoveDirection.x * Time.deltaTime;
+        _rotationX = Mathf.Clamp(_rotationX, _rotationLimits.x, _rotationLimits.y);
+        _turretHead.localEulerAngles = new Vector3(_rotationX, 0f, 0f);
     }
 
     private void CheckShootInput()
@@ -62,6 +74,6 @@ public class Weapon : Upgradable
 
         _timeSinceLastShot = 0f;
 
-        Instantiate(_projectilePrefab, _shootTransform.position, transform.rotation);
+        Instantiate(_projectilePrefab, _shootTransform.position, _turretHead.rotation);
     }
 }

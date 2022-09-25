@@ -22,7 +22,7 @@ public class Upgradable : Interactable
 
     #region Unity Loops
 
-    private void Start()
+    public virtual void Start()
     {
         //TODO: read current level from save data
 
