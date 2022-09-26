@@ -64,10 +64,5 @@ public abstract class Interactable : MonoBehaviour
         _currentPlayer = playerInput;
     }
 
-    public virtual void UseInteractable()
-    {
-        Debug.Log("Use Interactable");
-    }
-
     #endregion
 }
