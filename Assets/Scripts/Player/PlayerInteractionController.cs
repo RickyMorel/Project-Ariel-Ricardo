@@ -53,7 +53,7 @@ public class PlayerInteractionController : MonoBehaviour
         //if player moves, exit interaction
         if(_playerInput.MoveDirection.magnitude == 0) { return; }
 
-        SetInteraction(0, transform);
+        //SetInteraction(0, transform);
     }
 
     //This calls when the player presses the interact button

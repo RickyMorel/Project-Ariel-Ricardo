@@ -16,9 +16,13 @@ public class PlayerInputHandler : MonoBehaviour
     #region Public Properties
 
     public event Action OnJump;
+
     public event Action OnInteract;
+    
     public event Action OnUpgrade;
+   
     public Vector2 MoveDirection => _moveDirection;
+   
     public bool IsShooting => _isShooting;
 
     #endregion
