@@ -15,8 +15,11 @@ public class PlayerInteractionController : MonoBehaviour
 
     private PlayerInputHandler _playerInput;
     private Animator _anim;
+    private Rigidbody _rb;
     private ShipInventory _shipInventory;
     private Interactable _currentInteractable;
+
+    private float _timeSinceLastInteraction;
 
     #endregion
 
@@ -27,10 +30,16 @@ public class PlayerInteractionController : MonoBehaviour
         _playerInput = GetComponent<PlayerInputHandler>();
         _anim = GetComponent<Animator>();
         _shipInventory = FindObjectOfType<ShipInventory>();
+        _rb = GetComponent<Rigidbody>();
 
         _playerInput.OnInteract += HandleInteraction;
         _playerInput.OnUpgrade += HandleUpgrade;
         _playerInput.OnJump += HandleJump;
+    }
+
+    private void Update()
+    {
+        _timeSinceLastInteraction += Time.deltaTime;
     }
 
     private void OnDestroy()
@@ -86,14 +95,23 @@ public class PlayerInteractionController : MonoBehaviour
         return _currentInteraction != 0;
     }
 
+    public bool HasRecentlyInteracted()
+    {
+        return _timeSinceLastInteraction < 0.25f;
+    }
+
     public void SetInteraction(int interactionType, Transform playerPositionTransform)
     {
         PlayerInputHandler playerInput = interactionType == 0 ? null : _playerInput;
+        _rb.isKinematic = interactionType != 0;
 
         _currentInteractable.SetCurrentPlayer(playerInput);
         _currentInteraction = interactionType;
 
         _anim.SetInteger("Interaction", interactionType);
         transform.position = playerPositionTransform.position;
+        transform.rotation = playerPositionTransform.rotation;
+
+        _timeSinceLastInteraction = 0f;
     }
 }

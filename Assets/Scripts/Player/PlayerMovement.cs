@@ -127,6 +127,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
+        if (_playerInteraction.HasRecentlyInteracted()) { return; }
+
         if (!_canJump || !_isGrounded) { return; }
 
         _anim.SetTrigger("Jump");

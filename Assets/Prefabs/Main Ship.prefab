@@ -3876,6 +3876,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 7627081817470800420, guid: 20cad5e47f5409748bf2cdc17e679a11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627081817470800420, guid: 20cad5e47f5409748bf2cdc17e679a11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627081817470800420, guid: 20cad5e47f5409748bf2cdc17e679a11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627081817470800420, guid: 20cad5e47f5409748bf2cdc17e679a11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 8539174103963560692, guid: 20cad5e47f5409748bf2cdc17e679a11, type: 3}
       propertyPath: m_RootOrder
       value: 4

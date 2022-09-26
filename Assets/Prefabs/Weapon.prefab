@@ -5716,6 +5716,7 @@ MonoBehaviour:
   _turretHead: {fileID: 0}
   _rotationSpeed: 10
   _rotationLimits: {x: 0, y: 0}
+  _rotationX: 0
 --- !u!1 &7627081817470800421
 GameObject:
   m_ObjectHideFlags: 0
@@ -5739,13 +5740,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7627081817470800421}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.024, y: -0.515, z: -3.226}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.024, y: -0.901, z: -3.226}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7627081817445622297}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &7627081817480824695
 GameObject:
   m_ObjectHideFlags: 0
