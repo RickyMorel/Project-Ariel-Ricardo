@@ -5,37 +5,37 @@ using UnityEngine;
 public class Booster : RotationalInteractable
 {
 
-    #region Editors Fields
+    #region Editor Fields
 
     [SerializeField] private float _boosterSpeed = 1.0f;
+    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private ParticleSystem _boosterParticle;
 
     #endregion
 
     #region Private Variables
 
-    private Rigidbody _rb;
-
     #endregion
 
     #region Unity Loops
 
-
-    private void Start()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
     public override void Update()
     {
         base.Update();
+       
         if (_currentPlayer == null) { return; }
+        
         if (!_currentPlayer.IsShooting) { return; }
-        BoostingTheShip();
+        
+        BoostShip();
+
+        _boosterParticle.Stop();
     }
     #endregion
 
-    private void BoostingTheShip()
+    private void BoostShip()
     {
+        _boosterParticle.Play();
         _rb.AddForce(-(RotatorTransform.transform.up * _boosterSpeed));
     }
 }
