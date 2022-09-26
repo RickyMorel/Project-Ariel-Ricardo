@@ -21,7 +21,7 @@ public class Weapon : Upgradable
     #region Private Variables
 
     private float _timeSinceLastShot;
-    private float _rotationX;
+    [SerializeField] private float _rotationX;
 
     #endregion
 
@@ -31,7 +31,7 @@ public class Weapon : Upgradable
     {
         base.Start();
 
-        _rotationX = _turretHead.localEulerAngles.x;
+        _rotationX = (_rotationLimits.x + _rotationLimits.y)/2;
     }
 
     private void Update()
