@@ -21,7 +21,7 @@ public class Weapon : Upgradable
     #region Private Variables
 
     private float _timeSinceLastShot;
-    [SerializeField] private float _rotationX;
+    private float _rotationX;
 
     #endregion
 

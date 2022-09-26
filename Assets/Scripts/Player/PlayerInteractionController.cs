@@ -61,7 +61,7 @@ public class PlayerInteractionController : MonoBehaviour
         //if is not doing interaction, return
         if (!IsInteracting()) { return; }
 
-        //SetInteraction(0, transform);
+        SetInteraction(0, transform);
     }
 
     //This calls when the player presses the interact button
