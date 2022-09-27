@@ -22,7 +22,7 @@ public class Upgradable : Interactable
 
     #region Unity Loops
 
-    private void Start()
+    public virtual void Start()
     {
         //TODO: read current level from save data
 
@@ -33,14 +33,14 @@ public class Upgradable : Interactable
     {
         base.OnTriggerEnter(other);
 
-        _upgradesCanvas.enabled = true;
+        //_upgradesCanvas.enabled = true;
     }
 
     public override void OnTriggerExit(Collider other)
     {
         base.OnTriggerExit(other);
 
-        _upgradesCanvas.enabled = false;
+        //_upgradesCanvas.enabled = false;
     }
 
     #endregion
