@@ -9,12 +9,19 @@ public class Projectile : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private float _speed;
+    [SerializeField] private int _damage = 20;
 
     #endregion
 
     #region Private Varaibles
 
     private Rigidbody _rb;
+
+    #endregion
+
+    #region Public Properties
+
+    public int Damage => _damage;
 
     #endregion
 
