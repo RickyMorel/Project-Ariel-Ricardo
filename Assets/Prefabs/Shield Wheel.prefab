@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea37a8d0830bad43a0db79772d7a172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionType: 1
+  _interactionType: 3
   _playerPositionTransform: {fileID: 1052606829203341393}
   _upgrades:
   - UpgradeMesh: {fileID: 1052606830937450746}
