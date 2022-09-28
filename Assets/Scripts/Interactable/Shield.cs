@@ -4,9 +4,4 @@ using UnityEngine;
 
 public class Shield : RotationalInteractable
 {
-    #region Editor Fields
-
-    #endregion
-
-
 }
