@@ -2,6 +2,6 @@
 public enum InteractionType
 {
     Sitting = 1,
-    Crafting = 2,
+    RepairMachine = 2,
     Typing = 3
 }
