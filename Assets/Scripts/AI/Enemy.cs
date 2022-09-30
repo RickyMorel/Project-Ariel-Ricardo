@@ -12,11 +12,19 @@ public class Enemy : Damageable
 
     #endregion
 
+    #region Private Variables
+
+    private Lootable _lootableScript;
+
+    #endregion
+
     #region Unity Loops
 
     public override void Start()
     {
         base.Start();
+
+        _lootableScript = GetComponent<Lootable>();
 
         OnDamaged += HandleDamaged;
     }
@@ -37,6 +45,8 @@ public class Enemy : Damageable
     {
         base.Die();
 
-        Destroy(gameObject);
+        _lootableScript.SetCanLoot(true);
+
+        //Destroy(gameObject);
     }
 }
