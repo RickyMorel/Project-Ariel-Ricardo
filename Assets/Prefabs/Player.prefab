@@ -5510,7 +5510,7 @@ GameObject:
   - component: {fileID: 8235309464947500831}
   - component: {fileID: 8235309464947500830}
   - component: {fileID: 31071801577900501}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5735,11 +5735,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 2
   _turnSmoothTime: 0.05
-  _jumpHeight: 2
+  _jumpHeight: 3
   _gravityIntensity: -15
   _jumpCoolDown: 2
   _canJump: 1
-  _isGrounded: 1
+  _isGrounded: 0
 --- !u!114 &31071801577900501
 MonoBehaviour:
   m_ObjectHideFlags: 0
