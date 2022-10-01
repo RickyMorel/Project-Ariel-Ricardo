@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6252672811417170181}
   - component: {fileID: 6252672811417170183}
   - component: {fileID: 6252672811417170182}
+  - component: {fileID: 1772073177}
   m_Layer: 5
   m_Name: ItemName
   m_TagString: Untagged
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -134,6 +135,25 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &1772073177
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252672811417170180}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6252672812011379751
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +165,7 @@ GameObject:
   - component: {fileID: 6252672812011379672}
   - component: {fileID: 6252672812011379674}
   - component: {fileID: 6252672812011379673}
+  - component: {fileID: 1772073178}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -209,6 +230,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1772073178
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252672812011379751}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6252672812312045918
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +260,7 @@ GameObject:
   - component: {fileID: 6252672812312045919}
   - component: {fileID: 6252672812312045905}
   - component: {fileID: 6252672812312045904}
+  - component: {fileID: 1772073176}
   m_Layer: 5
   m_Name: ItemAmount
   m_TagString: Untagged
@@ -283,7 +324,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -343,6 +384,25 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &1772073176
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252672812312045918}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6252672812534062203
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +415,8 @@ GameObject:
   - component: {fileID: 6252672812534062206}
   - component: {fileID: 6252672812534062205}
   - component: {fileID: 6018946430221137008}
+  - component: {fileID: 1772073180}
+  - component: {fileID: 1772073179}
   m_Layer: 5
   m_Name: LootItemUI
   m_TagString: Untagged
@@ -437,3 +499,47 @@ MonoBehaviour:
   _icon: {fileID: 6252672812011379673}
   _itemNameText: {fileID: 6252672811417170182}
   _itemAmountText: {fileID: 6252672812312045904}
+--- !u!320 &1772073180
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252672812534062203}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: a7ee27dc8031f2141b85d79b02211b2c, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 7026246716511273660, guid: a7ee27dc8031f2141b85d79b02211b2c, type: 2}
+    value: {fileID: 1772073179}
+  - key: {fileID: -5933534556311541345, guid: a7ee27dc8031f2141b85d79b02211b2c, type: 2}
+    value: {fileID: 1772073178}
+  - key: {fileID: 3628755054197661336, guid: a7ee27dc8031f2141b85d79b02211b2c, type: 2}
+    value: {fileID: 1772073177}
+  - key: {fileID: -4855597508263433662, guid: a7ee27dc8031f2141b85d79b02211b2c, type: 2}
+    value: {fileID: 1772073176}
+  m_ExposedReferences:
+    m_References: []
+--- !u!95 &1772073179
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252672812534062203}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

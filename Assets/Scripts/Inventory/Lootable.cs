@@ -19,8 +19,6 @@ public class Lootable : MonoBehaviour
 
         if(_loot.Count < 1) { return; }
 
-        Debug.Log("Looted!");
-
         if(!other.gameObject.TryGetComponent<ShipInventory>(out ShipInventory shipInventory)) { return; }
 
         shipInventory.AddItems(_loot);

@@ -15,6 +15,7 @@ public class LootUI : MonoBehaviour
     #region Private Variables
 
     private static LootUI _instance;
+    private float _displayItemTime = 1f;
 
     #endregion
 
@@ -44,21 +45,33 @@ public class LootUI : MonoBehaviour
     {
         DestroyPrevListedItems();
 
-        foreach (ItemQuantity itemQuantity in lootedItems)
-        {
-            GameObject lootItemUI = Instantiate(_lootItemUIPrefab, _contentTransform);
-            LootItemUI lootItem = lootItemUI.GetComponent<LootItemUI>();
-            lootItem.Initialize(itemQuantity);
-        }
+        StartCoroutine(DisplayLootedItemsSlowly(lootedItems));
 
         _lootPanel.SetActive(true);
 
         StartCoroutine(DisableLootPanel());
     }
 
+    private IEnumerator DisplayLootedItemsSlowly(List<ItemQuantity> lootedItems)
+    {
+        List<ItemQuantity> copiedList = new List<ItemQuantity>();
+        copiedList.AddRange(lootedItems);
+
+        WaitForSeconds wait = new WaitForSeconds(_displayItemTime);
+
+        foreach (ItemQuantity itemQuantity in copiedList)
+        {
+            GameObject lootItemUI = Instantiate(_lootItemUIPrefab, _contentTransform);
+            LootItemUI lootItem = lootItemUI.GetComponent<LootItemUI>();
+            lootItem.Initialize(itemQuantity);
+
+            yield return wait;
+        }
+    }
+
     private IEnumerator DisableLootPanel()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
 
         _lootPanel.SetActive(false);
     }
