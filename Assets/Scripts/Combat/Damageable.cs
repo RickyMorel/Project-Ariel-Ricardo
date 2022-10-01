@@ -2,12 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class Damageable : MonoBehaviour
 {
     #region Editor Fields
 
+    [Header("Stats")]
     [SerializeField] private int _maxHealth;
+
+    [Header("UI")]
+    [SerializeField] private Image _healthBarImage;
 
     #endregion
 
@@ -32,7 +39,18 @@ public class Damageable : MonoBehaviour
 
     public virtual void Start()
     {
-        _currentHealth = _maxHealth / 2;
+        _currentHealth = _maxHealth;
+
+        UpdateHealthUI();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
+
+        Damage(projectile.Damage);
+
+        Destroy(projectile.gameObject);
     }
 
     #endregion
@@ -41,6 +59,8 @@ public class Damageable : MonoBehaviour
     {
         _currentHealth = Mathf.Clamp(_currentHealth + amountAdded, 0, _maxHealth);
 
+        UpdateHealthUI();
+
         OnUpdateHealth?.Invoke();
     }
 
@@ -48,14 +68,30 @@ public class Damageable : MonoBehaviour
     {
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, _maxHealth);
 
+        UpdateHealthUI();
+
         OnDamaged?.Invoke();
 
         if (_currentHealth == 0)
-            OnDie?.Invoke();
+            Die();
+    }
+
+    public virtual void Die()
+    {
+        OnDie?.Invoke();
     }
 
     public void SetMaxHealth(int newMaxHealth)
     {
         _maxHealth = newMaxHealth;
     }
+
+    #region UI
+
+    private void UpdateHealthUI()
+    {
+        _healthBarImage.fillAmount = CurrentHealth / MaxHealth;
+    }
+
+    #endregion
 }
