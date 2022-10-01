@@ -6,12 +6,6 @@ using UnityEngine.UI;
 
 public class ShipHealth : Damageable
 {
-    #region Editor Fields
-
-    [SerializeField] private Image _healthBarImage;
-
-    #endregion
-
     #region Private Varaibles
 
     #endregion
@@ -19,8 +13,6 @@ public class ShipHealth : Damageable
     public override void Start()
     {
         base.Start();
-
-        UpdateHealthUI();
 
         OnUpdateHealth += HandleUpdateHealth;
         OnDamaged += HandleDamaged;
@@ -34,16 +26,11 @@ public class ShipHealth : Damageable
 
     private void HandleUpdateHealth()
     {
-        UpdateHealthUI();
+
     }
 
     private void HandleDamaged()
     {
-        UpdateHealthUI();
-    }
 
-    private void UpdateHealthUI()
-    {
-        _healthBarImage.fillAmount = CurrentHealth / MaxHealth;
     }
 }
