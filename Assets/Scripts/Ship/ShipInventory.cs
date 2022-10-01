@@ -47,6 +47,7 @@ public class ShipInventory : MonoBehaviour
                 _inventory.Add(itemQuantity.Item, itemQuantity);
             }
 
+            LootUI.Instance.DisplayLootedItems(addedItems);
             Debug.Log("Added Item: " + itemQuantity.Item);
         }
     }
