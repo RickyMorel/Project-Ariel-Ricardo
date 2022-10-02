@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,13 @@ public class Booster : RotationalInteractable
 
     #region Private Variables
 
-    private bool _isBoosting = false;
+    [SerializeField] private bool _isBoosting = false;
+
+    #endregion
+
+    #region Public Properties
+
+    public static event Action<bool> OnBoostUpdated;
 
     #endregion
 
@@ -25,14 +32,12 @@ public class Booster : RotationalInteractable
     public override void Update()
     {
         base.Update();
-
-        _isBoosting = false;
        
         if (_currentPlayer == null) { return; }
         
-        if (!_currentPlayer.IsShooting) { return; }
+        if (!_currentPlayer.IsShooting) { SetIsBoosting(false); return; }
 
-        _isBoosting = true;
+        SetIsBoosting(true);
     }
 
     private void FixedUpdate()
@@ -43,6 +48,16 @@ public class Booster : RotationalInteractable
     }
 
     #endregion
+
+    private void SetIsBoosting(bool isBoosting)
+    {
+        //If value is the same, don't update
+        if(_isBoosting == isBoosting) { return; }
+
+        _isBoosting = isBoosting;
+
+        OnBoostUpdated?.Invoke(isBoosting);
+    }
 
     private void BoostShip()
     {
