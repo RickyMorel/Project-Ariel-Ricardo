@@ -11,6 +11,7 @@ public class Booster : RotationalInteractable
     [SerializeField] private float _acceleration = 1.0f;
     [SerializeField] private float _boostImpulseForce = 50f;
     [SerializeField] private float _topSpeed = 200f;
+    [SerializeField] private List<Gear> _gears = new List<Gear>();
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private ParticleSystem _boosterParticle;
 
@@ -18,7 +19,8 @@ public class Booster : RotationalInteractable
 
     #region Private Variables
 
-    [SerializeField] private bool _isBoosting = false;
+    private bool _isBoosting = false;
+    private int _currentGear = 0;
 
     #endregion
 
@@ -44,6 +46,7 @@ public class Booster : RotationalInteractable
     private void FixedUpdate()
     {
         BoostShip();
+        CheckGears();
 
         _boosterParticle.Stop();
     }
@@ -78,4 +81,28 @@ public class Booster : RotationalInteractable
 
         _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _topSpeed);
     }
+
+    private void CheckGears()
+    {
+        if(_rb.velocity.magnitude > _gears[_currentGear].MaxSpeed)
+        {
+            _currentGear = Mathf.Clamp(_currentGear+1, 0, _gears.Count-1);
+            Debug.Log("HIGHER GEAR: " + _currentGear);
+        }
+        else if(_currentGear != 0 && _rb.velocity.magnitude < _gears[_currentGear-1].MaxSpeed)
+        {
+            _currentGear = Mathf.Clamp(_currentGear - 1, 0, _gears.Count - 1);
+            Debug.Log("LOWER GEAR: " + _currentGear);
+        }
+    }
 }
+
+#region Helper Classes
+
+[System.Serializable]
+public class Gear
+{
+    public float MaxSpeed;
+}
+
+#endregion
