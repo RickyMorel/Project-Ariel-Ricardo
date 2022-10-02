@@ -9,6 +9,7 @@ public class Booster : RotationalInteractable
     #region Editor Fields
 
     [SerializeField] private float _acceleration = 1.0f;
+    [SerializeField] private float _boostImpulseForce = 50f;
     [SerializeField] private float _topSpeed = 200f;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private ParticleSystem _boosterParticle;
@@ -57,6 +58,14 @@ public class Booster : RotationalInteractable
         _isBoosting = isBoosting;
 
         OnBoostUpdated?.Invoke(isBoosting);
+
+        if (isBoosting)
+            BoostImpulse();
+    }
+
+    private void BoostImpulse()
+    {
+        _rb.AddForce(-(RotatorTransform.transform.up * _boostImpulseForce * _rb.mass), ForceMode.Impulse);
     }
 
     private void BoostShip()

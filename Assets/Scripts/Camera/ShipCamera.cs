@@ -11,7 +11,7 @@ public class ShipCamera : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private float _shakeAmplitude;
-    [SerializeField] private float _expandedBoostFOV = 17f;
+    [SerializeField] private float _expandedFovToVelocityRatio = 0.06f;
 
     #endregion
 
@@ -19,6 +19,7 @@ public class ShipCamera : MonoBehaviour
 
     private CinemachineVirtualCamera _virtualCamera;
     private CinemachineBasicMultiChannelPerlin _virtualCameraNoise;
+    private Rigidbody _shipRigidbody;
 
     private bool _isBoosting;
     private float _currentFOV;
@@ -36,6 +37,7 @@ public class ShipCamera : MonoBehaviour
     {
         _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         _virtualCameraNoise = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _shipRigidbody = FindObjectOfType<ShipHealth>().GetComponent<Rigidbody>();
 
         _orginalFOV = _virtualCamera.m_Lens.OrthographicSize;
         _currentFOV = _orginalFOV;
@@ -44,6 +46,7 @@ public class ShipCamera : MonoBehaviour
     private void Update()
     {
         UpdateBoostFOVEffect();
+        ShakeWhenBoosting();
     }
 
     private void OnDestroy()
@@ -55,7 +58,8 @@ public class ShipCamera : MonoBehaviour
 
     private void UpdateBoostFOVEffect()
     {
-        float wantedFOV = _isBoosting == true ? _expandedBoostFOV : _orginalFOV;
+        float expandedBoostFOV = _orginalFOV + (_shipRigidbody.velocity.magnitude * _expandedFovToVelocityRatio);
+        float wantedFOV = _isBoosting == true ? expandedBoostFOV : _orginalFOV;
 
         _currentFOV = Mathf.Lerp(_currentFOV, wantedFOV, Time.deltaTime);
         _virtualCamera.m_Lens.OrthographicSize = _currentFOV;
@@ -64,14 +68,13 @@ public class ShipCamera : MonoBehaviour
     private void HandleBoost(bool isBoosting)
     {
         _isBoosting = isBoosting;
-
-        float shakeAmount = isBoosting == true ? _shakeAmplitude : 0f;
-
-        Shake(shakeAmount);
     }
 
-    private void Shake(float shakeAmount)
+    private void ShakeWhenBoosting()
     {
-        _virtualCameraNoise.m_AmplitudeGain = shakeAmount;
+        float velocityToShakeRatio = 20f;
+        float shakeAmount = _isBoosting == true ? _shakeAmplitude : 0f;
+        float finalShakeAmount = shakeAmount * (_shipRigidbody.velocity.magnitude / velocityToShakeRatio);
+        _virtualCameraNoise.m_AmplitudeGain = finalShakeAmount;
     }
 }
