@@ -82,7 +82,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!135 &5498972410716791316
 SphereCollider:
@@ -116,9 +116,19 @@ MonoBehaviour:
     CraftingRecipy: {fileID: 11400000, guid: 39912a564482bad46959a99579373935, type: 2}
   _upgradesCanvas: {fileID: 0}
   _upgradeParticles: {fileID: 0}
-  RotatorTransform: {fileID: 0}
+  _rotationSpeed: 120
   _pivotTransform: {fileID: 0}
-  _boosterSpeed: 20000
+  RotatorTransform: {fileID: 0}
+  _acceleration: 20
+  _boostImpulseForce: 5
+  _topSpeed: 60
+  _shipDrag: 0.25
+  _gears:
+  - MaxSpeed: 10
+  - MaxSpeed: 25
+  - MaxSpeed: 40
+  - MaxSpeed: 55
+  _speedReductionTolerance: 8
   _rb: {fileID: 0}
   _boosterParticle: {fileID: 0}
 --- !u!114 &9070606289634512929

@@ -36,7 +36,7 @@ public abstract class Interactable : MonoBehaviour
 
     #region Unity Loops
 
-    private void Awake()
+    public virtual void Awake()
     {
         _outline = GetComponent<Outline>();
 
