@@ -49,8 +49,21 @@ public class PlayerMovement : MonoBehaviour
         _playerInteraction = GetComponent<PlayerInteractionController>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
+        AttachToShip(true);
 
         _playerInput.OnJump += HandleJump;
+    }
+
+    private void AttachToShip(bool isAttached)
+    {
+        if (isAttached)
+        {
+            transform.SetParent(Ship.Instance.transform);
+        }
+        else
+        {
+            transform.parent = null;
+        }
     }
 
     private void OnDestroy()
