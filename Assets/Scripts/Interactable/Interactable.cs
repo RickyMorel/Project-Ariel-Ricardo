@@ -54,9 +54,11 @@ public abstract class Interactable : MonoBehaviour
 
     public virtual void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerInputHandler>() == null) { return; }
+        if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
 
         _outline.enabled = false;
+
+        playerInteractionController.SetCurrentInteractable(null);
     }
 
     public void SetCurrentPlayer(PlayerInputHandler playerInput)
