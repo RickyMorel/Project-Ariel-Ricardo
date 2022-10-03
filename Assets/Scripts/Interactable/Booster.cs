@@ -99,13 +99,11 @@ public class Booster : RotationalInteractable
         if (_currentGear < (_gears.Count - 1) && _rb.velocity.magnitude > _gears[_currentGear].MaxSpeed)
         {
             _currentGear = Mathf.Clamp(_currentGear + 1, 0, _gears.Count - 1);
-            Debug.Log("HIGHER GEAR: " + _currentGear);
             OnGearChanged?.Invoke(_currentGear);
         }
         else if (_currentGear != 0 && _rb.velocity.magnitude + _speedReductionTolerance < _gears[_currentGear - 1].MaxSpeed)
         {
             _currentGear = Mathf.Clamp(_currentGear - 1, 0, _gears.Count - 1);
-            Debug.Log("LOWER GEAR: " + _currentGear);
             OnGearChanged?.Invoke(_currentGear);
         }
     }
