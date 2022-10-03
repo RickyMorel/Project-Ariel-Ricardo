@@ -8,6 +8,7 @@ public class Booster : RotationalInteractable
 
     #region Editor Fields
 
+    [Header("Booster Stats")]
     [SerializeField] private float _acceleration = 1.0f;
     [SerializeField] private float _boostImpulseForce = 50f;
     [SerializeField] private float _topSpeed = 200f;

@@ -116,16 +116,18 @@ MonoBehaviour:
     CraftingRecipy: {fileID: 11400000, guid: 39912a564482bad46959a99579373935, type: 2}
   _upgradesCanvas: {fileID: 0}
   _upgradeParticles: {fileID: 0}
-  RotatorTransform: {fileID: 0}
+  _rotationSpeed: 120
   _pivotTransform: {fileID: 0}
-  _acceleration: 25
+  RotatorTransform: {fileID: 0}
+  _acceleration: 20
   _boostImpulseForce: 5
-  _topSpeed: 50
-  _shipDrag: 0.5
+  _topSpeed: 60
+  _shipDrag: 0.25
   _gears:
   - MaxSpeed: 10
   - MaxSpeed: 25
   - MaxSpeed: 40
+  - MaxSpeed: 55
   _speedReductionTolerance: 8
   _rb: {fileID: 0}
   _boosterParticle: {fileID: 0}

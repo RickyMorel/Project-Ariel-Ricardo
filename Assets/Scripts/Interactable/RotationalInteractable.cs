@@ -6,20 +6,21 @@ public class RotationalInteractable : Upgradable
 {
     #region Editor Fields
 
-    [SerializeField] public Transform RotatorTransform;
+    [Header("Rotator Parameters")]
+    [SerializeField] private float _rotationSpeed = 20f;
     [SerializeField] private Transform _pivotTransform;
 
     #endregion
 
     #region Private Variables
 
-    private float _currentAngle = 0, _shieldRotationSpeed = 1;
+    private float _currentAngle = 0;
 
     #endregion
 
     #region Public Properties
 
-
+    public Transform RotatorTransform;
 
     #endregion
 
@@ -38,7 +39,7 @@ public class RotationalInteractable : Upgradable
     {
         if (_currentPlayer.MoveDirection.magnitude == 0) { return; }
         
-        _currentAngle = _shieldRotationSpeed * _currentPlayer.MoveDirection.x;
+        _currentAngle = _rotationSpeed * _currentPlayer.MoveDirection.x * Time.deltaTime;
         RotatorTransform.RotateAround(_pivotTransform.position, Vector3.forward, -_currentAngle);
     }
 }
