@@ -11,7 +11,9 @@ public class Booster : RotationalInteractable
     [SerializeField] private float _acceleration = 1.0f;
     [SerializeField] private float _boostImpulseForce = 50f;
     [SerializeField] private float _topSpeed = 200f;
+    [SerializeField] private float _shipDrag = 0.1f;
     [SerializeField] private List<Gear> _gears = new List<Gear>();
+    [SerializeField] private float _speedReductionTolerance = 8f;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private ParticleSystem _boosterParticle;
 
@@ -21,16 +23,39 @@ public class Booster : RotationalInteractable
 
     private bool _isBoosting = false;
     private int _currentGear = 0;
+    private bool _recentlyChangedGear = false;
 
     #endregion
 
     #region Public Properties
 
     public static event Action<bool> OnBoostUpdated;
+    public static event Action<int> OnGearChanged;
+
+    public bool RecentlyChangedGear => _recentlyChangedGear;
 
     #endregion
 
     #region Unity Loops
+
+    public override void Awake()
+    {
+        base.Awake();
+
+        OnGearChanged += HandleGearChanged;
+    }
+
+    public override void Start()
+    {
+        base.Start();
+
+        _rb.drag = _shipDrag;
+    }
+
+    private void OnDestroy()
+    {
+        OnGearChanged -= HandleGearChanged;
+    }
 
     public override void Update()
     {
@@ -49,6 +74,40 @@ public class Booster : RotationalInteractable
         CheckGears();
 
         _boosterParticle.Stop();
+    }
+
+    #endregion
+
+    #region Gears
+
+    private void HandleGearChanged(int gear)
+    {
+        StartCoroutine(ChangedGearCoroutine());
+    }
+
+    private IEnumerator ChangedGearCoroutine()
+    {
+        _recentlyChangedGear = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        _recentlyChangedGear = false;
+    }
+
+    private void CheckGears()
+    {
+        if (_rb.velocity.magnitude > _gears[_currentGear].MaxSpeed)
+        {
+            _currentGear = Mathf.Clamp(_currentGear + 1, 0, _gears.Count - 1);
+            Debug.Log("HIGHER GEAR: " + _currentGear);
+            OnGearChanged?.Invoke(_currentGear);
+        }
+        else if (_currentGear != 0 && _rb.velocity.magnitude + _speedReductionTolerance < _gears[_currentGear - 1].MaxSpeed)
+        {
+            _currentGear = Mathf.Clamp(_currentGear - 1, 0, _gears.Count - 1);
+            Debug.Log("LOWER GEAR: " + _currentGear);
+            OnGearChanged?.Invoke(_currentGear);
+        }
     }
 
     #endregion
@@ -73,27 +132,13 @@ public class Booster : RotationalInteractable
 
     private void BoostShip()
     {
-        if (!_isBoosting) { return; }
+        if (!_isBoosting || _recentlyChangedGear) { return; }
 
         _boosterParticle.Play();
 
         _rb.AddForce(-(RotatorTransform.transform.up * _acceleration * _rb.mass));
 
         _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _topSpeed);
-    }
-
-    private void CheckGears()
-    {
-        if(_rb.velocity.magnitude > _gears[_currentGear].MaxSpeed)
-        {
-            _currentGear = Mathf.Clamp(_currentGear+1, 0, _gears.Count-1);
-            Debug.Log("HIGHER GEAR: " + _currentGear);
-        }
-        else if(_currentGear != 0 && _rb.velocity.magnitude < _gears[_currentGear-1].MaxSpeed)
-        {
-            _currentGear = Mathf.Clamp(_currentGear - 1, 0, _gears.Count - 1);
-            Debug.Log("LOWER GEAR: " + _currentGear);
-        }
     }
 }
 

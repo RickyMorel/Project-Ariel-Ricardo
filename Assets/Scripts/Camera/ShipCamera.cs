@@ -20,6 +20,7 @@ public class ShipCamera : MonoBehaviour
     private CinemachineVirtualCamera _virtualCamera;
     private CinemachineBasicMultiChannelPerlin _virtualCameraNoise;
     private Rigidbody _shipRigidbody;
+    private Booster _shipBooster;
 
     private bool _isBoosting;
     private float _currentFOV;
@@ -38,6 +39,7 @@ public class ShipCamera : MonoBehaviour
         _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         _virtualCameraNoise = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         _shipRigidbody = FindObjectOfType<ShipHealth>().GetComponent<Rigidbody>();
+        _shipBooster = _shipRigidbody.GetComponentInChildren<Booster>();
 
         _orginalFOV = _virtualCamera.m_Lens.OrthographicSize;
         _currentFOV = _orginalFOV;
@@ -59,7 +61,7 @@ public class ShipCamera : MonoBehaviour
     private void UpdateBoostFOVEffect()
     {
         float expandedBoostFOV = _orginalFOV + (_shipRigidbody.velocity.magnitude * _expandedFovToVelocityRatio);
-        float wantedFOV = _isBoosting == true ? expandedBoostFOV : _orginalFOV;
+        float wantedFOV = _isBoosting == true && _shipBooster.RecentlyChangedGear == false ? expandedBoostFOV : _orginalFOV;
 
         _currentFOV = Mathf.Lerp(_currentFOV, wantedFOV, Time.deltaTime);
         _virtualCamera.m_Lens.OrthographicSize = _currentFOV;
@@ -73,7 +75,7 @@ public class ShipCamera : MonoBehaviour
     private void ShakeWhenBoosting()
     {
         float velocityToShakeRatio = 20f;
-        float shakeAmount = _isBoosting == true ? _shakeAmplitude : 0f;
+        float shakeAmount = _isBoosting == true && _shipBooster.RecentlyChangedGear == false ? _shakeAmplitude : 0f;
         float finalShakeAmount = shakeAmount * (_shipRigidbody.velocity.magnitude / velocityToShakeRatio);
         _virtualCameraNoise.m_AmplitudeGain = finalShakeAmount;
     }
