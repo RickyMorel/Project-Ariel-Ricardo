@@ -11804,7 +11804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e934a8a605f520488e39e95161f0e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shakeAmplitude: 1
+  _shakeAmplitude: 0.5
   _expandedFovToVelocityRatio: 0.15
 --- !u!1 &595234478
 GameObject:
@@ -27804,6 +27804,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 550981997}
     - target: {fileID: 8939861088303502654, guid: 581c7f4916d4ee34ea8aad735c61ff19, type: 3}
+      propertyPath: _shipDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939861088303502654, guid: 581c7f4916d4ee34ea8aad735c61ff19, type: 3}
       propertyPath: _pivotTransform
       value: 
       objectReference: {fileID: 1291672107}
@@ -27815,6 +27819,10 @@ PrefabInstance:
       propertyPath: _boosterParticle
       value: 
       objectReference: {fileID: 1818299578}
+    - target: {fileID: 8939861088303502654, guid: 581c7f4916d4ee34ea8aad735c61ff19, type: 3}
+      propertyPath: _boostImpulseForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8939861088303502654, guid: 581c7f4916d4ee34ea8aad735c61ff19, type: 3}
       propertyPath: _gears.Array.data[1].MinSpeed
       value: 10

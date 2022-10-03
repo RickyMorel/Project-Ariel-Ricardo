@@ -119,12 +119,14 @@ MonoBehaviour:
   RotatorTransform: {fileID: 0}
   _pivotTransform: {fileID: 0}
   _acceleration: 25
-  _boostImpulseForce: 10
+  _boostImpulseForce: 5
   _topSpeed: 50
+  _shipDrag: 0.5
   _gears:
   - MaxSpeed: 10
   - MaxSpeed: 25
   - MaxSpeed: 40
+  _speedReductionTolerance: 8
   _rb: {fileID: 0}
   _boosterParticle: {fileID: 0}
 --- !u!114 &9070606289634512929
