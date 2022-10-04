@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(PlayerInputHandler))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerStateMachine : MonoBehaviour
 {
     #region Editor Fields
 
@@ -22,6 +21,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _canJump;
     [SerializeField] private bool _isGrounded;
 
+    [Header("State Variables")]
+    [SerializeField] private PlayerBaseState _currentState;
+    [SerializeField] private PlayerStateFactory _states;
+
+    #endregion
+
+    #region Getters & Setters
+
+    public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
+    public float JumpHeight { get { return _jumpHeight; } set { _jumpHeight = value; } }
+    public float GravityIntensity { get { return _gravityIntensity; } set { _gravityIntensity = value; } }
+    public float JumpCoolDown { get { return _jumpCoolDown; } set { _jumpCoolDown = value; } }
+    public float TimeSinceLastJump { get { return _timeSinceLastJump; } set { _timeSinceLastJump = value; } }
+    public bool CanJump { get { return _canJump; } set { _canJump = value; } }
+    public bool IsGrounded { get { return _isGrounded; } set { _isGrounded = value; } }
+
     #endregion
 
     #region Private Variables
@@ -35,13 +50,28 @@ public class PlayerMovement : MonoBehaviour
     private float _turnSmoothVelocity;
     private float _timeSinceLastJump;
 
+    private bool _isJumpPressed;
+
     #endregion
 
     #region Public Properties
 
+    public bool IsJumpPressed => _isJumpPressed;
+    public PlayerInteractionController PlayerInteraction => _playerInteraction;
+    public Animator Anim => _anim;
+    public Rigidbody Rb => _rb;
+    public Vector3 MoveDirection => _moveDirection;
+
     #endregion
 
     #region Unity Loops
+
+    private void Awake()
+    {
+        _states = new PlayerStateFactory(this);
+        _currentState = _states.Grounded();
+        _currentState.EnterState();
+    }
 
     private void Start()
     {
@@ -51,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         AttachToShip(true);
 
-      //  _playerInput.OnJump += HandleJump;
+        _playerInput.OnJump += HandleJump;
     }
 
     private void AttachToShip(bool isAttached)
@@ -66,16 +96,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        if(_playerInput == null) { return; }
-
-      //  _playerInput.OnJump -= HandleJump;
-    }
-
     private void Update()
     {
         UpdateTime();
+        _currentState.UpdateState();
     }
 
     private void FixedUpdate()
@@ -84,8 +108,6 @@ public class PlayerMovement : MonoBehaviour
 
         Move();
         RotateTowardsMove();
-        UpdateJumpState();
-        AnimateMove();
     }
 
     private void UpdateTime()
@@ -93,9 +115,14 @@ public class PlayerMovement : MonoBehaviour
         _timeSinceLastJump += Time.deltaTime;
     }
 
-    #endregion
+    private void OnDestroy()
+    {
+        if (_playerInput == null) { return; }
 
-    #region Movement && Rotation
+        _playerInput.OnJump -= HandleJump;
+    }
+
+    #endregion
 
     private void Move()
     {
@@ -115,46 +142,8 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
-    private void AnimateMove()
+    private void HandleJump(InputAction.CallbackContext context)
     {
-        _anim.SetFloat("Movement", _playerInput.MoveDirection.magnitude);
+        _isJumpPressed = context.ReadValueAsButton();
     }
-
-    #endregion
-
-    #region Jumping && Falling
-    public void SetIsGrounded(bool isGrounded)
-    {
-        _isGrounded = isGrounded;
-    }
-
-    private void UpdateJumpState()
-    {
-        if(_timeSinceLastJump > _jumpCoolDown) { _canJump = true; }
-
-        _anim.SetBool("isFalling", !_isGrounded);
-
-        //Don't play jump anim while in air 
-        if (!_isGrounded) { _anim.ResetTrigger("Jump"); }
-    }
-
-    private void HandleJump()
-    {
-        if (_playerInteraction.HasRecentlyInteracted()) { return; }
-
-        if (!_canJump || !_isGrounded) { return; }
-
-        _anim.SetTrigger("Jump");
-
-        _canJump = false;
-
-        _timeSinceLastJump = 0f;
-
-        float jumpingVelocity = Mathf.Sqrt(-2 * _gravityIntensity * _jumpHeight);
-        Vector3 playerVelocity = _moveDirection;
-        playerVelocity.y = jumpingVelocity;
-        _rb.velocity = playerVelocity;
-    }
-
-    #endregion
 }

@@ -34,7 +34,7 @@ public class PlayerInteractionController : MonoBehaviour
 
         _playerInput.OnInteract += HandleInteraction;
         _playerInput.OnUpgrade += HandleUpgrade;
-        _playerInput.OnJump += HandleJump;
+        //_playerInput.OnJump += HandleJump;
     }
 
     private void Update()
@@ -46,7 +46,7 @@ public class PlayerInteractionController : MonoBehaviour
     {
         _playerInput.OnInteract -= HandleInteraction;
         _playerInput.OnUpgrade -= HandleUpgrade;
-        _playerInput.OnJump -= HandleJump;
+        //_playerInput.OnJump -= HandleJump;
     }
 
     #endregion
