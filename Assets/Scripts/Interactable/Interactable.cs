@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(BoxCollider))]
 public abstract class Interactable : MonoBehaviour
 {
     #region Editor Fields
