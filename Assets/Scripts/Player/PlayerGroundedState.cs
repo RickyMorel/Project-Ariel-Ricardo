@@ -7,6 +7,7 @@ public class PlayerGroundedState : PlayerBaseState
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) 
     {
+        _isRootState = true;
         InitializeSubStates();
     }
 

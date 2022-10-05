@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerFallState : PlayerBaseState
 {
     public PlayerFallState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-    : base(currentContext, playerStateFactory) { }
+    : base(currentContext, playerStateFactory) 
+    {
+        _isRootState = true;
+    }
 
     public override void EnterState() { }
 

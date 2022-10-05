@@ -92,7 +92,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        _currentState.UpdateState();
+        _currentState.UpdateStates();
     }
 
     private void FixedUpdate()

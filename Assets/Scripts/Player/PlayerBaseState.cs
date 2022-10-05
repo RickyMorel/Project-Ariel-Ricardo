@@ -2,6 +2,7 @@
 [System.Serializable]
 public abstract class PlayerBaseState
 {
+    protected bool _isRootState = false;
     protected PlayerStateMachine _context;
     protected PlayerStateFactory _factory;
     protected PlayerBaseState _currentSuperState;
@@ -19,7 +20,15 @@ public abstract class PlayerBaseState
     public abstract void CheckSwitchStates();
     public abstract void InitializeSubStates();
 
-    private void UpdateStates() { }
+    public void UpdateStates() 
+    {
+        UpdateState();
+        if(_currentSubState != null)
+        {
+            _currentSubState.UpdateStates();
+        }
+    }
+
     protected void SwitchState(PlayerBaseState newState)
     {
         //current state exits state
@@ -28,8 +37,15 @@ public abstract class PlayerBaseState
         //new state enters state
         newState.EnterState();
 
-        //switch current state of context
-        _context.CurrentState = newState;
+        if (_isRootState)
+        {
+            //switch current state of context
+            _context.CurrentState = newState;
+        }
+        else if (_currentSuperState != null)
+        {
+            _currentSuperState.SetSubState(newState);
+        }
     }
     protected void SetSuperState(PlayerBaseState newSuperState) 
     {
