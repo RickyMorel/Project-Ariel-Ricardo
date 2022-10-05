@@ -7,28 +7,22 @@ public class PlayerRunState : PlayerBaseState
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
-    public override void EnterState()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override void EnterState() { }
 
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        CheckSwitchStates();
     }
 
-    public override void ExitState()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override void ExitState() { }
 
-    public override void InitializeSubStates()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override void InitializeSubStates() { }
 
     public override void CheckSwitchStates()
     {
-        throw new System.NotImplementedException();
+        if(_context.MoveDirection.magnitude == 0)
+        {
+            SwitchState(_factory.Idle());
+        }
     }
 }

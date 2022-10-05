@@ -1,8 +1,12 @@
 
+[System.Serializable]
 public abstract class PlayerBaseState
 {
     protected PlayerStateMachine _context;
     protected PlayerStateFactory _factory;
+    protected PlayerBaseState _currentSuperState;
+    protected PlayerBaseState _currentSubState;
+
     public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     {
         _context = currentContext;
@@ -27,6 +31,13 @@ public abstract class PlayerBaseState
         //switch current state of context
         _context.CurrentState = newState;
     }
-    protected void SetSuperState() { }
-    protected void SetSubState() { }
+    protected void SetSuperState(PlayerBaseState newSuperState) 
+    {
+        _currentSuperState = newSuperState;
+    }
+    protected void SetSubState(PlayerBaseState newSubState) 
+    {
+        _currentSubState = newSubState;
+        newSubState.SetSuperState(this);
+    }
 }

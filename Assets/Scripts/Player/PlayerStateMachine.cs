@@ -17,8 +17,6 @@ public class PlayerStateMachine : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] private float _jumpHeight = 3f;
     [SerializeField] private float _gravityIntensity = -15f;
-    [SerializeField] private float _jumpCoolDown = 2f;
-    [SerializeField] private bool _canJump;
     [SerializeField] private bool _isGrounded;
 
     [Header("State Variables")]
@@ -32,9 +30,6 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public float JumpHeight { get { return _jumpHeight; } set { _jumpHeight = value; } }
     public float GravityIntensity { get { return _gravityIntensity; } set { _gravityIntensity = value; } }
-    public float JumpCoolDown { get { return _jumpCoolDown; } set { _jumpCoolDown = value; } }
-    public float TimeSinceLastJump { get { return _timeSinceLastJump; } set { _timeSinceLastJump = value; } }
-    public bool CanJump { get { return _canJump; } set { _canJump = value; } }
     public bool IsGrounded { get { return _isGrounded; } set { _isGrounded = value; } }
 
     #endregion
@@ -48,7 +43,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private Vector3 _moveDirection;
     private float _turnSmoothVelocity;
-    private float _timeSinceLastJump;
 
     private bool _isJumpPressed;
 
@@ -98,7 +92,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        UpdateTime();
         _currentState.UpdateState();
     }
 
@@ -108,11 +101,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         Move();
         RotateTowardsMove();
-    }
-
-    private void UpdateTime()
-    {
-        _timeSinceLastJump += Time.deltaTime;
+        AnimateMove();
     }
 
     private void OnDestroy()
@@ -140,6 +129,11 @@ public class PlayerStateMachine : MonoBehaviour
 
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    }
+
+    private void AnimateMove()
+    {
+        _anim.SetFloat("Movement", _playerInput.MoveDirection.magnitude);
     }
 
     private void HandleJump(InputAction.CallbackContext context)

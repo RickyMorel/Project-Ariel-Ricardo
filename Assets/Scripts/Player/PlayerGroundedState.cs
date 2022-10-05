@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerGroundedState : PlayerBaseState
 {
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-    : base(currentContext, playerStateFactory) { }
+    : base(currentContext, playerStateFactory) 
+    {
+        InitializeSubStates();
+    }
 
     public override void EnterState()
     {
-        Debug.Log("IS IN GROUNDED STATE");
+
     }
 
     public override void UpdateState()
@@ -19,7 +22,17 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void ExitState() { }
 
-    public override void InitializeSubStates() { }
+    public override void InitializeSubStates() 
+    {
+        if(_context.MoveDirection.magnitude == 0f)
+        {
+            SetSubState(_factory.Idle());
+        }
+        else
+        {
+            SetSubState(_factory.Run());
+        }
+    }
 
     public override void CheckSwitchStates()
     {
