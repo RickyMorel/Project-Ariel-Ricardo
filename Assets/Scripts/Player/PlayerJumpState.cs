@@ -14,14 +14,12 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void UpdateState() 
     {
-        if (!_context.IsGrounded) { SetIsFalling(true); }
-
         CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-        SetIsFalling(false);
+
     }
 
     public override void InitializeSubStates() { }
@@ -31,6 +29,10 @@ public class PlayerJumpState : PlayerBaseState
         if (_context.IsGrounded)
         {
             SwitchState(_factory.Grounded());
+        }
+        else
+        {
+            SwitchState(_factory.Fall());
         }
     }
 
@@ -44,13 +46,5 @@ public class PlayerJumpState : PlayerBaseState
         Vector3 playerVelocity = _context.MoveDirection;
         playerVelocity.y = jumpingVelocity;
         _context.Rb.velocity = playerVelocity;
-    }
-
-    private void SetIsFalling(bool isFalling)
-    {
-        _context.Anim.SetBool("isFalling", isFalling);
-
-        //Don't play jump anim while in air 
-        if (isFalling) { _context.Anim.ResetTrigger("Jump"); }
     }
 }

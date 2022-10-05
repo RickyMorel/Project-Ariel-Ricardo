@@ -40,5 +40,9 @@ public class PlayerGroundedState : PlayerBaseState
         {
             SwitchState(_factory.Jump());
         }
+        else if (!_context.IsGrounded)
+        {
+            SwitchState(_factory.Fall());
+        }
     }
 }
