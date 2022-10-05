@@ -40,9 +40,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8228838396763777636}
   - component: {fileID: 2568956670031348953}
-  - component: {fileID: 5498972410716791316}
   - component: {fileID: 8939861088303502654}
   - component: {fileID: 9070606289634512929}
+  - component: {fileID: 8384172311828436016}
   m_Layer: 0
   m_Name: Driving Monitor
   m_TagString: Untagged
@@ -84,19 +84,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!135 &5498972410716791316
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3496322072502369888}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Center: {x: 0, y: 2.17, z: 0}
 --- !u!114 &8939861088303502654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +128,19 @@ MonoBehaviour:
   bakeValues: []
   _meshes:
   - {fileID: 3496322072502369888}
+--- !u!65 &8384172311828436016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496322072502369888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1162109, y: 0.76311874, z: 1}
+  m_Center: {x: -0.023986816, y: 0.6891012, z: 0}
 --- !u!1001 &867531447080448991
 PrefabInstance:
   m_ObjectHideFlags: 0
