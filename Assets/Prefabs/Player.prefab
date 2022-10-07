@@ -5492,7 +5492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _floorMask: 6
-  _playerMovement: {fileID: 8235309464947500830}
+  _playerStateMachine: {fileID: 5054758916227006428}
 --- !u!1 &8235309464947500824
 GameObject:
   m_ObjectHideFlags: 0
@@ -5508,8 +5508,8 @@ GameObject:
   - component: {fileID: 6133349847735832925}
   - component: {fileID: -383538608114217258}
   - component: {fileID: 8235309464947500831}
-  - component: {fileID: 8235309464947500830}
   - component: {fileID: 31071801577900501}
+  - component: {fileID: 5054758916227006428}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -5524,8 +5524,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8235309464947500824}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000029504295}
+  m_LocalPosition: {x: 4.04, y: -1.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 377444191573511032}
@@ -5721,25 +5721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeaaedc792b8e549bedda531eb4fb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8235309464947500830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8235309464947500824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 288c0de0242ea9749b6213b6cab7bd83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 2
-  _turnSmoothTime: 0.05
-  _jumpHeight: 3
-  _gravityIntensity: -15
-  _jumpCoolDown: 2
-  _canJump: 1
-  _isGrounded: 0
 --- !u!114 &31071801577900501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5753,3 +5734,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentInteraction: 0
+--- !u!114 &5054758916227006428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235309464947500824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066192d5556f99b43b3d3792e0d427a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentSpeed: 0
+  _runSpeed: 2
+  _turnSmoothTime: 0.05
+  _jumpHeight: 3
+  _gravityIntensity: -15
+  _isGrounded: 0
