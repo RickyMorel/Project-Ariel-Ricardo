@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteractionController : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class PlayerInteractionController : MonoBehaviour
 
         _playerInput.OnInteract += HandleInteraction;
         _playerInput.OnUpgrade += HandleUpgrade;
-        //_playerInput.OnJump += HandleJump;
+        _playerInput.OnJump += HandleJump;
     }
 
     private void Update()
@@ -46,12 +47,12 @@ public class PlayerInteractionController : MonoBehaviour
     {
         _playerInput.OnInteract -= HandleInteraction;
         _playerInput.OnUpgrade -= HandleUpgrade;
-        //_playerInput.OnJump -= HandleJump;
+        _playerInput.OnJump -= HandleJump;
     }
 
     #endregion
 
-    private void HandleJump()
+    private void HandleJump(InputAction.CallbackContext button)
     {
         CheckExitInteraction();
     }

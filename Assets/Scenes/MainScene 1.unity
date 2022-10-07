@@ -58321,8 +58321,6 @@ MonoBehaviour:
   _turnSmoothTime: 0.05
   _jumpHeight: 3
   _gravityIntensity: -15
-  _jumpCoolDown: 2
-  _canJump: 1
   _isGrounded: 0
 --- !u!136 &8235309463316995286
 CapsuleCollider:
@@ -58432,7 +58430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _floorMask: 6
-  _playerMovement: {fileID: 0}
+  _playerStateMachine: {fileID: 8235309463316995285}
 --- !u!54 &8235309464647431069
 Rigidbody:
   m_ObjectHideFlags: 0
