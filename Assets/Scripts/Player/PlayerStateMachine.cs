@@ -40,6 +40,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private PlayerInputHandler _playerInput;
     private PlayerInteractionController _playerInteraction;
+    private PlayerRagdoll _playerRagdoll;
     private Animator _anim;
     private Rigidbody _rb;
 
@@ -52,12 +53,13 @@ public class PlayerStateMachine : MonoBehaviour
 
     #region Public Properties
 
-    public float RunSpeed => _runSpeed;
-    public bool IsJumpPressed => _isJumpPressed;
     public PlayerInteractionController PlayerInteraction => _playerInteraction;
+    public PlayerRagdoll PlayerRagdoll => _playerRagdoll;
     public Animator Anim => _anim;
     public Rigidbody Rb => _rb;
     public Vector3 MoveDirection => _moveDirection;
+    public float RunSpeed => _runSpeed;
+    public bool IsJumpPressed => _isJumpPressed;
     public bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
 
     #endregion
@@ -75,6 +77,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _playerInput = GetComponent<PlayerInputHandler>();
         _playerInteraction = GetComponent<PlayerInteractionController>();
+        _playerRagdoll = GetComponent<PlayerRagdoll>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         AttachToShip(true);

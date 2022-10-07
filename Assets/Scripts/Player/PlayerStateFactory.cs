@@ -14,5 +14,6 @@ public class PlayerStateFactory
     public PlayerBaseState Jump() { return new PlayerJumpState(_context, this); }
     public PlayerBaseState Fall() { return new PlayerFallState(_context, this); }
     public PlayerBaseState Grounded() { return new PlayerGroundedState(_context, this); }
+    public PlayerBaseState Ragdoll() { return new PlayerRagdollState(_context, this); }
     public PlayerBaseState Attack() { return new PlayerAttackState(_context, this); }
 }
