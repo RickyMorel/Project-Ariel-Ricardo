@@ -7,10 +7,15 @@ public class PlayerRunState : PlayerBaseState
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
-    public override void EnterState() { }
+    public override void EnterState() 
+    {
+        _context.Speed = _context.RunSpeed;
+    }
 
     public override void UpdateState()
     {
+        Debug.Log("Run State");
+
         CheckSwitchStates();
     }
 
@@ -20,7 +25,11 @@ public class PlayerRunState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if(_context.MoveDirection.magnitude == 0)
+        if (_context.IsShooting)
+        {
+            SwitchState(_factory.Attack());
+        }
+        else if(_context.MoveDirection.magnitude == 0)
         {
             SwitchState(_factory.Idle());
         }

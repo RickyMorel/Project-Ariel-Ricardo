@@ -7,10 +7,14 @@ public class PlayerIdleState : PlayerBaseState
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
-    public override void EnterState() { }
+    public override void EnterState() 
+    {
+        _context.Speed = 1;
+    }
 
     public override void UpdateState() 
     {
+        Debug.Log("Idle State");
         CheckSwitchStates();
     }
 
@@ -20,7 +24,11 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if(_context.MoveDirection.magnitude < 0)
+        if (_context.IsShooting)
+        {
+            SwitchState(_factory.Attack());
+        }
+        else if(_context.MoveDirection.magnitude > 0f)
         {
             SwitchState(_factory.Run());
         }

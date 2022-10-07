@@ -9,7 +9,8 @@ public class PlayerStateMachine : MonoBehaviour
     #region Editor Fields
 
     [Header("Movement")]
-    [SerializeField] private float _speed;
+    [SerializeField] private float _currentSpeed;
+    [SerializeField] private float _runSpeed;
 
     [Header("Rotation")]
     [SerializeField] private float _turnSmoothTime;
@@ -28,6 +29,7 @@ public class PlayerStateMachine : MonoBehaviour
     #region Getters & Setters
 
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
+    public float Speed { get { return _currentSpeed; } set { _currentSpeed = value; } }
     public float JumpHeight { get { return _jumpHeight; } set { _jumpHeight = value; } }
     public float GravityIntensity { get { return _gravityIntensity; } set { _gravityIntensity = value; } }
     public bool IsGrounded { get { return _isGrounded; } set { _isGrounded = value; } }
@@ -41,20 +43,22 @@ public class PlayerStateMachine : MonoBehaviour
     private Animator _anim;
     private Rigidbody _rb;
 
-    private Vector3 _moveDirection;
     private float _turnSmoothVelocity;
 
+    private Vector3 _moveDirection;
     private bool _isJumpPressed;
 
     #endregion
 
     #region Public Properties
 
+    public float RunSpeed => _runSpeed;
     public bool IsJumpPressed => _isJumpPressed;
     public PlayerInteractionController PlayerInteraction => _playerInteraction;
     public Animator Anim => _anim;
     public Rigidbody Rb => _rb;
     public Vector3 MoveDirection => _moveDirection;
+    public bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
 
     #endregion
 
@@ -115,7 +119,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Move()
     {
-        float cappedSpeed = _speed / 20;
+        float cappedSpeed = _currentSpeed / 20;
         _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, _playerInput.MoveDirection.y * cappedSpeed);
         transform.position += _moveDirection;
     }

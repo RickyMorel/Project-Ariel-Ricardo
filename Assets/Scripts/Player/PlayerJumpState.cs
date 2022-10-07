@@ -8,6 +8,7 @@ public class PlayerJumpState : PlayerBaseState
     : base(currentContext, playerStateFactory)
     {
         _isRootState = true;
+        InitializeSubStates();
     }
 
     public override void EnterState()

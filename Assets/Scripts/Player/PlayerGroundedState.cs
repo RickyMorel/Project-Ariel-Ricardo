@@ -33,6 +33,10 @@ public class PlayerGroundedState : PlayerBaseState
         {
             SetSubState(_factory.Run());
         }
+        if (_context.IsShooting)
+        {
+            SetSubState(_factory.Attack());
+        }
     }
 
     public override void CheckSwitchStates()
