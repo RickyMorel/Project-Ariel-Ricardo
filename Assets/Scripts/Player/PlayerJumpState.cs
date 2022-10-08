@@ -30,7 +30,11 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void CheckSwitchStates() 
     {
-        if (_context.IsGrounded)
+        if (_context.PlayerHealth.IsHurt)
+        {
+            SwitchState(_factory.Ragdoll());
+        }
+        else if (_context.IsGrounded)
         {
             SwitchState(_factory.Grounded());
         }

@@ -13,6 +13,7 @@ public class PlayerRagdollState : PlayerBaseState
 
     public override void EnterState()
     {
+        _context.CanMove = false;
         _context.PlayerRagdoll.EnableRagdoll(true);
     }
 
@@ -23,6 +24,7 @@ public class PlayerRagdollState : PlayerBaseState
 
     public override void ExitState() 
     {
+        _context.CanMove = true;
         _context.PlayerRagdoll.EnableRagdoll(false);
     }
 
@@ -30,13 +32,9 @@ public class PlayerRagdollState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (_context.IsJumpPressed)
+        if(_context.PlayerHealth.IsHurt == false)
         {
-            SwitchState(_factory.Jump());
-        }
-        else if (!_context.IsGrounded)
-        {
-            SwitchState(_factory.Fall());
+            SwitchState(_factory.Grounded());
         }
     }
 }

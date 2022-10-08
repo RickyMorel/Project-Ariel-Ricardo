@@ -17,9 +17,15 @@ public class AttackHitBox : MonoBehaviour
     {
         if(other.gameObject.tag != _enemyTag) { return; }
 
+        Debug.Log("Got player Tag: " + other.gameObject.name);
+
         if(!other.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth)) { return; }
 
-        if(playerHealth == _ownHealth) { return; }
+        Debug.Log("Got player health: " + other.gameObject.name);
+
+        if (playerHealth == _ownHealth) { return; }
+
+        Debug.Log("Is not self: " + other.gameObject.name);
 
         playerHealth.Hurt();
     }

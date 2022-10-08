@@ -14,6 +14,7 @@ public class PlayerRagdoll : MonoBehaviour
 
     private Rigidbody _mainRb;
     private CapsuleCollider _mainCollider;
+    private Animator _anim;
 
     #endregion
 
@@ -23,6 +24,7 @@ public class PlayerRagdoll : MonoBehaviour
     {
         _mainRb = GetComponent<Rigidbody>();
         _mainCollider = GetComponent<CapsuleCollider>();
+        _anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -34,8 +36,14 @@ public class PlayerRagdoll : MonoBehaviour
 
     public void EnableRagdoll(bool isEnabled)
     {
+        if(isEnabled == false)
+        {
+            //transform.position = _colliders[0].transform.position;
+        }
+
         _mainRb.useGravity = !isEnabled;
         _mainCollider.enabled = !isEnabled;
+        _anim.enabled = !isEnabled;
 
 
         foreach (Collider collider in _colliders)

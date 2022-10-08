@@ -33,6 +33,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float JumpHeight { get { return _jumpHeight; } set { _jumpHeight = value; } }
     public float GravityIntensity { get { return _gravityIntensity; } set { _gravityIntensity = value; } }
     public bool IsGrounded { get { return _isGrounded; } set { _isGrounded = value; } }
+    public bool CanMove { get { return _canMove; } set { _canMove = value; } }
 
     #endregion
 
@@ -41,6 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerInputHandler _playerInput;
     private PlayerInteractionController _playerInteraction;
     private PlayerRagdoll _playerRagdoll;
+    private PlayerHealth _playerHealth;
     private Animator _anim;
     private Rigidbody _rb;
 
@@ -48,6 +50,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private Vector3 _moveDirection;
     private bool _isJumpPressed;
+    private bool _canMove = true;
 
     #endregion
 
@@ -55,6 +58,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public PlayerInteractionController PlayerInteraction => _playerInteraction;
     public PlayerRagdoll PlayerRagdoll => _playerRagdoll;
+    public PlayerHealth PlayerHealth => _playerHealth;
     public Animator Anim => _anim;
     public Rigidbody Rb => _rb;
     public Vector3 MoveDirection => _moveDirection;
@@ -78,6 +82,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput = GetComponent<PlayerInputHandler>();
         _playerInteraction = GetComponent<PlayerInteractionController>();
         _playerRagdoll = GetComponent<PlayerRagdoll>();
+        _playerHealth = GetComponent<PlayerHealth>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         AttachToShip(true);
@@ -106,9 +111,12 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if (_playerInteraction.IsInteracting()) { return; }
 
-        Move();
-        RotateTowardsMove();
-        AnimateMove();
+        if (_canMove)
+        {
+            Move();
+            RotateTowardsMove();
+            AnimateMove();
+        }
     }
 
     private void OnDestroy()
