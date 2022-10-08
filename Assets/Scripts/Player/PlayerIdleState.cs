@@ -15,6 +15,9 @@ public class PlayerIdleState : PlayerBaseState
     public override void UpdateState() 
     {
         Debug.Log("Idle State");
+
+        _context.Speed = 2;
+
         CheckSwitchStates();
     }
 
@@ -26,6 +29,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (_context.IsShooting)
         {
+            Debug.Log("Idle: _context.IsShooting: " + _context.IsShooting);
             SwitchState(_factory.Attack());
         }
         else if(_context.MoveDirection.magnitude > 0f)
