@@ -51,6 +51,7 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 _moveDirection;
     private bool _isJumpPressed;
     private bool _canMove = true;
+    private bool _isAttachedToShip;
 
     #endregion
 
@@ -92,6 +93,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void AttachToShip(bool isAttached)
     {
+        _isAttachedToShip = isAttached;
+
         if (isAttached)
         {
             transform.SetParent(Ship.Instance.transform);
@@ -117,6 +120,8 @@ public class PlayerStateMachine : MonoBehaviour
             RotateTowardsMove();
             AnimateMove();
         }
+
+        CheckIfFellOutOfShip();
     }
 
     private void OnDestroy()
@@ -149,6 +154,15 @@ public class PlayerStateMachine : MonoBehaviour
     private void AnimateMove()
     {
         _anim.SetFloat("Movement", _playerInput.MoveDirection.magnitude);
+    }
+
+    private void CheckIfFellOutOfShip()
+    {
+        if (!_isAttachedToShip) { return; }
+
+        if(Vector3.Distance(transform.position, Ship.Instance.transform.position) < 50) { return; }
+
+        transform.localPosition = Vector3.zero;
     }
 
     private void HandleJump(InputAction.CallbackContext context)
