@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,10 +21,14 @@ public class PlayerHealth : MonoBehaviour
 
     public bool IsHurt => _isHurt;
 
+    public event Action OnHurt;
+
     #endregion
 
     public void Hurt()
     {
+        OnHurt?.Invoke();
+
         StartCoroutine(HurtCoroutine());
     }
 
