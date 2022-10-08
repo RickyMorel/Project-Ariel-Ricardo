@@ -38,13 +38,12 @@ public class PlayerRagdoll : MonoBehaviour
     {
         if(isEnabled == false)
         {
-            //transform.position = _colliders[0].transform.position;
+            transform.position = _colliders[0].transform.position;
         }
 
         _mainRb.useGravity = !isEnabled;
         _mainCollider.enabled = !isEnabled;
         _anim.enabled = !isEnabled;
-
 
         foreach (Collider collider in _colliders)
         {

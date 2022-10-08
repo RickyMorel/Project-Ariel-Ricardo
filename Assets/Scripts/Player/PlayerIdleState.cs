@@ -9,7 +9,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void EnterState() 
     {
-        _context.Speed = 1;
+        _context.Speed = 2;
     }
 
     public override void UpdateState() 
