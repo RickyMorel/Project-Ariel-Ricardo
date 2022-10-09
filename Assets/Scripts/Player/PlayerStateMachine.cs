@@ -50,6 +50,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private Vector3 _moveDirection;
     private bool _isJumpPressed;
+    private bool _isDashPressed;
     private bool _canMove = true;
     private bool _isAttachedToShip;
 
@@ -65,6 +66,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Vector3 MoveDirection => _moveDirection;
     public float RunSpeed => _runSpeed;
     public bool IsJumpPressed => _isJumpPressed;
+    public bool IsDashPressed => _isDashPressed;
     public bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
 
     #endregion
@@ -89,6 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
         AttachToShip(true);
 
         _playerInput.OnJump += HandleJump;
+        _playerInput.OnDash += HandleDash;
     }
 
     private void AttachToShip(bool isAttached)
@@ -107,6 +110,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Current State: " + _currentState);
         _currentState.UpdateStates();
     }
 
@@ -129,6 +133,7 @@ public class PlayerStateMachine : MonoBehaviour
         if (_playerInput == null) { return; }
 
         _playerInput.OnJump -= HandleJump;
+        _playerInput.OnDash -= HandleDash;
     }
 
     #endregion
@@ -168,5 +173,10 @@ public class PlayerStateMachine : MonoBehaviour
     private void HandleJump(InputAction.CallbackContext context)
     {
         _isJumpPressed = context.ReadValueAsButton();
+    }
+
+    private void HandleDash(InputAction.CallbackContext context)
+    {
+        _isDashPressed = context.ReadValueAsButton();
     }
 }

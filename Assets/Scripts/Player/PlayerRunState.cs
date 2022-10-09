@@ -27,6 +27,10 @@ public class PlayerRunState : PlayerBaseState
         {
             SwitchState(_factory.Attack());
         }
+        else if (_context.IsDashPressed)
+        {
+            SwitchState(_factory.Dash());
+        }
         else if(_context.MoveDirection.magnitude == 0)
         {
             SwitchState(_factory.Idle());
