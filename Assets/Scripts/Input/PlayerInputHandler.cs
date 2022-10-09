@@ -15,7 +15,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     #region Public Properties
 
-    public event Action OnJump;
+    public event Action<InputAction.CallbackContext> OnJump;
 
     public event Action OnInteract;
     
@@ -34,7 +34,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext obj)
     {
-        OnJump?.Invoke();
+        OnJump?.Invoke(obj);
     }
 
     public void Interact(InputAction.CallbackContext obj)

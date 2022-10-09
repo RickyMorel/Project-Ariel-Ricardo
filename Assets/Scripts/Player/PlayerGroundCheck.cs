@@ -7,7 +7,7 @@ public class PlayerGroundCheck : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private int _floorMask = 6;
-    [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private PlayerStateMachine _playerStateMachine;
 
     #endregion
 
@@ -19,13 +19,13 @@ public class PlayerGroundCheck : MonoBehaviour
     {
         if(other.gameObject.layer != _floorMask) { return; }
 
-        _playerMovement.SetIsGrounded( true);
+        _playerStateMachine.IsGrounded = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer != _floorMask) { return; }
 
-        _playerMovement.SetIsGrounded(false);
+        _playerStateMachine.IsGrounded = false;
     }
 }
