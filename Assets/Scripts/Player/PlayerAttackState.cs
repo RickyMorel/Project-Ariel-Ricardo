@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerBaseState
 {
-    #region Private Varaibles
+    #region Private Variables
 
     private float _timeSinceLastAttack;
     private float _timeBetweenAttacks = 0.5f;
@@ -23,11 +23,6 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void UpdateState()
     {
-        Debug.Log("Attack State");
-
-        //if (_context.IsShooting)
-        //    Attack();
-
         CheckSwitchStates();
 
         _timeSinceLastAttack += Time.deltaTime;

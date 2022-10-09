@@ -33,8 +33,6 @@ public abstract class PlayerBaseState
 
     protected void SwitchState(PlayerBaseState newState)
     {
-        Debug.Log("SwitchState: " + newState);
-
         //current state exits state
         ExitState();
 
@@ -57,7 +55,6 @@ public abstract class PlayerBaseState
     }
     protected void SetSubState(PlayerBaseState newSubState) 
     {
-        Debug.Log("SetSubState: " + newSubState);
         _currentSubState = newSubState;
         newSubState.SetSuperState(this);
     }

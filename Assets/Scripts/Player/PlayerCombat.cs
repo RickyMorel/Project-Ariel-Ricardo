@@ -12,8 +12,6 @@ public class PlayerCombat : MonoBehaviour
 
     public void Hit()
     {
-        Debug.Log("Enabled Hit Box");
-
         StartCoroutine(EnableHitboxRoutine());
     }
 

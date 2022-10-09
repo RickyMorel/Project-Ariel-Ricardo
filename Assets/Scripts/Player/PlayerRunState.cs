@@ -14,8 +14,6 @@ public class PlayerRunState : PlayerBaseState
 
     public override void UpdateState()
     {
-        Debug.Log("Run State");
-
         CheckSwitchStates();
     }
 
