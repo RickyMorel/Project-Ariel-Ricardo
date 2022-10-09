@@ -9,4 +9,6 @@ public class Item : ScriptableObject
     public string DisplayName;
     public string Description;
     public int Value;
+    public GameObject ItemPrefab;
+    public int ItemSize;
 }
