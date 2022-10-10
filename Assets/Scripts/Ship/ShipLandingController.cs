@@ -1,14 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ShipLandingController : MonoBehaviour
 {
     #region Editor Fields
 
+    [Header("Components")]
+    [SerializeField] private Booster _booster;
+
+    [Header("Landing Ramp")]
+    [SerializeField] private Transform _landingRamp;
+
+    [Header("Landing Gear")]
     [SerializeField] private Transform _landingGearTransform;
     [SerializeField] private float _landingGearStoredYPos;
     [SerializeField] private float _landingGearDeployedYPos;
+
+    #endregion
+
+    #region Getters && Setters
+
+    public bool IsWantedDeployed { get { return _isWantedDeployed; } set { _isWantedDeployed = value; } }
 
     #endregion
 
@@ -19,13 +34,33 @@ public class ShipLandingController : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        PlayerInputHandler.OnSpecialAction += HandleSpecialAction;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerInputHandler.OnSpecialAction -= HandleSpecialAction;
+    }
+
+    private void HandleSpecialAction(PlayerInputHandler player, bool isPressed)
+    {
+        if(_isWantedDeployed != _isLandingGearDeployed) { return; }
+
+        //If player that pressed action button is not on booster, return
+        if(player != _booster.CurrentPlayer) { return; }
+
+        if (!isPressed) { return; }
+
+        _isWantedDeployed = !_isWantedDeployed;
+    }
+
     private void FixedUpdate()
     {
         if(_isWantedDeployed == _isLandingGearDeployed) { return; }
 
         float wantedYPosition = _isLandingGearDeployed == true ? _landingGearStoredYPos : _landingGearDeployedYPos;
-
-        Debug.Log("wantedPosition: " + wantedYPosition);
 
         _landingGearTransform.localPosition = new 
             Vector3(_landingGearTransform.localPosition.x, 

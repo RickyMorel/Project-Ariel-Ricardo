@@ -16,7 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     #region Public Properties
 
     public event Action<InputAction.CallbackContext> OnJump;
-    public event Action<InputAction.CallbackContext> OnSpecialAction;
+    public static event Action<PlayerInputHandler, bool> OnSpecialAction;
 
     public event Action OnInteract;
     
@@ -40,7 +40,11 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void SpecialAction(InputAction.CallbackContext obj)
     {
-        OnSpecialAction?.Invoke(obj);
+        //prevents from spam calling this function
+        if (!obj.started) { return; }
+
+        bool value = obj.ReadValue<float>() == 1f ? true : false;
+        OnSpecialAction?.Invoke(this, value);
     }
 
     public void Interact(InputAction.CallbackContext obj)
