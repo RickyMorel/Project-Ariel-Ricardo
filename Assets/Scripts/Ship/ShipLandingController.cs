@@ -29,8 +29,8 @@ public class ShipLandingController : MonoBehaviour
 
     #region Private Variables
 
-    [SerializeField] private bool _isWantedDeployed = false;
-    [SerializeField] private bool _isLandingGearDeployed = false;
+    private bool _isWantedDeployed = false;
+    private bool _isLandingGearDeployed = false;
 
     #endregion
 

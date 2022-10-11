@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,10 @@ public abstract class Interactable : MonoBehaviour
 
     [SerializeField] private InteractionType _interactionType;
     [SerializeField] private Transform _playerPositionTransform;
+
+    [Header("One Time Interaction Parameters")]
+    [SerializeField] private bool _isSingleUse = false;
+    [SerializeField] private float _singleUseTime = 0.5f;
 
     #endregion
 
@@ -31,6 +36,10 @@ public abstract class Interactable : MonoBehaviour
     public InteractionType InteractionType => _interactionType;
     public Transform PlayerPositionTransform => _playerPositionTransform;
     public PlayerInputHandler CurrentPlayer => _currentPlayer;
+    public bool IsSingleUse => _isSingleUse;
+    public float SingleUseTime => _singleUseTime;
+
+    public event Action OnInteract;
 
     #endregion
 
@@ -64,6 +73,8 @@ public abstract class Interactable : MonoBehaviour
     public void SetCurrentPlayer(PlayerInputHandler playerInput)
     {
         _currentPlayer = playerInput;
+
+        OnInteract?.Invoke();
     }
 
     #endregion

@@ -82,6 +82,8 @@ public class PlayerInteractionController : MonoBehaviour
         if(_currentInteractable.CurrentPlayer == _playerInput) { return; }
 
         SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
+
+        if (_currentInteractable.IsSingleUse) { Invoke(nameof(CheckExitInteraction), _currentInteractable.SingleUseTime); }
     }
 
     //This calls when the player presses the upgrade button
