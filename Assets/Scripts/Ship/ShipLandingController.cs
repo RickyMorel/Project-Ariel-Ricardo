@@ -31,15 +31,32 @@ public class ShipLandingController : MonoBehaviour
 
     #endregion
 
+    #region Unity Loops
+
     private void Start()
     {
         PlayerInputHandler.OnSpecialAction += HandleSpecialAction;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isWantedDeployed == _isLandingGearDeployed) { return; }
+
+        float wantedYPosition = _isLandingGearDeployed == true ? _landingGearStoredYPos : _landingGearDeployedYPos;
+
+        _landingGearTransform.localPosition = new
+            Vector3(_landingGearTransform.localPosition.x,
+            Mathf.Lerp(_landingGearTransform.localPosition.y, wantedYPosition, Time.deltaTime), _landingGearTransform.localPosition.z);
+
+        if (Mathf.RoundToInt(_landingGearTransform.localPosition.y) == Mathf.RoundToInt(wantedYPosition)) { _isLandingGearDeployed = _isWantedDeployed; }
     }
 
     private void OnDestroy()
     {
         PlayerInputHandler.OnSpecialAction -= HandleSpecialAction;
     }
+
+    #endregion
 
     private void HandleSpecialAction(PlayerInputHandler player, bool isPressed)
     {
@@ -51,18 +68,5 @@ public class ShipLandingController : MonoBehaviour
         if (!isPressed) { return; }
 
         _isWantedDeployed = !_isWantedDeployed;
-    }
-
-    private void FixedUpdate()
-    {
-        if(_isWantedDeployed == _isLandingGearDeployed) { return; }
-
-        float wantedYPosition = _isLandingGearDeployed == true ? _landingGearStoredYPos : _landingGearDeployedYPos;
-
-        _landingGearTransform.localPosition = new 
-            Vector3(_landingGearTransform.localPosition.x, 
-            Mathf.Lerp(_landingGearTransform.localPosition.y, wantedYPosition, Time.deltaTime), _landingGearTransform.localPosition.z);
-
-        if(Mathf.RoundToInt(_landingGearTransform.localPosition.y) == Mathf.RoundToInt(wantedYPosition)) { _isLandingGearDeployed = _isWantedDeployed; }
     }
 }
