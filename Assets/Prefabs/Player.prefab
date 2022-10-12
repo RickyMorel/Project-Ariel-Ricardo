@@ -6639,7 +6639,6 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _anim: {fileID: 0}
   _playerInputHandler: {fileID: 0}
-  _playerMovement: {fileID: 0}
   _playerInteractionController: {fileID: 0}
 --- !u!114 &-383538608114217258
 MonoBehaviour:
@@ -6746,6 +6745,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: decb82fa-cab2-4ff4-bebc-6fde55c04c26
     m_ActionName: Player/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8235309464947500831}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: SpecialAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 398fac4c-05e5-4d00-9833-bb2084201aff
+    m_ActionName: Player/SpecialAction[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
