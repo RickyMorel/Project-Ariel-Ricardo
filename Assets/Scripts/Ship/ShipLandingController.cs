@@ -11,9 +11,6 @@ public class ShipLandingController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Booster _booster;
 
-    [Header("Landing Ramp")]
-    [SerializeField] private Transform _landingRamp;
-
     [Header("Landing Gear")]
     [SerializeField] private Transform _landingGearTransform;
     [SerializeField] private float _landingGearStoredYPos;
