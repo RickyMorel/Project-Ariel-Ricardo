@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteractionController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerInteractionController : MonoBehaviour
     #region Private Variables
 
     private PlayerInputHandler _playerInput;
+    private PlayerHealth _playerHealth;
     private Animator _anim;
     private Rigidbody _rb;
     private ShipInventory _shipInventory;
@@ -28,6 +30,7 @@ public class PlayerInteractionController : MonoBehaviour
     private void Start()
     {
         _playerInput = GetComponent<PlayerInputHandler>();
+        _playerHealth = GetComponent<PlayerHealth>();
         _anim = GetComponent<Animator>();
         _shipInventory = FindObjectOfType<ShipInventory>();
         _rb = GetComponent<Rigidbody>();
@@ -35,6 +38,7 @@ public class PlayerInteractionController : MonoBehaviour
         _playerInput.OnInteract += HandleInteraction;
         _playerInput.OnUpgrade += HandleUpgrade;
         _playerInput.OnJump += HandleJump;
+        _playerHealth.OnHurt += HandleHurt;
     }
 
     private void Update()
@@ -47,11 +51,17 @@ public class PlayerInteractionController : MonoBehaviour
         _playerInput.OnInteract -= HandleInteraction;
         _playerInput.OnUpgrade -= HandleUpgrade;
         _playerInput.OnJump -= HandleJump;
+        _playerHealth.OnHurt -= HandleHurt;
     }
 
     #endregion
 
-    private void HandleJump()
+    private void HandleJump(InputAction.CallbackContext button)
+    {
+        CheckExitInteraction();
+    }
+
+    private void HandleHurt()
     {
         CheckExitInteraction();
     }
