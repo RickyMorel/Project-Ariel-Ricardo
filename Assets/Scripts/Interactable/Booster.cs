@@ -139,10 +139,6 @@ public class Booster : RotationalInteractable
 
         _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _topSpeed);
     }
-
-    #region Landing
-
-    #endregion
 }
 
 #region Helper Classes

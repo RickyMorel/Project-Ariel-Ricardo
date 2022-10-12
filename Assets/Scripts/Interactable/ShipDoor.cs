@@ -15,8 +15,8 @@ public class ShipDoor : Interactable
 
     #region Private Variables
 
-    [SerializeField] private bool _isWantedDoorOpen = false;
-    [SerializeField] private bool _isDoorOpen = false;
+    private bool _isWantedDoorOpen = false;
+    private bool _isDoorOpen = false;
     private float _doorZRotation;
 
     #endregion
