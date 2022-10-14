@@ -43,6 +43,7 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerInteractionController _playerInteraction;
     private PlayerRagdoll _playerRagdoll;
     private PlayerHealth _playerHealth;
+    private PlayerCarryController _playerCarryController;
     private Animator _anim;
     private Rigidbody _rb;
 
@@ -60,6 +61,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerInteractionController PlayerInteraction => _playerInteraction;
     public PlayerRagdoll PlayerRagdoll => _playerRagdoll;
     public PlayerHealth PlayerHealth => _playerHealth;
+    public PlayerCarryController PlayerCarryController => _playerCarryController;
     public Animator Anim => _anim;
     public Rigidbody Rb => _rb;
     public Vector3 MoveDirection => _moveDirection;
@@ -84,6 +86,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInteraction = GetComponent<PlayerInteractionController>();
         _playerRagdoll = GetComponent<PlayerRagdoll>();
         _playerHealth = GetComponent<PlayerHealth>();
+        _playerCarryController = GetComponent<PlayerCarryController>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         AttachToShip(true);

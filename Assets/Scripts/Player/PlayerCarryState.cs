@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRunState : PlayerBaseState
+public class PlayerCarryState : PlayerBaseState
 {
-    public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerCarryState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
     public override void EnterState() 
     {
-        _context.Speed = _context.RunSpeed;
+        _context.Speed = _context.PlayerCarryController.CarryWalkSpeed;
+        _context.Anim.SetBool("Carry", true);
     }
 
     public override void UpdateState()
@@ -17,7 +18,11 @@ public class PlayerRunState : PlayerBaseState
         CheckSwitchStates();
     }
 
-    public override void ExitState() { }
+    public override void ExitState() 
+    {
+        _context.PlayerCarryController.DropAllItems();
+        _context.Anim.SetBool("Carry", false);
+    }
 
     public override void InitializeSubStates() { }
 
@@ -27,11 +32,7 @@ public class PlayerRunState : PlayerBaseState
         {
             SwitchState(_factory.Attack());
         }
-        else if (_context.PlayerCarryController.HasItems)
-        {
-            SwitchState(_factory.Carry());
-        }
-        else if(_context.MoveDirection.magnitude == 0)
+        else if(_context.PlayerCarryController.HasItems == false)
         {
             SwitchState(_factory.Idle());
         }
