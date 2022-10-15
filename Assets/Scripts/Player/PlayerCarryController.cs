@@ -7,10 +7,9 @@ public class PlayerCarryController : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private List<ItemQuantity> _premadeList;
     [SerializeField] private List<GameObject> _itemsCarrying;
     [SerializeField] private GameObject _carryBoxCollider;
-    [SerializeField] private Transform _itemSpawnTransform;
+    [SerializeField] private Transform[] _itemSpawnTransforms;
 
     #endregion
 
@@ -38,16 +37,6 @@ public class PlayerCarryController : MonoBehaviour
         OnItemsUpdate += HandleItemsUpdate;
 
         _anim = GetComponent<Animator>();
-
-        Invoke(nameof(LateStart), 1f);
-    }
-
-    private void LateStart()
-    {
-        foreach (ItemQuantity item in _premadeList)
-        {
-            CarryItem(item.Item);
-        }
     }
 
     private void OnDestroy()
@@ -57,14 +46,22 @@ public class PlayerCarryController : MonoBehaviour
 
     #endregion
 
-    public void CarryItem(Item item)
+    public void CarryItem(ItemPrefab itemObj)
     {
-        GameObject itemInstance = Instantiate(item.ItemPrefab);
-        itemInstance.transform.localPosition = _carryBoxCollider.transform.position;
+        itemObj.transform.parent = _carryBoxCollider.transform;
+        GetRandomCarryPos(itemObj);
 
-        _itemsCarrying.Add(itemInstance);
+        _itemsCarrying.Add(itemObj.gameObject);
 
         OnItemsUpdate?.Invoke();
+    }
+
+    private void GetRandomCarryPos(ItemPrefab itemObj)
+    {
+        int randomSpawnLocation = UnityEngine.Random.Range(0, _itemSpawnTransforms.Length);
+
+        Vector3 spawnPos = _itemSpawnTransforms[randomSpawnLocation].localPosition;
+        itemObj.transform.localPosition = spawnPos;
     }
 
     public void DropItem(GameObject item)

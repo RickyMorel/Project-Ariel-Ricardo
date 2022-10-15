@@ -14,12 +14,14 @@ public class ItemPrefab : MonoBehaviour
     #region Public Properties
 
     public Item ItemSO => _itemSO;
+    public Rigidbody Rb => _rb;
 
     #endregion
 
     #region Private Variables
 
     private Outline _outline;
+    private Rigidbody _rb;
 
     #endregion
 
@@ -28,6 +30,7 @@ public class ItemPrefab : MonoBehaviour
     private void Start()
     {
         _outline = GetComponent<Outline>();
+        _rb = GetComponent<Rigidbody>();
 
         EnableOutline(false);
     }
@@ -41,8 +44,6 @@ public class ItemPrefab : MonoBehaviour
 
     public void PickUp(PlayerCarryController playerCarryController)
     {
-        playerCarryController.CarryItem(_itemSO);
-
-        Destroy(gameObject);
+        playerCarryController.CarryItem(this);
     }
 }
