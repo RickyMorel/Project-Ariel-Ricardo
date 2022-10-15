@@ -32,7 +32,22 @@ public class PickupTrigger : MonoBehaviour
     {
         if(_currentItems.Count < 1) { return; }
 
+        if (HasPickedUpItem(_currentItems[0].gameObject)) { _currentItems.RemoveAt(0); return; }
+
         _currentItems[0].PickUp(_playerCarryController);
+
+        _currentItems.RemoveAt(0);
+    }
+
+    private bool HasPickedUpItem(GameObject wantedItem)
+    {
+        foreach (GameObject carriedItem in _playerCarryController.ItemsCarrying)
+        {
+            if (carriedItem == wantedItem)
+                return true;
+        }
+
+        return false;
     }
 
     #region Unity Loops

@@ -11,6 +11,12 @@ public class ItemPrefab : MonoBehaviour
 
     #endregion
 
+    #region Public Properties
+
+    public Item ItemSO => _itemSO;
+
+    #endregion
+
     #region Private Variables
 
     private Outline _outline;

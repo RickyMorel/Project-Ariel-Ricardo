@@ -8,7 +8,7 @@ public class PlayerCarryController : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private List<ItemQuantity> _premadeList;
-    [SerializeField] private List<Item> _itemsCarrying;
+    [SerializeField] private List<GameObject> _itemsCarrying;
     [SerializeField] private GameObject _carryBoxCollider;
     [SerializeField] private Transform _itemSpawnTransform;
 
@@ -16,6 +16,7 @@ public class PlayerCarryController : MonoBehaviour
 
     #region Private Variables
 
+    private Animator _anim;
     private bool _hasItems;
     private float _carryWalkSpeed = 1f;
 
@@ -25,6 +26,7 @@ public class PlayerCarryController : MonoBehaviour
 
     public bool HasItems => _hasItems;
     public float CarryWalkSpeed => _carryWalkSpeed;
+    public List<GameObject> ItemsCarrying => _itemsCarrying;
     public event Action OnItemsUpdate;
 
     #endregion
@@ -34,6 +36,8 @@ public class PlayerCarryController : MonoBehaviour
     private void Start()
     {
         OnItemsUpdate += HandleItemsUpdate;
+
+        _anim = GetComponent<Animator>();
 
         Invoke(nameof(LateStart), 1f);
     }
@@ -55,15 +59,15 @@ public class PlayerCarryController : MonoBehaviour
 
     public void CarryItem(Item item)
     {
-        GameObject itemInstance = Instantiate(item.ItemPrefab, _itemSpawnTransform);
-        itemInstance.transform.localPosition = Vector3.zero;
+        GameObject itemInstance = Instantiate(item.ItemPrefab);
+        itemInstance.transform.localPosition = _carryBoxCollider.transform.position;
 
-        _itemsCarrying.Add(item);
+        _itemsCarrying.Add(itemInstance);
 
         OnItemsUpdate?.Invoke();
     }
 
-    public void DropItem(Item item)
+    public void DropItem(GameObject item)
     {
         _itemsCarrying.Remove(item);
 
@@ -84,5 +88,9 @@ public class PlayerCarryController : MonoBehaviour
         _hasItems = _itemsCarrying.Count > 0;
 
         _carryBoxCollider.SetActive(_hasItems);
+
+        float maxItemAmount = 10f;
+
+        _anim.SetFloat("CarryAmount", _itemsCarrying.Count / maxItemAmount);
     }
 }
