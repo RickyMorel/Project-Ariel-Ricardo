@@ -15,6 +15,7 @@ public class PlayerCarryController : MonoBehaviour
 
     #region Private Variables
 
+    private PlayerInteractionController _interactionController;
     private Animator _anim;
     private bool _hasItems;
     private float _carryWalkSpeed = 1f;
@@ -37,6 +38,7 @@ public class PlayerCarryController : MonoBehaviour
         OnItemsUpdate += HandleItemsUpdate;
 
         _anim = GetComponent<Animator>();
+        _interactionController = GetComponent<PlayerInteractionController>();
     }
 
     private void OnDestroy()
@@ -48,12 +50,29 @@ public class PlayerCarryController : MonoBehaviour
 
     public void CarryItem(ItemPrefab itemObj)
     {
+        if (_interactionController.CurrentInteractable != null) { return; }
+
         itemObj.transform.parent = _carryBoxCollider.transform;
         GetRandomCarryPos(itemObj);
+        //StartCoroutine(EnableItemPhysics(itemObj));
 
         _itemsCarrying.Add(itemObj.gameObject);
 
         OnItemsUpdate?.Invoke();
+    }
+
+    private IEnumerator EnableItemPhysics(ItemPrefab itemObj)
+    {
+        //Resets velocity to prevent spinning
+        itemObj.Rb.velocity = Vector3.zero;
+        itemObj.Rb.angularVelocity = Vector3.zero;
+        itemObj.Rb.ResetInertiaTensor();
+
+        itemObj.Rb.isKinematic = false;
+
+        yield return new WaitForSeconds(0.5f);
+
+        itemObj.Rb.isKinematic = true;
     }
 
     private void GetRandomCarryPos(ItemPrefab itemObj)
@@ -73,6 +92,13 @@ public class PlayerCarryController : MonoBehaviour
 
     public void DropAllItems()
     {
+        foreach (GameObject item in _itemsCarrying)
+        {
+            item.transform.parent = null;
+            ItemPrefab itemPrefab = item.GetComponent<ItemPrefab>();
+            itemPrefab.Rb.isKinematic = false;
+        }
+
         _carryBoxCollider.SetActive(false);
 
         _itemsCarrying.Clear();
