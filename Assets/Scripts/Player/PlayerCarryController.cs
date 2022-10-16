@@ -7,8 +7,9 @@ public class PlayerCarryController : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private List<GameObject> _itemsCarrying;
+    [SerializeField] private List<ItemPrefab> _itemsCarrying;
     [SerializeField] private GameObject _carryBoxCollider;
+    [SerializeField] private Transform _armTransform;
     [SerializeField] private Transform[] _itemSpawnTransforms;
 
     #endregion
@@ -19,6 +20,7 @@ public class PlayerCarryController : MonoBehaviour
     private Animator _anim;
     private bool _hasItems;
     private float _carryWalkSpeed = 1f;
+    private float _maxCarryAmount = 10f;
 
     #endregion
 
@@ -26,7 +28,7 @@ public class PlayerCarryController : MonoBehaviour
 
     public bool HasItems => _hasItems;
     public float CarryWalkSpeed => _carryWalkSpeed;
-    public List<GameObject> ItemsCarrying => _itemsCarrying;
+    public List<ItemPrefab> ItemsCarrying => _itemsCarrying;
     public event Action OnItemsUpdate;
 
     #endregion
@@ -41,6 +43,15 @@ public class PlayerCarryController : MonoBehaviour
         _interactionController = GetComponent<PlayerInteractionController>();
     }
 
+    private void FixedUpdate()
+    {
+        Vector3 boxPos = _carryBoxCollider.transform.position;
+        float boxYOffset = 0.2f;
+        float yDifference = _armTransform.position.y - boxPos.y + boxYOffset;
+
+        _carryBoxCollider.transform.position = new Vector3(boxPos.x, boxPos.y + yDifference, boxPos.z);
+    }
+
     private void OnDestroy()
     {
         OnItemsUpdate -= HandleItemsUpdate;
@@ -51,12 +62,13 @@ public class PlayerCarryController : MonoBehaviour
     public void CarryItem(ItemPrefab itemObj)
     {
         if (_interactionController.CurrentInteractable != null) { return; }
+        if (HasCarrySpace(itemObj.ItemSO) == false) { return; }
 
         itemObj.transform.parent = _carryBoxCollider.transform;
         GetRandomCarryPos(itemObj);
-        //StartCoroutine(EnableItemPhysics(itemObj));
+        StartCoroutine(EnableItemPhysics(itemObj));
 
-        _itemsCarrying.Add(itemObj.gameObject);
+        _itemsCarrying.Add(itemObj);
 
         OnItemsUpdate?.Invoke();
     }
@@ -83,7 +95,7 @@ public class PlayerCarryController : MonoBehaviour
         itemObj.transform.localPosition = spawnPos;
     }
 
-    public void DropItem(GameObject item)
+    public void DropItem(ItemPrefab item)
     {
         _itemsCarrying.Remove(item);
 
@@ -92,7 +104,7 @@ public class PlayerCarryController : MonoBehaviour
 
     public void DropAllItems()
     {
-        foreach (GameObject item in _itemsCarrying)
+        foreach (ItemPrefab item in _itemsCarrying)
         {
             item.transform.parent = null;
             ItemPrefab itemPrefab = item.GetComponent<ItemPrefab>();
@@ -112,8 +124,25 @@ public class PlayerCarryController : MonoBehaviour
 
         _carryBoxCollider.SetActive(_hasItems);
 
-        float maxItemAmount = 10f;
+        float carryAmount = 0;
 
-        _anim.SetFloat("CarryAmount", _itemsCarrying.Count / maxItemAmount);
+        foreach (ItemPrefab item in _itemsCarrying)
+        {
+            carryAmount += item.ItemSO.ItemSize;
+        }
+
+        _anim.SetFloat("CarryAmount", carryAmount / _maxCarryAmount);
+    }
+
+    private bool HasCarrySpace(Item wantedItem)
+    {
+        float carryAmount = 0;
+
+        foreach (ItemPrefab item in _itemsCarrying)
+        {
+            carryAmount += item.ItemSO.ItemSize;
+        }
+
+        return (carryAmount + wantedItem.ItemSize) <= _maxCarryAmount;
     }
 }

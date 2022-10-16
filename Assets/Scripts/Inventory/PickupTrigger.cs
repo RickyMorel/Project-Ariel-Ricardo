@@ -41,9 +41,9 @@ public class PickupTrigger : MonoBehaviour
 
     private bool HasPickedUpItem(GameObject wantedItem)
     {
-        foreach (GameObject carriedItem in _playerCarryController.ItemsCarrying)
+        foreach (ItemPrefab carriedItem in _playerCarryController.ItemsCarrying)
         {
-            if (carriedItem == wantedItem)
+            if (carriedItem.gameObject == wantedItem)
                 return true;
         }
 
