@@ -14,6 +14,11 @@ public class TimelineTrigger : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        _playableDirector = GetComponent<PlayableDirector>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.GetComponent<Ship>()) { return; }
