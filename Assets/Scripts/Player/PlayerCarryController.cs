@@ -21,6 +21,7 @@ public class PlayerCarryController : MonoBehaviour
     private bool _hasItems;
     private float _carryWalkSpeed = 1f;
     private float _maxCarryAmount = 10f;
+    private float _itemCarryResetDistance = 0.5f;
 
     #endregion
 
@@ -85,6 +86,13 @@ public class PlayerCarryController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         itemObj.Rb.isKinematic = true;
+
+        //Resets item position if too far from hands
+        if(Vector3.Distance(_carryBoxCollider.transform.position, itemObj.transform.position) > _itemCarryResetDistance)
+        {
+            itemObj.transform.localPosition = Vector3.zero;
+            StartCoroutine(EnableItemPhysics(itemObj));
+        }
     }
 
     private void GetRandomCarryPos(ItemPrefab itemObj)

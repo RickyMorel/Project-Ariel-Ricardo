@@ -17,4 +17,4 @@ MonoBehaviour:
   Description: 
   Value: 6
   ItemPrefab: {fileID: 7517285669250702529, guid: 69b4cc64885d0ef4181d52a49089e092, type: 3}
-  ItemSize: 0
+  ItemSize: 10
