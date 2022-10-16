@@ -29,6 +29,10 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(_factory.Attack());
         }
+        else if (_context.PlayerCarryController.HasItems)
+        {
+            SwitchState(_factory.Carry());
+        }
         else if(_context.MoveDirection.magnitude > 0f)
         {
             SwitchState(_factory.Run());

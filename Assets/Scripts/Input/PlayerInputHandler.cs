@@ -49,6 +49,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext obj)
     {
+        //prevents from spam calling this function
+        if (!obj.started) { return; }
+
         OnInteract?.Invoke();
     }
 

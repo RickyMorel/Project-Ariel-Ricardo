@@ -16,12 +16,19 @@ public class PlayerInteractionController : MonoBehaviour
 
     private PlayerInputHandler _playerInput;
     private PlayerHealth _playerHealth;
+    private PlayerCarryController _playerCarryController;
     private Animator _anim;
     private Rigidbody _rb;
     private ShipInventory _shipInventory;
     private Interactable _currentInteractable;
 
     private float _timeSinceLastInteraction;
+
+    #endregion
+
+    #region Public Properties
+
+    public Interactable CurrentInteractable => _currentInteractable;
 
     #endregion
 
@@ -32,8 +39,9 @@ public class PlayerInteractionController : MonoBehaviour
         _playerInput = GetComponent<PlayerInputHandler>();
         _playerHealth = GetComponent<PlayerHealth>();
         _anim = GetComponent<Animator>();
-        _shipInventory = FindObjectOfType<ShipInventory>();
+        _playerCarryController = GetComponent<PlayerCarryController>();
         _rb = GetComponent<Rigidbody>();
+        _shipInventory = FindObjectOfType<ShipInventory>();
 
         _playerInput.OnInteract += HandleInteraction;
         _playerInput.OnUpgrade += HandleUpgrade;
@@ -82,6 +90,8 @@ public class PlayerInteractionController : MonoBehaviour
         if(_currentInteractable.CurrentPlayer == _playerInput) { return; }
 
         SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
+
+        _playerCarryController.DropAllItems();
 
         if (_currentInteractable.IsSingleUse) { Invoke(nameof(CheckExitInteraction), _currentInteractable.SingleUseTime); }
     }
