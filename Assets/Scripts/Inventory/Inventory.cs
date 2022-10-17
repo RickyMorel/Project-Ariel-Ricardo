@@ -18,6 +18,7 @@ public abstract class Inventory : MonoBehaviour
     #region Private Variables
 
     private Dictionary<Item, ItemQuantity> _inventory = new Dictionary<Item, ItemQuantity>();
+    private Chest _currentChest;
 
     #endregion
 
@@ -41,9 +42,10 @@ public abstract class Inventory : MonoBehaviour
 
     #region UI
 
-    public void EnableInventory(bool isEnabled)
+    public void EnableInventory(bool isEnabled, Chest chest)
     {
         _inventoryPanel.SetActive(isEnabled);
+        _currentChest = chest;
 
         if (isEnabled)
             LoadItems();
@@ -56,7 +58,7 @@ public abstract class Inventory : MonoBehaviour
         foreach (KeyValuePair<Item, ItemQuantity> item in _inventory)
         {
             GameObject itemUI = Instantiate(_inventoryItemUIPrefab, _contentTransform);
-            itemUI.GetComponent<InventoryItemUI>().Initialize(item.Value);
+            itemUI.GetComponent<InventoryItemUI>().Initialize(item.Value, _currentChest);
         }
     }
 
@@ -91,12 +93,19 @@ public abstract class Inventory : MonoBehaviour
     {
         foreach (ItemQuantity itemQuantity in removedItems)
         {
-            if (!_inventory.ContainsKey(itemQuantity.Item)) { Debug.LogError("TRYING TO REMOVE ITEM THAT DOESN'T EXIST: " + itemQuantity.Item); continue; }
-
-            _inventory[itemQuantity.Item].Amount -= itemQuantity.Amount;
-
-            if (_inventory[itemQuantity.Item].Amount < 1)
-                _inventory.Remove(itemQuantity.Item);
+            RemoveItem(itemQuantity);
         }
+    }
+
+    public void RemoveItem(ItemQuantity itemQuantity)
+    {
+        if (!_inventory.ContainsKey(itemQuantity.Item)) { Debug.LogError("TRYING TO REMOVE ITEM THAT DOESN'T EXIST: " + itemQuantity.Item); return; }
+
+        _inventory[itemQuantity.Item].Amount -= itemQuantity.Amount;
+
+        if (_inventory[itemQuantity.Item].Amount < 1)
+            _inventory.Remove(itemQuantity.Item);
+
+        LoadItems();
     }
 }

@@ -13,14 +13,24 @@ public class InventoryItemUI : MonoBehaviour
 
     #endregion
 
-    public void Initialize(ItemQuantity itemQuantity)
+    #region Private Variables
+
+    private ItemQuantity _itemQuantity;
+    private Chest _chest;
+
+    #endregion
+
+    public void Initialize(ItemQuantity itemQuantity, Chest chest)
     {
         _icon.sprite = itemQuantity.Item.Icon;
         _amountText.text = $"x{itemQuantity.Amount}";
+
+        _itemQuantity = itemQuantity;
+        _chest = chest;
     }
 
     public void OnClick()
     {
-
+        _chest.SpawnItem(_itemQuantity);
     }
 }

@@ -79,9 +79,9 @@ public class PlayerInteractionController : MonoBehaviour
         //if is not doing interaction, return
         if (!IsInteracting()) { return; }
 
-        _currentInteractable.Uninteract();
-
         SetInteraction(0, transform);
+
+        _currentInteractable.Uninteract();
     }
 
     //This calls when the player presses the interact button
