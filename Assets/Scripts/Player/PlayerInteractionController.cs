@@ -79,6 +79,8 @@ public class PlayerInteractionController : MonoBehaviour
         //if is not doing interaction, return
         if (!IsInteracting()) { return; }
 
+        _currentInteractable.Uninteract();
+
         SetInteraction(0, transform);
     }
 
@@ -104,7 +106,7 @@ public class PlayerInteractionController : MonoBehaviour
         if((_currentInteractable is Upgradable) == false) { return; }
 
         Upgradable upgradable = _currentInteractable as Upgradable;
-        upgradable.TryUpgrade(_shipInventory.Inventory);
+        upgradable.TryUpgrade(_shipInventory.InventoryDictionary);
     }
 
     public void SetCurrentInteractable(Interactable interactable)
