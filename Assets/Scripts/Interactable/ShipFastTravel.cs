@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 [RequireComponent(typeof(SphereCollider))]
-public class CheckFastTravel : MonoBehaviour
+public class ShipFastTravel : MonoBehaviour
 {
     #region Editor Fields
 
@@ -21,17 +21,16 @@ public class CheckFastTravel : MonoBehaviour
     public GameObject MainShip;
     public GameObject ShipParent;
 
-    public GameObject[] PlayersInScene;
-
     #endregion
 
     #region Private Variables
 
     private int _count = 0;
 
-    private FastTravelUI _travelDestination;
+    private FastTravelNPC _travelDestination;
     private ShipDoor _doorState;
-    private FastTravelUI _wantToTravel;
+    private FastTravelNPC _wantToTravel;
+    private PlayerInputHandler[] _playersInScene;
 
     #endregion
 
@@ -39,10 +38,10 @@ public class CheckFastTravel : MonoBehaviour
 
     private void Start()
     {
-        PlayersInScene = GameObject.FindGameObjectsWithTag("Player");
-        _travelDestination = FindObjectOfType<FastTravelUI>();
+        _playersInScene = FindObjectsOfType<PlayerInputHandler>();
+        _travelDestination = FindObjectOfType<FastTravelNPC>();
         _doorState = FindObjectOfType<ShipDoor>();
-        _wantToTravel = FindObjectOfType<FastTravelUI>();
+        _wantToTravel = FindObjectOfType<FastTravelNPC>();
     }
 
     private void Update()
@@ -54,7 +53,7 @@ public class CheckFastTravel : MonoBehaviour
 
     private void CheckPlayersInShip()
     {
-        if ((PlayersInScene.Length != _count) || (_doorState.IsWantedDoorOpen == true)) { return; }
+        if ((_playersInScene.Length != _count) || (_doorState.IsWantedDoorOpen == true)) { return; }
 
         if (!_wantToTravel.WantToTravel) { return; }
 
@@ -88,7 +87,7 @@ public class CheckFastTravel : MonoBehaviour
         _startFastTravel.Stop();
         _endFastTravel.Play();
         MainShip.transform.SetParent(null);
-        MainShip.transform.position = _travelDestination._travelToPosition.transform.position;
+        MainShip.transform.position = _travelDestination.TravelToPosition.transform.position;
         //Stops all remaining animations
         yield return new WaitForSeconds(1);
         _endFastTravel.Stop();

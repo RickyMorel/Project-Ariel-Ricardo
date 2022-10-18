@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FastTravelUI : NPC
+public class FastTravelNPC : NPC
 {
-    #region Public Properties
+    #region Editor Fields
 
-    public GameObject FastTravelOptions;
+    [SerializeField] private Transform[] _travelPos;
 
-    public Transform[] TravelPos;
-
-    public Transform _travelToPosition;
-
-    public bool WantToTravel;
+    [SerializeField] private GameObject _fastTravelOptions;
 
     #endregion
 
-    #region Private Properties
+    #region Public Properties
+
+    public bool WantToTravel;
+
+    public Transform TravelToPosition;
 
     public PlayerInteractionController _exitInteractable;
 
@@ -35,17 +35,17 @@ public class FastTravelUI : NPC
     {
         if (_currentPlayer == null)
         {
-            FastTravelOptions.SetActive(false);
+            _fastTravelOptions.SetActive(false);
         }
         else
         {
-            FastTravelOptions.SetActive(true);
+            _fastTravelOptions.SetActive(true);
         }
     }
 
     public void TravelTo(int posIndex)
     {
-        _travelToPosition = TravelPos[posIndex];
+        TravelToPosition = _travelPos[posIndex];
         WantToTravel = true;
         _exitInteractable.CheckExitInteraction();
     }
