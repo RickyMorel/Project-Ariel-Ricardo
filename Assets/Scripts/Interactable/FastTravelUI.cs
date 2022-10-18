@@ -6,12 +6,19 @@ public class FastTravelUI : NPC
 {
     #region Public Properties
 
-    public GameObject LoadingScreen;
     public GameObject FastTravelOptions;
 
     public Transform[] TravelPos;
 
     public Transform _travelToPosition;
+
+    public bool WantToTravel;
+
+    #endregion
+
+    #region Private Properties
+
+    public PlayerInteractionController _exitInteractable;
 
     #endregion
 
@@ -39,6 +46,7 @@ public class FastTravelUI : NPC
     public void TravelTo(int posIndex)
     {
         _travelToPosition = TravelPos[posIndex];
-        _currentPlayer = null;
+        WantToTravel = true;
+        _exitInteractable.CheckExitInteraction();
     }
 }

@@ -66,7 +66,7 @@ public class PlayerInteractionController : MonoBehaviour
         CheckExitInteraction();
     }
 
-    private void CheckExitInteraction()
+    public void CheckExitInteraction()
     {
         //if is not doing interaction, return
         if (!IsInteracting()) { return; }
