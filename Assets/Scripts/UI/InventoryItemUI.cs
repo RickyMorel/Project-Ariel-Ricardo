@@ -31,6 +31,6 @@ public class InventoryItemUI : MonoBehaviour
 
     public void OnClick()
     {
-        _chest.SpawnItem(_itemQuantity);
+        ItemQuantitySliderUI.Instance.Initialize(_itemQuantity, _chest, transform.position);
     }
 }
