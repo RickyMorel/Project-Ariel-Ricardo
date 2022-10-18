@@ -12,13 +12,23 @@ public class FastTravelNPC : NPC
 
     #endregion
 
-    #region Public Properties
+    #region Getters and Setters
 
-    public bool WantToTravel;
+    public bool WantToTravel { get { return _wantToTravel; } set { _wantToTravel = value; } }
+
+    #endregion
+
+    #region Public Properties
 
     public Transform TravelToPosition;
 
     public PlayerInteractionController _exitInteractable;
+
+    #endregion
+
+    #region Private Varible
+
+    private bool _wantToTravel;
 
     #endregion
 

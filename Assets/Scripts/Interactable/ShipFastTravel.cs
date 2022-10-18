@@ -11,7 +11,6 @@ public class ShipFastTravel : MonoBehaviour
     [SerializeField] private PlayableDirector _startFastTravel;
     [SerializeField] private PlayableDirector _endFastTravel;
 
-
     [SerializeField] private ParticleSystem _blackHole;
 
     #endregion
