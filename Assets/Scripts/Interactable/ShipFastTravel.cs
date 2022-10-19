@@ -24,11 +24,9 @@ public class ShipFastTravel : MonoBehaviour
 
     #region Private Variables
 
-    private int _count = 0;
+    private int _playersInShip = 0;
 
-    private FastTravelNPC _travelDestination;
     private ShipDoor _doorState;
-    private FastTravelNPC _wantToTravel;
     private PlayerInputHandler[] _playersInScene;
 
     #endregion
@@ -38,9 +36,7 @@ public class ShipFastTravel : MonoBehaviour
     private void Start()
     {
         _playersInScene = FindObjectsOfType<PlayerInputHandler>();
-        _travelDestination = FindObjectOfType<FastTravelNPC>();
         _doorState = FindObjectOfType<ShipDoor>();
-        _wantToTravel = FindObjectOfType<FastTravelNPC>();
     }
 
     private void Update()
@@ -52,11 +48,11 @@ public class ShipFastTravel : MonoBehaviour
 
     private void CheckPlayersInShip()
     {
-        if ((_playersInScene.Length != _count) || (_doorState.IsWantedDoorOpen == true)) { return; }
+        if ((_playersInScene.Length != _playersInShip) || (_doorState.IsWantedDoorOpen == true)) { return; }
 
-        if (!_wantToTravel.WantToTravel) { return; }
+        if (!FastTravelNPC.Instance.WantToTravel) { return; }
 
-        _wantToTravel.WantToTravel = false;
+        FastTravelNPC.Instance.WantToTravel = false;
         MainShip.transform.SetParent(ShipParent.transform);
         StartCoroutine(FastTravelCoroutine());
     }
@@ -65,14 +61,14 @@ public class ShipFastTravel : MonoBehaviour
     {
         if (other.tag != "Player") { return; }
 
-        _count++;
+        _playersInShip++;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag != "Player") { return; }
 
-        _count--;
+        _playersInShip--;
     }
 
     private IEnumerator FastTravelCoroutine()
@@ -86,7 +82,7 @@ public class ShipFastTravel : MonoBehaviour
         _startFastTravel.Stop();
         _endFastTravel.Play();
         MainShip.transform.SetParent(null);
-        MainShip.transform.position = _travelDestination.TravelToPosition.transform.position;
+        MainShip.transform.position = FastTravelNPC.Instance.TravelToPosition.transform.position;
         //Stops all remaining animations
         yield return new WaitForSeconds(1);
         _endFastTravel.Stop();

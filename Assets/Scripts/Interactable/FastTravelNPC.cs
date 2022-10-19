@@ -24,6 +24,8 @@ public class FastTravelNPC : NPC
 
     public PlayerInteractionController _exitInteractable;
 
+    public static FastTravelNPC Instance { get; private set; }
+
     #endregion
 
     #region Private Varible
@@ -55,6 +57,7 @@ public class FastTravelNPC : NPC
 
     public void TravelTo(int posIndex)
     {
+        Instance = this;
         TravelToPosition = _travelPos[posIndex];
         WantToTravel = true;
         _exitInteractable.CheckExitInteraction();
