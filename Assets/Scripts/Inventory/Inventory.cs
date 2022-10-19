@@ -19,6 +19,7 @@ public abstract class Inventory : MonoBehaviour
 
     private Dictionary<Item, ItemQuantity> _inventory = new Dictionary<Item, ItemQuantity>();
     private Chest _currentChest;
+    private PlayerInputHandler _currentPlayer;
 
     #endregion
 
@@ -42,10 +43,11 @@ public abstract class Inventory : MonoBehaviour
 
     #region UI
 
-    public void EnableInventory(bool isEnabled, Chest chest)
+    public void EnableInventory(bool isEnabled, Chest chest, PlayerInputHandler currentPlayer)
     {
         _inventoryPanel.SetActive(isEnabled);
         _currentChest = chest;
+        _currentPlayer = currentPlayer;
 
         if (isEnabled)
             LoadItems();
@@ -58,7 +60,7 @@ public abstract class Inventory : MonoBehaviour
         foreach (KeyValuePair<Item, ItemQuantity> item in _inventory)
         {
             GameObject itemUI = Instantiate(_inventoryItemUIPrefab, _contentTransform);
-            itemUI.GetComponent<InventoryItemUI>().Initialize(item.Value, _currentChest);
+            itemUI.GetComponent<InventoryItemUI>().Initialize(item.Value, _currentChest, _currentPlayer);
         }
     }
 
@@ -78,14 +80,19 @@ public abstract class Inventory : MonoBehaviour
     {
         foreach (ItemQuantity itemQuantity in addedItems)
         {
-            if (_inventory.ContainsKey(itemQuantity.Item))
-            {
-                _inventory[itemQuantity.Item].Amount += itemQuantity.Amount;
-            }
-            else
-            {
-                _inventory.Add(itemQuantity.Item, itemQuantity);
-            }
+            AddItem(itemQuantity);
+        }
+    }
+
+    public void AddItem(ItemQuantity itemQuantity)
+    {
+        if (_inventory.ContainsKey(itemQuantity.Item))
+        {
+            _inventory[itemQuantity.Item].Amount += itemQuantity.Amount;
+        }
+        else
+        {
+            _inventory.Add(itemQuantity.Item, itemQuantity);
         }
     }
 

@@ -31,6 +31,7 @@ public class PlayerCarryController : MonoBehaviour
     public float CarryWalkSpeed => _carryWalkSpeed;
     public List<ItemPrefab> ItemsCarrying => _itemsCarrying;
     public event Action OnItemsUpdate;
+    public event Action OnDropAllItems;
 
     #endregion
 
@@ -124,6 +125,8 @@ public class PlayerCarryController : MonoBehaviour
         _itemsCarrying.Clear();
 
         OnItemsUpdate?.Invoke();
+
+        OnDropAllItems?.Invoke();
     }
 
     private void HandleItemsUpdate()

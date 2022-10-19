@@ -22,6 +22,7 @@ public class ItemQuantitySliderUI : MonoBehaviour
     private int _currentAmount;
     private Chest _currentChest;
     private ItemQuantity _finalItemQuantity = new ItemQuantity();
+    private PlayerInputHandler _currentPlayer;
 
     #endregion
 
@@ -44,50 +45,52 @@ public class ItemQuantitySliderUI : MonoBehaviour
             _instance = this;
         }
     }
-
-    private void Start()
-    {
-        _slider.onValueChanged.AddListener(delegate { HandleSliderMoved(); });
-    }
-
-    private void OnDestroy()
-    {
-        _slider.onValueChanged.RemoveListener(delegate { HandleSliderMoved(); });
-    }
-
     #endregion
 
     public void EnableSlider(bool isEnabled)
     {
         _itemQuantitySliderPanel.SetActive(isEnabled);
+
+        if (isEnabled) { return; }
+
+        if(_currentPlayer == null) { return; }
+
+        _currentPlayer.OnConfrim -= OnConfirm;
     }
 
-    public void Initialize(ItemQuantity itemQuantity, Chest chest, Vector3 cellPosition)
+    public void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer, Vector3 cellPosition)
     {
         transform.position = cellPosition;
         _finalItemQuantity.Item = itemQuantity.Item;
         _currentChest = chest;
+        _currentPlayer = currentPlayer;
 
         _slider.minValue = 0;
-        _slider.maxValue = _currentAmount;
+        _slider.maxValue = itemQuantity.Amount;
         _currentAmountText.text = _slider.value.ToString();
         _totalAmountText.text = itemQuantity.Amount.ToString();
+
+        _currentPlayer.OnConfrim += OnConfirm;
 
         EnableSlider(true);
     }
 
-    private void HandleSliderMoved()
+    public void HandleSliderMoved()
     {
         if(_finalItemQuantity.Item == null) { return; }
 
         _currentAmount = (int)_slider.value;
+        _currentAmountText.text = _currentAmount.ToString();
         _finalItemQuantity.Amount = _currentAmount;
-        Debug.Log("Current Amount: " + _currentAmount);
     }
 
     private void OnConfirm()
     {
+        if(_itemQuantitySliderPanel.activeSelf == false) { return; }
+
         _currentChest.SpawnItem(_finalItemQuantity);
+
+        EnableSlider(false);
     }
 
 }

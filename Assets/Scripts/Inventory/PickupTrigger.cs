@@ -14,18 +14,20 @@ public class PickupTrigger : MonoBehaviour
 
     #region Private Variables
 
-    private List<ItemPrefab> _currentItems = new List<ItemPrefab>();
+    [SerializeField] private List<ItemPrefab> _currentItems = new List<ItemPrefab>();
 
     #endregion
 
     private void Start()
     {
         _inputHandler.OnInteract += HandleInteract;
+        _playerCarryController.OnDropAllItems += CheckIfItemsNotDestroyed;
     }
 
     private void OnDestroy()
     {
         _inputHandler.OnInteract -= HandleInteract;
+        _playerCarryController.OnDropAllItems -= CheckIfItemsNotDestroyed;
     }
 
     private void HandleInteract()
@@ -48,6 +50,16 @@ public class PickupTrigger : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void CheckIfItemsNotDestroyed()
+    {
+        foreach (ItemPrefab item in _currentItems)
+        {
+            if (item != null) { continue; }
+
+            _currentItems.Remove(item);
+        }
     }
 
     #region Unity Loops

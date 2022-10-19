@@ -17,20 +17,22 @@ public class InventoryItemUI : MonoBehaviour
 
     private ItemQuantity _itemQuantity;
     private Chest _chest;
+    private PlayerInputHandler _currentPlayer;
 
     #endregion
 
-    public void Initialize(ItemQuantity itemQuantity, Chest chest)
+    public void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer)
     {
         _icon.sprite = itemQuantity.Item.Icon;
         _amountText.text = $"x{itemQuantity.Amount}";
 
         _itemQuantity = itemQuantity;
         _chest = chest;
+        _currentPlayer = currentPlayer;
     }
 
     public void OnClick()
     {
-        ItemQuantitySliderUI.Instance.Initialize(_itemQuantity, _chest, transform.position);
+        ItemQuantitySliderUI.Instance.Initialize(_itemQuantity, _chest, _currentPlayer, transform.position);
     }
 }

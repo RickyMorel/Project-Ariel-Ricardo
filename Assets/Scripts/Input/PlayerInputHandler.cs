@@ -19,7 +19,8 @@ public class PlayerInputHandler : MonoBehaviour
     public static event Action<PlayerInputHandler, bool> OnSpecialAction;
 
     public event Action OnInteract;
-    
+    public event Action OnConfrim;
+
     public event Action OnUpgrade;
    
     public Vector2 MoveDirection => _moveDirection;
@@ -36,6 +37,14 @@ public class PlayerInputHandler : MonoBehaviour
     public void Jump(InputAction.CallbackContext obj)
     {
         OnJump?.Invoke(obj);
+    }
+
+    public void Confrim(InputAction.CallbackContext obj)
+    {
+        //prevents from spam calling this function
+        if (!obj.started) { return; }
+
+        OnConfrim?.Invoke();
     }
 
     public void SpecialAction(InputAction.CallbackContext obj)

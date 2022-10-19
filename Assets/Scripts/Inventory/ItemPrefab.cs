@@ -15,6 +15,7 @@ public class ItemPrefab : MonoBehaviour
 
     public Item ItemSO => _itemSO;
     public Rigidbody Rb => _rb;
+    public PlayerCarryController PrevPlayerCarryController => _prevPlayerCarryController;
 
     #endregion
 
@@ -22,6 +23,7 @@ public class ItemPrefab : MonoBehaviour
 
     private Outline _outline;
     private Rigidbody _rb;
+    private PlayerCarryController _prevPlayerCarryController = null;
 
     #endregion
 
@@ -44,6 +46,7 @@ public class ItemPrefab : MonoBehaviour
 
     public void PickUp(PlayerCarryController playerCarryController)
     {
+        _prevPlayerCarryController = playerCarryController;
         playerCarryController.CarryItem(this);
     }
 }
