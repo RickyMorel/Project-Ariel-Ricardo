@@ -14,7 +14,7 @@ public class PickupTrigger : MonoBehaviour
 
     #region Private Variables
 
-    [SerializeField] private List<ItemPrefab> _currentItems = new List<ItemPrefab>();
+    private List<ItemPrefab> _currentItems = new List<ItemPrefab>();
 
     #endregion
 
@@ -33,6 +33,8 @@ public class PickupTrigger : MonoBehaviour
     private void HandleInteract()
     {
         if(_currentItems.Count < 1) { return; }
+
+        if(_currentItems[0] == null) { _currentItems.RemoveAt(0); return; }
 
         if (HasPickedUpItem(_currentItems[0].gameObject)) { _currentItems.RemoveAt(0); return; }
 
@@ -54,11 +56,11 @@ public class PickupTrigger : MonoBehaviour
 
     private void CheckIfItemsNotDestroyed()
     {
-        foreach (ItemPrefab item in _currentItems)
+        for (int i = _currentItems.Count - 1; i >= 0; i--)
         {
-            if (item != null) { continue; }
+            if (_currentItems[i] != null) { continue; }
 
-            _currentItems.Remove(item);
+            _currentItems.RemoveAt(i);
         }
     }
 

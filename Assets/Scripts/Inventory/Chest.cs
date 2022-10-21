@@ -39,7 +39,6 @@ public class Chest : Interactable
 
     public void SpawnItem(ItemQuantity itemQuantity)
     {
-        Debug.Log("SpawnItem: " + itemQuantity.Amount);
         for (int i = 0; i < itemQuantity.Amount; i++)
         {
             GameObject itemInstance = Instantiate(itemQuantity.Item.ItemPrefab, _itemSpawnTransform.position, Quaternion.identity);
@@ -50,23 +49,24 @@ public class Chest : Interactable
 
     public void StoreItem(Collider other)
     {
-        if (!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
+        if (!other.gameObject.TryGetComponent<PlayerCarryController>(out PlayerCarryController playerCarryController)) { return; }
 
-        StartCoroutine(StoreItemCoroutine(itemPrefab));
+        StartCoroutine(StoreItemCoroutine(playerCarryController));
     }
 
     //Prevents from player dropping items while entering trigger, and duplication glitches
-    private IEnumerator StoreItemCoroutine(ItemPrefab itemPrefab)
+    private IEnumerator StoreItemCoroutine(PlayerCarryController playerCarryController)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
-        itemPrefab.PrevPlayerCarryController?.DropAllItems();
+        foreach (ItemPrefab itemPrefab in playerCarryController.ItemsCarrying)
+        {
+            ItemQuantity itemQuantity = new ItemQuantity();
+            itemQuantity.Item = itemPrefab.ItemSO;
+            itemQuantity.Amount = 1;
+            MainInventory.Instance.AddItem(itemQuantity);
+        }
 
-        ItemQuantity itemQuantity = new ItemQuantity();
-        itemQuantity.Item = itemPrefab.ItemSO;
-        itemQuantity.Amount = 1;
-        MainInventory.Instance.AddItem(itemQuantity);
-
-        Destroy(itemPrefab.gameObject);
+        playerCarryController.DestroyAllItems();
     }
 }

@@ -129,6 +129,22 @@ public class PlayerCarryController : MonoBehaviour
         OnDropAllItems?.Invoke();
     }
 
+    public void DestroyAllItems()
+    {
+        foreach (ItemPrefab item in _itemsCarrying)
+        {
+            Destroy(item);
+        }
+
+        _carryBoxCollider.SetActive(false);
+
+        _itemsCarrying.Clear();
+
+        OnItemsUpdate?.Invoke();
+
+        OnDropAllItems?.Invoke();
+    }
+
     private void HandleItemsUpdate()
     {
         _hasItems = _itemsCarrying.Count > 0;
