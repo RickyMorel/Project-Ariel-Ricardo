@@ -80,7 +80,6 @@ public abstract class Interactable : MonoBehaviour
 
     public void Uninteract()
     {
-        Debug.Log("Uninteract");
         OnUninteract?.Invoke();
     }
 

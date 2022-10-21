@@ -61,7 +61,6 @@ public class ItemQuantitySliderUI : MonoBehaviour
 
     public void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer, Vector3 cellPosition)
     {
-        Debug.Log("cellPosition:" + cellPosition);
         _itemQuantitySliderPanel.transform.position = cellPosition + _sliderOffset;
         _finalItemQuantity.Item = itemQuantity.Item;
         _currentChest = chest;
