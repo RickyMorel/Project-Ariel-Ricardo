@@ -13,19 +13,20 @@ public class ShipFastTravel : MonoBehaviour
 
     [SerializeField] private ParticleSystem _blackHole;
 
+    [SerializeField] private GameObject _mainShip;
+    [SerializeField] private GameObject _shipParent;
+
     #endregion
 
     #region Public Properties
-
-    public GameObject MainShip;
-    public GameObject ShipParent;
-    public FastTravelNPC FastTravelNPC;
 
     #endregion
 
     #region Getters and Setters
 
     public bool WantToTravel { get { return _wantToTravel; } set { _wantToTravel = value; } }
+
+    public FastTravelNPC FastTravelNPC { get { return _fastTravelNPC; } set { _fastTravelNPC = value; } }
 
     #endregion
 
@@ -35,8 +36,10 @@ public class ShipFastTravel : MonoBehaviour
 
     private bool _wantToTravel = false;
 
-    private ShipDoor _doorState;
+    private ShipDoor _shipDoor;
     private PlayerInputHandler[] _playersInScene;
+
+    private FastTravelNPC _fastTravelNPC;
 
     #endregion
 
@@ -45,25 +48,25 @@ public class ShipFastTravel : MonoBehaviour
     private void Start()
     {
         _playersInScene = FindObjectsOfType<PlayerInputHandler>();
-        _doorState = FindObjectOfType<ShipDoor>();
+        _shipDoor = _mainShip.GetComponentInChildren<ShipDoor>();
     }
 
     #endregion
 
     private void CheckPlayersInShip()
     {
-        if ((_playersInScene.Length != _playersInShip) || (_doorState.IsWantedDoorOpen == true)) { return; }
+        if ((_playersInScene.Length != _playersInShip) || (_shipDoor.IsWantedDoorOpen == true)) { return; }
 
         if (!_wantToTravel) { return; }
 
         _wantToTravel = false;
-        MainShip.transform.SetParent(ShipParent.transform);
+        _mainShip.transform.SetParent(_shipParent.transform);
         StartCoroutine(FastTravelCoroutine());
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player") { return; }
+        if (other.GetComponent<PlayerInputHandler>() == null) { return; }
 
         _playersInShip++;
         CheckPlayersInShip();
@@ -71,7 +74,7 @@ public class ShipFastTravel : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag != "Player") { return; }
+        if (other.GetComponent<PlayerInputHandler>() == null) { return; }
 
         _playersInShip--;
     }
@@ -86,8 +89,8 @@ public class ShipFastTravel : MonoBehaviour
         yield return new WaitForSeconds(3);
         _startFastTravel.Stop();
         _endFastTravel.Play();
-        MainShip.transform.SetParent(null);
-        MainShip.transform.position = FastTravelNPC.TravelToPosition.transform.position;
+        _mainShip.transform.SetParent(null);
+        _mainShip.transform.position = _fastTravelNPC.TravelToPosition.transform.position;
         //Stops all remaining animations
         yield return new WaitForSeconds(1);
         _endFastTravel.Stop();
