@@ -12,25 +12,17 @@ public class FastTravelNPC : NPC
 
     #endregion
 
-    #region Getters and Setters
-
-    public bool WantToTravel { get { return _wantToTravel; } set { _wantToTravel = value; } }
-
-    #endregion
-
     #region Public Properties
 
-    public Transform TravelToPosition;
-
-    public PlayerInteractionController _exitInteractable;
-
-    public static FastTravelNPC Instance { get; private set; }
+    public Transform TravelToPosition => _travelToPosition;
 
     #endregion
 
-    #region Private Varible
+    #region Private Variables
 
-    private bool _wantToTravel;
+    private Transform _travelToPosition;
+
+    private PlayerInteractionController _exitInteractable;
 
     #endregion
 
@@ -42,6 +34,20 @@ public class FastTravelNPC : NPC
     }
 
     #endregion
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+        if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
+
+        _exitInteractable = playerInteractionController;
+    }
+
+    public override void OnTriggerExit(Collider other)
+    {
+        base.OnTriggerExit(other);
+        _exitInteractable = null;
+    }
 
     private void DisplayUI()
     {
@@ -57,9 +63,10 @@ public class FastTravelNPC : NPC
 
     public void TravelTo(int posIndex)
     {
-        Instance = this;
-        TravelToPosition = _travelPos[posIndex];
-        WantToTravel = true;
+        ShipFastTravel shipFastTravel = Ship.Instance.GetComponent<ShipFastTravel>();
+        shipFastTravel.FastTravelNPC = this;
+        _travelToPosition = _travelPos[posIndex];
+        shipFastTravel.WantToTravel = true;
         _exitInteractable.CheckExitInteraction();
     }
 }

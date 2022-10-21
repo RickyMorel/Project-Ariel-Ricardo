@@ -19,12 +19,21 @@ public class ShipFastTravel : MonoBehaviour
 
     public GameObject MainShip;
     public GameObject ShipParent;
+    public FastTravelNPC FastTravelNPC;
+
+    #endregion
+
+    #region Getters and Setters
+
+    public bool WantToTravel { get { return _wantToTravel; } set { _wantToTravel = value; } }
 
     #endregion
 
     #region Private Variables
 
     private int _playersInShip = 0;
+
+    private bool _wantToTravel = false;
 
     private ShipDoor _doorState;
     private PlayerInputHandler[] _playersInScene;
@@ -39,20 +48,15 @@ public class ShipFastTravel : MonoBehaviour
         _doorState = FindObjectOfType<ShipDoor>();
     }
 
-    private void Update()
-    {
-        CheckPlayersInShip();
-    }
-
     #endregion
 
     private void CheckPlayersInShip()
     {
         if ((_playersInScene.Length != _playersInShip) || (_doorState.IsWantedDoorOpen == true)) { return; }
 
-        if (!FastTravelNPC.Instance.WantToTravel) { return; }
+        if (!_wantToTravel) { return; }
 
-        FastTravelNPC.Instance.WantToTravel = false;
+        _wantToTravel = false;
         MainShip.transform.SetParent(ShipParent.transform);
         StartCoroutine(FastTravelCoroutine());
     }
@@ -62,6 +66,7 @@ public class ShipFastTravel : MonoBehaviour
         if (other.tag != "Player") { return; }
 
         _playersInShip++;
+        CheckPlayersInShip();
     }
 
     private void OnTriggerExit(Collider other)
@@ -82,7 +87,7 @@ public class ShipFastTravel : MonoBehaviour
         _startFastTravel.Stop();
         _endFastTravel.Play();
         MainShip.transform.SetParent(null);
-        MainShip.transform.position = FastTravelNPC.Instance.TravelToPosition.transform.position;
+        MainShip.transform.position = FastTravelNPC.TravelToPosition.transform.position;
         //Stops all remaining animations
         yield return new WaitForSeconds(1);
         _endFastTravel.Stop();
