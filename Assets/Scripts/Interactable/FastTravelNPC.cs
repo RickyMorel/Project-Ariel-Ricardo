@@ -35,20 +35,6 @@ public class FastTravelNPC : NPC
 
     #endregion
 
-    public override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-        if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
-
-        _exitInteractable = playerInteractionController;
-    }
-
-    public override void OnTriggerExit(Collider other)
-    {
-        base.OnTriggerExit(other);
-        _exitInteractable = null;
-    }
-
     private void DisplayUI()
     {
         if (_currentPlayer == null)
@@ -67,6 +53,6 @@ public class FastTravelNPC : NPC
         shipFastTravel.FastTravelNPC = this;
         _travelToPosition = _travelPos[posIndex];
         shipFastTravel.WantToTravel = true;
-        _exitInteractable.CheckExitInteraction();
+        _currentPlayer.GetComponent<PlayerInteractionController>().CheckExitInteraction();
     }
 }
