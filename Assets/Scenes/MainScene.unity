@@ -10027,6 +10027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e5adcff673193418be53dc70eb41b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sliderOffset: {x: 0, y: -60, z: 0}
   _itemQuantitySliderPanel: {fileID: 756493896}
   _currentAmountText: {fileID: 457973701}
   _totalAmountText: {fileID: 1734675582}
@@ -12501,8 +12502,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 105.6097, y: 28.727}
-  m_SizeDelta: {x: 211.2203, y: 57.454}
+  m_AnchoredPosition: {x: 105.60962, y: 28.727}
+  m_SizeDelta: {x: 200, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756493898
 MonoBehaviour:
@@ -36345,7 +36346,7 @@ GameObject:
   - component: {fileID: 1824219370421548979}
   - component: {fileID: 1824219370421548978}
   - component: {fileID: 1824219370421548977}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: StoreItemArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,6 +9,7 @@ public class ItemQuantitySliderUI : MonoBehaviour
 {
     #region Editor Fields
 
+    [SerializeField] private Vector3 _sliderOffset;
     [SerializeField] private GameObject _itemQuantitySliderPanel;
     [SerializeField] private TextMeshProUGUI _currentAmountText;
     [SerializeField] private TextMeshProUGUI _totalAmountText;
@@ -60,7 +61,8 @@ public class ItemQuantitySliderUI : MonoBehaviour
 
     public void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer, Vector3 cellPosition)
     {
-        transform.position = cellPosition;
+        Debug.Log("cellPosition:" + cellPosition);
+        _itemQuantitySliderPanel.transform.position = cellPosition + _sliderOffset;
         _finalItemQuantity.Item = itemQuantity.Item;
         _currentChest = chest;
         _currentPlayer = currentPlayer;
