@@ -9,9 +9,6 @@ public abstract class Inventory : MonoBehaviour
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private Transform _contentTransform;
     [SerializeField] private GameObject _inventoryItemUIPrefab;
-    //This is temporary while we don't have an inventory system
-    [SerializeField] private List<ItemQuantity> _preloadedItems = new List<ItemQuantity>();
-    //
 
     #endregion
 
@@ -29,17 +26,6 @@ public abstract class Inventory : MonoBehaviour
 
     #endregion
 
-
-    #region Unity Loops
-
-    //This is temporary while we don't have an inventory system
-    private void Start()
-    {
-        AddItems(_preloadedItems);
-    }
-    //
-
-    #endregion
 
     #region UI
 
