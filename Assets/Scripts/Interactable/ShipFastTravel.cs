@@ -92,7 +92,7 @@ public class ShipFastTravel : MonoBehaviour
         _mainShip.transform.SetParent(null);
         _mainShip.transform.position = _fastTravelNPC.TravelToPosition.transform.position;
         //Stops all remaining animations
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         _endFastTravel.Stop();
         _blackHole.Stop();
     }
