@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "eff99502-98f5-420e-bdae-9486766750b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -261,6 +269,28 @@
                     "processors": "",
                     "groups": "PS4",
                     "action": "SpecialAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0bd48c6-fe16-4d93-9806-0a4e2437c7e6",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6278c2d3-237f-4280-be39-331885184de8",
+                    "path": "<DualShockGamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS4",
+                    "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

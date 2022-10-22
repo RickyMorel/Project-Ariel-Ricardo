@@ -5,5 +5,6 @@ public enum InteractionType
     RepairMachine = 2,
     ShieldMachine = 3,
     Talking = 4,
-    ShipDoorButton = 5
+    ShipDoorButton = 5,
+    Chest = 6
 }

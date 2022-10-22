@@ -21,16 +21,20 @@ public class PickupTrigger : MonoBehaviour
     private void Start()
     {
         _inputHandler.OnInteract += HandleInteract;
+        _playerCarryController.OnDropAllItems += CheckIfItemsNotDestroyed;
     }
 
     private void OnDestroy()
     {
         _inputHandler.OnInteract -= HandleInteract;
+        _playerCarryController.OnDropAllItems -= CheckIfItemsNotDestroyed;
     }
 
     private void HandleInteract()
     {
         if(_currentItems.Count < 1) { return; }
+
+        if(_currentItems[0] == null) { _currentItems.RemoveAt(0); return; }
 
         if (HasPickedUpItem(_currentItems[0].gameObject)) { _currentItems.RemoveAt(0); return; }
 
@@ -48,6 +52,16 @@ public class PickupTrigger : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void CheckIfItemsNotDestroyed()
+    {
+        for (int i = _currentItems.Count - 1; i >= 0; i--)
+        {
+            if (_currentItems[i] != null) { continue; }
+
+            _currentItems.RemoveAt(i);
+        }
     }
 
     #region Unity Loops

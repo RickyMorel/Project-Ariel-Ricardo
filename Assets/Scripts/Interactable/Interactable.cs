@@ -40,6 +40,7 @@ public abstract class Interactable : MonoBehaviour
     public float SingleUseTime => _singleUseTime;
 
     public event Action OnInteract;
+    public event Action OnUninteract;
 
     #endregion
 
@@ -75,6 +76,11 @@ public abstract class Interactable : MonoBehaviour
         _currentPlayer = playerInput;
 
         OnInteract?.Invoke();
+    }
+
+    public void Uninteract()
+    {
+        OnUninteract?.Invoke();
     }
 
     #endregion
