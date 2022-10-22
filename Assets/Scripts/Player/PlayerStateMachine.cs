@@ -65,6 +65,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Animator Anim => _anim;
     public Rigidbody Rb => _rb;
     public Vector3 MoveDirection => _moveDirection;
+    public bool IsAttachedToShip => _isAttachedToShip;
     public float RunSpeed => _runSpeed;
     public bool IsJumpPressed => _isJumpPressed;
     public bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;

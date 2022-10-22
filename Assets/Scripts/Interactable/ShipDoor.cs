@@ -13,11 +13,17 @@ public class ShipDoor : Interactable
 
     #endregion
 
+    #region Public Properties
+
+    public bool IsWantedDoorOpen = false;
+
+    #endregion
+
     #region Private Variables
 
-    private bool _isWantedDoorOpen = false;
     private bool _isDoorOpen = false;
     private float _doorZRotation;
+    private GameObject _isAttached;
 
     #endregion
 
@@ -33,7 +39,7 @@ public class ShipDoor : Interactable
 
     private void FixedUpdate()
     {
-        if (_isWantedDoorOpen == _isDoorOpen) { return; }
+        if (IsWantedDoorOpen == _isDoorOpen) { return; }
 
         float wantedZPosition = _isDoorOpen == true ? _closedZRotation : _openZRotation;
 
@@ -41,13 +47,13 @@ public class ShipDoor : Interactable
 
         _shipDoor.localEulerAngles = new Vector3(_shipDoor.localEulerAngles.x, _shipDoor.localEulerAngles.y, _doorZRotation);
 
-        if (Mathf.RoundToInt(_shipDoor.localEulerAngles.z) == Mathf.RoundToInt(wantedZPosition)) { _isDoorOpen = _isWantedDoorOpen; }
+        if (Mathf.RoundToInt(_shipDoor.localEulerAngles.z) == Mathf.RoundToInt(wantedZPosition)) { _isDoorOpen = IsWantedDoorOpen; }
     }
 
     private void HandleButtonPress()
     {
-        if (_isWantedDoorOpen != _isDoorOpen) { return; }
+        if (IsWantedDoorOpen != _isDoorOpen) { return; }
 
-        _isWantedDoorOpen = !_isWantedDoorOpen;
+        IsWantedDoorOpen = !IsWantedDoorOpen;
     }
 }
