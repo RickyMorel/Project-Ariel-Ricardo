@@ -9,6 +9,9 @@ public abstract class Inventory : MonoBehaviour
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private Transform _contentTransform;
     [SerializeField] private GameObject _inventoryItemUIPrefab;
+    //This is temporary while we don't have an inventory system
+    [SerializeField] private List<ItemQuantity> _preloadedItems = new List<ItemQuantity>();
+    //
 
     #endregion
 
@@ -61,6 +64,13 @@ public abstract class Inventory : MonoBehaviour
     }
 
     #endregion
+
+    //This is temporary while we don't have an inventory system
+    private void Start()
+    {
+        AddItems(_preloadedItems);
+    }
+    //
 
     public virtual void AddItems(List<ItemQuantity> addedItems)
     {
