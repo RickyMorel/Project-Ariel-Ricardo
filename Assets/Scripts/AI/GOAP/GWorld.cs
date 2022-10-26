@@ -55,6 +55,7 @@ public sealed class GWorld
 
     public static GWorld Instance => _instance;
 
+    public static string FREE_EATINGCHAIR = "FreeEatingChair";
     public static string EATINGCHAIRS = "eatingChairs";
 
     #endregion
@@ -62,7 +63,7 @@ public sealed class GWorld
     static GWorld()
     {
         _world = new WorldStates();
-        _eatingChairs = new ResourceQueue("EatingChair", "FreeEatingChair", _world);
+        _eatingChairs = new ResourceQueue("EatingChair", FREE_EATINGCHAIR, _world);
 
         _resources.Add(EATINGCHAIRS, _eatingChairs);
 

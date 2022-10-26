@@ -81,7 +81,7 @@ public class GAgent : MonoBehaviour
 
     private void TryPerformGoal()
     {
-        if (_actionQueue == null || _actionQueue.Count < 0) { return; }
+        if (_actionQueue == null || _actionQueue.Count < 1) { return; }
 
         CurrentAction = _actionQueue.Dequeue();
         if (CurrentAction.PrePerform())
