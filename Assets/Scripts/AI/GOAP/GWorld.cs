@@ -47,6 +47,7 @@ public sealed class GWorld
     private static readonly GWorld _instance = new GWorld();
     private static WorldStates _world;
     private static ResourceQueue _eatingChairs;
+    private static ResourceQueue _shops;
     private static Dictionary<string, ResourceQueue> _resources = new Dictionary<string, ResourceQueue>();
 
     #endregion
@@ -56,7 +57,10 @@ public sealed class GWorld
     public static GWorld Instance => _instance;
 
     public static string FREE_EATINGCHAIR = "FreeEatingChair";
+    public static string FREE_SHOPS = "FreeShops";
+
     public static string EATINGCHAIRS = "eatingChairs";
+    public static string SHOPS = "shops";
 
     #endregion
 
@@ -64,8 +68,10 @@ public sealed class GWorld
     {
         _world = new WorldStates();
         _eatingChairs = new ResourceQueue("EatingChair", FREE_EATINGCHAIR, _world);
+        _shops = new ResourceQueue("Shop", FREE_SHOPS, _world);
 
         _resources.Add(EATINGCHAIRS, _eatingChairs);
+        _resources.Add(SHOPS, _shops);
 
         Time.timeScale = 5;
     }

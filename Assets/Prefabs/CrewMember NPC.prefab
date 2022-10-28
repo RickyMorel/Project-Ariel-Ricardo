@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 180234576705074312}
   - component: {fileID: 180234576705074309}
   - component: {fileID: 180234576705074308}
+  - component: {fileID: 5850550519097759941}
+  - component: {fileID: 5795990456918375504}
   - component: {fileID: 180234576705074311}
   m_Layer: 0
   m_Name: CrewMember NPC
@@ -95,6 +97,54 @@ MonoBehaviour:
   Cost: 1
   Target: {fileID: 0}
   TargetTag: EatingChair
+  Duration: 10
+  IsRunning: 0
+--- !u!114 &5850550519097759941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180234576705074307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b9ee454290b65e40a5b84a11a181b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preConditionsInspector:
+  - key: wantToAdmire
+    value: 0
+  _effectsInspector:
+  - key: satisfyAdmire
+    value: 0
+  ActionName: Admire Somthing
+  Cost: 1
+  Target: {fileID: 0}
+  TargetTag: AdmireObj
+  Duration: 5
+  IsRunning: 0
+--- !u!114 &5795990456918375504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180234576705074307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a752d51d41d9c9b48845850e68e95d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preConditionsInspector:
+  - key: needToShop
+    value: 0
+  _effectsInspector:
+  - key: satisfyShopping
+    value: 0
+  ActionName: Shop
+  Cost: 1
+  Target: {fileID: 0}
+  TargetTag: 
   Duration: 10
   IsRunning: 0
 --- !u!114 &180234576705074311

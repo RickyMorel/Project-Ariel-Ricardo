@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MainShip
   - EatingChair
+  - AdmireObj
+  - Shop
   layers:
   - Default
   - TransparentFX
