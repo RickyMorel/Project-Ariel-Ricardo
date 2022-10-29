@@ -31,6 +31,8 @@ public class GAgent : MonoBehaviour
     public WorldStates Beliefs = new WorldStates();
     public GAction CurrentAction;
 
+    public bool IsMoving => _isMoving;
+
     #endregion
 
     #region Private Variables
@@ -41,6 +43,7 @@ public class GAgent : MonoBehaviour
 
     private Vector3 _destination = Vector3.zero;
     private bool _invoked = false;
+    private bool _isMoving = false;
 
     #endregion
 
@@ -63,6 +66,8 @@ public class GAgent : MonoBehaviour
             float distanceToTarget = Vector3.Distance(_destination, transform.position);
             if (distanceToTarget < 2f)
             {
+                _isMoving = false;
+
                 if (!_invoked)
                 {
                     Invoke(nameof(CompleteAction), CurrentAction.Duration);
@@ -98,6 +103,8 @@ public class GAgent : MonoBehaviour
                 if (dest != null) { _destination = dest.position; }
 
                 CurrentAction.Agent.SetDestination(_destination);
+
+                _isMoving = true;
             }
         }
         else

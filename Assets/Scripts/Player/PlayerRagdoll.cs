@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerRagdoll : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerRagdoll : MonoBehaviour
     private Rigidbody _mainRb;
     private CapsuleCollider _mainCollider;
     private Animator _anim;
+    private NavMeshAgent _agent;
 
     #endregion
 
@@ -25,6 +27,8 @@ public class PlayerRagdoll : MonoBehaviour
         _mainRb = GetComponent<Rigidbody>();
         _mainCollider = GetComponent<CapsuleCollider>();
         _anim = GetComponent<Animator>();
+
+        _agent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
@@ -44,6 +48,7 @@ public class PlayerRagdoll : MonoBehaviour
         _mainRb.useGravity = !isEnabled;
         _mainCollider.enabled = !isEnabled;
         _anim.enabled = !isEnabled;
+        if(_agent != null) { _agent.enabled = !isEnabled; }
 
         foreach (Collider collider in _colliders)
         {

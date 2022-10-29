@@ -73,7 +73,7 @@ public sealed class GWorld
         _resources.Add(EATINGCHAIRS, _eatingChairs);
         _resources.Add(SHOPS, _shops);
 
-        Time.timeScale = 5;
+        //Time.timeScale = 5;
     }
 
     public ResourceQueue GetQueue(string type)

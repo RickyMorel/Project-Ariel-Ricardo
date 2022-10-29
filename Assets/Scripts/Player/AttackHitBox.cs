@@ -15,7 +15,7 @@ public class AttackHitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag != _enemyTag) { return; }
+        //if(other.gameObject.tag != _enemyTag) { return; }
 
         if(!other.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth)) { return; }
 

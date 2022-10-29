@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerCarryState : PlayerBaseState
 {
-    public PlayerCarryState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerCarryState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
     public override void EnterState() 
     {
+        if(_context.PlayerCarryController == null) { return; }
+
         _context.Speed = _context.PlayerCarryController.CarryWalkSpeed;
         _context.Anim.SetBool("Carry", true);
     }
@@ -32,7 +34,7 @@ public class PlayerCarryState : PlayerBaseState
         {
             SwitchState(_factory.Attack());
         }
-        else if(_context.PlayerCarryController.HasItems == false)
+        else if(_context.PlayerCarryController == null || _context.PlayerCarryController.HasItems == false)
         {
             SwitchState(_factory.Idle());
         }

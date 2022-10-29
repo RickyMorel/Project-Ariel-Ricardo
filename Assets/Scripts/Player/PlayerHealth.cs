@@ -27,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Hurt()
     {
+        Debug.Log("HURT: " + gameObject.name);
+
         OnHurt?.Invoke();
 
         StartCoroutine(HurtCoroutine());

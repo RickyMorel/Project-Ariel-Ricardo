@@ -11,7 +11,7 @@ public class PlayerAttackState : PlayerBaseState
 
     #endregion
 
-    public PlayerAttackState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerAttackState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
     public override void EnterState()
