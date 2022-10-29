@@ -51,7 +51,7 @@ public class GPlanner
 
         bool success = BuildGraph(start, leaves, usableActions, goal);
 
-        if (!success) { Debug.Log("NO PLAN"); return null; }
+        if (!success) { return null; }
 
         Node cheapest = null;
 

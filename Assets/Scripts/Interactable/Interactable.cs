@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Outline))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
-public abstract class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour
 {
     #region Editor Fields
 
