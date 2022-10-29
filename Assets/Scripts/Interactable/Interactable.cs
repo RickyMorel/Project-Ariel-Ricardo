@@ -27,7 +27,7 @@ public class Interactable : MonoBehaviour
 
     #region Protected Variables
 
-    protected PlayerInputHandler _currentPlayer;
+    protected BaseInteractionController _currentPlayer;
 
     #endregion
 
@@ -35,7 +35,7 @@ public class Interactable : MonoBehaviour
 
     public InteractionType InteractionType => _interactionType;
     public Transform PlayerPositionTransform => _playerPositionTransform;
-    public PlayerInputHandler CurrentPlayer => _currentPlayer;
+    public BaseInteractionController CurrentPlayer => _currentPlayer;
     public bool IsSingleUse => _isSingleUse;
     public float SingleUseTime => _singleUseTime;
 
@@ -71,9 +71,9 @@ public class Interactable : MonoBehaviour
         playerInteractionController.SetCurrentInteractable(null);
     }
 
-    public void SetCurrentPlayer(PlayerInputHandler playerInput)
+    public void SetCurrentPlayer(BaseInteractionController interactionController)
     {
-        _currentPlayer = playerInput;
+        _currentPlayer = interactionController;
 
         OnInteract?.Invoke();
     }

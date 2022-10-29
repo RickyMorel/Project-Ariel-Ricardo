@@ -1,0 +1,122 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class BaseInteractionController : MonoBehaviour
+{
+    #region Editor Fields
+
+    [SerializeField] protected int _currentInteraction = 0;
+
+    #endregion
+
+    #region Private Variables
+
+    protected PlayerHealth _playerHealth;
+    protected PlayerCarryController _playerCarryController;
+    protected Animator _anim;
+    protected Rigidbody _rb;
+    protected Interactable _currentInteractable;
+
+    protected bool _isUsing = false;
+    protected Vector3 _moveDirection;
+    protected float _timeSinceLastInteraction;
+
+    #endregion
+
+    #region Public Properties
+
+    public Interactable CurrentInteractable => _currentInteractable;
+
+    #endregion
+
+    #region Getters & Setters
+
+    public bool IsUsing { get { return _isUsing; } set { _isUsing = value; } }
+    public Vector3 MoveDirection { get { return _moveDirection; } set { _moveDirection = value; } }
+
+    #endregion
+
+    #region Unity Loops
+
+    public virtual void Start()
+    {
+        _playerHealth = GetComponent<PlayerHealth>();
+        _anim = GetComponent<Animator>();
+        _playerCarryController = GetComponent<PlayerCarryController>();
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    public virtual void Update()
+    {
+        _timeSinceLastInteraction += Time.deltaTime;
+    }
+
+    #endregion
+
+    public void HandleJump(InputAction.CallbackContext button)
+    {
+        CheckExitInteraction();
+    }
+
+    public void HandleHurt()
+    {
+        CheckExitInteraction();
+    }
+
+    public void CheckExitInteraction()
+    {
+        //if is not doing interaction, return
+        if (!IsInteracting()) { return; }
+
+        SetInteraction(0, transform);
+
+        _currentInteractable.Uninteract();
+    }
+
+    //This calls when the player presses the interact button
+    public void HandleInteraction()
+    {
+        if (_currentInteractable == null) { return; }
+
+        if (_currentInteractable.CurrentPlayer == this) { return; }
+
+        SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
+
+        if (_playerCarryController != null) { _playerCarryController.DropAllItems(); }
+
+        if (_currentInteractable.IsSingleUse) { Invoke(nameof(CheckExitInteraction), _currentInteractable.SingleUseTime); }
+    }
+
+    public void SetCurrentInteractable(Interactable interactable)
+    {
+        _currentInteractable = interactable;
+    }
+
+    public bool IsInteracting()
+    {
+        return _currentInteraction != 0;
+    }
+
+    public bool HasRecentlyInteracted()
+    {
+        return _timeSinceLastInteraction < 0.25f;
+    }
+
+    public void SetInteraction(int interactionType, Transform playerPositionTransform)
+    {
+        BaseInteractionController interactionController = interactionType == 0 ? null : this;
+        _rb.isKinematic = interactionType != 0;
+
+        _currentInteractable.SetCurrentPlayer(interactionController);
+        _currentInteraction = interactionType;
+
+        _anim.SetInteger("Interaction", interactionType);
+        transform.position = playerPositionTransform.position;
+        transform.rotation = playerPositionTransform.rotation;
+
+        _timeSinceLastInteraction = 0f;
+    }
+}

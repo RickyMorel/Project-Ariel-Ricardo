@@ -29,7 +29,11 @@ public class Chest : Interactable
 
     private void HandleInteract()
     {
-        MainInventory.Instance.EnableInventory(true, this, _currentPlayer);
+        PlayerInteractionController playerInteractionController = _currentPlayer as PlayerInteractionController;
+
+        if(playerInteractionController == null) { return; }
+
+        MainInventory.Instance.EnableInventory(true, this, playerInteractionController.PlayerInput);
     }
 
     private void HandleUninteract()

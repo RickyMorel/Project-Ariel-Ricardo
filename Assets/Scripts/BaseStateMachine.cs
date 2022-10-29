@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInteractionController))]
+[RequireComponent(typeof(BaseInteractionController))]
 [RequireComponent(typeof(PlayerRagdoll))]
 [RequireComponent(typeof(PlayerHealth))]
 public class BaseStateMachine : MonoBehaviour
@@ -42,7 +42,7 @@ public class BaseStateMachine : MonoBehaviour
 
     #region Private Variables
 
-    protected PlayerInteractionController _playerInteraction;
+    protected BaseInteractionController _playerInteraction;
     protected PlayerRagdoll _playerRagdoll;
     protected PlayerHealth _playerHealth;
     protected PlayerCarryController _playerCarryController;
@@ -57,7 +57,7 @@ public class BaseStateMachine : MonoBehaviour
 
     #region Public Properties
 
-    public PlayerInteractionController PlayerInteraction => _playerInteraction;
+    public BaseInteractionController PlayerInteraction => _playerInteraction;
     public PlayerRagdoll PlayerRagdoll => _playerRagdoll;
     public PlayerHealth PlayerHealth => _playerHealth;
     public PlayerCarryController PlayerCarryController => _playerCarryController;
@@ -81,7 +81,7 @@ public class BaseStateMachine : MonoBehaviour
 
     public virtual void Start()
     {
-        _playerInteraction = GetComponent<PlayerInteractionController>();
+        _playerInteraction = GetComponent<BaseInteractionController>();
         _playerRagdoll = GetComponent<PlayerRagdoll>();
         _playerHealth = GetComponent<PlayerHealth>();
         _anim = GetComponent<Animator>();

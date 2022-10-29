@@ -45,7 +45,7 @@ public class PlayerStateMachine : BaseStateMachine
         _playerCarryController = GetComponent<PlayerCarryController>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
-        //AttachToShip(true);
+        AttachToShip(true);
 
         _playerInput.OnJump += HandleJump;
     }
