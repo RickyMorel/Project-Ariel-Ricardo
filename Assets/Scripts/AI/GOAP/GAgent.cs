@@ -33,6 +33,9 @@ public class GAgent : MonoBehaviour
 
     public bool IsMoving => _isMoving;
 
+    public event Action OnDoAction;
+    public event Action OnExitAction;
+
     #endregion
 
     #region Private Variables
@@ -72,6 +75,7 @@ public class GAgent : MonoBehaviour
                 {
                     Invoke(nameof(CompleteAction), CurrentAction.Duration);
                     _invoked = true;
+                    StartCoroutine(FireDoActionCoroutine());
                 }
             }
             return;
@@ -151,5 +155,14 @@ public class GAgent : MonoBehaviour
         CurrentAction.IsRunning = false;
         CurrentAction.PostPeform();
         _invoked = false;
+
+        OnExitAction?.Invoke();
+    }
+
+    private IEnumerator FireDoActionCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+
+        OnDoAction?.Invoke();
     }
 }

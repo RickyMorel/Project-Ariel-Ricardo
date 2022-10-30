@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class BaseInteractionController : MonoBehaviour
@@ -18,6 +19,7 @@ public class BaseInteractionController : MonoBehaviour
     protected PlayerCarryController _playerCarryController;
     protected Animator _anim;
     protected Rigidbody _rb;
+    private NavMeshAgent _agent;
     protected Interactable _currentInteractable;
 
     protected bool _isUsing = false;
@@ -47,6 +49,7 @@ public class BaseInteractionController : MonoBehaviour
         _anim = GetComponent<Animator>();
         _playerCarryController = GetComponent<PlayerCarryController>();
         _rb = GetComponent<Rigidbody>();
+        _agent = GetComponent<NavMeshAgent>();
     }
 
     public virtual void Update()
@@ -107,7 +110,9 @@ public class BaseInteractionController : MonoBehaviour
 
     public void SetInteraction(int interactionType, Transform playerPositionTransform)
     {
+        Debug.Log("SetInteraction: " + interactionType);
         BaseInteractionController interactionController = interactionType == 0 ? null : this;
+        if(_agent != null) { _agent.enabled = interactionType == 0; }
         _rb.isKinematic = interactionType != 0;
 
         _currentInteractable.SetCurrentPlayer(interactionController);

@@ -55,20 +55,20 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
+        if (!other.gameObject.TryGetComponent<BaseInteractionController>(out BaseInteractionController interactionController)) { return; }
 
-        _outline.enabled = true;
+        if (interactionController is PlayerInteractionController) { _outline.enabled = true; }
 
-        playerInteractionController.SetCurrentInteractable(this);
+        interactionController.SetCurrentInteractable(this);
     }
 
     public virtual void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
+        if (!other.gameObject.TryGetComponent<BaseInteractionController>(out BaseInteractionController interactionController)) { return; }
 
-        _outline.enabled = false;
+        if (interactionController is PlayerInteractionController) { _outline.enabled = false; }
 
-        playerInteractionController.SetCurrentInteractable(null);
+        interactionController.SetCurrentInteractable(null);
     }
 
     public void SetCurrentPlayer(BaseInteractionController interactionController)
