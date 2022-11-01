@@ -79,7 +79,7 @@ public sealed class GWorld
         _resources.Add(HIDE_LOCATIONS, _hideLocations);
 
         //Leave this here for future testing
-        //Time.timeScale = 5;
+        Time.timeScale = 5;
     }
 
     public ResourceQueue GetQueue(string type)
