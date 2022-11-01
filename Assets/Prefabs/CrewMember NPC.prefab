@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 180234576705074312}
   - component: {fileID: 1760036673961174566}
   - component: {fileID: 6363853371809487940}
-  - component: {fileID: 317089092527737511}
+  - component: {fileID: 5456036900286839236}
   - component: {fileID: 1242450058965188640}
   - component: {fileID: 8700625556238404756}
   - component: {fileID: 180234576705074309}
@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 5850550519097759941}
   - component: {fileID: 5795990456918375504}
   - component: {fileID: 180234576705074311}
+  - component: {fileID: 2824891924435825335}
   m_Layer: 0
   m_Name: CrewMember NPC
   m_TagString: Untagged
@@ -133,7 +134,7 @@ MonoBehaviour:
   _jumpHeight: 3
   _gravityIntensity: -15
   _isGrounded: 1
---- !u!114 &317089092527737511
+--- !u!114 &5456036900286839236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 180234576705074307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d743288922da146b8cbe084bc15c6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 96b9769e31b8eda4ab805046f44e6de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _hurtTime: 5
@@ -284,6 +285,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisAgent: {fileID: 180234576705074309}
+--- !u!114 &2824891924435825335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180234576705074307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a48271101822194da15214b05bf816f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preConditionsInspector:
+  - key: FreeHideLocation
+    value: 0
+  - key: scared
+    value: 0
+  _effectsInspector:
+  - key: feelSafe
+    value: 0
+  ActionName: Hide
+  Cost: 1
+  Target: {fileID: 0}
+  TargetTag: 
+  Duration: 10
+  IsRunning: 0
 --- !u!1 &227641679952875857
 GameObject:
   m_ObjectHideFlags: 0

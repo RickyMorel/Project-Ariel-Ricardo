@@ -8,6 +8,7 @@ TagManager:
   - EatingChair
   - AdmireObj
   - Shop
+  - HideLocation
   layers:
   - Default
   - TransparentFX

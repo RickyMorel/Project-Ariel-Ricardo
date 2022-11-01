@@ -25,7 +25,13 @@ public class PlayerHealth : MonoBehaviour
 
     #endregion
 
-    public void Hurt()
+    //This is for the child classes
+    public virtual void Start()
+    {
+
+    }
+
+    public virtual void Hurt()
     {
         Debug.Log("HURT: " + gameObject.name);
 

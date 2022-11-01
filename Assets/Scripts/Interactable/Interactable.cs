@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] private InteractionType _interactionType;
     [SerializeField] private Transform _playerPositionTransform;
+    [SerializeField] private bool _isAIOnlyInteractable = false;
 
     [Header("One Time Interaction Parameters")]
     [SerializeField] private bool _isSingleUse = false;
@@ -57,7 +58,12 @@ public class Interactable : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent<BaseInteractionController>(out BaseInteractionController interactionController)) { return; }
 
-        if (interactionController is PlayerInteractionController) { _outline.enabled = true; }
+        if (interactionController is PlayerInteractionController) 
+        {
+            if (_isAIOnlyInteractable) { return; }
+
+            _outline.enabled = true; 
+        }
 
         interactionController.SetCurrentInteractable(this);
     }
@@ -66,7 +72,12 @@ public class Interactable : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent<BaseInteractionController>(out BaseInteractionController interactionController)) { return; }
 
-        if (interactionController is PlayerInteractionController) { _outline.enabled = false; }
+        if (interactionController is PlayerInteractionController) 
+        {
+            if (_isAIOnlyInteractable) { return; }
+
+            _outline.enabled = false; 
+        }
 
         interactionController.SetCurrentInteractable(null);
     }
