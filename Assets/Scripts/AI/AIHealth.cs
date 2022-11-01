@@ -21,6 +21,8 @@ public class AIHealth : PlayerHealth
     {
         base.Hurt();
 
+        _gAgent.CurrentAction.PostPeform();
+        _gAgent.CurrentAction = null;
         _gAgent.Beliefs.AddState("scared", 1);
     }
 }
