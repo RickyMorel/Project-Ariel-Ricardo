@@ -9,6 +9,8 @@ TagManager:
   - AdmireObj
   - Shop
   - HideLocation
+  - ShopChair
+  - SalesmanShopPos
   layers:
   - Default
   - TransparentFX

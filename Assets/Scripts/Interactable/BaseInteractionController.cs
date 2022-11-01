@@ -82,9 +82,15 @@ public class BaseInteractionController : MonoBehaviour
     //This calls when the player presses the interact button
     public void HandleInteraction()
     {
+        Debug.Log("HandleInteraction");
+
         if (_currentInteractable == null) { return; }
 
+        Debug.Log("_currentInteractable != null");
+
         if (_currentInteractable.CurrentPlayer == this) { return; }
+
+        Debug.Log("same player");
 
         SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
 

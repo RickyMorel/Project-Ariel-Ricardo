@@ -165,6 +165,8 @@ public class GAgent : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
+        Debug.Log("DO ACTION");
+
         OnDoAction?.Invoke();
     }
 }

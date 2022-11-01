@@ -8,4 +8,5 @@ public enum InteractionType
     ShipDoorButton = 5,
     Chest = 6,
     Scared = 7,
+    ShopSalesmanIdle = 8,
 }
