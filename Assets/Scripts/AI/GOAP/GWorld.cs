@@ -78,6 +78,7 @@ public sealed class GWorld
         _resources.Add(SHOPS, _shops);
         _resources.Add(HIDE_LOCATIONS, _hideLocations);
 
+        //Leave this here for future testing
         //Time.timeScale = 5;
     }
 

@@ -56,8 +56,6 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log("TRIGGER ENTER: " + gameObject.name);
-
         if (!other.gameObject.TryGetComponent<BaseInteractionController>(out BaseInteractionController interactionController)) { return; }
 
         if (interactionController is PlayerInteractionController) 
@@ -66,8 +64,6 @@ public class Interactable : MonoBehaviour
 
             _outline.enabled = true; 
         }
-
-        Debug.Log("SetCurrentInteractable " + gameObject.name);
 
         interactionController.SetCurrentInteractable(this);
     }

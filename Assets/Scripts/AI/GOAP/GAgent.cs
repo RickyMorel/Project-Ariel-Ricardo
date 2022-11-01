@@ -66,7 +66,6 @@ public class GAgent : MonoBehaviour
     {
         if (CurrentAction != null && CurrentAction.IsRunning)
         {
-            Debug.Log(gameObject.name + " " + CurrentAction.Agent.hasPath);
             CurrentAction.Agent.SetDestination(_destination);
             float distanceToTarget = Vector3.Distance(_destination, transform.position);
             if (distanceToTarget < 2f)
@@ -164,8 +163,6 @@ public class GAgent : MonoBehaviour
     private IEnumerator FireDoActionCoroutine()
     {
         yield return new WaitForSeconds(1f);
-
-        Debug.Log("DO ACTION");
 
         OnDoAction?.Invoke();
     }
