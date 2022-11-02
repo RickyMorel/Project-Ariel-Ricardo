@@ -16,6 +16,8 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void EnterState()
     {
+        if (_context.PlayerInteraction.IsInteracting()) { _timeSinceLastAttack = 0; return; }
+
         _context.Speed = 0;
 
         Attack();

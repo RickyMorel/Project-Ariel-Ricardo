@@ -76,10 +76,11 @@ public class Interactable : MonoBehaviour
         {
             if (_isAIOnlyInteractable) { return; }
 
-            _outline.enabled = false; 
-        }
+            _outline.enabled = false;
 
-        interactionController.SetCurrentInteractable(null);
+            //Only sets current interactable null for players so they don't teleport to it when pressing the interact button
+            interactionController.SetCurrentInteractable(null);
+        }
     }
 
     public void SetCurrentPlayer(BaseInteractionController interactionController)

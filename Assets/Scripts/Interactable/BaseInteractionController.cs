@@ -20,7 +20,7 @@ public class BaseInteractionController : MonoBehaviour
     protected Animator _anim;
     protected Rigidbody _rb;
     private NavMeshAgent _agent;
-    protected Interactable _currentInteractable;
+    [SerializeField] protected Interactable _currentInteractable;
 
     protected bool _isUsing = false;
     protected Vector3 _moveDirection;
@@ -114,6 +114,7 @@ public class BaseInteractionController : MonoBehaviour
         if(_agent != null) { _agent.enabled = interactionType == 0; }
         _rb.isKinematic = interactionType != 0;
 
+        Debug.Log("_currentInteractable: " + _currentInteractable.name);
         _currentInteractable.SetCurrentPlayer(interactionController);
         _currentInteraction = interactionType;
 

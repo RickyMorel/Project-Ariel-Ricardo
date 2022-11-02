@@ -11,6 +11,7 @@ TagManager:
   - HideLocation
   - ShopChair
   - SalesmanShopPos
+  - RestLocation
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Ragdoll
   - ItemLayer
   - ItemBox
-  - 
+  - NPC
   - 
   - 
   - 

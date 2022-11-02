@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 5795990456918375504}
   - component: {fileID: 180234576705074311}
   - component: {fileID: 2824891924435825335}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: CrewMember NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}

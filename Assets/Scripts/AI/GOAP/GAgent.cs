@@ -66,7 +66,8 @@ public class GAgent : MonoBehaviour
     {
         if (CurrentAction != null && CurrentAction.IsRunning)
         {
-            CurrentAction.Agent.SetDestination(_destination);
+            if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.SetDestination(_destination); }
+
             float distanceToTarget = Vector3.Distance(_destination, transform.position);
             if (distanceToTarget < 2f)
             {

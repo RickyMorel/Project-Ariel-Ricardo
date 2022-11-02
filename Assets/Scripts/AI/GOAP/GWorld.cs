@@ -49,6 +49,7 @@ public sealed class GWorld
     private static ResourceQueue _eatingChairs;
     private static ResourceQueue _shops;
     private static ResourceQueue _hideLocations;
+    private static ResourceQueue _restLocations;
     private static Dictionary<string, ResourceQueue> _resources = new Dictionary<string, ResourceQueue>();
 
     #endregion
@@ -60,10 +61,12 @@ public sealed class GWorld
     public static string FREE_EATINGCHAIR = "FreeEatingChair";
     public static string FREE_SHOPS = "FreeShops";
     public static string FREE_HIDE_LOCATIONS = "FreeHideLocation";
+    public static string FREE_REST_LOCATIONS = "FreeRestLocation";
 
     public static string EATINGCHAIRS = "eatingChairs";
     public static string SHOPS = "shops";
     public static string HIDE_LOCATIONS = "hideLocations";
+    public static string REST_LOCATIONS = "restLocations";
 
     #endregion
 
@@ -73,13 +76,15 @@ public sealed class GWorld
         _eatingChairs = new ResourceQueue("EatingChair", FREE_EATINGCHAIR, _world);
         _shops = new ResourceQueue("Shop", FREE_SHOPS, _world);
         _hideLocations = new ResourceQueue("HideLocation", FREE_HIDE_LOCATIONS, _world);
+        _restLocations = new ResourceQueue("RestLocation", FREE_REST_LOCATIONS, _world);
 
         _resources.Add(EATINGCHAIRS, _eatingChairs);
         _resources.Add(SHOPS, _shops);
         _resources.Add(HIDE_LOCATIONS, _hideLocations);
+        _resources.Add(REST_LOCATIONS, _restLocations);
 
         //Leave this here for future testing
-        Time.timeScale = 5;
+        //Time.timeScale = 5;
     }
 
     public ResourceQueue GetQueue(string type)

@@ -5056,7 +5056,7 @@ GameObject:
   - component: {fileID: 5735600733136960448}
   - component: {fileID: 7650674739374685685}
   - component: {fileID: 7650674739374685680}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Shop NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
