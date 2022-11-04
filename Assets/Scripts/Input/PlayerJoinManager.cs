@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PlayerJoinManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void Start()
     {
+        _playerInputs = FindObjectsOfType<PlayerInputHandler>(true).OrderBy(m => m.transform.position.z).ToArray();
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
 
         foreach (PlayerInputHandler _playerInput in _playerInputs)
@@ -32,6 +34,10 @@ public class PlayerJoinManager : MonoBehaviour
             _playerInput.OnTrySpawn += HandleSpawn;
             _playerInput.OnJump += HandleJump;
         }
+
+        WhichPlayersCanSpawn();
+
+        _playerInputs[1].gameObject.SetActive(true);
     }
 
     private void OnDestroy()
@@ -130,6 +136,17 @@ public class PlayerJoinManager : MonoBehaviour
             if (!_playerInputs[i].IsPlayerActive && !_playerInputs[i].CanPlayerSpawn)
             {
                 _playerInputs[i].IsPlayerActive = true;
+            }
+        }
+    }
+
+    private void WhichPlayersCanSpawn()
+    {
+        for (int i = 0; i < _playerInputs.Length; i++)
+        {
+            if (!_playerInputs[i].IsPlayerActive && !_playerInputs[i].CanPlayerSpawn)
+            {
+                _playerInputs[i].CanPlayerSpawn = true;
             }
         }
     }

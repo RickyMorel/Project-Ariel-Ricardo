@@ -10,13 +10,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     private Vector2 _moveDirection;
     private bool _isShooting;
+    private bool _canPlayerSpawn = false;
 
     #endregion
 
     #region Public Properties
 
     public bool IsPlayerActive = true;
-    public bool CanPlayerSpawn = true;
 
     public event Action<InputAction.CallbackContext> OnJump;
     public static event Action<PlayerInputHandler, bool> OnSpecialAction;
@@ -30,6 +30,12 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 MoveDirection => _moveDirection;
    
     public bool IsShooting => _isShooting;
+
+    #endregion
+
+    #region Getters And Setters
+
+    public bool CanPlayerSpawn { get { return _canPlayerSpawn; } set { _canPlayerSpawn = value; } }
 
     #endregion
 
