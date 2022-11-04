@@ -65,7 +65,6 @@ public class PlayerStateMachine : MonoBehaviour
     public Animator Anim => _anim;
     public Rigidbody Rb => _rb;
     public Vector3 MoveDirection => _moveDirection;
-    public bool IsAttachedToShip => _isAttachedToShip;
     public float RunSpeed => _runSpeed;
     public bool IsJumpPressed => _isJumpPressed;
     public bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
@@ -90,12 +89,12 @@ public class PlayerStateMachine : MonoBehaviour
         _playerCarryController = GetComponent<PlayerCarryController>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
-        AttachToShip(true);
+        AttachToShip(false);
 
         _playerInput.OnJump += HandleJump;
     }
 
-    private void AttachToShip(bool isAttached)
+    public void AttachToShip(bool isAttached)
     {
         _isAttachedToShip = isAttached;
 
