@@ -6,9 +6,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerJoinManager : MonoBehaviour
 {
+    #region Editor Fields
+
+    [SerializeField] private PlayerInputHandler[] _playerInputs;
+
+    #endregion
+
     #region Private Variables
 
-    private PlayerInputHandler[] _playerInputs;
     private PlayerJoinNPC[] _playerJoinNPC;
 
     private int _playerJoinNPCIndex = -1;
@@ -20,13 +25,21 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void Start()
     {
-        _playerInputs = FindObjectsOfType<PlayerInputHandler>();
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
 
         foreach (PlayerInputHandler _playerInput in _playerInputs)
         {
             _playerInput.OnTrySpawn += HandleSpawn;
             _playerInput.OnJump += HandleJump;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        foreach (PlayerInputHandler _playerInput in _playerInputs)
+        {
+            _playerInput.OnTrySpawn -= HandleSpawn;
+            _playerInput.OnJump -= HandleJump;
         }
     }
 
@@ -91,15 +104,23 @@ public class PlayerJoinManager : MonoBehaviour
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = false;
         playerInput.CanPlayerSpawn = false;
         _playerJoinNPC[_playerJoinNPCIndex].PlayerJoinTimelines[indexAux].Play();
-        yield return new WaitForSeconds(2);
+
+        yield return new WaitForSeconds(0.5f);
+
         _playerJoinNPC[_playerJoinNPCIndex].SteamParticles[indexAux].Play();
-        yield return new WaitForSeconds(1);
+
+        yield return new WaitForSeconds(2.5f);
+
         playerInput.transform.position = _playerJoinNPC[_playerJoinNPCIndex].SpawnLocations[indexAux].transform.position;
+
         yield return new WaitForSeconds(1);
+
         _playerJoinNPC[_playerJoinNPCIndex].SteamParticles[indexAux].Stop();
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = true;
+
         if (nextPlayerIndex < 2) { yield break; }
-        _playerInputs[nextPlayerIndex].enabled = true;
+
+        _playerInputs[nextPlayerIndex].gameObject.SetActive(true);
     }
 
     private void HandleJump(InputAction.CallbackContext playerInput)

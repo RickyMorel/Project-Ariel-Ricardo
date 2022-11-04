@@ -37,7 +37,7 @@ public class PlayerJoinNPC : NPC
 
     #region Unity Loops
 
-    public virtual void Update()
+    public void Update()
     {
         DisplayUI();
     }
