@@ -93,7 +93,7 @@ public class BaseInteractionController : MonoBehaviour
         if (_currentInteractable.IsSingleUse) { Invoke(nameof(CheckExitInteraction), _currentInteractable.SingleUseTime); }
     }
 
-    public void SetCurrentInteractable(Interactable interactable)
+    public virtual void SetCurrentInteractable(Interactable interactable)
     {
         _currentInteractable = interactable;
     }
@@ -114,7 +114,6 @@ public class BaseInteractionController : MonoBehaviour
         if(_agent != null) { _agent.enabled = interactionType == 0; }
         _rb.isKinematic = interactionType != 0;
 
-        Debug.Log("_currentInteractable: " + _currentInteractable.name);
         _currentInteractable.SetCurrentPlayer(interactionController);
         _currentInteraction = interactionType;
 

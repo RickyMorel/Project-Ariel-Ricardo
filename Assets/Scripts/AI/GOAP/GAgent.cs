@@ -77,7 +77,7 @@ public class GAgent : MonoBehaviour
                 {
                     Invoke(nameof(CompleteAction), CurrentAction.Duration);
                     _invoked = true;
-                    StartCoroutine(FireDoActionCoroutine());
+                    OnDoAction?.Invoke();
                 }
             }
             return;
@@ -161,10 +161,4 @@ public class GAgent : MonoBehaviour
         OnExitAction?.Invoke();
     }
 
-    private IEnumerator FireDoActionCoroutine()
-    {
-        yield return new WaitForSeconds(1f);
-
-        OnDoAction?.Invoke();
-    }
 }
