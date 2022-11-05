@@ -30,7 +30,7 @@ public class PlayerJoinManager : MonoBehaviour
             _playerInput.OnJump += HandleJump;
         }
 
-        WhichPlayersCanSpawn();
+        SetWhichPlayersCanSpawn();
 
         _playerInputs[1].gameObject.SetActive(true);
     }
@@ -135,7 +135,7 @@ public class PlayerJoinManager : MonoBehaviour
         }
     }
 
-    private void WhichPlayersCanSpawn()
+    private void SetWhichPlayersCanSpawn()
     {
         for (int i = 0; i < _playerInputs.Length; i++)
         {

@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 7585376163004002618}
   - component: {fileID: 7585376163004002619}
   m_Layer: 0
-  m_Name: Soon to join players
+  m_Name: Inactive Player Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,11 +529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf38b3f658fc4dd448ded264a73a7d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInputs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &7585376163390082893
 GameObject:
   m_ObjectHideFlags: 0
