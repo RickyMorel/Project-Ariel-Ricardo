@@ -18,10 +18,6 @@ public class ShipFastTravel : MonoBehaviour
 
     #endregion
 
-    #region Public Properties
-
-    #endregion
-
     #region Getters and Setters
 
     public bool WantToTravel { get { return _wantToTravel; } set { _wantToTravel = value; } }
@@ -33,13 +29,16 @@ public class ShipFastTravel : MonoBehaviour
     #region Private Variables
 
     private int _playersInShip = 0;
+    private int _playersActive = 0;
 
     private bool _wantToTravel = false;
 
     private ShipDoor _shipDoor;
-    private PlayerInputHandler[] _playersInScene;
+    private PlayerInputHandler[] _isPlayerActive;
 
     private FastTravelNPC _fastTravelNPC;
+
+    private Coroutine _lastRoutine = null;
 
     #endregion
 
@@ -47,21 +46,32 @@ public class ShipFastTravel : MonoBehaviour
 
     private void Start()
     {
-        _playersInScene = FindObjectsOfType<PlayerInputHandler>();
+        _isPlayerActive = FindObjectsOfType<PlayerInputHandler>();
         _shipDoor = _mainShip.GetComponentInChildren<ShipDoor>();
+        _lastRoutine = StartCoroutine(DetachFromShip());
     }
 
     #endregion
 
     private void CheckPlayersInShip()
     {
-        if ((_playersInScene.Length != _playersInShip) || (_shipDoor.IsWantedDoorOpen == true)) { return; }
+        _playersActive = 0;
+        for (int i = 0; i < _isPlayerActive.Length; i++)
+        {
+            if (_isPlayerActive[i].IsPlayerActive == true)
+            {
+                _playersActive++;
+            }
+        }
+
+        if ((_playersActive != _playersInShip) || (_shipDoor.IsWantedDoorOpen == true)) { return; }
 
         if (!_wantToTravel) { return; }
 
         _wantToTravel = false;
         _mainShip.transform.SetParent(_shipParent.transform);
         StartCoroutine(FastTravelCoroutine());
+        AttachToShip();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,6 +79,9 @@ public class ShipFastTravel : MonoBehaviour
         if (other.GetComponent<PlayerInputHandler>() == null) { return; }
 
         _playersInShip++;
+
+        StopCoroutine(_lastRoutine);
+        AttachToShip();
         CheckPlayersInShip();
     }
 
@@ -76,6 +89,8 @@ public class ShipFastTravel : MonoBehaviour
     {
         if (other.GetComponent<PlayerInputHandler>() == null) { return; }
 
+        _lastRoutine = StartCoroutine(DetachFromShip());
+        
         _playersInShip--;
     }
 
@@ -95,5 +110,28 @@ public class ShipFastTravel : MonoBehaviour
         yield return new WaitForSeconds(2);
         _endFastTravel.Stop();
         _blackHole.Stop();
+    }
+
+    private void AttachToShip()
+    {
+        for (int i = 0; i < _isPlayerActive.Length; i++)
+        {
+            if (_isPlayerActive[i].IsPlayerActive == true)
+            {
+                _isPlayerActive[i].GetComponentInParent<PlayerStateMachine>().AttachToShip(true);
+            }
+        }
+    }
+
+    private IEnumerator DetachFromShip()
+    {
+        yield return new WaitForSeconds(10);
+        for (int i = 0; i < _isPlayerActive.Length; i++)
+        {
+            if (_isPlayerActive[i].IsPlayerActive == true)
+            {
+                _isPlayerActive[i].GetComponentInParent<PlayerStateMachine>().AttachToShip(false);
+            }
+        }
     }
 }

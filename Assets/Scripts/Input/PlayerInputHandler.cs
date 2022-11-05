@@ -10,18 +10,22 @@ public class PlayerInputHandler : MonoBehaviour
 
     private Vector2 _moveDirection;
     private bool _isShooting;
+    private bool _canPlayerSpawn = false;
 
     #endregion
 
     #region Public Properties
 
+    public bool IsPlayerActive = true;
+
     public event Action<InputAction.CallbackContext> OnJump;
     public static event Action<PlayerInputHandler, bool> OnSpecialAction;
 
     public event Action OnInteract;
-    public event Action OnConfrim;
-
+    public event Action OnConfirm;
+    public event Action OnCancel;
     public event Action OnUpgrade;
+    public event Action<PlayerInputHandler> OnTrySpawn;
    
     public Vector2 MoveDirection => _moveDirection;
    
@@ -29,26 +33,56 @@ public class PlayerInputHandler : MonoBehaviour
 
     #endregion
 
+    #region Getters And Setters
+
+    public bool CanPlayerSpawn { get { return _canPlayerSpawn; } set { _canPlayerSpawn = value; } }
+
+    #endregion
+
     public void Move(InputAction.CallbackContext obj)
     {
+        if (!IsPlayerActive) { return; }
+
         _moveDirection = obj.ReadValue<Vector2>();
     }
 
     public void Jump(InputAction.CallbackContext obj)
     {
-        OnJump?.Invoke(obj);
+        if (CanPlayerSpawn)
+        {
+            OnTrySpawn?.Invoke(this);
+        }
+
+        else if (IsPlayerActive)
+        {
+            OnJump?.Invoke(obj);
+        }
     }
 
-    public void Confrim(InputAction.CallbackContext obj)
+    public void Confirm(InputAction.CallbackContext obj)
     {
+        if (!IsPlayerActive) { return; }
+
         //prevents from spam calling this function
         if (!obj.started) { return; }
 
-        OnConfrim?.Invoke();
+        OnConfirm?.Invoke();
+    }
+
+    public void Cancel(InputAction.CallbackContext obj)
+    {
+        if (!IsPlayerActive) { return; }
+
+        //prevents from spam calling this function
+        if (!obj.started) { return; }
+
+        OnCancel?.Invoke();
     }
 
     public void SpecialAction(InputAction.CallbackContext obj)
     {
+        if (!IsPlayerActive) { return; }
+
         //prevents from spam calling this function
         if (!obj.started) { return; }
 
@@ -58,6 +92,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext obj)
     {
+        if (!IsPlayerActive) { return; }
+
         //prevents from spam calling this function
         if (!obj.started) { return; }
 
@@ -66,6 +102,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Upgrade(InputAction.CallbackContext obj)
     {
+        if (!IsPlayerActive) { return; }
+
         //prevents from spam calling this function
         if (!obj.started) { return; }
 
@@ -74,6 +112,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext obj)
     {
+        if (!IsPlayerActive) { return; }
+
         _isShooting = obj.ReadValue<float>() == 1f ? true : false;
     }
 }
