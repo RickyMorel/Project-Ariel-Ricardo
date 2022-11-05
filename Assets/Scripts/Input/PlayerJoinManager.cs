@@ -7,14 +7,9 @@ using System.Linq;
 
 public class PlayerJoinManager : MonoBehaviour
 {
-    #region Editor Fields
-
-    [SerializeField] private PlayerInputHandler[] _playerInputs;
-
-    #endregion
-
     #region Private Variables
 
+    private PlayerInputHandler[] _playerInputs;
     private PlayerJoinNPC[] _playerJoinNPC;
 
     private int _playerJoinNPCIndex = -1;
