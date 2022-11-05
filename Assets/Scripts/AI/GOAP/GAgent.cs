@@ -48,10 +48,17 @@ public class GAgent : MonoBehaviour
     private bool _invoked = false;
     private bool _isMoving = false;
 
+    private Rigidbody _rb;
+
     #endregion
 
     #region Unity Loops
 
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
+   
     public virtual void Start()
     {
         GAction[] acts = GetComponents<GAction>();
@@ -61,6 +68,12 @@ public class GAgent : MonoBehaviour
             Actions.Add(act);
         }
     }
+
+    private void FixedUpdate()
+    {
+        _rb.velocity = Vector3.zero;
+    }
+
 
     private void LateUpdate()
     {
