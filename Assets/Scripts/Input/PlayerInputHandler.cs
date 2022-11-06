@@ -8,9 +8,9 @@ public class PlayerInputHandler : MonoBehaviour
 {
     #region Private Variables
 
-    private Vector2 _moveDirection;
+    [SerializeField] private Vector2 _moveDirection;
     private bool _isShooting;
-    private bool _canPlayerSpawn = false;
+    [SerializeField] private bool _canPlayerSpawn = false;
 
     #endregion
 
