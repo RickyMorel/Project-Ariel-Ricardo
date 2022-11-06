@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
 {
-    public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerRunState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
     public override void EnterState() 
@@ -27,7 +27,7 @@ public class PlayerRunState : PlayerBaseState
         {
             SwitchState(_factory.Attack());
         }
-        else if (_context.PlayerCarryController.HasItems)
+        else if (_context.PlayerCarryController != null && _context.PlayerCarryController.HasItems)
         {
             SwitchState(_factory.Carry());
         }

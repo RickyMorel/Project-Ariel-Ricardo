@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - MainShip
+  - EatingChair
+  - AdmireObj
+  - Shop
+  - HideLocation
+  - ShopChair
+  - SalesmanShopPos
+  - RestLocation
   - SpawnPoint
   layers:
   - Default
@@ -23,7 +30,7 @@ TagManager:
   - Ragdoll
   - ItemLayer
   - ItemBox
-  - 
+  - NPC
   - 
   - 
   - 

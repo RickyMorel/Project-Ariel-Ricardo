@@ -1,9 +1,9 @@
 
 public class PlayerStateFactory
 {
-    private PlayerStateMachine _context;
+    private BaseStateMachine _context;
 
-    public PlayerStateFactory(PlayerStateMachine currentContext)
+    public PlayerStateFactory(BaseStateMachine currentContext)
     {
         _context = currentContext;
     }

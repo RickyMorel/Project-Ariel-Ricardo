@@ -5,12 +5,12 @@ using UnityEngine;
 public abstract class PlayerBaseState
 {
     protected bool _isRootState = false;
-    protected PlayerStateMachine _context;
+    protected BaseStateMachine _context;
     protected PlayerStateFactory _factory;
     protected PlayerBaseState _currentSuperState;
     protected PlayerBaseState _currentSubState;
 
-    public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerBaseState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     {
         _context = currentContext;
         _factory = playerStateFactory;

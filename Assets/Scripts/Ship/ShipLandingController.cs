@@ -62,8 +62,10 @@ public class ShipLandingController : MonoBehaviour
     {
         if(_isWantedDeployed != _isLandingGearDeployed) { return; }
 
+        PlayerInteractionController playerInteractionController = _booster.CurrentPlayer as PlayerInteractionController;
+
         //If player that pressed action button is not on booster, return
-        if(player != _booster.CurrentPlayer) { return; }
+        if (player != playerInteractionController.PlayerInput) { return; }
 
         if (!isPressed) { return; }
 

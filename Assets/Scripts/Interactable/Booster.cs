@@ -64,7 +64,7 @@ public class Booster : RotationalInteractable
        
         if (_currentPlayer == null) { return; }
         
-        if (!_currentPlayer.IsShooting) { SetIsBoosting(false); return; }
+        if (!_currentPlayer.IsUsing) { SetIsBoosting(false); return; }
 
         SetIsBoosting(true);
     }

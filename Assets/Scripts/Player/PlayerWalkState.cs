@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWalkState : PlayerBaseState
 {
-    public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerWalkState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
     public override void EnterState()

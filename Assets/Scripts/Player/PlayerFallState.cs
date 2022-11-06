@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerFallState : PlayerBaseState
 {
-    public PlayerFallState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerFallState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) 
     {
         _isRootState = true;

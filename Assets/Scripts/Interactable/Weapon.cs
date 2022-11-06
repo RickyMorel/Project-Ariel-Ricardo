@@ -62,7 +62,7 @@ public class Weapon : Upgradable
 
     private void CheckShootInput()
     {
-        if (_currentPlayer.IsShooting)
+        if (_currentPlayer.IsUsing)
         {
             Shoot();
         }

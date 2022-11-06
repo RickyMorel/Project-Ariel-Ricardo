@@ -4,43 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInteractionController : MonoBehaviour
+public class PlayerInteractionController : BaseInteractionController
 {
-    #region Editor Fields
-
-    [SerializeField] private int _currentInteraction = 0;
-
-    #endregion
-
     #region Private Variables
 
     private PlayerInputHandler _playerInput;
-    private PlayerHealth _playerHealth;
-    private PlayerCarryController _playerCarryController;
-    private Animator _anim;
-    private Rigidbody _rb;
     private ShipInventory _shipInventory;
-    private Interactable _currentInteractable;
-
-    private float _timeSinceLastInteraction;
 
     #endregion
 
     #region Public Properties
 
-    public Interactable CurrentInteractable => _currentInteractable;
+    public PlayerInputHandler PlayerInput => _playerInput;
 
     #endregion
 
     #region Unity Loops
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
+
         _playerInput = GetComponent<PlayerInputHandler>();
-        _playerHealth = GetComponent<PlayerHealth>();
-        _anim = GetComponent<Animator>();
-        _playerCarryController = GetComponent<PlayerCarryController>();
-        _rb = GetComponent<Rigidbody>();
         _shipInventory = FindObjectOfType<ShipInventory>();
 
         _playerInput.OnInteract += HandleInteraction;
@@ -49,9 +34,12 @@ public class PlayerInteractionController : MonoBehaviour
         _playerHealth.OnHurt += HandleHurt;
     }
 
-    private void Update()
+    public override void Update()
     {
-        _timeSinceLastInteraction += Time.deltaTime;
+        base.Update();
+
+        MoveDirection = _playerInput.MoveDirection;
+        IsUsing = _playerInput.IsShooting;
     }
 
     private void OnDestroy()
@@ -64,39 +52,6 @@ public class PlayerInteractionController : MonoBehaviour
 
     #endregion
 
-    private void HandleJump(InputAction.CallbackContext button)
-    {
-        CheckExitInteraction();
-    }
-
-    private void HandleHurt()
-    {
-        CheckExitInteraction();
-    }
-
-    public void CheckExitInteraction()
-    {
-        //if is not doing interaction, return
-        if (!IsInteracting()) { return; }
-
-        SetInteraction(0, transform);
-
-        _currentInteractable.Uninteract();
-    }
-
-    //This calls when the player presses the interact button
-    private void HandleInteraction()
-    {
-        if(_currentInteractable == null) { return; }
-
-        if(_currentInteractable.CurrentPlayer == _playerInput) { return; }
-
-        SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
-
-        _playerCarryController.DropAllItems();
-
-        if (_currentInteractable.IsSingleUse) { Invoke(nameof(CheckExitInteraction), _currentInteractable.SingleUseTime); }
-    }
 
     //This calls when the player presses the upgrade button
     private void HandleUpgrade()
@@ -107,35 +62,5 @@ public class PlayerInteractionController : MonoBehaviour
 
         Upgradable upgradable = _currentInteractable as Upgradable;
         upgradable.TryUpgrade(_shipInventory.InventoryDictionary);
-    }
-
-    public void SetCurrentInteractable(Interactable interactable)
-    {
-        _currentInteractable = interactable;
-    }
-
-    public bool IsInteracting()
-    {
-        return _currentInteraction != 0;
-    }
-
-    public bool HasRecentlyInteracted()
-    {
-        return _timeSinceLastInteraction < 0.25f;
-    }
-
-    public void SetInteraction(int interactionType, Transform playerPositionTransform)
-    {
-        PlayerInputHandler playerInput = interactionType == 0 ? null : _playerInput;
-        _rb.isKinematic = interactionType != 0;
-
-        _currentInteractable.SetCurrentPlayer(playerInput);
-        _currentInteraction = interactionType;
-
-        _anim.SetInteger("Interaction", interactionType);
-        transform.position = playerPositionTransform.position;
-        transform.rotation = playerPositionTransform.rotation;
-
-        _timeSinceLastInteraction = 0f;
     }
 }
