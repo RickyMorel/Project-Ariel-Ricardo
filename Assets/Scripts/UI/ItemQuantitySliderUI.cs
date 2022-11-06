@@ -28,13 +28,11 @@ public class ItemQuantitySliderUI : MonoBehaviour
     #endregion
 
     #region Public Properties
-
     public static ItemQuantitySliderUI Instance { get { return _instance; } }
 
     #endregion
 
     #region Unity Loops
-
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -46,6 +44,7 @@ public class ItemQuantitySliderUI : MonoBehaviour
             _instance = this;
         }
     }
+
     #endregion
 
     public void EnableSlider(bool isEnabled)
@@ -56,7 +55,7 @@ public class ItemQuantitySliderUI : MonoBehaviour
 
         if(_currentPlayer == null) { return; }
 
-        _currentPlayer.OnConfrim -= OnConfirm;
+        _currentPlayer.OnConfirm -= OnConfirm;
     }
 
     public void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer, Vector3 cellPosition)
@@ -71,7 +70,7 @@ public class ItemQuantitySliderUI : MonoBehaviour
         _currentAmountText.text = _slider.value.ToString();
         _totalAmountText.text = itemQuantity.Amount.ToString();
 
-        _currentPlayer.OnConfrim += OnConfirm;
+        _currentPlayer.OnConfirm += OnConfirm;
 
         EnableSlider(true);
     }

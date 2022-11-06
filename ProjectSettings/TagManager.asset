@@ -12,6 +12,7 @@ TagManager:
   - ShopChair
   - SalesmanShopPos
   - RestLocation
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

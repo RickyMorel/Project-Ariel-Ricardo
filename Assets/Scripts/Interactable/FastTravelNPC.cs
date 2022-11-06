@@ -22,8 +22,6 @@ public class FastTravelNPC : NPC
 
     private Transform _travelToPosition;
 
-    private PlayerInteractionController _exitInteractable;
-
     #endregion
 
     #region Unity Loops
