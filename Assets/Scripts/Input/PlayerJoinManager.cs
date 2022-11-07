@@ -53,6 +53,8 @@ public class PlayerJoinManager : MonoBehaviour
         playerInput.OnTrySpawn += HandleSpawn;
         playerInput.OnJump += HandleJump;
         playerInput.CanPlayerSpawn = true;
+
+        player.transform.position = transform.position;
     }
 
     private void HandleSpawn(PlayerInputHandler playerInput)
