@@ -7,12 +7,6 @@ using System.Linq;
 
 public class PlayerJoinManager : MonoBehaviour
 {
-    #region Editor Fields
-
-    [SerializeField] private InputActionAsset _inputsDb;
-
-    #endregion
-
     #region Private Variables
 
     private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
@@ -49,7 +43,6 @@ public class PlayerJoinManager : MonoBehaviour
     {
         PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
         _playerInputs.Add(playerInput);
-        //player.actions = _inputsDb;
         playerInput.OnTrySpawn += HandleSpawn;
         playerInput.OnJump += HandleJump;
         playerInput.CanPlayerSpawn = true;
