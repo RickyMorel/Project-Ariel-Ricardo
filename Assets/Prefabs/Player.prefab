@@ -5300,6 +5300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeaaedc792b8e549bedda531eb4fb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveDirection: {x: 0, y: 0}
+  _canPlayerSpawn: 0
   IsPlayerActive: 1
 --- !u!114 &31071801577900501
 MonoBehaviour:
@@ -5314,6 +5316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentInteraction: 0
+  _currentInteractable: {fileID: 0}
 --- !u!114 &5054758916227006428
 MonoBehaviour:
   m_ObjectHideFlags: 0
