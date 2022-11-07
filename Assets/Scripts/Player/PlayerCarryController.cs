@@ -47,6 +47,8 @@ public class PlayerCarryController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(_carryBoxCollider == null) { return; }
+
         Vector3 boxPos = _carryBoxCollider.transform.position;
         float boxYOffset = 0.2f;
         float yDifference = _armTransform.position.y - boxPos.y + boxYOffset;

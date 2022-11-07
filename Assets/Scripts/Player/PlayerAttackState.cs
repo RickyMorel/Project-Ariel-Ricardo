@@ -11,11 +11,13 @@ public class PlayerAttackState : PlayerBaseState
 
     #endregion
 
-    public PlayerAttackState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerAttackState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) { }
 
     public override void EnterState()
     {
+        if (_context.PlayerInteraction.IsInteracting()) { _timeSinceLastAttack = 0; return; }
+
         _context.Speed = 0;
 
         Attack();

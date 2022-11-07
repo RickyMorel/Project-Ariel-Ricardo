@@ -59,7 +59,7 @@ public class RepairMachine : Upgradable
     {
         if(_timeSinceLastUsed < _timeBetweenUses) { return; }
 
-        if (_currentPlayer.IsShooting)
+        if (_currentPlayer.IsUsing)
         {
             UseHealer();
         }

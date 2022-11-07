@@ -6,12 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(Outline))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
-public abstract class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour
 {
     #region Editor Fields
 
     [SerializeField] private InteractionType _interactionType;
     [SerializeField] private Transform _playerPositionTransform;
+    [SerializeField] private bool _isAIOnlyInteractable = false;
 
     [Header("One Time Interaction Parameters")]
     [SerializeField] private bool _isSingleUse = false;
@@ -27,7 +28,7 @@ public abstract class Interactable : MonoBehaviour
 
     #region Protected Variables
 
-    protected PlayerInputHandler _currentPlayer;
+    protected BaseInteractionController _currentPlayer;
 
     #endregion
 
@@ -35,7 +36,7 @@ public abstract class Interactable : MonoBehaviour
 
     public InteractionType InteractionType => _interactionType;
     public Transform PlayerPositionTransform => _playerPositionTransform;
-    public PlayerInputHandler CurrentPlayer => _currentPlayer;
+    public BaseInteractionController CurrentPlayer => _currentPlayer;
     public bool IsSingleUse => _isSingleUse;
     public float SingleUseTime => _singleUseTime;
 
@@ -55,25 +56,36 @@ public abstract class Interactable : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
+        if (!other.gameObject.TryGetComponent<BaseInteractionController>(out BaseInteractionController interactionController)) { return; }
 
-        _outline.enabled = true;
+        if (interactionController is PlayerInteractionController) 
+        {
+            if (_isAIOnlyInteractable) { return; }
 
-        playerInteractionController.SetCurrentInteractable(this);
+            _outline.enabled = true; 
+        }
+
+        interactionController.SetCurrentInteractable(this);
     }
 
     public virtual void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.TryGetComponent<PlayerInteractionController>(out PlayerInteractionController playerInteractionController)) { return; }
+        if (!other.gameObject.TryGetComponent<BaseInteractionController>(out BaseInteractionController interactionController)) { return; }
 
-        _outline.enabled = false;
+        if (interactionController is PlayerInteractionController) 
+        {
+            if (_isAIOnlyInteractable) { return; }
 
-        playerInteractionController.SetCurrentInteractable(null);
+            _outline.enabled = false;
+
+            //Only sets current interactable null for players so they don't teleport to it when pressing the interact button
+            interactionController.SetCurrentInteractable(null);
+        }
     }
 
-    public void SetCurrentPlayer(PlayerInputHandler playerInput)
+    public void SetCurrentPlayer(BaseInteractionController interactionController)
     {
-        _currentPlayer = playerInput;
+        _currentPlayer = interactionController;
 
         OnInteract?.Invoke();
     }

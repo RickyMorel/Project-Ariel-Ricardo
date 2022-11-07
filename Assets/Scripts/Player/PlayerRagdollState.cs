@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRagdollState : PlayerBaseState
 {
-    public PlayerRagdollState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerRagdollState(BaseStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base(currentContext, playerStateFactory) 
     {
         _isRootState = true;
