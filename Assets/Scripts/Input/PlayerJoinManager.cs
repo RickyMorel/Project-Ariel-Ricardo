@@ -28,15 +28,6 @@ public class PlayerJoinManager : MonoBehaviour
         _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
 
-    private void OnDestroy()
-    {
-        //foreach (PlayerInputHandler playerInput in _playerInputs)
-        //{
-        //    playerInput.OnTrySpawn -= HandleSpawn;
-        //    playerInput.OnJump -= HandleJump;
-        //}
-    }
-
     #endregion
 
     private void HandlePlayerJoined(PlayerInput player)
