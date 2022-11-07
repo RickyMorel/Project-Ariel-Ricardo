@@ -9,8 +9,9 @@ public class PlayerJoinManager : MonoBehaviour
 {
     #region Private Variables
 
-    private PlayerInputHandler[] _playerInputs;
+    private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
+    private PlayerInputManager _playerInputManager;
 
     private int _playerJoinNPCIndex = -1;
     private int _amountOfPlayersActive = 0;
@@ -21,30 +22,33 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void Start()
     {
-        _playerInputs = FindObjectsOfType<PlayerInputHandler>(true).OrderBy(m => m.transform.position.z).ToArray();
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
+        _playerInputManager = FindObjectOfType<PlayerInputManager>();
 
-        foreach (PlayerInputHandler _playerInput in _playerInputs)
-        {
-            _playerInput.OnTrySpawn += HandleSpawn;
-            _playerInput.OnJump += HandleJump;
-        }
-
-        SetWhichPlayersCanSpawn();
-
-        _playerInputs[1].gameObject.SetActive(true);
+        _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
 
     private void OnDestroy()
     {
-        foreach (PlayerInputHandler _playerInput in _playerInputs)
+        foreach (PlayerInputHandler playerInput in _playerInputs)
         {
-            _playerInput.OnTrySpawn -= HandleSpawn;
-            _playerInput.OnJump -= HandleJump;
+            playerInput.OnTrySpawn -= HandleSpawn;
+            playerInput.OnJump -= HandleJump;
         }
     }
 
     #endregion
+
+    private void HandlePlayerJoined(PlayerInput player)
+    {
+        PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
+        _playerInputs.Add(playerInput);
+        playerInput.OnTrySpawn += HandleSpawn;
+        playerInput.OnJump += HandleJump;
+        playerInput.CanPlayerSpawn = true;
+
+        player.transform.position = transform.position;
+    }
 
     private void HandleSpawn(PlayerInputHandler playerInput)
     {
@@ -79,7 +83,7 @@ public class PlayerJoinManager : MonoBehaviour
     private void FindAmountOfPlayersActive()
     {
         _amountOfPlayersActive = 0;
-        for (int i = 0; i < _playerInputs.Length; i++)
+        for (int i = 0; i < _playerInputs.Count; i++)
         {
             if(_playerInputs[i].IsPlayerActive)
             {
@@ -126,22 +130,11 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void HandleJump(InputAction.CallbackContext playerInput)
     {
-        for (int i = 0; i < _playerInputs.Length; i++)
+        for (int i = 0; i < _playerInputs.Count; i++)
         {
             if (!_playerInputs[i].IsPlayerActive && !_playerInputs[i].CanPlayerSpawn)
             {
                 _playerInputs[i].IsPlayerActive = true;
-            }
-        }
-    }
-
-    private void SetWhichPlayersCanSpawn()
-    {
-        for (int i = 0; i < _playerInputs.Length; i++)
-        {
-            if (!_playerInputs[i].IsPlayerActive && !_playerInputs[i].CanPlayerSpawn)
-            {
-                _playerInputs[i].CanPlayerSpawn = true;
             }
         }
     }
