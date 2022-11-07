@@ -15,6 +15,8 @@ public class ShipFastTravel : MonoBehaviour
 
     [SerializeField] private GameObject _mainShip;
     [SerializeField] private GameObject _shipParent;
+    [SerializeField] private GameObject[] _cameras;
+    [SerializeField] private GameObject[] _VCameras;
 
     #endregion
 
@@ -64,7 +66,11 @@ public class ShipFastTravel : MonoBehaviour
             }
         }
 
-        if ((_playersActive != _playersInShip) || (_shipDoor.IsWantedDoorOpen == true)) { return; }
+        if (_playersActive != _playersInShip) { return; }
+        
+        PlayerCameraChange(true);
+
+        if (_shipDoor.IsWantedDoorOpen == true) { return; }
 
         if (!_wantToTravel) { return; }
 
@@ -92,6 +98,7 @@ public class ShipFastTravel : MonoBehaviour
         _lastRoutine = StartCoroutine(DetachFromShip());
         
         _playersInShip--;
+        PlayerCameraChange(false);
     }
 
     private IEnumerator FastTravelCoroutine()
@@ -125,13 +132,24 @@ public class ShipFastTravel : MonoBehaviour
 
     private IEnumerator DetachFromShip()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(2);
         for (int i = 0; i < _isPlayerActive.Length; i++)
         {
             if (_isPlayerActive[i].IsPlayerActive == true)
             {
                 _isPlayerActive[i].GetComponentInParent<PlayerStateMachine>().AttachToShip(false);
             }
+        }
+    }
+
+    private void PlayerCameraChange(bool boolean)
+    {
+        _cameras[0].SetActive(boolean);
+        _VCameras[0].SetActive(boolean);
+        for (int i = 0; i < 4; i++)
+        {
+            _cameras[i + 1].SetActive(!boolean);
+            _VCameras[i + 1].SetActive(!boolean);
         }
     }
 }
