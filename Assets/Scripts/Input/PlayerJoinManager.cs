@@ -1,9 +1,10 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Linq;
 
 public class PlayerJoinManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerJoinManager : MonoBehaviour
     private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
     private PlayerInputManager _playerInputManager;
+    private ShipFastTravel _shipFastTravel;
 
     private int _playerJoinNPCIndex = -1;
     private int _amountOfPlayersActive = 0;
@@ -24,6 +26,7 @@ public class PlayerJoinManager : MonoBehaviour
     {
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
         _playerInputManager = FindObjectOfType<PlayerInputManager>();
+        _shipFastTravel = FindObjectOfType<ShipFastTravel>();
 
         _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
@@ -122,6 +125,11 @@ public class PlayerJoinManager : MonoBehaviour
 
         _playerJoinNPC[_playerJoinNPCIndex].SteamParticles[indexAux].Stop();
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = true;
+
+        _shipFastTravel.Cameras = FindObjectsOfType<CinemachineBrain>(true);
+        _shipFastTravel.Cameras.OrderBy(p => p.name).ToList();
+        _shipFastTravel.VCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
+        _shipFastTravel.VCams.OrderBy(p => p.name).ToList();
 
         if (nextPlayerIndex < 2) { yield break; }
 
