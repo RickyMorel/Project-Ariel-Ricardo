@@ -7,11 +7,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerCarryController))]
 public class PlayerStateMachine : BaseStateMachine
 {
-    #region Getters & Setters
-
-
-    #endregion
-
     #region Private Variables
 
     private PlayerInputHandler _playerInput;

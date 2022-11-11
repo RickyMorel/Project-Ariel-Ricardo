@@ -16,7 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     #region Public Properties
 
-    public bool IsPlayerActive = true;
+    public bool IsPlayerActive = false;
 
     public event Action<InputAction.CallbackContext> OnJump;
     public static event Action<PlayerInputHandler, bool> OnSpecialAction;

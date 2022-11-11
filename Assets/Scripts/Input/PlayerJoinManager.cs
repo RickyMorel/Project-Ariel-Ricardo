@@ -10,7 +10,7 @@ public class PlayerJoinManager : MonoBehaviour
 {
     #region Private Variables
 
-    private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
+    [SerializeField] private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
     private PlayerInputManager _playerInputManager;
     private ShipFastTravel _shipFastTravel;
@@ -27,7 +27,7 @@ public class PlayerJoinManager : MonoBehaviour
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
         _playerInputManager = FindObjectOfType<PlayerInputManager>();
         _shipFastTravel = FindObjectOfType<ShipFastTravel>();
-
+        _playerInputs = FindObjectsOfType<PlayerInputHandler>().ToList<PlayerInputHandler>();
         _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
 
@@ -71,15 +71,15 @@ public class PlayerJoinManager : MonoBehaviour
     {
         if (_amountOfPlayersActive == 1)
         {
-            StartCoroutine(PlayerJoinAnimation(0, playerInput, 2));
+            StartCoroutine(PlayerJoinAnimation(0, playerInput));
         }
         else if (_amountOfPlayersActive == 2)
         {
-            StartCoroutine(PlayerJoinAnimation(1, playerInput, 3));
+            StartCoroutine(PlayerJoinAnimation(1, playerInput));
         }
         else if (_amountOfPlayersActive == 3)
         {
-            StartCoroutine(PlayerJoinAnimation(2, playerInput, 0));
+            StartCoroutine(PlayerJoinAnimation(2, playerInput));
         }
     }
 
@@ -106,7 +106,7 @@ public class PlayerJoinManager : MonoBehaviour
         }
         return -1;
     }
-    private IEnumerator PlayerJoinAnimation(int index, PlayerInputHandler playerInput, int nextPlayerIndex)
+    private IEnumerator PlayerJoinAnimation(int index, PlayerInputHandler playerInput)
     {
         int indexAux = index;
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = false;
@@ -124,16 +124,35 @@ public class PlayerJoinManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         _playerJoinNPC[_playerJoinNPCIndex].SteamParticles[indexAux].Stop();
+        playerInput.IsPlayerActive = true;
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = true;
 
         _shipFastTravel.Cameras = FindObjectsOfType<CinemachineBrain>(true);
         _shipFastTravel.Cameras.OrderBy(p => p.name).ToList();
         _shipFastTravel.VCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
         _shipFastTravel.VCams.OrderBy(p => p.name).ToList();
-
-        if (nextPlayerIndex < 2) { yield break; }
-
-        _playerInputs[nextPlayerIndex].gameObject.SetActive(true);
+        _shipFastTravel.ToggleCamera(false);
+        if (index == 0)
+        {
+            _shipFastTravel.VCams[0].gameObject.layer = 29;
+            _shipFastTravel.Cameras[1].OutputCamera.rect = new Rect(0, 0.5f, 1, 0.5f);
+            _shipFastTravel.Cameras[0].OutputCamera.rect = new Rect(0, 0, 1, 0.5f);
+        }
+        else if (index == 1)
+        {
+            _shipFastTravel.VCams[0].gameObject.layer = 30;
+            _shipFastTravel.Cameras[2].OutputCamera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+            _shipFastTravel.Cameras[1].OutputCamera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+            _shipFastTravel.Cameras[0].OutputCamera.rect = new Rect(0, 0, 1, 0.5f);
+        }
+        else if (index == 2)
+        {
+            _shipFastTravel.VCams[0].gameObject.layer = 31;
+            _shipFastTravel.Cameras[3].OutputCamera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+            _shipFastTravel.Cameras[2].OutputCamera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+            _shipFastTravel.Cameras[1].OutputCamera.rect = new Rect(0, 0, 0.5f, 0.5f);
+            _shipFastTravel.Cameras[0].OutputCamera.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
+        }
     }
 
     private void HandleJump(InputAction.CallbackContext playerInput)

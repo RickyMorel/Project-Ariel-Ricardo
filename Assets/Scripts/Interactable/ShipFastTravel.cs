@@ -150,15 +150,15 @@ public class ShipFastTravel : MonoBehaviour
         }
     }
 
-    private void ToggleCamera(bool boolean)
+    public void ToggleCamera(bool boolean)
     {
-        _cameras[0].gameObject.SetActive(boolean);
-        _vCams[0].gameObject.SetActive(boolean);
+        _cameras[_cameras.Length-1].gameObject.SetActive(boolean);
+        _vCams[_vCams.Length-1].gameObject.SetActive(boolean);
 
         for (int i = 0; i < _cameras.Length-1; i++)
         {
-            _cameras[i+1].gameObject.SetActive(!boolean);
-            _vCams[i+1].gameObject.SetActive(!boolean);
+            _cameras[i].gameObject.SetActive(!boolean);
+            _vCams[i].gameObject.SetActive(!boolean);
         }
     }
 }
