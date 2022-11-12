@@ -60,10 +60,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!IsPlayerActive) { return; }
 
-        float moveHorizontal = _player.GetAxis("Horizontal");
-        float moveVertical = _player.GetAxis("Vertical");
+        float moveHorizontal = _player.GetAxisRaw("Horizontal");
+        float moveVertical = _player.GetAxisRaw("Vertical");
 
-        _moveDirection = new Vector2(moveHorizontal, moveVertical);
+        _moveDirection = new Vector2(moveHorizontal, moveVertical).normalized;
     }
 
     public void Jump()
