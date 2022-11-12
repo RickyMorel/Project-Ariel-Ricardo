@@ -23,14 +23,6 @@ public class CameraManager : MonoBehaviour
 
     #region Unity Loops
 
-    private void Start()
-    {
-        _cameras = FindObjectsOfType<CinemachineBrain>(true);
-        _cameras.OrderBy(p => p.name).ToList();
-        _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
-        _vCams.OrderBy(p => p.name).ToList();
-    }
-
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -42,6 +34,15 @@ public class CameraManager : MonoBehaviour
             _instance = this;
         }
     }
+
+    private void Start()
+    {
+        _cameras = FindObjectsOfType<CinemachineBrain>(true);
+        _cameras.OrderBy(p => p.name).ToList();
+        _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
+        _vCams.OrderBy(p => p.name).ToList();
+    }
+
 
     #endregion
 
