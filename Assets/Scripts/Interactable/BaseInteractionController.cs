@@ -59,7 +59,7 @@ public class BaseInteractionController : MonoBehaviour
 
     #endregion
 
-    public void HandleJump(InputAction.CallbackContext button)
+    public void HandleJump()
     {
         CheckExitInteraction();
     }

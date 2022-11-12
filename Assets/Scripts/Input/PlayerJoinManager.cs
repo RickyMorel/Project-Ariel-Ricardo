@@ -11,7 +11,6 @@ public class PlayerJoinManager : MonoBehaviour
 
     private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
-    private PlayerInputManager _playerInputManager;
 
     private int _playerJoinNPCIndex = -1;
     private int _amountOfPlayersActive = 0;
@@ -23,9 +22,6 @@ public class PlayerJoinManager : MonoBehaviour
     private void Start()
     {
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
-        _playerInputManager = FindObjectOfType<PlayerInputManager>();
-
-        _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
 
     private void OnDestroy()
@@ -128,7 +124,7 @@ public class PlayerJoinManager : MonoBehaviour
         _playerInputs[nextPlayerIndex].gameObject.SetActive(true);
     }
 
-    private void HandleJump(InputAction.CallbackContext playerInput)
+    private void HandleJump()
     {
         for (int i = 0; i < _playerInputs.Count; i++)
         {

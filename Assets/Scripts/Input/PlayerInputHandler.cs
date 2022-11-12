@@ -1,12 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Rewired;
 
 public class PlayerInputHandler : MonoBehaviour
 {
+    #region Editor Fields
+
+    [SerializeField] private int _playerId = 0;
+
+    #endregion
+
     #region Private Variables
+
+    private Player _player;
 
     private Vector2 _moveDirection;
     private bool _isShooting;
@@ -18,9 +25,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool IsPlayerActive = true;
 
-    public event Action<InputAction.CallbackContext> OnJump;
     public static event Action<PlayerInputHandler, bool> OnSpecialAction;
 
+    public event Action OnJump;
     public event Action OnInteract;
     public event Action OnConfirm;
     public event Action OnCancel;
@@ -39,15 +46,31 @@ public class PlayerInputHandler : MonoBehaviour
 
     #endregion
 
-    public void Move(InputAction.CallbackContext obj)
+    private void Start()
+    {
+        _player = ReInput.players.GetPlayer(_playerId);
+    }
+
+    private void Update()
+    {
+        Move();
+        Jump();
+    }
+
+    public void Move()
     {
         if (!IsPlayerActive) { return; }
 
-        _moveDirection = obj.ReadValue<Vector2>();
+        float moveHorizontal = _player.GetAxis("Horizontal");
+        float moveVertical = _player.GetAxis("Vertical");
+
+        _moveDirection = new Vector2(moveHorizontal, moveVertical);
     }
 
-    public void Jump(InputAction.CallbackContext obj)
+    public void Jump()
     {
+        if (!_player.GetButtonDown("Jump")) { return; }
+
         if (CanPlayerSpawn)
         {
             OnTrySpawn?.Invoke(this);
@@ -55,65 +78,65 @@ public class PlayerInputHandler : MonoBehaviour
 
         else if (IsPlayerActive)
         {
-            OnJump?.Invoke(obj);
+            OnJump?.Invoke();
         }
     }
 
-    public void Confirm(InputAction.CallbackContext obj)
-    {
-        if (!IsPlayerActive) { return; }
+    //public void Confirm(InputAction.CallbackContext obj)
+    //{
+    //    if (!IsPlayerActive) { return; }
 
-        //prevents from spam calling this function
-        if (!obj.started) { return; }
+    //    //prevents from spam calling this function
+    //    if (!obj.started) { return; }
 
-        OnConfirm?.Invoke();
-    }
+    //    OnConfirm?.Invoke();
+    //}
 
-    public void Cancel(InputAction.CallbackContext obj)
-    {
-        if (!IsPlayerActive) { return; }
+    //public void Cancel(InputAction.CallbackContext obj)
+    //{
+    //    if (!IsPlayerActive) { return; }
 
-        //prevents from spam calling this function
-        if (!obj.started) { return; }
+    //    //prevents from spam calling this function
+    //    if (!obj.started) { return; }
 
-        OnCancel?.Invoke();
-    }
+    //    OnCancel?.Invoke();
+    //}
 
-    public void SpecialAction(InputAction.CallbackContext obj)
-    {
-        if (!IsPlayerActive) { return; }
+    //public void SpecialAction(InputAction.CallbackContext obj)
+    //{
+    //    if (!IsPlayerActive) { return; }
 
-        //prevents from spam calling this function
-        if (!obj.started) { return; }
+    //    //prevents from spam calling this function
+    //    if (!obj.started) { return; }
 
-        bool value = obj.ReadValue<float>() == 1f ? true : false;
-        OnSpecialAction?.Invoke(this, value);
-    }
+    //    bool value = obj.ReadValue<float>() == 1f ? true : false;
+    //    OnSpecialAction?.Invoke(this, value);
+    //}
 
-    public void Interact(InputAction.CallbackContext obj)
-    {
-        if (!IsPlayerActive) { return; }
+    //public void Interact(InputAction.CallbackContext obj)
+    //{
+    //    if (!IsPlayerActive) { return; }
 
-        //prevents from spam calling this function
-        if (!obj.started) { return; }
+    //    //prevents from spam calling this function
+    //    if (!obj.started) { return; }
 
-        OnInteract?.Invoke();
-    }
+    //    OnInteract?.Invoke();
+    //}
 
-    public void Upgrade(InputAction.CallbackContext obj)
-    {
-        if (!IsPlayerActive) { return; }
+    //public void Upgrade(InputAction.CallbackContext obj)
+    //{
+    //    if (!IsPlayerActive) { return; }
 
-        //prevents from spam calling this function
-        if (!obj.started) { return; }
+    //    //prevents from spam calling this function
+    //    if (!obj.started) { return; }
 
-        OnUpgrade?.Invoke();
-    }
+    //    OnUpgrade?.Invoke();
+    //}
 
-    public void Shoot(InputAction.CallbackContext obj)
-    {
-        if (!IsPlayerActive) { return; }
+    //public void Shoot(InputAction.CallbackContext obj)
+    //{
+    //    if (!IsPlayerActive) { return; }
 
-        _isShooting = obj.ReadValue<float>() == 1f ? true : false;
-    }
+    //    _isShooting = obj.ReadValue<float>() == 1f ? true : false;
+    //}
 }

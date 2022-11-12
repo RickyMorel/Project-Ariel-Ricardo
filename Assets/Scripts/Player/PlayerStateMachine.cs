@@ -124,8 +124,19 @@ public class PlayerStateMachine : BaseStateMachine
         transform.localPosition = Vector3.zero;
     }
 
-    private void HandleJump(InputAction.CallbackContext context)
+    private void HandleJump()
     {
-        _isJumpPressed = context.ReadValueAsButton();
+        if (_isJumpPressed) { return; }
+
+        StartCoroutine(SetJumpCoroutine());
+    }
+
+    private IEnumerator SetJumpCoroutine()
+    {
+        _isJumpPressed = true;
+
+        yield return new WaitForSeconds(0.2f);
+
+        _isJumpPressed = false;
     }
 }
