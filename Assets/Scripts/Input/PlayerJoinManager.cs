@@ -10,7 +10,7 @@ public class PlayerJoinManager : MonoBehaviour
 {
     #region Private Variables
 
-    [SerializeField] private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
+    private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
     private PlayerInputManager _playerInputManager;
     private ShipFastTravel _shipFastTravel;
@@ -126,33 +126,7 @@ public class PlayerJoinManager : MonoBehaviour
         _playerJoinNPC[_playerJoinNPCIndex].SteamParticles[indexAux].Stop();
         playerInput.IsPlayerActive = true;
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = true;
-
-        _shipFastTravel.Cameras = FindObjectsOfType<CinemachineBrain>(true);
-        _shipFastTravel.Cameras.OrderBy(p => p.name).ToList();
-        _shipFastTravel.VCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
-        _shipFastTravel.VCams.OrderBy(p => p.name).ToList();
-        _shipFastTravel.ToggleCamera(false);
-        if (index == 0)
-        {
-            _shipFastTravel.VCams[0].gameObject.layer = 29;
-            _shipFastTravel.Cameras[1].OutputCamera.rect = new Rect(0, 0.5f, 1, 0.5f);
-            _shipFastTravel.Cameras[0].OutputCamera.rect = new Rect(0, 0, 1, 0.5f);
-        }
-        else if (index == 1)
-        {
-            _shipFastTravel.VCams[0].gameObject.layer = 30;
-            _shipFastTravel.Cameras[2].OutputCamera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
-            _shipFastTravel.Cameras[1].OutputCamera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-            _shipFastTravel.Cameras[0].OutputCamera.rect = new Rect(0, 0, 1, 0.5f);
-        }
-        else if (index == 2)
-        {
-            _shipFastTravel.VCams[0].gameObject.layer = 31;
-            _shipFastTravel.Cameras[3].OutputCamera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
-            _shipFastTravel.Cameras[2].OutputCamera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-            _shipFastTravel.Cameras[1].OutputCamera.rect = new Rect(0, 0, 0.5f, 0.5f);
-            _shipFastTravel.Cameras[0].OutputCamera.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
-        }
+        CameraManager.Instance.SplitScreen(index);
     }
 
     private void HandleJump(InputAction.CallbackContext playerInput)

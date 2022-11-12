@@ -1205,7 +1205,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 78188251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 081990f4a8da1914ca78e8a2a10f219a, type: 3}
+  m_Script: {fileID: 11500000, guid: 630c2e0d578a7204ab7373b37620a954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _startFastTravel: {fileID: 1546828848}
@@ -1213,8 +1213,6 @@ MonoBehaviour:
   _blackHole: {fileID: 2675537413733240257}
   _mainShip: {fileID: 78188251}
   _shipParent: {fileID: 647699562}
-  _cameras: []
-  _vCams: []
 --- !u!95 &78188260
 Animator:
   serializedVersion: 3
@@ -18262,6 +18260,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4103563368343568, guid: 5b1cf2e426ba48546af6d6d5e3e9b2f1, type: 3}
   m_PrefabInstance: {fileID: 1353102848}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1367160786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3852162812249718933, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+  m_PrefabInstance: {fileID: 3852162812951333812}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1367160790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367160786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2584c5872aae7384b93dc8a2d4ce7c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameras: []
+  _vCams: []
 --- !u!1001 &1367339627
 PrefabInstance:
   m_ObjectHideFlags: 0
