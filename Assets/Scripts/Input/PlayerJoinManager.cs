@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using System.Linq;
 
 public class PlayerJoinManager : MonoBehaviour
 {
@@ -35,16 +32,16 @@ public class PlayerJoinManager : MonoBehaviour
 
     #endregion
 
-    private void HandlePlayerJoined(PlayerInput player)
-    {
-        PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
-        _playerInputs.Add(playerInput);
-        playerInput.OnTrySpawn += HandleSpawn;
-        playerInput.OnJump += HandleJump;
-        playerInput.CanPlayerSpawn = true;
+    //private void HandlePlayerJoined(PlayerInput player)
+    //{
+    //    PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
+    //    _playerInputs.Add(playerInput);
+    //    playerInput.OnTrySpawn += HandleSpawn;
+    //    playerInput.OnJump += HandleJump;
+    //    playerInput.CanPlayerSpawn = true;
 
-        player.transform.position = transform.position;
-    }
+    //    player.transform.position = transform.position;
+    //}
 
     private void HandleSpawn(PlayerInputHandler playerInput)
     {
