@@ -1,9 +1,10 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Linq;
 
 public class PlayerJoinManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerJoinManager : MonoBehaviour
     private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
     private PlayerInputManager _playerInputManager;
+    private ShipFastTravel _shipFastTravel;
 
     private int _playerJoinNPCIndex = -1;
     private int _amountOfPlayersActive = 0;
@@ -24,7 +26,8 @@ public class PlayerJoinManager : MonoBehaviour
     {
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
         _playerInputManager = FindObjectOfType<PlayerInputManager>();
-
+        _shipFastTravel = FindObjectOfType<ShipFastTravel>();
+        _playerInputs = FindObjectsOfType<PlayerInputHandler>().ToList<PlayerInputHandler>();
         _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
 
@@ -68,15 +71,15 @@ public class PlayerJoinManager : MonoBehaviour
     {
         if (_amountOfPlayersActive == 1)
         {
-            StartCoroutine(PlayerJoinAnimation(0, playerInput, 2));
+            StartCoroutine(PlayerJoinAnimation(0, playerInput));
         }
         else if (_amountOfPlayersActive == 2)
         {
-            StartCoroutine(PlayerJoinAnimation(1, playerInput, 3));
+            StartCoroutine(PlayerJoinAnimation(1, playerInput));
         }
         else if (_amountOfPlayersActive == 3)
         {
-            StartCoroutine(PlayerJoinAnimation(2, playerInput, 0));
+            StartCoroutine(PlayerJoinAnimation(2, playerInput));
         }
     }
 
@@ -103,7 +106,7 @@ public class PlayerJoinManager : MonoBehaviour
         }
         return -1;
     }
-    private IEnumerator PlayerJoinAnimation(int index, PlayerInputHandler playerInput, int nextPlayerIndex)
+    private IEnumerator PlayerJoinAnimation(int index, PlayerInputHandler playerInput)
     {
         int indexAux = index;
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = false;
@@ -121,11 +124,9 @@ public class PlayerJoinManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         _playerJoinNPC[_playerJoinNPCIndex].SteamParticles[indexAux].Stop();
+        playerInput.IsPlayerActive = true;
         _playerInputs[_playerJoinNPCIndex].IsPlayerActive = true;
-
-        if (nextPlayerIndex < 2) { yield break; }
-
-        _playerInputs[nextPlayerIndex].gameObject.SetActive(true);
+        CameraManager.Instance.SplitScreen(index);
     }
 
     private void HandleJump(InputAction.CallbackContext playerInput)

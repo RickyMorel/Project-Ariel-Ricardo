@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -64,7 +63,11 @@ public class ShipFastTravel : MonoBehaviour
             }
         }
 
-        if ((_playersActive != _playersInShip) || (_shipDoor.IsWantedDoorOpen == true)) { return; }
+        if (_playersActive != _playersInShip) { return; }
+
+        CameraManager.Instance.ToggleCamera(true);
+
+        if (_shipDoor.IsWantedDoorOpen == true) { return; }
 
         if (!_wantToTravel) { return; }
 
@@ -90,7 +93,7 @@ public class ShipFastTravel : MonoBehaviour
         if (other.GetComponent<PlayerInputHandler>() == null) { return; }
 
         _lastRoutine = StartCoroutine(DetachFromShip());
-        
+        CameraManager.Instance.ToggleCamera(false);
         _playersInShip--;
     }
 
@@ -125,7 +128,7 @@ public class ShipFastTravel : MonoBehaviour
 
     private IEnumerator DetachFromShip()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(2);
         for (int i = 0; i < _isPlayerActive.Length; i++)
         {
             if (_isPlayerActive[i].IsPlayerActive == true)
