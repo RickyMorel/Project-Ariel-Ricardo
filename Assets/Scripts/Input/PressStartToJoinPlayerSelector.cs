@@ -22,17 +22,34 @@ namespace Rewired.Demos
         #region Editor Fields
 
         [SerializeField] private PlayerJoinManager _playerJoinManager;
+        [SerializeField] private int _maxPlayers = 4;
 
         #endregion
 
-        public int maxPlayers = 4;
+        #region Private Variables
 
-        private List<PlayerMap> playerMap; // Maps Rewired Player ids to game player ids
-        private int gamePlayerIdCounter = 0;
+        private List<PlayerMap> _playerMap; // Maps Rewired Player ids to game player ids
+        private PlayerInputHandler[] _initialPlayers;
+        private int _gamePlayerIdCounter = 0;
+
+        #endregion
+
+        #region Unity Loops
 
         void Awake()
         {
-            playerMap = new List<PlayerMap>();
+            _playerMap = new List<PlayerMap>();
+            _initialPlayers = FindObjectsOfType<PlayerInputHandler>();
+        }
+
+        private void Start()
+        {
+            int i = 0;
+            foreach (PlayerInputHandler player in _initialPlayers)
+            {
+                AssignNextPlayer(i, player);
+                i++;
+            }
         }
 
         void Update()
@@ -43,14 +60,16 @@ namespace Rewired.Demos
             {
                 if (ReInput.players.GetPlayer(i).GetButtonDown("JoinGame"))
                 {
-                    AssignNextPlayer(i);
+                    AssignNextPlayer(i, null);
                 }
             }
         }
 
-        void AssignNextPlayer(int rewiredPlayerId)
+        #endregion
+
+        void AssignNextPlayer(int rewiredPlayerId, PlayerInputHandler alreadySpawnedPlayer)
         {
-            if (playerMap.Count >= maxPlayers)
+            if (_playerMap.Count >= _maxPlayers)
             {
                 Debug.LogError("Max player limit already reached!");
                 return;
@@ -59,24 +78,32 @@ namespace Rewired.Demos
             int gamePlayerId = GetNextGamePlayerId();
 
             // Add the Rewired Player as the next open game player slot
-            playerMap.Add(new PlayerMap(rewiredPlayerId, gamePlayerId));
+            _playerMap.Add(new PlayerMap(rewiredPlayerId, gamePlayerId));
 
             Player rewiredPlayer = ReInput.players.GetPlayer(rewiredPlayerId);
 
             // Disable the Assignment map category in Player so no more JoinGame Actions return
             rewiredPlayer.controllers.maps.SetMapsEnabled(false, "Assignment");
 
-            // Enable UI control for this Player now that he has joined
+            // Enable Default control for this Player now that he has joined
             rewiredPlayer.controllers.maps.SetMapsEnabled(true, "Default");
 
-            _playerJoinManager.SpawnPlayer(rewiredPlayer, rewiredPlayerId);
+            if(alreadySpawnedPlayer == null)
+            {
+                _playerJoinManager.SpawnPlayer(rewiredPlayer, rewiredPlayerId);
+            }
+            else
+            {
+                alreadySpawnedPlayer.PlayerId = rewiredPlayerId;
+                alreadySpawnedPlayer.PlayerInputs = rewiredPlayer;
+            }
 
             Debug.Log("Added Rewired Player id " + rewiredPlayerId + " to game player " + gamePlayerId);
         }
 
         private int GetNextGamePlayerId()
         {
-            return gamePlayerIdCounter++;
+            return _gamePlayerIdCounter++;
         }
 
         // This class is used to map the Rewired Player Id to your game player id
