@@ -95,9 +95,6 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (!_player.GetButtonDown("Confirm")) { return; }
 
-        //prevents from spam calling this function
-        //if (!obj.started) { return; }
-
         OnConfirm?.Invoke();
     }
 
@@ -106,9 +103,6 @@ public class PlayerInputHandler : MonoBehaviour
         if (!IsPlayerActive) { return; }
 
         if (!_player.GetButtonDown("Cancel")) { return; }
-
-        //prevents from spam calling this function
-       // if (!obj.started) { return; }
 
         OnCancel?.Invoke();
     }
@@ -129,9 +123,6 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (!_player.GetButtonDown("Interact")) { return; }
 
-        //prevents from spam calling this function
-       // if (!obj.started) { return; }
-
         OnInteract?.Invoke();
     }
 
@@ -140,9 +131,6 @@ public class PlayerInputHandler : MonoBehaviour
         if (!IsPlayerActive) { return; }
 
         if (!_player.GetButtonDown("Upgrade")) { return; }
-
-        //prevents from spam calling this function
-        //if (!obj.started) { return; }
 
         OnUpgrade?.Invoke();
     }

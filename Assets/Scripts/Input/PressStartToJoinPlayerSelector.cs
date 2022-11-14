@@ -97,8 +97,6 @@ namespace Rewired.Demos
                 alreadySpawnedPlayer.PlayerId = rewiredPlayerId;
                 alreadySpawnedPlayer.PlayerInputs = rewiredPlayer;
             }
-
-            Debug.Log("Added Rewired Player id " + rewiredPlayerId + " to game player " + gamePlayerId);
         }
 
         private int GetNextGamePlayerId()

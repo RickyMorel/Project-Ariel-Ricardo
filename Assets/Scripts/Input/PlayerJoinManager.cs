@@ -42,7 +42,6 @@ public class PlayerJoinManager : MonoBehaviour
 
     public void SpawnPlayer(Player playerInputs, int playerID)
     {
-        Debug.Log("SpawnPlayer");
         GameObject player = Instantiate(_playerPrefab, transform.position, Quaternion.identity);
         PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
         _playerInputs.Add(playerInput);
