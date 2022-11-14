@@ -42,6 +42,8 @@ public class PlayerInputHandler : MonoBehaviour
     #region Getters And Setters
 
     public bool CanPlayerSpawn { get { return _canPlayerSpawn; } set { _canPlayerSpawn = value; } }
+    public int PlayerId { get { return _playerId; } set { _playerId = value; } }
+    public Player PlayerInputs { get { return _player; } set { _player = value; } }
 
     #endregion
 

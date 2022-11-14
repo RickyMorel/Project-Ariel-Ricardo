@@ -1,9 +1,17 @@
+using Rewired;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerJoinManager : MonoBehaviour
 {
+    #region Editor Fields
+
+    [SerializeField] private GameObject _playerPrefab;
+
+    #endregion
+
     #region Private Variables
 
     private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
@@ -32,16 +40,18 @@ public class PlayerJoinManager : MonoBehaviour
 
     #endregion
 
-    //private void HandlePlayerJoined(PlayerInput player)
-    //{
-    //    PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
-    //    _playerInputs.Add(playerInput);
-    //    playerInput.OnTrySpawn += HandleSpawn;
-    //    playerInput.OnJump += HandleJump;
-    //    playerInput.CanPlayerSpawn = true;
-
-    //    player.transform.position = transform.position;
-    //}
+    public void SpawnPlayer(Player playerInputs, int playerID)
+    {
+        Debug.Log("SpawnPlayer");
+        GameObject player = Instantiate(_playerPrefab, transform.position, Quaternion.identity);
+        PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
+        _playerInputs.Add(playerInput);
+        playerInput.OnTrySpawn += HandleSpawn;
+        playerInput.OnJump += HandleJump;
+        playerInput.CanPlayerSpawn = true;
+        playerInput.PlayerId = playerID;
+        playerInput.PlayerInputs = playerInputs;
+    }
 
     private void HandleSpawn(PlayerInputHandler playerInput)
     {
