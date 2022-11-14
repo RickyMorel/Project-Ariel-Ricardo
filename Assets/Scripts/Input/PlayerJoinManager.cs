@@ -18,8 +18,6 @@ public class PlayerJoinManager : MonoBehaviour
 
     private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
-    private PlayerInputManager _playerInputManager;
-    private ShipFastTravel _shipFastTravel;
 
     private int _playerJoinNPCIndex = -1;
     private int _amountOfPlayersActive = 0;
@@ -31,10 +29,7 @@ public class PlayerJoinManager : MonoBehaviour
     private void Start()
     {
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
-        _playerInputManager = FindObjectOfType<PlayerInputManager>();
-        _shipFastTravel = FindObjectOfType<ShipFastTravel>();
         _playerInputs = FindObjectsOfType<PlayerInputHandler>().ToList<PlayerInputHandler>();
-        _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
 
     private void OnDestroy()
@@ -51,7 +46,7 @@ public class PlayerJoinManager : MonoBehaviour
     public void SpawnPlayer(Player playerInputs, int playerID)
     {
         GameObject player = Instantiate(_playerPrefab, transform.position, Quaternion.identity);
-        PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
+        PlayerInputHandler playerInput = player.GetComponentInChildren<PlayerInputHandler>();
         _playerInputs.Add(playerInput);
         playerInput.OnTrySpawn += HandleSpawn;
         playerInput.OnJump += HandleJump;

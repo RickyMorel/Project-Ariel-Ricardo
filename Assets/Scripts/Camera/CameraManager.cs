@@ -10,8 +10,8 @@ public class CameraManager : MonoBehaviour
 
     private static CameraManager _instance;
 
-    private CinemachineBrain[] _cameras;
-    private CinemachineVirtualCamera[] _vCams;
+    [SerializeField] private CinemachineBrain[] _cameras;
+    [SerializeField] private CinemachineVirtualCamera[] _vCams;
 
     #endregion
 
@@ -37,17 +37,24 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
+        GetAllCameras();
+    }
+
+
+    #endregion
+
+    private void GetAllCameras()
+    {
         _cameras = FindObjectsOfType<CinemachineBrain>(true);
         _cameras.OrderBy(p => p.name).ToList();
         _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
         _vCams.OrderBy(p => p.name).ToList();
     }
 
-
-    #endregion
-
     public void ToggleCamera(bool boolean)
     {
+        GetAllCameras();
+
         _cameras[_cameras.Length - 1].gameObject.SetActive(boolean);
         _vCams[_vCams.Length - 1].gameObject.SetActive(boolean);
 
