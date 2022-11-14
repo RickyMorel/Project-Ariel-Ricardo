@@ -22,7 +22,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     #region Public Properties
 
-    public bool IsPlayerActive = true;
+    public bool IsPlayerActive = false;
 
     public static event Action<PlayerInputHandler, bool> OnSpecialAction;
 
