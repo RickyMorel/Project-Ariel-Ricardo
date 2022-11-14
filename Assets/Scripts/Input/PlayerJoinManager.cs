@@ -1,19 +1,23 @@
+using Rewired;
 using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerJoinManager : MonoBehaviour
 {
+    #region Editor Fields
+
+    [SerializeField] private GameObject _playerPrefab;
+
+    #endregion
+
     #region Private Variables
 
     private List<PlayerInputHandler> _playerInputs = new List<PlayerInputHandler>();
     private PlayerJoinNPC[] _playerJoinNPC;
-    private PlayerInputManager _playerInputManager;
-    private ShipFastTravel _shipFastTravel;
 
     private int _playerJoinNPCIndex = -1;
     private int _amountOfPlayersActive = 0;
@@ -25,10 +29,7 @@ public class PlayerJoinManager : MonoBehaviour
     private void Start()
     {
         _playerJoinNPC = FindObjectsOfType<PlayerJoinNPC>();
-        _playerInputManager = FindObjectOfType<PlayerInputManager>();
-        _shipFastTravel = FindObjectOfType<ShipFastTravel>();
         _playerInputs = FindObjectsOfType<PlayerInputHandler>().ToList<PlayerInputHandler>();
-        _playerInputManager.onPlayerJoined += HandlePlayerJoined;
     }
 
     private void OnDestroy()
@@ -42,15 +43,16 @@ public class PlayerJoinManager : MonoBehaviour
 
     #endregion
 
-    private void HandlePlayerJoined(PlayerInput player)
+    public void SpawnPlayer(Player playerInputs, int playerID)
     {
-        PlayerInputHandler playerInput = player.GetComponent<PlayerInputHandler>();
+        GameObject player = Instantiate(_playerPrefab, transform.position, Quaternion.identity);
+        PlayerInputHandler playerInput = player.GetComponentInChildren<PlayerInputHandler>();
         _playerInputs.Add(playerInput);
         playerInput.OnTrySpawn += HandleSpawn;
         playerInput.OnJump += HandleJump;
         playerInput.CanPlayerSpawn = true;
-
-        player.transform.position = transform.position;
+        playerInput.PlayerId = playerID;
+        playerInput.PlayerInputs = playerInputs;
     }
 
     private void HandleSpawn(PlayerInputHandler playerInput)
@@ -129,7 +131,7 @@ public class PlayerJoinManager : MonoBehaviour
         CameraManager.Instance.SplitScreen(index);
     }
 
-    private void HandleJump(InputAction.CallbackContext playerInput)
+    private void HandleJump()
     {
         for (int i = 0; i < _playerInputs.Count; i++)
         {

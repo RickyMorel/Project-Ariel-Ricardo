@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3852162812249718934}
-  - component: {fileID: 3852162812249718935}
   - component: {fileID: 5767514670914079287}
+  - component: {fileID: 1367160790}
+  - component: {fileID: 638846795653589067}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -34,49 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3852162812249718935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3852162812249718933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 3
-  m_MaxPlayerCount: 4
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 8235309464947500824, guid: 685cff67c160ef946afd2d8e24c84bdd, type: 3}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!114 &5767514670914079287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +55,34 @@ MonoBehaviour:
     Amount: 12
   - Item: {fileID: 11400000, guid: 8a9e858cbb18a7a4d8f2c987574af77d, type: 2}
     Amount: 3
+--- !u!114 &1367160790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3852162812249718933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ac770361e237346a0eb1d099e4e6f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerJoinManager: {fileID: 1904559158525941804}
+  _maxPlayers: 4
+--- !u!114 &638846795653589067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3852162812249718933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2584c5872aae7384b93dc8a2d4ce7c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameras: []
+  _vCams: []
 --- !u!1 &3852162812439959518
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +188,10 @@ PrefabInstance:
       propertyPath: _inputsDb
       value: 
       objectReference: {fileID: -944628639613478452, guid: f78d978e5baf8924fa0380a9baaf0fb3, type: 3}
+    - target: {fileID: 7585376163004002619, guid: 22ec3df1c4cad9042bc86f9a412e3368, type: 3}
+      propertyPath: _playerPrefab
+      value: 
+      objectReference: {fileID: 3202526020130925240, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
     - target: {fileID: 7585376163004002621, guid: 22ec3df1c4cad9042bc86f9a412e3368, type: 3}
       propertyPath: m_Name
       value: Inactive Player Room
@@ -213,3 +203,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7585376163004002618, guid: 22ec3df1c4cad9042bc86f9a412e3368, type: 3}
   m_PrefabInstance: {fileID: 8298710351486544151}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1904559158525941804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7585376163004002619, guid: 22ec3df1c4cad9042bc86f9a412e3368, type: 3}
+  m_PrefabInstance: {fileID: 8298710351486544151}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf38b3f658fc4dd448ded264a73a7d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

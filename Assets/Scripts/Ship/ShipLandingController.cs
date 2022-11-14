@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ShipLandingController : MonoBehaviour
 {
@@ -65,7 +61,7 @@ public class ShipLandingController : MonoBehaviour
         PlayerInteractionController playerInteractionController = _booster.CurrentPlayer as PlayerInteractionController;
 
         //If player that pressed action button is not on booster, return
-        if (player != playerInteractionController.PlayerInput) { return; }
+        if (player != playerInteractionController?.PlayerInput) { return; }
 
         if (!isPressed) { return; }
 
