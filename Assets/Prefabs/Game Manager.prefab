@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5767514670914079287}
   - component: {fileID: 1367160790}
   - component: {fileID: 638846795653589067}
+  - component: {fileID: 8587008802359724413}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameras: []
   _vCams: []
+--- !u!114 &8587008802359724413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3852162812249718933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7afcd9fb35771a843baf01f306a84471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damagePopup: {fileID: 7110715541120338927, guid: 97cee8c62a0cfc44798df06bb670ed4d, type: 3}
 --- !u!1 &3852162812439959518
 GameObject:
   m_ObjectHideFlags: 0

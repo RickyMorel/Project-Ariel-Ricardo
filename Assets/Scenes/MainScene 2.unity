@@ -27198,9 +27198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4807ebe6148e4439ead0e7f9507bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loot: []
+  _canLoot: 0
   _damageForce: 10
   _maxHealth: 12
-  _itemDrops: []
 --- !u!1001 &1993573967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27341,7 +27342,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3333334, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
