@@ -6,6 +6,7 @@ public class PickaxeTrigger : MonoBehaviour
 {
     #region Editor Fields
 
+    [SerializeField] private Pickaxe _pickaxeInteractable;
     [SerializeField] private GameObject _impactParticlesPrefab;
     [SerializeField] private Transform _pickaxeTipTransform;
 
@@ -17,6 +18,10 @@ public class PickaxeTrigger : MonoBehaviour
 
         GameObject impactParticles = Instantiate(_impactParticlesPrefab, _pickaxeTipTransform.position, Quaternion.identity);
 
-        minable.Damage(11f);
+        float damage = _pickaxeInteractable.GetHitSpeed();
+
+        minable.Damage(damage);
+
+        _pickaxeInteractable.ApplyImpactForce();
     }
 }

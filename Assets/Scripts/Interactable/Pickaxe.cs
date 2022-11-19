@@ -7,10 +7,10 @@ public class Pickaxe : RotationalInteractable
     #region Editor Fields
 
     [SerializeField] private float _acceleration = 1.0f;
-    [SerializeField] private float _topAcleration = 21f;
     [SerializeField] private float _pickaxeDrag = 0.1f;
     [SerializeField] private float _noramlTopSpeed = 200f;
     [SerializeField] private float _boostTopSpeed = 200f;
+    [SerializeField] private float _damageMultiplier = 2f;
 
     #endregion
 
@@ -71,6 +71,16 @@ public class Pickaxe : RotationalInteractable
     private void BoostPickaxe()
     {
         _topSpeed = _isBoosting ? _boostTopSpeed : _noramlTopSpeed;
+    }
+
+    public void ApplyImpactForce()
+    {
+        CurrentAngle = -RotationSpeed;
+    }
+
+    public float GetHitSpeed()
+    {
+        return CurrentAngle * _damageMultiplier;
     }
 
     public override void Rotate()
