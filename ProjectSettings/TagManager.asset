@@ -13,6 +13,7 @@ TagManager:
   - SalesmanShopPos
   - RestLocation
   - SpawnPoint
+  - SpaceStation
   layers:
   - Default
   - TransparentFX
@@ -38,8 +39,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - ShipFloor
+  - Orthographic
   - 
   - ShipCam
   - Player1Cam

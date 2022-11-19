@@ -7,24 +7,21 @@ public class PlayerGroundCheck : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private int _floorMask = 6;
+    [SerializeField] private int _shipFloorMask = 24;
     [SerializeField] private PlayerStateMachine _playerStateMachine;
-
-    #endregion
-
-    #region Private Variables
 
     #endregion
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.layer != _floorMask) { return; }
+        if(other.gameObject.layer != _floorMask && other.gameObject.layer != _shipFloorMask) { return; }
 
         _playerStateMachine.IsGrounded = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer != _floorMask) { return; }
+        if (other.gameObject.layer != _floorMask && other.gameObject.layer != _shipFloorMask) { return; }
 
         _playerStateMachine.IsGrounded = false;
     }

@@ -10,8 +10,10 @@ public class CameraManager : MonoBehaviour
 
     private static CameraManager _instance;
 
-    [SerializeField] private CinemachineBrain[] _cameras;
-    [SerializeField] private CinemachineVirtualCamera[] _vCams;
+    private CinemachineBrain[] _cameras;
+    private CinemachineVirtualCamera[] _vCams;
+
+    private GameObject _perspectiveCamera;
 
     #endregion
 
@@ -38,8 +40,25 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         GetAllCameras();
+
+        _perspectiveCamera = GameObject.Find("Perspective Camera");
     }
 
+    public void CullingMaskToggle(bool boolean)
+    {
+        if (boolean)
+        {
+            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = -1;
+            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Skybox;
+            _perspectiveCamera.SetActive(false);
+        }
+        else
+        {
+            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = LayerMask.GetMask("Ragdoll", "ShipFloor", "Orthographic");
+            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Nothing;
+            _perspectiveCamera.SetActive(true);
+        }
+    }
 
     #endregion
 
