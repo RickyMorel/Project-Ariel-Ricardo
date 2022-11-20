@@ -6,11 +6,11 @@ public class Pickaxe : RotationalInteractable
 {
     #region Editor Fields
 
-    [SerializeField] private float _acceleration = 1.0f;
     [SerializeField] private float _pickaxeDrag = 0.1f;
-    [SerializeField] private float _noramlTopSpeed = 200f;
+    [SerializeField] private float _normalTopSpeed = 200f;
     [SerializeField] private float _boostTopSpeed = 200f;
     [SerializeField] private float _damageMultiplier = 2f;
+    [SerializeField] private ParticleSystem _pickaxeBoostParticles;
 
     #endregion
 
@@ -57,6 +57,11 @@ public class Pickaxe : RotationalInteractable
         if (_isBoosting == isBoosting) { return; }
 
         _isBoosting = isBoosting;
+
+        if (_isBoosting)
+            _pickaxeBoostParticles.Play();  
+        else
+            _pickaxeBoostParticles.Stop();
     }
 
     private void ApplyDrag()
@@ -70,12 +75,15 @@ public class Pickaxe : RotationalInteractable
 
     private void BoostPickaxe()
     {
-        _topSpeed = _isBoosting ? _boostTopSpeed : _noramlTopSpeed;
+        _topSpeed = _isBoosting ? _boostTopSpeed : _normalTopSpeed;
     }
 
     public void ApplyImpactForce()
     {
-        CurrentAngle = -RotationSpeed;
+        bool applyForwardForce = CurrentAngle >= 0;
+        float force = applyForwardForce ? -RotationSpeed : RotationSpeed;
+
+        CurrentAngle = force;
     }
 
     public float GetHitSpeed()
@@ -88,9 +96,10 @@ public class Pickaxe : RotationalInteractable
         float acceleration = RotationSpeed * _currentPlayer.MoveDirection.x * Time.deltaTime;
 
         //Start slowing down if surpassed top speed
-        if (CurrentAngle > _topSpeed) { acceleration = 0; }
+        if (Mathf.Abs(CurrentAngle) > _topSpeed) { acceleration = 0; }
 
-        CurrentAngle = Mathf.Clamp(CurrentAngle + acceleration, -_initialRotationSpeed, _boostTopSpeed);
+        CurrentAngle = CurrentAngle + acceleration;
+        //CurrentAngle = Mathf.Clamp(CurrentAngle + acceleration, -_normalTopSpeed, _boostTopSpeed);
 
         RotatorTransform.RotateAround(PivotTransform.position, Vector3.forward, -CurrentAngle);
     }

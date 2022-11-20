@@ -130,5 +130,5 @@ MonoBehaviour:
   - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}
     Amount: 5
   _canLoot: 0
-  _damageForce: 10
+  _damageForce: 2
   _maxHealth: 12
