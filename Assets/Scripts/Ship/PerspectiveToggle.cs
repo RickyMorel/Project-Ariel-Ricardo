@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PerspectiveToggle : MonoBehaviour
 {
+    #region Editor Fields
+
+    [SerializeField] private PlayableDirector _cameraToggleFade;
+
+    #endregion
+
     #region private Variables
 
     private CameraManager _cameraManager;
@@ -21,15 +28,22 @@ public class PerspectiveToggle : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Ship>() == null) { return; }
 
-        _cameraManager.CullingMaskToggle(true);
+        StartCoroutine(OthoPerspectiveToggle(true));
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<Ship>() == null) { return; }
 
-        _cameraManager.CullingMaskToggle(false);
+        StartCoroutine(OthoPerspectiveToggle(false));
     }
 
     #endregion
+
+    IEnumerator OthoPerspectiveToggle(bool boolean)
+    {
+        _cameraToggleFade.Play();
+        yield return new WaitForSeconds(0.5f);
+        _cameraManager.CullingMaskToggle(boolean);
+    }
 }

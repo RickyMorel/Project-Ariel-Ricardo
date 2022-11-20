@@ -25,6 +25,13 @@ public class CameraManager : MonoBehaviour
 
     #region Unity Loops
 
+    private void Start()
+    {
+        GetAllCameras();
+
+        _perspectiveCamera = GameObject.Find("Perspective Camera");
+    }
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -37,12 +44,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        GetAllCameras();
-
-        _perspectiveCamera = GameObject.Find("Perspective Camera");
-    }
+    #endregion
 
     public void CullingMaskToggle(bool boolean)
     {
@@ -59,8 +61,6 @@ public class CameraManager : MonoBehaviour
             _perspectiveCamera.SetActive(true);
         }
     }
-
-    #endregion
 
     private void GetAllCameras()
     {

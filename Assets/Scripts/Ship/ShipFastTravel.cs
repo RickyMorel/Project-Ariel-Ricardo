@@ -37,6 +37,8 @@ public class ShipFastTravel : MonoBehaviour
 
     private FastTravelNPC _fastTravelNPC;
 
+    private CameraManager _cameraManager;
+
     private Coroutine _lastRoutine = null;
 
     #endregion
@@ -48,6 +50,7 @@ public class ShipFastTravel : MonoBehaviour
         _isPlayerActive = FindObjectsOfType<PlayerInputHandler>();
         _shipDoor = _mainShip.GetComponentInChildren<ShipDoor>();
         _lastRoutine = StartCoroutine(DetachFromShip());
+        _cameraManager = FindObjectOfType<CameraManager>();
     }
 
     #endregion
@@ -65,7 +68,7 @@ public class ShipFastTravel : MonoBehaviour
 
         if (_playersActive != _playersInShip) { return; }
 
-        CameraManager.Instance.ToggleCamera(true);
+        _cameraManager.ToggleCamera(true);
 
         if (_shipDoor.IsWantedDoorOpen == true) { return; }
 
@@ -92,8 +95,8 @@ public class ShipFastTravel : MonoBehaviour
     {
         if (other.GetComponent<PlayerInputHandler>() == null) { return; }
 
+        _cameraManager.ToggleCamera(false);
         _lastRoutine = StartCoroutine(DetachFromShip());
-        CameraManager.Instance.ToggleCamera(false);
         _playersInShip--;
     }
 
