@@ -85244,6 +85244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minable Rock
       objectReference: {fileID: 0}
+    - target: {fileID: 7427312714443020341, guid: 449b3ecaff40e5442804d27fda74d434, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7429058020557803995, guid: 449b3ecaff40e5442804d27fda74d434, type: 3}
       propertyPath: m_RootOrder
       value: 22
