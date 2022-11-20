@@ -16,20 +16,12 @@ public class Pickaxe : RotationalInteractable
 
     #region Private Variables
 
-    private float _initialRotationSpeed;
     private float _topSpeed;
     private bool _isBoosting = false;
 
     #endregion
 
     #region Unity Loops
-
-    public override void Start()
-    {
-        base.Start();
-
-        _initialRotationSpeed = RotationSpeed;
-    }
 
     public override void Update()
     {
@@ -46,7 +38,7 @@ public class Pickaxe : RotationalInteractable
     {
         BoostPickaxe();
         ApplyDrag();
-
+        if(CurrentAngle < 0) { SetIsBoosting(false); }
     }   
 
     #endregion
@@ -56,7 +48,8 @@ public class Pickaxe : RotationalInteractable
         //If value is the same, don't update
         if (_isBoosting == isBoosting) { return; }
 
-        _isBoosting = isBoosting;
+        //Can't Boost Backwards
+        _isBoosting = CurrentAngle < 0 ? false : isBoosting;
 
         if (_isBoosting)
             _pickaxeBoostParticles.Play();  
@@ -88,6 +81,8 @@ public class Pickaxe : RotationalInteractable
 
     public float GetHitSpeed()
     {
+        if (!_isBoosting) return 0;
+
         return CurrentAngle * _damageMultiplier;
     }
 
