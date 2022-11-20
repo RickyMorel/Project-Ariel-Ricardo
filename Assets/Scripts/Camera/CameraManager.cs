@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System.Linq;
+using System;
 
 public class CameraManager : MonoBehaviour
 {
@@ -64,9 +65,10 @@ public class CameraManager : MonoBehaviour
     private void GetAllCameras()
     {
         _cameras = FindObjectsOfType<CinemachineBrain>(true);
-        _cameras.OrderBy(p => p.name).ToList();
         _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
-        _vCams.OrderBy(p => p.name).ToList();
+
+        Array.Sort(_cameras, (a, b) => String.Compare(a.name, b.name));
+        Array.Sort(_vCams, (a, b) => String.Compare(a.name, b.name));
     }
 
     public void ToggleCamera(bool boolean)
