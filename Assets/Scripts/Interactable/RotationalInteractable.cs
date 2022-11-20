@@ -14,7 +14,7 @@ public class RotationalInteractable : Upgradable
 
     #region Private Variables
 
-    [SerializeField] private float _currentAngle = 0;
+    private float _currentAngle = 0;
 
     #endregion
 
