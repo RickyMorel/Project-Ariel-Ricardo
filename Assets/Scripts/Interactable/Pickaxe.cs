@@ -99,7 +99,6 @@ public class Pickaxe : RotationalInteractable
         if (Mathf.Abs(CurrentAngle) > _topSpeed) { acceleration = 0; }
 
         CurrentAngle = CurrentAngle + acceleration;
-        //CurrentAngle = Mathf.Clamp(CurrentAngle + acceleration, -_normalTopSpeed, _boostTopSpeed);
 
         RotatorTransform.RotateAround(PivotTransform.position, Vector3.forward, -CurrentAngle);
     }
