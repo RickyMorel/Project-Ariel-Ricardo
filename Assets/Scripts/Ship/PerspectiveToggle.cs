@@ -1,16 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class PerspectiveToggle : MonoBehaviour
 {
-    #region Editor Fields
-
-    [SerializeField] private PlayableDirector _cameraFadePlayableDirector;
-
-    #endregion
-
     #region private Variables
 
     private CameraManager _cameraManager;
@@ -42,7 +35,7 @@ public class PerspectiveToggle : MonoBehaviour
 
     IEnumerator OthoPerspectiveToggle(bool boolean)
     {
-        _cameraFadePlayableDirector.Play();
+        TimelinesManager.Instance.CameraFadeTimeline.Play();
         yield return new WaitForSeconds(0.5f);
         _cameraManager.CullingMaskToggle(boolean);
     }
