@@ -7,7 +7,7 @@ public class PerspectiveToggle : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private PlayableDirector _cameraToggleFade;
+    [SerializeField] private PlayableDirector _cameraFadePlayableDirector;
 
     #endregion
 
@@ -42,7 +42,7 @@ public class PerspectiveToggle : MonoBehaviour
 
     IEnumerator OthoPerspectiveToggle(bool boolean)
     {
-        _cameraToggleFade.Play();
+        _cameraFadePlayableDirector.Play();
         yield return new WaitForSeconds(0.5f);
         _cameraManager.CullingMaskToggle(boolean);
     }

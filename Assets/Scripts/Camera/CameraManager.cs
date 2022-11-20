@@ -28,8 +28,7 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         GetAllCameras();
-
-        _perspectiveCamera = GameObject.Find("Perspective Camera");
+        _perspectiveCamera = Camera.main.transform.GetChild(0).gameObject;
     }
 
     private void Awake()
