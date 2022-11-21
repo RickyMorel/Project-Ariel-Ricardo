@@ -46,7 +46,5 @@ public class Enemy : Damageable
         base.Die();
 
         _lootableScript.SetCanLoot(true);
-
-        //Destroy(gameObject);
     }
 }

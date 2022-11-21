@@ -21,6 +21,14 @@ public class RotationalInteractable : Upgradable
     #region Public Properties
 
     public Transform RotatorTransform;
+    public Transform PivotTransform => _pivotTransform;
+
+    #endregion
+
+    #region Getters & Setters
+
+    public float CurrentAngle { get { return _currentAngle; } set { _currentAngle = value; } }
+    public float RotationSpeed { get { return _rotationSpeed; } set { _rotationSpeed = value; } }
 
     #endregion
 
@@ -35,7 +43,7 @@ public class RotationalInteractable : Upgradable
 
     #endregion
 
-    private void Rotate()
+    public virtual void Rotate()
     {
         if (_currentPlayer.MoveDirection.magnitude == 0) { return; }
         

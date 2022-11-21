@@ -13,7 +13,7 @@ public class Lootable : MonoBehaviour
 
     #region Unity Loops
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if(_canLoot == false) { return; }
 
@@ -21,12 +21,19 @@ public class Lootable : MonoBehaviour
 
         if(!other.gameObject.TryGetComponent<ShipInventory>(out ShipInventory shipInventory)) { return; }
 
-        shipInventory.AddItems(_loot);
-
-        _loot.Clear();
+        Loot(shipInventory);
     }
 
     #endregion
+
+    public void Loot(ShipInventory shipInventory)
+    {
+        shipInventory.AddItems(_loot);
+
+        _loot.Clear();
+
+        Destroy(gameObject);
+    }
 
     public void SetCanLoot(bool canLoot)
     {

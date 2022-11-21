@@ -13,6 +13,7 @@ TagManager:
   - SalesmanShopPos
   - RestLocation
   - SpawnPoint
+  - SpaceStation
   layers:
   - Default
   - TransparentFX
@@ -38,8 +39,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - ShipFloor
+  - Orthographic
   - 
   - ShipCam
   - Player1Cam
@@ -49,4 +50,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Top
+    uniqueID: 3426961401
     locked: 0

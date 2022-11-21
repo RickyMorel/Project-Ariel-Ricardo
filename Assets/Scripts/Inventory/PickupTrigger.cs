@@ -18,6 +18,8 @@ public class PickupTrigger : MonoBehaviour
 
     #endregion
 
+    #region Unity Loops
+
     private void Start()
     {
         _inputHandler.OnInteract += HandleInteract;
@@ -29,6 +31,26 @@ public class PickupTrigger : MonoBehaviour
         _inputHandler.OnInteract -= HandleInteract;
         _playerCarryController.OnDropAllItems -= CheckIfItemsNotDestroyed;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
+
+        itemPrefab.EnableOutline(true);
+
+        _currentItems.Add(itemPrefab);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
+
+        itemPrefab.EnableOutline(false);
+
+        _currentItems.Remove(itemPrefab);
+    }
+
+    #endregion
 
     private void HandleInteract()
     {
@@ -63,26 +85,4 @@ public class PickupTrigger : MonoBehaviour
             _currentItems.RemoveAt(i);
         }
     }
-
-    #region Unity Loops
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
-
-        itemPrefab.EnableOutline(true);
-
-        _currentItems.Add(itemPrefab);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
-
-        itemPrefab.EnableOutline(false);
-
-        _currentItems.Remove(itemPrefab);
-    }
-
-    #endregion
 }

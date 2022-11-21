@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System.Linq;
+using System;
 
 public class CameraManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class CameraManager : MonoBehaviour
     private CinemachineBrain[] _cameras;
     private CinemachineVirtualCamera[] _vCams;
 
+    private GameObject _perspectiveCamera;
+
     #endregion
 
     #region Public Properties
@@ -22,6 +25,12 @@ public class CameraManager : MonoBehaviour
     #endregion
 
     #region Unity Loops
+
+    private void Start()
+    {
+        GetAllCameras();
+        _perspectiveCamera = Camera.main.transform.GetChild(0).gameObject;
+    }
 
     private void Awake()
     {
@@ -35,19 +44,37 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    #endregion
+
+    public void CullingMaskToggle(bool boolean)
     {
-        _cameras = FindObjectsOfType<CinemachineBrain>(true);
-        _cameras.OrderBy(p => p.name).ToList();
-        _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
-        _vCams.OrderBy(p => p.name).ToList();
+        if (boolean)
+        {
+            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = -1;
+            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Skybox;
+            _perspectiveCamera.SetActive(false);
+        }
+        else
+        {
+            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = LayerMask.GetMask("Ragdoll", "ShipFloor", "Orthographic");
+            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Nothing;
+            _perspectiveCamera.SetActive(true);
+        }
     }
 
+    private void GetAllCameras()
+    {
+        _cameras = FindObjectsOfType<CinemachineBrain>(true);
+        _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
 
-    #endregion
+        Array.Sort(_cameras, (a, b) => String.Compare(a.name, b.name));
+        Array.Sort(_vCams, (a, b) => String.Compare(a.name, b.name));
+    }
 
     public void ToggleCamera(bool boolean)
     {
+        GetAllCameras();
+
         _cameras[_cameras.Length - 1].gameObject.SetActive(boolean);
         _vCams[_vCams.Length - 1].gameObject.SetActive(boolean);
 
@@ -60,10 +87,7 @@ public class CameraManager : MonoBehaviour
 
     public void SplitScreen(int index)
     {
-        _cameras = FindObjectsOfType<CinemachineBrain>(true);
-        _cameras.OrderBy(p => p.name).ToList();
-        _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
-        _vCams.OrderBy(p => p.name).ToList();
+        GetAllCameras();
         ToggleCamera(false);
         if (index == 0)
         {
