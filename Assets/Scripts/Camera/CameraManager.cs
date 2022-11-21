@@ -11,8 +11,10 @@ public class CameraManager : MonoBehaviour
 
     private static CameraManager _instance;
 
-    [SerializeField] private CinemachineBrain[] _cameras;
-    [SerializeField] private CinemachineVirtualCamera[] _vCams;
+    private CinemachineBrain[] _cameras;
+    private CinemachineVirtualCamera[] _vCams;
+
+    private GameObject _perspectiveCamera;
 
     #endregion
 
@@ -23,6 +25,12 @@ public class CameraManager : MonoBehaviour
     #endregion
 
     #region Unity Loops
+
+    private void Start()
+    {
+        GetAllCameras();
+        _perspectiveCamera = Camera.main.transform.GetChild(0).gameObject;
+    }
 
     private void Awake()
     {
@@ -36,13 +44,23 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        GetAllCameras();
-    }
-
-
     #endregion
+
+    public void CullingMaskToggle(bool boolean)
+    {
+        if (boolean)
+        {
+            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = -1;
+            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Skybox;
+            _perspectiveCamera.SetActive(false);
+        }
+        else
+        {
+            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = LayerMask.GetMask("Ragdoll", "ShipFloor", "Orthographic");
+            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Nothing;
+            _perspectiveCamera.SetActive(true);
+        }
+    }
 
     private void GetAllCameras()
     {
@@ -69,10 +87,7 @@ public class CameraManager : MonoBehaviour
 
     public void SplitScreen(int index)
     {
-        _cameras = FindObjectsOfType<CinemachineBrain>(true);
-        _cameras.OrderBy(p => p.name).ToList();
-        _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
-        _vCams.OrderBy(p => p.name).ToList();
+        GetAllCameras();
         ToggleCamera(false);
         if (index == 0)
         {
