@@ -87,10 +87,7 @@ public class CameraManager : MonoBehaviour
 
     public void SplitScreen(int index)
     {
-        _cameras = FindObjectsOfType<CinemachineBrain>(true);
-        _cameras.OrderBy(p => p.name).ToList();
-        _vCams = FindObjectsOfType<CinemachineVirtualCamera>(true);
-        _vCams.OrderBy(p => p.name).ToList();
+        GetAllCameras();
         ToggleCamera(false);
         if (index == 0)
         {
