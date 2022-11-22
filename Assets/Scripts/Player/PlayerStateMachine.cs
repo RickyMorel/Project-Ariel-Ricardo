@@ -17,7 +17,7 @@ public class PlayerStateMachine : BaseStateMachine
     #region Public Properties
 
     public bool IsAttachedToShip => _isAttachedToShip;
-    public override bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
+    public new bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
 
     #endregion
 

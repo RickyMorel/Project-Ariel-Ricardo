@@ -20,7 +20,7 @@ public class Damageable : MonoBehaviour
 
     #region Private Variables
 
-    private int _currentHealth;
+    [SerializeField] private int _currentHealth;
 
     #endregion
 

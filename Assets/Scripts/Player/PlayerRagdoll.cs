@@ -40,6 +40,8 @@ public class PlayerRagdoll : MonoBehaviour
 
     public void EnableRagdoll(bool isEnabled)
     {
+        if(_colliders.Count < 1) { return; }
+
         if(isEnabled == false)
         {
             transform.position = _colliders[0].transform.position;

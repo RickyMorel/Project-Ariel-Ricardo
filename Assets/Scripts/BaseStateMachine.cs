@@ -62,7 +62,7 @@ public class BaseStateMachine : MonoBehaviour
     public Animator Anim => _anim;
     public bool IsJumpPressed => _isJumpPressed;
     public float RunSpeed => _runSpeed;
-    public virtual bool IsShooting => false;
+    public bool IsShooting;
 
     #endregion
 

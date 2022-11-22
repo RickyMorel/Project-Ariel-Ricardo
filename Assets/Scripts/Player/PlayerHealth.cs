@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Damageable
 {
     #region Editor Fields
 
+    [SerializeField] private bool _canKill = false;
     [SerializeField] private float _hurtTime = 5f;
 
     #endregion
@@ -28,13 +29,11 @@ public class PlayerHealth : MonoBehaviour
     //This is for the child classes
     public virtual void Start()
     {
-
+        base.Start();
     }
 
     public virtual void Hurt()
     {
-        Debug.Log("HURT: " + gameObject.name);
-
         OnHurt?.Invoke();
 
         StartCoroutine(HurtCoroutine());

@@ -17,6 +17,13 @@ public class AIHealth : PlayerHealth
 
         _gAgent = GetComponent<GAgent>();
         _interactionController = GetComponent<AIInteractionController>();
+
+        OnDamaged += Hurt;
+    }
+
+    private void OnDestroy()
+    {
+        OnDamaged -= Hurt;
     }
 
     public override void Hurt()

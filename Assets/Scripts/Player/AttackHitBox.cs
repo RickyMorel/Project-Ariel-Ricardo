@@ -2,25 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class AttackHitBox : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private string _enemyTag = "Player";
-    [SerializeField] private PlayerHealth _ownHealth;
+    [SerializeField] private Damageable _ownHealth;
 
     #endregion
 
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.gameObject.tag != _enemyTag) { return; }
+        if(!other.gameObject.TryGetComponent<Damageable>(out Damageable enemyHealth)) { return; }
 
-        if(!other.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth)) { return; }
+        if (enemyHealth == _ownHealth) { return; }
 
-        if (playerHealth == _ownHealth) { return; }
-
-        playerHealth.Hurt();
+        if (enemyHealth is PlayerHealth) 
+        { 
+            PlayerHealth playerHealth = enemyHealth as PlayerHealth;
+            playerHealth.Hurt(); 
+        }
     }
 }

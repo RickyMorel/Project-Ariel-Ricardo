@@ -20,4 +20,9 @@ public class AIStateMachine : BaseStateMachine
     {
         _moveDirection.x = _gAgent.IsMoving ? 1f : 0f;
     }
+
+    public void BasicAttack()
+    {
+        IsShooting = true;
+    }
 }
