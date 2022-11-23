@@ -16,11 +16,14 @@ public class Damageable : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image _healthBarImage;
 
+    [Header("FX")]
+    [SerializeField] private ParticleSystem _damageParticles;
+
     #endregion
 
     #region Private Variables
 
-    [SerializeField] private int _currentHealth;
+    private int _currentHealth;
 
     #endregion
 
@@ -71,6 +74,8 @@ public class Damageable : MonoBehaviour
         UpdateHealthUI();
 
         OnDamaged?.Invoke();
+
+        _damageParticles.Play();
 
         if (_currentHealth == 0)
             Die();
