@@ -8,7 +8,7 @@ public class MonsterPlant : GAgent
     {
         base.Start();
 
-        SubGoal s4 = new SubGoal("feelSafe", 1, false);
+        SubGoal s4 = new SubGoal("destroyShip", 1, false);
         Goals.Add(s4, 10);
     }
 }

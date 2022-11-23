@@ -23,6 +23,15 @@ public class AIStateMachine : BaseStateMachine
 
     public void BasicAttack()
     {
+        StartCoroutine(SetIsShootingCoroutine());
+    }
+
+    public IEnumerator SetIsShootingCoroutine()
+    {
         IsShooting = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        IsShooting = false;
     }
 }

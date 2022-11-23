@@ -50,6 +50,7 @@ public sealed class GWorld
     private static ResourceQueue _shops;
     private static ResourceQueue _hideLocations;
     private static ResourceQueue _restLocations;
+    private static ResourceQueue _shipAttackPoints;
     private static Dictionary<string, ResourceQueue> _resources = new Dictionary<string, ResourceQueue>();
 
     #endregion
@@ -62,11 +63,13 @@ public sealed class GWorld
     public static string FREE_SHOPS = "FreeShops";
     public static string FREE_HIDE_LOCATIONS = "FreeHideLocation";
     public static string FREE_REST_LOCATIONS = "FreeRestLocation";
+    public static string FREE_SHIP_ATTACK_POINTS = "FreeShipAttackPoint";
 
     public static string EATINGCHAIRS = "eatingChairs";
     public static string SHOPS = "shops";
     public static string HIDE_LOCATIONS = "hideLocations";
     public static string REST_LOCATIONS = "restLocations";
+    public static string SHIP_ATTACK_POINTS = "shipAttackPoints";
 
     #endregion
 
@@ -77,11 +80,13 @@ public sealed class GWorld
         _shops = new ResourceQueue("Shop", FREE_SHOPS, _world);
         _hideLocations = new ResourceQueue("HideLocation", FREE_HIDE_LOCATIONS, _world);
         _restLocations = new ResourceQueue("RestLocation", FREE_REST_LOCATIONS, _world);
+        _shipAttackPoints = new ResourceQueue("ShipAttackPoint", FREE_SHIP_ATTACK_POINTS, _world);
 
         _resources.Add(EATINGCHAIRS, _eatingChairs);
         _resources.Add(SHOPS, _shops);
         _resources.Add(HIDE_LOCATIONS, _hideLocations);
         _resources.Add(REST_LOCATIONS, _restLocations);
+        _resources.Add(SHIP_ATTACK_POINTS, _shipAttackPoints);
 
         //Leave this here for future testing
         //Time.timeScale = 5;
