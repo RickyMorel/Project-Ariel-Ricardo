@@ -34,8 +34,24 @@ public class AIHealth : PlayerHealth
         _gAgent.CurrentAction = null;
         _interactionController.CheckExitInteraction();
 
+        CheckIfLowHealth();
+        CheckIfScared();
+    }
+
+    private void CheckIfScared()
+    {
         if (_gAgent.Beliefs.HasState("scared")) { return; }
 
         _gAgent.Beliefs.AddState("scared", 1);
+    }
+
+    private void CheckIfLowHealth()
+    {
+        //If health is below 50%
+        if(CurrentHealth > MaxHealth * 0.5f) { return; }
+
+        if (_gAgent.Beliefs.HasState("hurt")) { return; }
+
+        _gAgent.Beliefs.AddState("hurt", 1);
     }
 }

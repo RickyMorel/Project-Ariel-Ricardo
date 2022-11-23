@@ -15,6 +15,7 @@ TagManager:
   - SpawnPoint
   - SpaceStation
   - ShipAttackPoint
+  - HealPoint
   layers:
   - Default
   - TransparentFX

@@ -9,4 +9,5 @@ public enum InteractionType
     Chest = 6,
     Scared = 7,
     ShopSalesmanIdle = 8,
+    Healing = 9,
 }
