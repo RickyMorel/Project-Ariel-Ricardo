@@ -49,6 +49,7 @@ public class GAgent : MonoBehaviour
     private bool _isMoving = false;
 
     private Rigidbody _rb;
+    [SerializeField] private float _goalDistance = 2f;
 
     #endregion
 
@@ -82,8 +83,10 @@ public class GAgent : MonoBehaviour
             if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.SetDestination(_destination); }
 
             float distanceToTarget = Vector3.Distance(_destination, transform.position);
-            if (distanceToTarget < 2f)
+            if (distanceToTarget < _goalDistance)
             {
+                if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.ResetPath(); }
+
                 _isMoving = false;
 
                 if (!_invoked)
@@ -101,6 +104,16 @@ public class GAgent : MonoBehaviour
         CheckIfRemoveGoal();
 
         TryPerformGoal();
+    }
+
+    public void SetGoalDistance(float newGoalDistance)
+    {
+        _goalDistance = newGoalDistance;
+    }
+
+    public void ResetGoalDistance()
+    {
+        _goalDistance = 2f;
     }
 
     private void TryPerformGoal()

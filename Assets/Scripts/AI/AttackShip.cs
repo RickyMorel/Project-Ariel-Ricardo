@@ -7,11 +7,13 @@ public class AttackShip : GAction
     #region Private Variables
 
     private AIStateMachine _stateMachine;
+    private GAgent _gAgent;
 
     #endregion
 
     private void Start()
     {
+        _gAgent = Agent.GetComponent<GAgent>();
         _stateMachine = Agent.GetComponent<AIStateMachine>();
     }
 
@@ -25,6 +27,8 @@ public class AttackShip : GAction
 
         GWorld.Instance.GetWorld().ModifyState(GWorld.FREE_SHIP_ATTACK_POINTS, -1);
 
+        _gAgent.SetGoalDistance(10f);
+
         return true;
     }
 
@@ -37,6 +41,8 @@ public class AttackShip : GAction
         GWorld.Instance.GetWorld().ModifyState(GWorld.FREE_SHIP_ATTACK_POINTS, 1);
 
         _stateMachine.BasicAttack();
+
+        _gAgent.ResetGoalDistance();
 
         return true;
     }

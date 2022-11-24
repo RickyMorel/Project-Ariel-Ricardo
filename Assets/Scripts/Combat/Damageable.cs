@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Damageable : MonoBehaviour
 {
@@ -75,7 +75,7 @@ public class Damageable : MonoBehaviour
 
         OnDamaged?.Invoke();
 
-        _damageParticles.Play();
+        _damageParticles?.Play();
 
         if (_currentHealth == 0)
             Die();

@@ -18,6 +18,8 @@ public class AttackHitBox : MonoBehaviour
 
         if (enemyHealth == _ownHealth) { return; }
 
+        enemyHealth.Damage(20);
+
         if (enemyHealth is PlayerHealth) 
         { 
             PlayerHealth playerHealth = enemyHealth as PlayerHealth;
