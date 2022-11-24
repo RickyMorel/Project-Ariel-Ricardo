@@ -28,11 +28,11 @@ public class AIHealth : PlayerHealth
 
     public override void Hurt()
     {
-        base.Hurt();
-
         _gAgent.CurrentAction?.PostPeform();
         _gAgent.CurrentAction = null;
         _interactionController.CheckExitInteraction();
+
+        if(CurrentHealth <= 0) { IsHurt = true; }
 
         CheckIfLowHealth();
         CheckIfScared();

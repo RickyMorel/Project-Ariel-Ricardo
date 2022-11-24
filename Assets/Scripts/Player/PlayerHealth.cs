@@ -20,7 +20,7 @@ public class PlayerHealth : Damageable
 
     #region Public Properties
 
-    public bool IsHurt => _isHurt;
+    public bool IsHurt { get { return _isHurt; } set { _isHurt = value; } }
 
     public event Action OnHurt;
 
