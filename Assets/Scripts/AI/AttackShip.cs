@@ -8,6 +8,7 @@ public class AttackShip : GAction
 
     private AIStateMachine _stateMachine;
     private GAgent _gAgent;
+    private AICombat _aiCombat;
 
     #endregion
 
@@ -15,6 +16,7 @@ public class AttackShip : GAction
     {
         _gAgent = Agent.GetComponent<GAgent>();
         _stateMachine = Agent.GetComponent<AIStateMachine>();
+        _aiCombat = Agent.GetComponent<AICombat>();
     }
 
     public override bool PrePerform()
@@ -27,7 +29,7 @@ public class AttackShip : GAction
 
         GWorld.Instance.GetWorld().ModifyState(GWorld.FREE_SHIP_ATTACK_POINTS, -1);
 
-        _gAgent.SetGoalDistance(10f);
+        _gAgent.SetGoalDistance(_aiCombat.AttackRange);
 
         return true;
     }

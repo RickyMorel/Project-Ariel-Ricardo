@@ -7,12 +7,19 @@ public class PlayerCombat : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private Collider _attackHitbox;
+    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private Transform _shootTransform;
 
     #endregion
 
     public void Hit()
     {
         StartCoroutine(EnableHitboxRoutine());
+    }
+
+    public void Shoot()
+    {
+        GameObject newProjectile = Instantiate(_projectilePrefab, _shootTransform.position, _shootTransform.rotation);
     }
 
     private IEnumerator EnableHitboxRoutine()

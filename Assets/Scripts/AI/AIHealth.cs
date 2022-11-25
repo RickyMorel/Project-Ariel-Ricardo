@@ -28,11 +28,7 @@ public class AIHealth : PlayerHealth
 
     public override void Hurt()
     {
-        _gAgent.CurrentAction?.PostPeform();
-        _gAgent.CurrentAction = null;
-        _interactionController.CheckExitInteraction();
-
-        if(CurrentHealth <= 0) { IsHurt = true; }
+        if (CurrentHealth <= 0) { IsHurt = true; }
 
         CheckIfLowHealth();
         CheckIfScared();
@@ -42,16 +38,26 @@ public class AIHealth : PlayerHealth
     {
         if (_gAgent.Beliefs.HasState("scared")) { return; }
 
+        StopPreviousAction();
+
         _gAgent.Beliefs.AddState("scared", 1);
     }
 
     private void CheckIfLowHealth()
     {
         //If health is below 50%
-        if(CurrentHealth > MaxHealth * 0.5f) { return; }
+        if (CurrentHealth > MaxHealth * 0.5f) { return; }
 
         if (_gAgent.Beliefs.HasState("hurt")) { return; }
 
+        StopPreviousAction();
+
         _gAgent.Beliefs.AddState("hurt", 1);
+    }
+
+    private void StopPreviousAction()
+    {
+        _gAgent.CancelPreviousActions();
+        _interactionController.CheckExitInteraction();
     }
 }

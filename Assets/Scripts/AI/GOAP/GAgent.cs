@@ -87,6 +87,8 @@ public class GAgent : MonoBehaviour
             {
                 if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.ResetPath(); }
 
+                if (CurrentAction.ActionName == "Heal") { Debug.Log($"distanceToTarget: {distanceToTarget} < _goalDistance: {_goalDistance}"); }
+
                 _isMoving = false;
 
                 if (!_invoked)
@@ -177,6 +179,15 @@ public class GAgent : MonoBehaviour
     }
 
     #endregion
+
+    public void CancelPreviousActions()
+    {
+        Debug.Log("CancelPreviousActions");
+        CurrentAction?.PostPeform();
+        CurrentAction = null;
+        CancelInvoke(nameof(CompleteAction));
+        _invoked = false;
+    }
 
     private void CompleteAction()
     {

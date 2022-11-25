@@ -28,10 +28,10 @@ public class AIStateMachine : BaseStateMachine
 
     public IEnumerator SetIsShootingCoroutine()
     {
-        IsShooting = true;
+        _isShooting = true;
 
         yield return new WaitForSeconds(0.5f);
 
-        IsShooting = false;
+        _isShooting = false;
     }
 }
