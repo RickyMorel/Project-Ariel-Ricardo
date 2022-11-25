@@ -9,6 +9,7 @@ public class HealingInteractable : Interactable
 
     [Range(0f, 100f)]
     [SerializeField] private float _healPercentageToAdd = 20f;
+    [SerializeField] private ParticleSystem _healParticles;
 
     #endregion
 
@@ -31,5 +32,7 @@ public class HealingInteractable : Interactable
         float healthToAdd = damageable.MaxHealth * (_healPercentageToAdd / 100f);
 
         damageable.AddHealth((int)healthToAdd);
+
+        _healParticles.Play();
     }
 }
