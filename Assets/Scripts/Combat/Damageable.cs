@@ -51,6 +51,9 @@ public class Damageable : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
 
+        //Turrets can't harm their own ship
+        if(other.gameObject.tag == "Untagged" && gameObject.tag == "MainShip") { return; }
+
         if(other.gameObject.tag == gameObject.tag) { return; }
 
         Damage(projectile.Damage);

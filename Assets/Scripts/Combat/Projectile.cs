@@ -32,10 +32,14 @@ public class Projectile : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        _rb.AddForce(transform.forward * _speed, ForceMode.Impulse);
+    }
+
     public void Initialize(string ownerTag)
     {
         gameObject.tag = ownerTag;
-        _rb.AddForce(transform.forward * _speed, ForceMode.Impulse);
     }
 
     #endregion
