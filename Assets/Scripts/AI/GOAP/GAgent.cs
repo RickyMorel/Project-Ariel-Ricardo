@@ -49,7 +49,7 @@ public class GAgent : MonoBehaviour
     private bool _isMoving = false;
 
     private Rigidbody _rb;
-    [SerializeField] private float _goalDistance = 2f;
+    private float _goalDistance = 2f;
 
     #endregion
 
@@ -182,7 +182,6 @@ public class GAgent : MonoBehaviour
 
     public void CancelPreviousActions()
     {
-        Debug.Log("CancelPreviousActions");
         CurrentAction?.PostPeform();
         CurrentAction = null;
         CancelInvoke(nameof(CompleteAction));
