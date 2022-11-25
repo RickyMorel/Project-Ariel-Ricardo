@@ -51,6 +51,8 @@ public class Damageable : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
 
+        if(other.gameObject.tag == gameObject.tag) { return; }
+
         Damage(projectile.Damage);
 
         Destroy(projectile.gameObject);
@@ -75,7 +77,7 @@ public class Damageable : MonoBehaviour
 
         OnDamaged?.Invoke();
 
-        _damageParticles?.Play();
+        if (_damageParticles != null) { _damageParticles.Play(); }
 
         if (_currentHealth == 0)
             Die();

@@ -32,15 +32,11 @@ public class Projectile : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Start()
+    public void Initialize(string ownerTag)
     {
+        gameObject.tag = ownerTag;
         _rb.AddForce(transform.forward * _speed, ForceMode.Impulse);
     }
 
     #endregion
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
 }

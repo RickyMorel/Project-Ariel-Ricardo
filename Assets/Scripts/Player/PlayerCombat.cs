@@ -6,9 +6,9 @@ public class PlayerCombat : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private Collider _attackHitbox;
-    [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private Transform _shootTransform;
+    [SerializeField] protected Collider _attackHitbox;
+    [SerializeField] protected GameObject _projectilePrefab;
+    [SerializeField] protected Transform _shootTransform;
 
     #endregion
 
@@ -17,9 +17,10 @@ public class PlayerCombat : MonoBehaviour
         StartCoroutine(EnableHitboxRoutine());
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         GameObject newProjectile = Instantiate(_projectilePrefab, _shootTransform.position, _shootTransform.rotation);
+        newProjectile.GetComponent<Projectile>().Initialize(tag);
     }
 
     private IEnumerator EnableHitboxRoutine()

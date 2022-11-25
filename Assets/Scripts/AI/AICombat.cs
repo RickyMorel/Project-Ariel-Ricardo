@@ -24,6 +24,14 @@ public class AICombat : PlayerCombat
         _gAgent = GetComponent<GAgent>();
     }
 
+    public override void Shoot()
+    {
+        Transform enemyTransform = _gAgent.CurrentAction.Target.transform;
+        GameObject newProjectile = Instantiate(_projectilePrefab, _shootTransform.position, _shootTransform.rotation);
+        newProjectile.transform.LookAt(enemyTransform);
+        newProjectile.GetComponent<Projectile>().Initialize(tag);
+    }
+
     public void Aggro()
     {
         if (_gAgent.Beliefs.HasState("aggro")) { return; }
