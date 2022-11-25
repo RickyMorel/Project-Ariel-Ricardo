@@ -56,7 +56,7 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = LayerMask.GetMask("Ragdoll", "ShipFloor", "Orthographic");
+            _cameras[_cameras.Length - 1].OutputCamera.cullingMask = LayerMask.GetMask("Ragdoll", "ShipFloor", "Orthographic", "UI");
             _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Nothing;
             _perspectiveCamera.SetActive(true);
         }

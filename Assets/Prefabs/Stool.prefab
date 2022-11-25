@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionType: 1
   _playerPositionTransform: {fileID: 8358578009125305961}
+  _isAIOnlyInteractable: 0
   _isSingleUse: 0
   _singleUseTime: 0.5
 --- !u!1 &5635587975307178782
@@ -193,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8358578009125305961}
   m_Layer: 0
-  m_Name: PlayerPosition
+  m_Name: Destination
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

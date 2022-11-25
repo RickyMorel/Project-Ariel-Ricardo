@@ -27,6 +27,9 @@ public class Pickaxe : RotationalInteractable
     {
         base.Update();
 
+        //Finish moving even when player gets off
+        if (_currentPlayer == null && CurrentAngle != 0) { FinishRotateWhenPlayerIsNull(); }
+
         if (_currentPlayer == null) { SetIsBoosting(false); return; }
 
         if (!_currentPlayer.IsUsing) { SetIsBoosting(false); return; }
@@ -61,7 +64,7 @@ public class Pickaxe : RotationalInteractable
     {
         if(CurrentAngle == 0) { return; }
 
-        if((_isBoosting || _currentPlayer.MoveDirection.magnitude > 0) && CurrentAngle < _topSpeed) { return; }
+        if(_currentPlayer != null && (_isBoosting || _currentPlayer.MoveDirection.magnitude > 0) && CurrentAngle < _topSpeed) { return; }
 
         CurrentAngle -= CurrentAngle * _pickaxeDrag * Time.deltaTime;
     }
@@ -95,6 +98,11 @@ public class Pickaxe : RotationalInteractable
 
         CurrentAngle = CurrentAngle + acceleration;
 
+        RotatorTransform.RotateAround(PivotTransform.position, Vector3.forward, -CurrentAngle);
+    }
+
+    public virtual void FinishRotateWhenPlayerIsNull()
+    {
         RotatorTransform.RotateAround(PivotTransform.position, Vector3.forward, -CurrentAngle);
     }
 }

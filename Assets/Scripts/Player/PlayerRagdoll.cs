@@ -14,7 +14,7 @@ public class PlayerRagdoll : MonoBehaviour
     #region Private Variables
 
     private Rigidbody _mainRb;
-    private CapsuleCollider _mainCollider;
+    private Collider _mainCollider;
     private Animator _anim;
     private NavMeshAgent _agent;
 
@@ -25,7 +25,7 @@ public class PlayerRagdoll : MonoBehaviour
     private void Awake()
     {
         _mainRb = GetComponent<Rigidbody>();
-        _mainCollider = GetComponent<CapsuleCollider>();
+        _mainCollider = GetComponent<Collider>();
         _anim = GetComponent<Animator>();
 
         _agent = GetComponent<NavMeshAgent>();
@@ -40,19 +40,32 @@ public class PlayerRagdoll : MonoBehaviour
 
     public void EnableRagdoll(bool isEnabled)
     {
-        if(isEnabled == false)
+        if (_colliders.Count < 1) { if (isEnabled) { PlayDeathAnimation(); } return; }
+
+        if (isEnabled == false)
         {
             transform.position = _colliders[0].transform.position;
         }
 
-        _mainRb.useGravity = !isEnabled;
-        _mainCollider.enabled = !isEnabled;
-        _anim.enabled = !isEnabled;
-        if(_agent != null) { _agent.enabled = !isEnabled; }
+        DisableMovement(isEnabled, true);
 
         foreach (Collider collider in _colliders)
         {
             collider.enabled = isEnabled;
         }
+    }
+
+    private void DisableMovement(bool isEnabled, bool hasRagdoll)
+    {
+        _mainRb.useGravity = !isEnabled;
+        _mainCollider.enabled = !isEnabled;
+        if (hasRagdoll) { _anim.enabled = !isEnabled; }
+        if (_agent != null) { _agent.enabled = !isEnabled; }
+    }
+
+    private void PlayDeathAnimation()
+    {
+        _anim.SetBool("IsDead", true);
+        DisableMovement(true, false);
     }
 }
