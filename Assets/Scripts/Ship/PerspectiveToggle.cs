@@ -15,6 +15,8 @@ public class PerspectiveToggle : MonoBehaviour
     private void Start()
     {
         _cameraManager = FindObjectOfType<CameraManager>();
+
+        StartCoroutine(OthoPerspectiveToggle(false));
     }
 
     private void OnTriggerEnter(Collider other)

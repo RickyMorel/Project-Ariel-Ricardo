@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Damageable : MonoBehaviour
 {
@@ -15,6 +15,9 @@ public class Damageable : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Image _healthBarImage;
+
+    [Header("FX")]
+    [SerializeField] private ParticleSystem _damageParticles;
 
     #endregion
 
@@ -48,6 +51,11 @@ public class Damageable : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
 
+        //Turrets can't harm their own ship
+        if(other.gameObject.tag == "Untagged" && gameObject.tag == "MainShip") { return; }
+
+        if(other.gameObject.tag == gameObject.tag) { return; }
+
         Damage(projectile.Damage);
 
         Destroy(projectile.gameObject);
@@ -71,6 +79,8 @@ public class Damageable : MonoBehaviour
         UpdateHealthUI();
 
         OnDamaged?.Invoke();
+
+        if (_damageParticles != null) { _damageParticles.Play(); }
 
         if (_currentHealth == 0)
             Die();

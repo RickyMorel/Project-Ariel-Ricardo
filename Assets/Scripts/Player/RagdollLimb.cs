@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 //This class is used to stop the ragdoll from flying away
 public class RagdollLimb : MonoBehaviour
 {

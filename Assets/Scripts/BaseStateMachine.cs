@@ -33,6 +33,8 @@ public class BaseStateMachine : MonoBehaviour
     public float GravityIntensity { get { return _gravityIntensity; } set { _gravityIntensity = value; } }
     public bool IsGrounded { get { return _isGrounded; } set { _isGrounded = value; } }
     public bool CanMove { get { return _canMove; } set { _canMove = value; } }
+    public virtual bool IsShooting { get { return _isShooting; } set { _isShooting = value; } }
+
 
     #endregion
 
@@ -48,6 +50,7 @@ public class BaseStateMachine : MonoBehaviour
     protected bool _isJumpPressed;
     protected Vector3 _moveDirection;
     protected bool _canMove = true;
+    protected bool _isShooting;
 
     #endregion
 
@@ -62,7 +65,6 @@ public class BaseStateMachine : MonoBehaviour
     public Animator Anim => _anim;
     public bool IsJumpPressed => _isJumpPressed;
     public float RunSpeed => _runSpeed;
-    public virtual bool IsShooting => false;
 
     #endregion
 

@@ -37,10 +37,10 @@ public class Projectile : MonoBehaviour
         _rb.AddForce(transform.forward * _speed, ForceMode.Impulse);
     }
 
-    #endregion
-
-    private void OnTriggerEnter(Collider other)
+    public void Initialize(string ownerTag)
     {
-        
+        gameObject.tag = ownerTag;
     }
+
+    #endregion
 }

@@ -20,4 +20,18 @@ public class AIStateMachine : BaseStateMachine
     {
         _moveDirection.x = _gAgent.IsMoving ? 1f : 0f;
     }
+
+    public void BasicAttack()
+    {
+        StartCoroutine(SetIsShootingCoroutine());
+    }
+
+    public IEnumerator SetIsShootingCoroutine()
+    {
+        _isShooting = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        _isShooting = false;
+    }
 }
