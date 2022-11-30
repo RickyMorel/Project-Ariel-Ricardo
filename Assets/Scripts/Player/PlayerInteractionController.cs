@@ -1,6 +1,10 @@
 
+using UnityEngine;
+
 public class PlayerInteractionController : BaseInteractionController
 {
+    [SerializeField] private UpgradeChip _upgradeChip;
+
     #region Private Variables
 
     private PlayerInputHandler _playerInput;
@@ -56,6 +60,6 @@ public class PlayerInteractionController : BaseInteractionController
         if((_currentInteractable is Upgradable) == false) { return; }
 
         Upgradable upgradable = _currentInteractable as Upgradable;
-        upgradable.TryUpgrade(_shipInventory.InventoryDictionary);
+        upgradable.TryUpgrade(_upgradeChip);
     }
 }

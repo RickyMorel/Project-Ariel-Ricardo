@@ -5700,9 +5700,11 @@ MonoBehaviour:
   - {fileID: 5875497789064163618}
   _upgrades:
   - UpgradeMesh: {fileID: 5196917001017997861}
-    CraftingRecipy: {fileID: 11400000, guid: d319920631389c1479433087dd1f2747, type: 2}
+    _socket_1_ChipType: 0
+    _socket_2_ChipType: 0
   - UpgradeMesh: {fileID: 6789963676191033517}
-    CraftingRecipy: {fileID: 11400000, guid: 39912a564482bad46959a99579373935, type: 2}
+    _socket_1_ChipType: 1
+    _socket_2_ChipType: 0
   _upgradeParticles: {fileID: 7627081816753702696}
   _projectilePrefab: {fileID: 6835169869500657298, guid: ae5425c51ae307f4bb82602a757b6b25, type: 3}
   _timeBetweenShots: 0.2
@@ -5881,7 +5883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6392837650611185691, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.945
+      value: -2.887
       objectReference: {fileID: 0}
     - target: {fileID: 6392837650611185691, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5948,7 +5950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6392837650611185691, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.577
+      value: -3.639
       objectReference: {fileID: 0}
     - target: {fileID: 6392837650611185691, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
       propertyPath: m_LocalRotation.w

@@ -6,6 +6,7 @@ public class Upgradable : Interactable
 {
     #region Editor Fields
 
+    [Header("Upgrades")]
     [SerializeField] private GameObject[] _upgradeSockets;
     [SerializeField] private Upgrade[] _upgrades;
 
@@ -16,6 +17,8 @@ public class Upgradable : Interactable
 
     #region Private Variables
 
+    private ChipType[] _upgradeSocketsTypes = { ChipType.None, ChipType.None };
+    private List<GameObject> _chipInstances = new List<GameObject>();
     private int _currentLevel = 0;
 
     #endregion
@@ -27,6 +30,12 @@ public class Upgradable : Interactable
         //TODO: read current level from save data
 
         EnableUpgradeMesh();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+            RemoveUpgrades();
     }
 
     public override void OnTriggerEnter(Collider other)
@@ -45,26 +54,47 @@ public class Upgradable : Interactable
 
     #endregion
 
-    public void TryUpgrade(Dictionary<Item, ItemQuantity> ownedItems)
+    public void RemoveUpgrades()
     {
-        foreach (ItemQuantity itemQuantity in _upgrades[_currentLevel].CraftingRecipy.CraftingIngredients)
+        Debug.Log("RemoveUpgrades");
+        _upgradeSocketsTypes[0] = ChipType.None;
+        _upgradeSocketsTypes[1] = ChipType.None;
+
+        foreach (GameObject chip in _chipInstances)
         {
-            //if has item
-            if(!ownedItems.TryGetValue(itemQuantity.Item, out ItemQuantity ownedItemQuantity)) { return; }
-
-            //if has correct amount
-            if(ownedItemQuantity.Amount < itemQuantity.Amount) { return; }
+            Destroy(chip.gameObject);
         }
+        _chipInstances.Clear();
 
-        Upgrade();
+        EnableUpgradeMesh();
+        PlayUpgradeFX();
     }
 
-    public void Upgrade()
+    public void TryUpgrade(UpgradeChip upgradeChip)
     {
-        if(_currentLevel + 1 > _upgrades.Length - 1) { return; }
+        int socketIndex = -1;
+        bool foundEmptySocket = false;
+        foreach (ChipType socket in _upgradeSocketsTypes)
+        {
+            socketIndex++;
 
-        _currentLevel++;
+            if (socket != ChipType.None) { continue; }
 
+            foundEmptySocket = true;
+
+            break;
+        }
+
+        if (!foundEmptySocket) { return; }
+
+        _upgradeSocketsTypes[socketIndex] = upgradeChip.ChipType;
+
+        Upgrade(upgradeChip, socketIndex);
+    }
+
+    public void Upgrade(UpgradeChip upgradeChip, int socketIndex)
+    {
+        PlaceChip(upgradeChip, socketIndex);
         EnableUpgradeMesh();
         PlayUpgradeFX();
     }
@@ -74,6 +104,14 @@ public class Upgradable : Interactable
         _upgradeParticles.Play();
     }
 
+    private void PlaceChip(UpgradeChip upgradeChip, int socketIndex)
+    {
+        GameObject newChip = Instantiate(upgradeChip.Prefab, _upgradeSockets[socketIndex].transform);
+        newChip.transform.localPosition = new Vector3(-0.025f, 0.15f, 0f);
+        newChip.transform.localEulerAngles = new Vector3(90f, 0f,-90f);
+        _chipInstances.Add(newChip);
+    }
+
     public void EnableUpgradeMesh()
     {
         foreach (Upgrade upgrade in _upgrades)
@@ -81,7 +119,17 @@ public class Upgradable : Interactable
             upgrade.UpgradeMesh.SetActive(false);
         }
 
-        _upgrades[_currentLevel].UpgradeMesh.SetActive(true);
+        int upgradeMeshIndex = -1;
+        foreach (Upgrade upgrade in _upgrades)
+        {
+            upgradeMeshIndex++;
+            if(upgrade._socket_1_ChipType == _upgradeSocketsTypes[0] && upgrade._socket_2_ChipType == _upgradeSocketsTypes[1])
+            {
+                break;
+            }
+        }
+
+        _upgrades[upgradeMeshIndex].UpgradeMesh.SetActive(true);
     }
 }
 
@@ -91,7 +139,8 @@ public class Upgradable : Interactable
 public class Upgrade
 {
     public GameObject UpgradeMesh;
-    public CraftingRecipy CraftingRecipy;
+    public ChipType _socket_1_ChipType;
+    public ChipType _socket_2_ChipType;
 }
 
 #endregion
