@@ -6,8 +6,8 @@ public class Upgradable : Interactable
 {
     #region Editor Fields
 
+    [SerializeField] private GameObject[] _upgradeSockets;
     [SerializeField] private Upgrade[] _upgrades;
-    [SerializeField] private Canvas _upgradesCanvas;
 
     [Header("FX")]
     [SerializeField] private ParticleSystem _upgradeParticles;

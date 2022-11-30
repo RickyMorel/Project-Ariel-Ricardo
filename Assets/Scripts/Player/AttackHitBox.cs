@@ -18,7 +18,13 @@ public class AttackHitBox : MonoBehaviour
 
         if (enemyHealth == _ownHealth) { return; }
 
-        enemyHealth.Damage(20);
+        if(enemyHealth is AIHealth)
+        {
+            AIHealth aiHealth = (AIHealth)enemyHealth;
+            if (aiHealth.CanKill) { enemyHealth.Damage(20); }
+            else { aiHealth.Hurt(); }
+        }
+        
 
         if (enemyHealth is PlayerHealth) 
         { 
