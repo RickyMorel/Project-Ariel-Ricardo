@@ -70,7 +70,7 @@ public class Upgradable : Interactable
         PlayUpgradeFX();
     }
 
-    public void TryUpgrade(UpgradeChip upgradeChip)
+    public bool TryUpgrade(UpgradeChip upgradeChip)
     {
         int socketIndex = -1;
         bool foundEmptySocket = false;
@@ -85,11 +85,13 @@ public class Upgradable : Interactable
             break;
         }
 
-        if (!foundEmptySocket) { return; }
+        if (!foundEmptySocket) { return false; }
 
         _upgradeSocketsTypes[socketIndex] = upgradeChip.ChipType;
 
         Upgrade(upgradeChip, socketIndex);
+
+        return true;
     }
 
     public void Upgrade(UpgradeChip upgradeChip, int socketIndex)

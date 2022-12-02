@@ -7,6 +7,7 @@ public class GameAssetsManager : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private GameObject _damagePopup;
+    [SerializeField] private GameObject _chipPickup;
 
     #endregion
 
@@ -19,6 +20,7 @@ public class GameAssetsManager : MonoBehaviour
     #region Public Properties
 
     public GameObject DamagePopup => _damagePopup;
+    public GameObject ChipPickup => _chipPickup;
 
     public static GameAssetsManager Instance { get { return _instance; } }
 
