@@ -103,12 +103,14 @@ MonoBehaviour:
   _isAIOnlyInteractable: 0
   _isSingleUse: 0
   _singleUseTime: 0.5
-  _upgradeSockets:
+  _upgradeSocketObjs:
   - {fileID: 1184923613242633005}
   - {fileID: 3062101694037517811}
   _upgrades:
   - UpgradeMesh: {fileID: 7473328548439351794}
-    CraftingRecipy: {fileID: 11400000, guid: 39912a564482bad46959a99579373935, type: 2}
+    _socket_1_ChipType: 0
+    _socket_2_ChipType: 0
+  _chipDropTransform: {fileID: 0}
   _upgradeParticles: {fileID: 0}
   _rotationSpeed: 120
   _pivotTransform: {fileID: 0}

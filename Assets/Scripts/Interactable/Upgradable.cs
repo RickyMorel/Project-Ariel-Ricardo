@@ -12,9 +12,6 @@ public class Upgradable : Interactable
     [SerializeField] private Upgrade[] _upgrades;
     [SerializeField] private Transform _chipDropTransform;
 
-    [Header("FX")]
-    [SerializeField] private ParticleSystem _upgradeParticles;
-
     #endregion
 
     #region Private Variables
@@ -107,7 +104,8 @@ public class Upgradable : Interactable
 
     private void PlayUpgradeFX()
     {
-        _upgradeParticles.Play();
+        GameObject particlesPrefab = GameAssetsManager.Instance.UpgradeParticles;
+        Instantiate(particlesPrefab, transform.position, particlesPrefab.transform.rotation);
     }
 
     private void PlaceChip(UpgradeChip upgradeChip, int socketIndex)
