@@ -7,8 +7,9 @@ public class Upgradable : Interactable
     #region Editor Fields
 
     [Header("Upgrades")]
-    [SerializeField] private GameObject[] _upgradeSockets;
+    [SerializeField] private GameObject[] _upgradeSocketObjs;
     [SerializeField] private Upgrade[] _upgrades;
+    [SerializeField] private Transform _chipDropTransform;
 
     [Header("FX")]
     [SerializeField] private ParticleSystem _upgradeParticles;
@@ -17,9 +18,8 @@ public class Upgradable : Interactable
 
     #region Private Variables
 
-    private ChipType[] _upgradeSocketsTypes = { ChipType.None, ChipType.None };
+    private UpgradeChip[] _upgradeSockets = { null, null };
     private List<GameObject> _chipInstances = new List<GameObject>();
-    private int _currentLevel = 0;
 
     #endregion
 
@@ -32,33 +32,17 @@ public class Upgradable : Interactable
         EnableUpgradeMesh();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-            RemoveUpgrades();
-    }
-
-    public override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-
-        //_upgradesCanvas.enabled = true;
-    }
-
-    public override void OnTriggerExit(Collider other)
-    {
-        base.OnTriggerExit(other);
-
-        //_upgradesCanvas.enabled = false;
-    }
-
     #endregion
 
     public void RemoveUpgrades()
     {
+        if(_upgradeSockets[0] == null && _upgradeSockets[1] == null) { return; }
+
         Debug.Log("RemoveUpgrades");
-        _upgradeSocketsTypes[0] = ChipType.None;
-        _upgradeSocketsTypes[1] = ChipType.None;
+        InstantiateChipPickups();
+
+        _upgradeSockets[0] = null;
+        _upgradeSockets[1] = null;
 
         foreach (GameObject chip in _chipInstances)
         {
@@ -70,15 +54,27 @@ public class Upgradable : Interactable
         PlayUpgradeFX();
     }
 
+    public void InstantiateChipPickups()
+    {
+        foreach (UpgradeChip chip in _upgradeSockets)
+        {
+            if(chip == null) { continue; }
+
+            GameObject chipPickupInstance = Instantiate(GameAssetsManager.Instance.ChipPickup, _chipDropTransform.position, Quaternion.identity);
+            chipPickupInstance.GetComponent<ChipPickup>().Initialize(chip);
+        }
+    }
+
     public bool TryUpgrade(UpgradeChip upgradeChip)
     {
         int socketIndex = -1;
         bool foundEmptySocket = false;
-        foreach (ChipType socket in _upgradeSocketsTypes)
+
+        foreach (UpgradeChip socket in _upgradeSockets)
         {
             socketIndex++;
 
-            if (socket != ChipType.None) { continue; }
+            if (socket != null) { continue; }
 
             foundEmptySocket = true;
 
@@ -87,7 +83,7 @@ public class Upgradable : Interactable
 
         if (!foundEmptySocket) { return false; }
 
-        _upgradeSocketsTypes[socketIndex] = upgradeChip.ChipType;
+        _upgradeSockets[socketIndex] = upgradeChip;
 
         Upgrade(upgradeChip, socketIndex);
 
@@ -96,6 +92,8 @@ public class Upgradable : Interactable
 
     public void Upgrade(UpgradeChip upgradeChip, int socketIndex)
     {
+        if(upgradeChip == null) { return; }
+
         PlaceChip(upgradeChip, socketIndex);
         EnableUpgradeMesh();
         PlayUpgradeFX();
@@ -108,7 +106,9 @@ public class Upgradable : Interactable
 
     private void PlaceChip(UpgradeChip upgradeChip, int socketIndex)
     {
-        GameObject newChip = Instantiate(upgradeChip.Prefab, _upgradeSockets[socketIndex].transform);
+        if(upgradeChip == null) { return; }
+
+        GameObject newChip = Instantiate(upgradeChip.Prefab, _upgradeSocketObjs[socketIndex].transform);
         newChip.transform.localPosition = new Vector3(-0.025f, 0.15f, 0f);
         newChip.transform.localEulerAngles = new Vector3(90f, 0f,-90f);
         _chipInstances.Add(newChip);
@@ -121,11 +121,14 @@ public class Upgradable : Interactable
             upgrade.UpgradeMesh.SetActive(false);
         }
 
+        ChipType socket_1_chip_type = _upgradeSockets[0] ? _upgradeSockets[0].ChipType : ChipType.None;
+        ChipType socket_2_chip_type = _upgradeSockets[1] ? _upgradeSockets[1].ChipType : ChipType.None;
+
         int upgradeMeshIndex = -1;
         foreach (Upgrade upgrade in _upgrades)
         {
             upgradeMeshIndex++;
-            if(upgrade._socket_1_ChipType == _upgradeSocketsTypes[0] && upgrade._socket_2_ChipType == _upgradeSocketsTypes[1])
+            if(upgrade._socket_1_ChipType == socket_1_chip_type && upgrade._socket_2_ChipType == socket_2_chip_type)
             {
                 break;
             }
