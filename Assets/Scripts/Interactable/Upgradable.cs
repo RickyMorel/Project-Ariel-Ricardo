@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,12 @@ public class Upgradable : Interactable
 
     #endregion
 
+    #region Public Properties
+
+    public event Action<GameObject> OnUpgradeMesh;
+
+    #endregion
+
     #region Unity Loops
 
     public virtual void Start()
@@ -38,7 +45,6 @@ public class Upgradable : Interactable
     {
         if(_upgradeSockets[0] == null && _upgradeSockets[1] == null) { return; }
 
-        Debug.Log("RemoveUpgrades");
         InstantiateChipPickups();
 
         _upgradeSockets[0] = null;
@@ -134,7 +140,11 @@ public class Upgradable : Interactable
             }
         }
 
-        _upgrades[upgradeMeshIndex].UpgradeMesh.SetActive(true);
+        GameObject newMesh = _upgrades[upgradeMeshIndex].UpgradeMesh;
+
+        newMesh.SetActive(true);
+
+        OnUpgradeMesh?.Invoke(newMesh);
     }
 }
 

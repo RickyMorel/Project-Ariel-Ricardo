@@ -28,13 +28,11 @@ public class PlayerUpgradesController : MonoBehaviour
         _chipPickupPrefab = GameAssetsManager.Instance.ChipPickup;
 
         _playerInput.OnUpgrade += HandleUpgrade;
-        _playerInput.OnInteract += HandleRemoveUpgrades;
     }
 
     private void OnDestroy()
     {
         _playerInput.OnUpgrade -= HandleUpgrade;
-        _playerInput.OnInteract -= HandleRemoveUpgrades;
     }
 
     public void CarryChip(ChipPickup chipPickup)

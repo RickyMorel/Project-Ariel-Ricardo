@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(Outline))]
 public class ChipPickup : MonoBehaviour
 {
     #region Editor Fields
@@ -23,7 +22,6 @@ public class ChipPickup : MonoBehaviour
 
     #region Private Variables
 
-    private Outline _outline;
     private Rigidbody _rb;
     private PlayerUpgradesController _prevPlayerUpgradesController = null;
 
@@ -33,12 +31,9 @@ public class ChipPickup : MonoBehaviour
 
     private void Start()
     {
-        _outline = GetComponent<Outline>();
         _rb = GetComponent<Rigidbody>();
 
         if(_chipSO != null) { Initialize(_chipSO); }
-
-        EnableOutline(false);
     }
 
     #endregion
@@ -51,11 +46,6 @@ public class ChipPickup : MonoBehaviour
         chipObj.transform.localEulerAngles = Vector3.zero;
 
         _nameText.text = _chipSO.ChipName;
-    }
-
-    public void EnableOutline(bool isEnabled)
-    {
-        _outline.enabled = isEnabled;
     }
 
     public void PickUp(PlayerUpgradesController playerUpgradesController)
