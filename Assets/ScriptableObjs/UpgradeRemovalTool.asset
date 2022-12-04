@@ -16,6 +16,6 @@ MonoBehaviour:
   Description: 
   Value: 0
   ItemPrefab: {fileID: 3719711182075001927, guid: 08cd22f43626af24aa4cf66f0b2115d5, type: 3}
-  ItemPickupPrefab: {fileID: 0}
+  ItemPickupPrefab: {fileID: 7517285669250702529, guid: 0a9f12fe267b18f4dac2550f01603b14, type: 3}
   ItemSize: 0
   IsSingleHold: 1
