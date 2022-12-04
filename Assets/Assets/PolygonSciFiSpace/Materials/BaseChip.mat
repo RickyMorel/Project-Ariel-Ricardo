@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PolygonScifiSpace_SpaceStation_01
+  m_Name: BaseChip
   m_Shader: {fileID: -6465566751694194690, guid: 7d4a664f9d109d947b00b1922d55d1bf, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
@@ -96,7 +96,7 @@ Material:
     - _BloodAmount: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DetailAmount: 1
+    - _DetailAmount: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -106,7 +106,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RimPower: 3.16
+    - _RimPower: -1.2
     - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -119,6 +119,6 @@ Material:
     - _DetailColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
-    - _RimColor: {r: 1, g: 0.16509432, b: 0.6132179, a: 1}
+    - _RimColor: {r: 0, g: 0.13630056, b: 1, a: 1}
     - _Spec: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -1,10 +1,11 @@
 
+using UnityEngine;
+
 public class PlayerInteractionController : BaseInteractionController
 {
     #region Private Variables
 
     private PlayerInputHandler _playerInput;
-    private ShipInventory _shipInventory;
 
     #endregion
 
@@ -21,10 +22,8 @@ public class PlayerInteractionController : BaseInteractionController
         base.Start();
 
         _playerInput = GetComponent<PlayerInputHandler>();
-        _shipInventory = FindObjectOfType<ShipInventory>();
 
         _playerInput.OnInteract += HandleInteraction;
-        _playerInput.OnUpgrade += HandleUpgrade;
         _playerInput.OnJump += HandleJump;
         _playerHealth.OnHurt += HandleHurt;
     }
@@ -40,22 +39,9 @@ public class PlayerInteractionController : BaseInteractionController
     private void OnDestroy()
     {
         _playerInput.OnInteract -= HandleInteraction;
-        _playerInput.OnUpgrade -= HandleUpgrade;
         _playerInput.OnJump -= HandleJump;
         _playerHealth.OnHurt -= HandleHurt;
     }
 
     #endregion
-
-
-    //This calls when the player presses the upgrade button
-    private void HandleUpgrade()
-    {
-        if (_currentInteractable == null) { return; }
-
-        if((_currentInteractable is Upgradable) == false) { return; }
-
-        Upgradable upgradable = _currentInteractable as Upgradable;
-        upgradable.TryUpgrade(_shipInventory.InventoryDictionary);
-    }
 }

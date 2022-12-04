@@ -7,10 +7,11 @@ public class PlayerCarryController : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private List<ItemPrefab> _itemsCarrying;
+    [SerializeField] private List<ItemPickup> _itemsCarrying;
     [SerializeField] private GameObject _carryBoxCollider;
     [SerializeField] private Transform _armTransform;
     [SerializeField] private Transform[] _itemSpawnTransforms;
+    [SerializeField] private Transform _handTransform;
 
     #endregion
 
@@ -22,6 +23,15 @@ public class PlayerCarryController : MonoBehaviour
     private float _carryWalkSpeed = 1f;
     private float _maxCarryAmount = 10f;
     private float _itemCarryResetDistance = 0.5f;
+    private Item _currentSingleItem;
+    private GameObject _currentSingleObjInstance;
+
+    #endregion
+
+    #region Getters && Setters
+
+    public Item CurrentSingleItem { get { return _currentSingleItem; } set { _currentSingleItem = value; } }
+    public GameObject CurrentSingleObjInstance { get { return _currentSingleObjInstance; } set { _currentSingleObjInstance = value; } }
 
     #endregion
 
@@ -29,7 +39,7 @@ public class PlayerCarryController : MonoBehaviour
 
     public bool HasItems => _hasItems;
     public float CarryWalkSpeed => _carryWalkSpeed;
-    public List<ItemPrefab> ItemsCarrying => _itemsCarrying;
+    public List<ItemPickup> ItemsCarrying => _itemsCarrying;
     public event Action OnItemsUpdate;
     public event Action OnDropAllItems;
 
@@ -63,7 +73,29 @@ public class PlayerCarryController : MonoBehaviour
 
     #endregion
 
-    public void CarryItem(ItemPrefab itemObj)
+    public void CarrySingle(ItemPickup itemPickup)
+    {
+        DropSingle();
+
+        _currentSingleItem = itemPickup.ItemSO;
+        _currentSingleObjInstance = Instantiate(_currentSingleItem.ItemPrefab, _handTransform);
+        _currentSingleObjInstance.transform.localPosition = Vector3.zero;
+
+        Destroy(itemPickup.gameObject);
+    }
+
+    public void DropSingle()
+    {
+        if (_currentSingleItem == null) { return; }
+
+        GameObject chipPickupInstance = Instantiate(_currentSingleItem.ItemPickupPrefab, transform.position, Quaternion.identity);
+        chipPickupInstance.GetComponent<ItemPickup>().Initialize(_currentSingleItem);
+
+        _currentSingleItem = null;
+        Destroy(_currentSingleObjInstance.gameObject);
+    }
+
+    public void CarryItem(ItemPickup itemObj)
     {
         if (_interactionController.CurrentInteractable != null) { return; }
         if (HasCarrySpace(itemObj.ItemSO) == false) { return; }
@@ -77,7 +109,7 @@ public class PlayerCarryController : MonoBehaviour
         OnItemsUpdate?.Invoke();
     }
 
-    private IEnumerator EnableItemPhysics(ItemPrefab itemObj)
+    private IEnumerator EnableItemPhysics(ItemPickup itemObj)
     {
         //Resets velocity to prevent spinning
         itemObj.Rb.velocity = Vector3.zero;
@@ -98,7 +130,7 @@ public class PlayerCarryController : MonoBehaviour
         }
     }
 
-    private void GetRandomCarryPos(ItemPrefab itemObj)
+    private void GetRandomCarryPos(ItemPickup itemObj)
     {
         int randomSpawnLocation = UnityEngine.Random.Range(0, _itemSpawnTransforms.Length);
 
@@ -106,7 +138,7 @@ public class PlayerCarryController : MonoBehaviour
         itemObj.transform.localPosition = spawnPos;
     }
 
-    public void DropItem(ItemPrefab item)
+    public void DropItem(ItemPickup item)
     {
         _itemsCarrying.Remove(item);
 
@@ -115,10 +147,10 @@ public class PlayerCarryController : MonoBehaviour
 
     public void DropAllItems()
     {
-        foreach (ItemPrefab item in _itemsCarrying)
+        foreach (ItemPickup item in _itemsCarrying)
         {
             item.transform.parent = null;
-            ItemPrefab itemPrefab = item.GetComponent<ItemPrefab>();
+            ItemPickup itemPrefab = item.GetComponent<ItemPickup>();
             itemPrefab.Rb.isKinematic = false;
         }
 
@@ -133,7 +165,7 @@ public class PlayerCarryController : MonoBehaviour
 
     public void DestroyAllItems()
     {
-        foreach (ItemPrefab item in _itemsCarrying)
+        foreach (ItemPickup item in _itemsCarrying)
         {
             Destroy(item);
         }
@@ -155,7 +187,7 @@ public class PlayerCarryController : MonoBehaviour
 
         float carryAmount = 0;
 
-        foreach (ItemPrefab item in _itemsCarrying)
+        foreach (ItemPickup item in _itemsCarrying)
         {
             carryAmount += item.ItemSO.ItemSize;
         }
@@ -167,7 +199,7 @@ public class PlayerCarryController : MonoBehaviour
     {
         float carryAmount = 0;
 
-        foreach (ItemPrefab item in _itemsCarrying)
+        foreach (ItemPickup item in _itemsCarrying)
         {
             carryAmount += item.ItemSO.ItemSize;
         }

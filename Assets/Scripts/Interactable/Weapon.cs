@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,13 @@ public class Weapon : Upgradable
 
     #region Unity Loops
 
+    public override void Awake()
+    {
+        base.Awake();
+
+        OnUpgradeMesh += HandleUpgrade;
+    }
+
     public override void Start()
     {
         base.Start();
@@ -44,12 +52,24 @@ public class Weapon : Upgradable
         CheckRotationInput();
     }
 
+    private void OnDestroy()
+    {
+        OnUpgradeMesh -= HandleUpgrade;
+    }
+
     private void UpdateTime()
     {
         _timeSinceLastShot += Time.deltaTime;
     }
 
     #endregion
+
+    private void HandleUpgrade(GameObject meshObject)
+    {
+        Transform rotationChild = meshObject.transform.GetChild(0);
+
+        _turretHead = rotationChild;
+    }
 
     private void CheckRotationInput()
     {

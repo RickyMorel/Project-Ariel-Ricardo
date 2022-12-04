@@ -7,7 +7,6 @@ public class PlayerHealth : Damageable
 {
     #region Editor Fields
 
-    [SerializeField] private bool _canKill = false;
     [SerializeField] private float _hurtTime = 5f;
 
     #endregion
