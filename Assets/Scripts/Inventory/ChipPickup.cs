@@ -36,7 +36,6 @@ public class ChipPickup : ItemPickup
 
     public override void Initialize(Item item)
     {
-        Debug.Log("Initialize");
         UpgradeChip chip = item as UpgradeChip;
         _itemSO = chip;
         GameObject chipObj = Instantiate(_itemSO.ItemPrefab, transform);
