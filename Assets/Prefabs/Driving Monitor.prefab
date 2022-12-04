@@ -67,6 +67,7 @@ Transform:
   - {fileID: 1688170152322542363}
   - {fileID: 3487693471578839937}
   - {fileID: 750326801092384095}
+  - {fileID: 5430291205112534148}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,8 +111,7 @@ MonoBehaviour:
   - UpgradeMesh: {fileID: 7473328548439351794}
     _socket_1_ChipType: 0
     _socket_2_ChipType: 0
-  _chipDropTransform: {fileID: 0}
-  _upgradeParticles: {fileID: 0}
+  _chipDropTransform: {fileID: 5430291205112534148}
   _rotationSpeed: 120
   _pivotTransform: {fileID: 0}
   RotatorTransform: {fileID: 0}
@@ -160,6 +160,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1162109, y: 0.76311874, z: 1}
   m_Center: {x: -0.023986816, y: 0.6891012, z: 0}
+--- !u!1 &8149656748335963982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5430291205112534148}
+  m_Layer: 0
+  m_Name: ChipDropTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5430291205112534148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8149656748335963982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.926, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8228838396763777636}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &867531447080448991
 PrefabInstance:
   m_ObjectHideFlags: 0

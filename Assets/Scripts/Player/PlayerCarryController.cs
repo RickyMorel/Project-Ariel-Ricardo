@@ -89,7 +89,7 @@ public class PlayerCarryController : MonoBehaviour
         if (_currentSingleItem == null) { return; }
 
         GameObject chipPickupInstance = Instantiate(_currentSingleItem.ItemPickupPrefab, transform.position, Quaternion.identity);
-        chipPickupInstance.GetComponent<ChipPickup>().Initialize(_currentSingleItem);
+        chipPickupInstance.GetComponent<ItemPickup>().Initialize(_currentSingleItem);
 
         _currentSingleItem = null;
         Destroy(_currentSingleObjInstance.gameObject);

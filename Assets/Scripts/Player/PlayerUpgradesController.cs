@@ -27,12 +27,26 @@ public class PlayerUpgradesController : MonoBehaviour
 
         _chipPickupPrefab = GameAssetsManager.Instance.ChipPickup;
 
-        _playerInput.OnUpgrade += HandleUpgrade;
+        _playerInput.OnUpgrade += HandleInteractableTinker;
     }
 
     private void OnDestroy()
     {
-        _playerInput.OnUpgrade -= HandleUpgrade;
+        _playerInput.OnUpgrade -= HandleInteractableTinker;
+    }
+
+    private void HandleInteractableTinker()
+    {
+        if(_playerCarryController.CurrentSingleItem == null) { return; }
+
+        if (_playerCarryController.CurrentSingleItem is UpgradeChip)
+        {
+            HandleUpgrade();
+        }
+        else if(_playerCarryController.CurrentSingleObjInstance.tag == "RemovalTool")
+        {
+            HandleRemoveUpgrades();
+        }
     }
 
     private void HandleRemoveUpgrades()
@@ -44,6 +58,9 @@ public class PlayerUpgradesController : MonoBehaviour
         Upgradable upgradable = _interactionController.CurrentInteractable as Upgradable;
 
         upgradable.RemoveUpgrades();
+
+        _playerCarryController.CurrentSingleItem = null;
+        Destroy(_playerCarryController.CurrentSingleObjInstance.gameObject);
     }
 
 
