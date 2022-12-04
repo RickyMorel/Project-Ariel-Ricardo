@@ -23,14 +23,21 @@ public class Damageable : MonoBehaviour
 
     #region Private Variables
 
-    private int _currentHealth;
+    private float _currentHealth;
+
+    #endregion
+
+    #region Getters and Setters
+
+    public float CurrentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
 
     #endregion
 
     #region Public Properties
 
-    public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
+    public ParticleSystem DamageParticles => _damageParticles;
+
 
     public event Action OnUpdateHealth;
     public event Action OnDamaged;
@@ -47,7 +54,7 @@ public class Damageable : MonoBehaviour
         UpdateHealthUI();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
 
@@ -72,8 +79,9 @@ public class Damageable : MonoBehaviour
         OnUpdateHealth?.Invoke();
     }
 
-    public void Damage(int damage)
+    public virtual void Damage(int damage)
     {
+
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, _maxHealth);
 
         UpdateHealthUI();
@@ -98,7 +106,7 @@ public class Damageable : MonoBehaviour
 
     #region UI
 
-    private void UpdateHealthUI()
+    public void UpdateHealthUI()
     {
         _healthBarImage.fillAmount = CurrentHealth / MaxHealth;
     }
