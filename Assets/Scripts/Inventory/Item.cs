@@ -6,9 +6,11 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public Sprite Icon;
-    public string DisplayName;
+    public virtual string DisplayName { get; protected set; }
     public string Description;
     public int Value;
     public GameObject ItemPrefab;
+    public GameObject ItemPickupPrefab;
     public int ItemSize;
+    public bool IsSingleHold = false;
 }

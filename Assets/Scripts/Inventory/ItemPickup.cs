@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
-public class ItemPrefab : MonoBehaviour
+public class ItemPickup : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private Item _itemSO;
+    [SerializeField] protected Item _itemSO;
 
     #endregion
 
@@ -29,7 +29,7 @@ public class ItemPrefab : MonoBehaviour
 
     #region Unity Loops
 
-    private void Start()
+    public virtual void Start()
     {
         _outline = GetComponent<Outline>();
         _rb = GetComponent<Rigidbody>();
@@ -38,6 +38,11 @@ public class ItemPrefab : MonoBehaviour
     }
 
     #endregion
+
+    public virtual void Initialize(Item item)
+    {
+
+    }
 
     public void EnableOutline(bool isEnabled)
     {
@@ -48,5 +53,11 @@ public class ItemPrefab : MonoBehaviour
     {
         _prevPlayerCarryController = playerCarryController;
         playerCarryController.CarryItem(this);
+    }
+
+    public void PickUpSingle(PlayerCarryController playerCarryController)
+    {
+        _prevPlayerCarryController = playerCarryController;
+        playerCarryController.CarrySingle(this);
     }
 }

@@ -15,14 +15,14 @@ public class PlayerUpgradesController : MonoBehaviour
 
     private PlayerInputHandler _playerInput;
     private BaseInteractionController _interactionController;
-    private UpgradeChip _currentUpgradeChip;
-    private GameObject _currentChipObjInstance;
+    private PlayerCarryController _playerCarryController;
 
     #endregion
 
     private void Start()
     {
         _playerInput = GetComponent<PlayerInputHandler>();
+        _playerCarryController = GetComponent<PlayerCarryController>();
         _interactionController = GetComponent<BaseInteractionController>();
 
         _chipPickupPrefab = GameAssetsManager.Instance.ChipPickup;
@@ -33,28 +33,6 @@ public class PlayerUpgradesController : MonoBehaviour
     private void OnDestroy()
     {
         _playerInput.OnUpgrade -= HandleUpgrade;
-    }
-
-    public void CarryChip(ChipPickup chipPickup)
-    {
-        DropChip();
-
-        _currentUpgradeChip = chipPickup.ChipSO;
-        _currentChipObjInstance = Instantiate(_currentUpgradeChip.Prefab, _handTransform);
-        _currentChipObjInstance.transform.localPosition = Vector3.zero;
-
-        Destroy(chipPickup.gameObject);
-    }
-
-    public void DropChip()
-    {
-        if(_currentUpgradeChip == null) { return; }
-
-        GameObject chipPickupInstance = Instantiate(_chipPickupPrefab, transform.position, Quaternion.identity);
-        chipPickupInstance.GetComponent<ChipPickup>().Initialize(_currentUpgradeChip);
-
-        _currentUpgradeChip = null;
-        Destroy(_currentChipObjInstance.gameObject);
     }
 
     private void HandleRemoveUpgrades()
@@ -77,12 +55,14 @@ public class PlayerUpgradesController : MonoBehaviour
         if ((_interactionController.CurrentInteractable is Upgradable) == false) { return; }
 
         Upgradable upgradable = _interactionController.CurrentInteractable as Upgradable;
-        bool didUpgrade = upgradable.TryUpgrade(_currentUpgradeChip);
+        UpgradeChip upgradeItem = _playerCarryController.CurrentSingleItem as UpgradeChip;
+
+        bool didUpgrade = _playerCarryController.CurrentSingleItem is UpgradeChip ? upgradable.TryUpgrade(upgradeItem) : false;
 
         if (didUpgrade)
         {
-            _currentUpgradeChip = null;
-            Destroy(_currentChipObjInstance.gameObject);
+            _playerCarryController.CurrentSingleItem = null;
+            Destroy(_playerCarryController.CurrentSingleObjInstance.gameObject);
         }
     }
 }

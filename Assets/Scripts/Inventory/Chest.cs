@@ -63,7 +63,7 @@ public class Chest : Interactable
     {
         yield return new WaitForSeconds(0.5f);
 
-        foreach (ItemPrefab itemPrefab in playerCarryController.ItemsCarrying)
+        foreach (ItemPickup itemPrefab in playerCarryController.ItemsCarrying)
         {
             ItemQuantity itemQuantity = new ItemQuantity();
             itemQuantity.Item = itemPrefab.ItemSO;

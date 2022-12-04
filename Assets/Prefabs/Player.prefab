@@ -4487,7 +4487,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputHandler: {fileID: 8235309464947500831}
-  _upgradesController: {fileID: 7936679602822478339}
   _playerCarryController: {fileID: 3100667788472722230}
 --- !u!1 &3463379149325478311
 GameObject:
@@ -5252,6 +5251,7 @@ MonoBehaviour:
   - {fileID: 3952175935709688981}
   - {fileID: 8184389969416373554}
   - {fileID: 1169193245121761833}
+  _handTransform: {fileID: 377705278079410084}
 --- !u!114 &7936679602822478339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5266,8 +5266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chipPickupPrefab: {fileID: 7517285669250702529, guid: 33c642c6393f4f04d87e7307bb977fc0, type: 3}
   _handTransform: {fileID: 377705278079410084}
-  _currentUpgradeChip: {fileID: 0}
-  _currentChipObjInstance: {fileID: 0}
 --- !u!1 &9045510911867516941
 GameObject:
   m_ObjectHideFlags: 0

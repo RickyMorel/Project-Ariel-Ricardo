@@ -112,7 +112,7 @@ public class Upgradable : Interactable
     {
         if(upgradeChip == null) { return; }
 
-        GameObject newChip = Instantiate(upgradeChip.Prefab, _upgradeSocketObjs[socketIndex].transform);
+        GameObject newChip = Instantiate(upgradeChip.ItemPrefab, _upgradeSocketObjs[socketIndex].transform);
         newChip.transform.localPosition = new Vector3(-0.025f, 0.15f, 0f);
         newChip.transform.localEulerAngles = new Vector3(90f, 0f,-90f);
         _chipInstances.Add(newChip);

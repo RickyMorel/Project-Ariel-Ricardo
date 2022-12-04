@@ -8,15 +8,14 @@ public class PickupTrigger : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private PlayerInputHandler _inputHandler;
-    [SerializeField] private PlayerUpgradesController _upgradesController;
     [SerializeField] private PlayerCarryController _playerCarryController;
 
     #endregion
 
     #region Private Variables
 
-    private List<ItemPrefab> _currentItems = new List<ItemPrefab>();
-    private ChipPickup _currentChipPickup;
+    private List<ItemPickup> _currentItems = new List<ItemPickup>();
+    private ItemPickup _currentSingleItem;
 
     #endregion
 
@@ -36,14 +35,12 @@ public class PickupTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        CheckForUpgradeChip(other, true);
         CheckForItem(other, true);
     }
 
 
     private void OnTriggerExit(Collider other)
     {
-        CheckForUpgradeChip(other, false);
         CheckForItem(other, true);
     }
 
@@ -51,39 +48,34 @@ public class PickupTrigger : MonoBehaviour
 
     private void HandleInteract()
     {
-        PickupUpgradeChip();
-
         PickupItem();
     }
-
-    #region Upgrade Chips
-    private void CheckForUpgradeChip(Collider other, bool isEnter)
-    {
-        if (other.gameObject.TryGetComponent<ChipPickup>(out ChipPickup chipPickup)) { _currentChipPickup = isEnter ? chipPickup : null; }
-    }
-
-    private void PickupUpgradeChip()
-    {
-        if (_currentChipPickup != null) { _currentChipPickup.PickUp(_upgradesController); }
-    }
-
-    #endregion
 
     #region Items
 
     private void CheckForItem(Collider other, bool isEnter)
     {
-        if (!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
+        if (!other.gameObject.TryGetComponent<ItemPickup>(out ItemPickup itemPrefab)) { return; }
 
         itemPrefab.EnableOutline(isEnter);
 
-        if (isEnter) { _currentItems.Add(itemPrefab); }
-        else { _currentItems.Remove(itemPrefab); }
+        if (isEnter) 
+        {
+            if (itemPrefab.ItemSO.IsSingleHold) { _currentSingleItem = itemPrefab; }
+            else { _currentItems.Add(itemPrefab); }
+        }
+        else 
+        {
+            if (itemPrefab.ItemSO.IsSingleHold) { _currentSingleItem = null; }
+            else { _currentItems.Remove(itemPrefab); }
+        }
 
     }
 
     private void PickupItem()
     {
+        if (_currentSingleItem != null) { _currentSingleItem.PickUpSingle(_playerCarryController); return; }
+
         if (_currentItems.Count < 1) { return; }
 
         if (_currentItems[0] == null) { _currentItems.RemoveAt(0); return; }
@@ -97,7 +89,7 @@ public class PickupTrigger : MonoBehaviour
 
     private bool HasPickedUpItem(GameObject wantedItem)
     {
-        foreach (ItemPrefab carriedItem in _playerCarryController.ItemsCarrying)
+        foreach (ItemPickup carriedItem in _playerCarryController.ItemsCarrying)
         {
             if (carriedItem.gameObject == wantedItem)
                 return true;
