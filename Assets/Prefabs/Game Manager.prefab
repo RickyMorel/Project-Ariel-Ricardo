@@ -14542,6 +14542,7 @@ GameObject:
   - component: {fileID: 638846795653589067}
   - component: {fileID: 8587008802359724413}
   - component: {fileID: 607561777}
+  - component: {fileID: 8430575401598289310}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -14644,6 +14645,24 @@ MonoBehaviour:
   _cameraFadeTimeline: {fileID: 5534029708008172380}
   _blackHoleParticle: {fileID: 2675537413733240257}
   _mainShipParentForTheTimeline: {fileID: 3852162812439959518}
+--- !u!114 &8430575401598289310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3852162812249718933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60bcb2f1a9ffda045adb021e6bccd0fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _craftingPanel: {fileID: 0}
+  _contentTransform: {fileID: 0}
+  _craftingItemUIPrefab: {fileID: 6916972730889110830, guid: f6665c47c775c8748bf9a3b40055cb00, type: 3}
+  _craftingRecipyList:
+  - {fileID: 11400000, guid: d319920631389c1479433087dd1f2747, type: 2}
+  - {fileID: 11400000, guid: 39912a564482bad46959a99579373935, type: 2}
 --- !u!1 &3852162812439959518
 GameObject:
   m_ObjectHideFlags: 0

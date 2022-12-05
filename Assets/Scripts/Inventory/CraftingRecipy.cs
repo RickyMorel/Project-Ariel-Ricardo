@@ -5,9 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "Inventory/CraftingRecipy", order = 2)]
 public class CraftingRecipy : ScriptableObject
 {
-    public Sprite Icon;
-    public string DisplayName;
-    public string Description;
+    public ItemQuantity CraftedItem;
     public List<ItemQuantity> CraftingIngredients = new List<ItemQuantity>();
 }
 

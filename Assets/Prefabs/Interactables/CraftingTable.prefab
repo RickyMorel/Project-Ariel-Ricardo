@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 499947137159909518}
   - component: {fileID: 5887497823820905295}
   - component: {fileID: 6023362874122077634}
-  - component: {fileID: 311856662802603197}
+  - component: {fileID: 6620114721468063602}
   m_Layer: 0
   m_Name: CraftingTable
   m_TagString: Untagged
@@ -84,7 +84,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.8877106, y: 1, z: 2.8674755}
   m_Center: {x: -2.489153, y: 0, z: 2.3037372}
---- !u!114 &311856662802603197
+--- !u!114 &6620114721468063602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2976597300538468935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8046843e808c296429d8184548559900, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ae6ca77deb85e549995e99f26f1c3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interactionType: 8
@@ -211,7 +211,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerPosition
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -223,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7929263880693580779}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2.59, y: 0, z: 2.08}
+  m_LocalPosition: {x: -2.59, y: -1.035, z: 2.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7426793559943787032}
