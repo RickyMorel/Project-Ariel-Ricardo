@@ -48,8 +48,8 @@ public class CraftingManager : MonoBehaviour
 
     public void DisplayItemInfo(CraftingRecipy craftingRecipy)
     {
-        _itemNameText.text = craftingRecipy.CraftedItem.Item.DisplayName;
-        _itemDescriptionText.text = craftingRecipy.CraftedItem.Item.Description;
+       // _itemNameText.text = craftingRecipy.CraftedItem.Item.DisplayName;
+        //_itemDescriptionText.text = craftingRecipy.CraftedItem.Item.Description;
 
         LoadIngredients(craftingRecipy);
     }
@@ -67,11 +67,11 @@ public class CraftingManager : MonoBehaviour
     {
         DestroyItemsUI(_ingredientsContentTransform);
 
-        //foreach (Item ingredient in craftingRecipy.CraftingIngredients)
-        //{
-        //    GameObject itemUI = Instantiate(_itemUIPrefab, _contentTransform);
-        //    itemUI.GetComponent<InventoryItemUI>().Initialize(ingredient, _currentPlayer);
-        //}
+        foreach (ItemQuantity ingredient in craftingRecipy.CraftingIngredients)
+        {
+            GameObject itemUI = Instantiate(_itemUIPrefab, _contentTransform);
+            itemUI.GetComponent<ItemUI>().Initialize(ingredient, _currentPlayer);
+        }
     }
 
     private void LoadItems()

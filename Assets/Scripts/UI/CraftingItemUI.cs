@@ -4,33 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CraftingItemUI : MonoBehaviour
+public class CraftingItemUI : ItemUI
 {
-    #region Editor Fields
-
-    [SerializeField] private Image _icon;
-    [SerializeField] private TextMeshProUGUI _amountText;
-
-    #endregion
-
     #region Private Variables
 
-    private ItemQuantity _itemQuantity;
-    private PlayerInputHandler _currentPlayer;
+    private CraftingRecipy _craftingRecipy;
 
     #endregion
 
-    public void Initialize(ItemQuantity itemQuantity, PlayerInputHandler currentPlayer)
-    {
-        _icon.sprite = itemQuantity.Item.Icon;
-        _amountText.text = $"x{itemQuantity.Amount}";
+    #region Public Properties
 
-        _itemQuantity = itemQuantity;
+    public CraftingRecipy CraftingRecipy => _craftingRecipy;
+
+    #endregion
+
+    public override void Initialize(CraftingRecipy craftingRecipy, PlayerInputHandler currentPlayer)
+    {
+        _itemQuantity = craftingRecipy.CraftedItem;
+
+        _icon.sprite = _itemQuantity.Item.Icon;
+        _amountText.text = $"x{_itemQuantity.Amount}";
+
         _currentPlayer = currentPlayer;
+
+        _craftingRecipy = craftingRecipy;
     }
 
-    public void OnClick()
+    public override void OnClick()
     {
-        //ItemQuantitySliderUI.Instance.Initialize(_itemQuantity, _chest, _currentPlayer, transform.position);
+        CraftingManager.Instance.DisplayItemInfo(CraftingRecipy);
     }
 }

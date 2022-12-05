@@ -146,9 +146,9 @@ GameObject:
   - component: {fileID: 6916972730889110995}
   - component: {fileID: 6916972730889110992}
   - component: {fileID: 8341742025828646842}
-  - component: {fileID: -626919220843263740}
+  - component: {fileID: 675316365992111477}
   m_Layer: 5
-  m_Name: CraftingItem
+  m_Name: ItemUIButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,8 +256,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -626919220843263740}
-        m_TargetAssemblyTypeName: CraftingItemUI, Assembly-CSharp
+      - m_Target: {fileID: 675316365992111477}
+        m_TargetAssemblyTypeName: ItemUI, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -268,7 +268,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-626919220843263740
+--- !u!114 &675316365992111477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6916972730889110830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa486b991985f443b0dc902798c5712, type: 3}
+  m_Script: {fileID: 11500000, guid: e882a17dfeca7574abbfd5415bcead4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 2964124558736832672}
