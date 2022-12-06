@@ -17,6 +17,6 @@ MonoBehaviour:
   Description: A...battery?
   Value: 6
   ItemPrefab: {fileID: 7517285669250702529, guid: b73471909d04345469cd8afe4b92aee3, type: 3}
-  ItemPickupPrefab: {fileID: 0}
+  ItemPickupPrefab: {fileID: 7517285669250702529, guid: b73471909d04345469cd8afe4b92aee3, type: 3}
   ItemSize: 1
   IsSingleHold: 0

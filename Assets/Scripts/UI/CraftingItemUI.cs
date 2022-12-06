@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using System;
 
-public class CraftingItemUI : ItemUI
+public class CraftingItemUI : ItemUI, IPointerEnterHandler
 {
     #region Private Variables
 
-    [SerializeField] private CraftingRecipy _craftingRecipy;
+    private CraftingRecipy _craftingRecipy;
+    private CraftingStation _currentCraftingStation;
 
     #endregion
 
@@ -18,7 +21,28 @@ public class CraftingItemUI : ItemUI
 
     #endregion
 
-    public override void Initialize(CraftingRecipy craftingRecipy, PlayerInputHandler currentPlayer)
+    private void Start()
+    {
+        CraftingStation.OnCraft += HandleItemCrafted;
+    }
+
+    private void OnDestroy()
+    {
+        CraftingStation.OnCraft -= HandleItemCrafted;
+    }
+
+    private void HandleItemCrafted()
+    {
+        Debug.Log("HandleItemCrafted");
+
+        if(_craftingRecipy == null || _currentCraftingStation == null) { return; }
+
+        Debug.Log("HandleItemCrafted NOT NULL");
+
+        if (_currentCraftingStation.CanCraft(_craftingRecipy)) SetGreyScale(0); else SetGreyScale(1);
+    }
+
+    public override void Initialize(CraftingRecipy craftingRecipy, PlayerInputHandler currentPlayer, CraftingStation craftingStation)
     {
         _itemQuantity = craftingRecipy.CraftedItem;
 
@@ -26,11 +50,25 @@ public class CraftingItemUI : ItemUI
         _amountText.text = $"x{_itemQuantity.Amount}";
 
         _currentPlayer = currentPlayer;
-
+        _currentCraftingStation = craftingStation;
         _craftingRecipy = craftingRecipy;
+
+        if (craftingStation.CanCraft(craftingRecipy)) SetGreyScale(0); else SetGreyScale(1);
+    }
+
+
+
+    public void SetGreyScale(float amount)
+    {
+        _icon.material.SetFloat("_GrayscaleAmount", amount);
     }
 
     public override void OnClick()
+    {
+        _currentCraftingStation.TryCraft(CraftingRecipy);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
     {
         CraftingManager.Instance.DisplayItemInfo(CraftingRecipy);
     }

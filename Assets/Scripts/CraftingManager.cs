@@ -24,6 +24,7 @@ public class CraftingManager : MonoBehaviour
     #region Private Variables
 
     private PlayerInputHandler _currentPlayer;
+    private CraftingStation _currentCraftingStation;
     private static CraftingManager _instance;
 
     #endregion
@@ -54,10 +55,11 @@ public class CraftingManager : MonoBehaviour
         LoadIngredients(craftingRecipy);
     }
 
-    public void EnableCanvas(bool isEnabled, PlayerInputHandler currentPlayer)
+    public void EnableCanvas(bool isEnabled, PlayerInputHandler currentPlayer, CraftingStation craftingStation)
     {
         _craftingPanel.SetActive(isEnabled);
         _currentPlayer = currentPlayer;
+        _currentCraftingStation = craftingStation;
 
         DestroyItemsUI(_ingredientsContentTransform);
 
@@ -83,7 +85,7 @@ public class CraftingManager : MonoBehaviour
         foreach (CraftingRecipy craftable in _craftingRecipyList)
         {
             GameObject itemUI = Instantiate(_craftingItemUIPrefab, _contentTransform);
-            itemUI.GetComponent<CraftingItemUI>().Initialize(craftable, _currentPlayer);
+            itemUI.GetComponent<CraftingItemUI>().Initialize(craftable, _currentPlayer, _currentCraftingStation);
         }
     }
 

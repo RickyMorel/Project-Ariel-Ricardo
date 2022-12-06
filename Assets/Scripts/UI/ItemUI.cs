@@ -31,7 +31,7 @@ public class ItemUI : MonoBehaviour
     }
 
     public virtual void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer) { }
-    public virtual void Initialize(CraftingRecipy craftingRecipy, PlayerInputHandler currentPlayer) { }
+    public virtual void Initialize(CraftingRecipy craftingRecipy, PlayerInputHandler currentPlayer, CraftingStation craftingStation) { }
 
     public virtual void OnClick()
     {

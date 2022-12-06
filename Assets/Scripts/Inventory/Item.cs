@@ -13,4 +13,11 @@ public class Item : ScriptableObject
     public GameObject ItemPickupPrefab;
     public int ItemSize;
     public bool IsSingleHold = false;
+
+    public GameObject SpawnItemPickup(Transform spawnTransform)
+    {
+        GameObject itemInstance = Instantiate(ItemPickupPrefab, spawnTransform.position, spawnTransform.rotation);
+
+        return itemInstance;
+    }
 }

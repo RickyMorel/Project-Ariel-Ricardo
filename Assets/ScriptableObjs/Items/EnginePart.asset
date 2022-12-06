@@ -17,6 +17,6 @@ MonoBehaviour:
   Description: An engine part used for more upgrade sockets
   Value: 6
   ItemPrefab: {fileID: 7517285669250702529, guid: 69b4cc64885d0ef4181d52a49089e092, type: 3}
-  ItemPickupPrefab: {fileID: 0}
+  ItemPickupPrefab: {fileID: 7517285669250702529, guid: 69b4cc64885d0ef4181d52a49089e092, type: 3}
   ItemSize: 10
   IsSingleHold: 0

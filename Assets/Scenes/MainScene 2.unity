@@ -86460,14 +86460,26 @@ PrefabInstance:
       propertyPath: _contentTransform
       value: 
       objectReference: {fileID: 1757915095}
+    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _preloadedItems.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _preloadedItems.Array.data[1].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a9e858cbb18a7a4d8f2c987574af77d, type: 2}
+    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _preloadedItems.Array.data[3].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}
+    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _preloadedItems.Array.data[3].Amount
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
       propertyPath: _itemNameText
       value: 
       objectReference: {fileID: 689495141}
-    - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
-      propertyPath: _itemUIPrefab
-      value: 
-      objectReference: {fileID: 6916972730889110830, guid: 6e86eaa2a8383af4899828d1cb94a594, type: 3}
     - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
       propertyPath: _craftingPanel
       value: 

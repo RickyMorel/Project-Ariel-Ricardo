@@ -14586,7 +14586,11 @@ MonoBehaviour:
   - Item: {fileID: 11400000, guid: d42c6a88dba143a48b378b4936008358, type: 2}
     Amount: 12
   - Item: {fileID: 11400000, guid: 8a9e858cbb18a7a4d8f2c987574af77d, type: 2}
-    Amount: 3
+    Amount: 12
+  - Item: {fileID: 11400000, guid: ce4335bef77e625479e8e30808dd108c, type: 2}
+    Amount: 12
+  - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}
+    Amount: 12
 --- !u!114 &1367160790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14657,9 +14661,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60bcb2f1a9ffda045adb021e6bccd0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemNameText: {fileID: 0}
+  _itemDescriptionText: {fileID: 0}
+  _ingredientsContentTransform: {fileID: 0}
   _craftingPanel: {fileID: 0}
   _contentTransform: {fileID: 0}
   _craftingItemUIPrefab: {fileID: 6916972730889110830, guid: f6665c47c775c8748bf9a3b40055cb00, type: 3}
+  _itemUIPrefab: {fileID: 6916972730889110830, guid: 6e86eaa2a8383af4899828d1cb94a594, type: 3}
   _craftingRecipyList:
   - {fileID: 11400000, guid: d319920631389c1479433087dd1f2747, type: 2}
   - {fileID: 11400000, guid: 39912a564482bad46959a99579373935, type: 2}
