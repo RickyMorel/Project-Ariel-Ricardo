@@ -13603,6 +13603,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7347014765463833387, guid: b941ab1081bd78e4bb2e71bc79d0965a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7347014765463833391, guid: b941ab1081bd78e4bb2e71bc79d0965a, type: 3}
       propertyPath: m_Pivot.x
       value: 0

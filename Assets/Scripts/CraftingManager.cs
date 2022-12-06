@@ -48,8 +48,8 @@ public class CraftingManager : MonoBehaviour
 
     public void DisplayItemInfo(CraftingRecipy craftingRecipy)
     {
-       // _itemNameText.text = craftingRecipy.CraftedItem.Item.DisplayName;
-        //_itemDescriptionText.text = craftingRecipy.CraftedItem.Item.Description;
+        _itemNameText.text = craftingRecipy.CraftedItem.Item.DisplayName;
+        _itemDescriptionText.text = craftingRecipy.CraftedItem.Item.Description;
 
         LoadIngredients(craftingRecipy);
     }
@@ -58,6 +58,8 @@ public class CraftingManager : MonoBehaviour
     {
         _craftingPanel.SetActive(isEnabled);
         _currentPlayer = currentPlayer;
+
+        DestroyItemsUI(_ingredientsContentTransform);
 
         if (isEnabled)
             LoadItems();
@@ -69,7 +71,7 @@ public class CraftingManager : MonoBehaviour
 
         foreach (ItemQuantity ingredient in craftingRecipy.CraftingIngredients)
         {
-            GameObject itemUI = Instantiate(_itemUIPrefab, _contentTransform);
+            GameObject itemUI = Instantiate(_itemUIPrefab, _ingredientsContentTransform);
             itemUI.GetComponent<ItemUI>().Initialize(ingredient, _currentPlayer);
         }
     }
@@ -81,7 +83,7 @@ public class CraftingManager : MonoBehaviour
         foreach (CraftingRecipy craftable in _craftingRecipyList)
         {
             GameObject itemUI = Instantiate(_craftingItemUIPrefab, _contentTransform);
-            itemUI.GetComponent<CraftingItemUI>().Initialize(craftable.CraftedItem, _currentPlayer);
+            itemUI.GetComponent<CraftingItemUI>().Initialize(craftable, _currentPlayer);
         }
     }
 

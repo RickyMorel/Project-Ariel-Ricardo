@@ -19,6 +19,15 @@ public class CraftingStation : Interactable
         OnUninteract -= HandleUnInteract;
     }
 
+    //public void TryCraft(CraftingRecipy craftingRecipy)
+    //{
+    //    foreach (ItemQuantity ingredient in craftingRecipy.CraftingIngredients)
+    //    {
+            
+    //    }
+    //    MainInventory.Instance.InventoryDictionary
+    //}
+
     private void HandleInteract()
     {
         CraftingManager.Instance.EnableCanvas(true, _currentPlayer.GetComponent<PlayerInputHandler>());

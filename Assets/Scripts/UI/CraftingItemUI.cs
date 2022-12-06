@@ -8,7 +8,7 @@ public class CraftingItemUI : ItemUI
 {
     #region Private Variables
 
-    private CraftingRecipy _craftingRecipy;
+    [SerializeField] private CraftingRecipy _craftingRecipy;
 
     #endregion
 

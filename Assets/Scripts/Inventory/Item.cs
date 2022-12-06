@@ -6,8 +6,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public Sprite Icon;
-    public string PresetName;
-    public virtual string DisplayName { get { return DisplayName; } set { PresetName = value; } }
+    public string DisplayName;
     public string Description;
     public int Value;
     public GameObject ItemPrefab;
