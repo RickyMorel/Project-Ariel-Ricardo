@@ -41,7 +41,7 @@ public class PickupTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        CheckForItem(other, true);
+        CheckForItem(other, false);
     }
 
     #endregion

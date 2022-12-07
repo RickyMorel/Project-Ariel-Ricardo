@@ -33,6 +33,8 @@ public class CraftingStation : Interactable
 
     public void TryCraft(CraftingRecipy craftingRecipy)
     {
+        Debug.Log("TryCraft");
+
         if (!CanCraft(craftingRecipy)) { return; }
 
         Craft(craftingRecipy, craftingRecipy.CraftingIngredients);
