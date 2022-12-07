@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireChipMK1
   m_EditorClassIdentifier: 
   CraftedItem:
-    Item: {fileID: 11400000, guid: a5c5b4b2acd5c714395741aefd2d9e74, type: 2}
+    Item: {fileID: 11400000, guid: a2f9398b16a66c94890319085044556b, type: 2}
     Amount: 1
   CraftingIngredients:
   - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}

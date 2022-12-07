@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ElectricChipMK1
   m_EditorClassIdentifier: 
   CraftedItem:
-    Item: {fileID: 11400000, guid: a5c5b4b2acd5c714395741aefd2d9e74, type: 2}
+    Item: {fileID: 11400000, guid: bed43c9881e6f964e9cb11e1a4cd0a83, type: 2}
     Amount: 1
   CraftingIngredients:
   - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}

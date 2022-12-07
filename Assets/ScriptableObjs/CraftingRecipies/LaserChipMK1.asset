@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LaserChipMK1
   m_EditorClassIdentifier: 
   CraftedItem:
-    Item: {fileID: 11400000, guid: a5c5b4b2acd5c714395741aefd2d9e74, type: 2}
+    Item: {fileID: 11400000, guid: ee5efa56bf2e2574697b60d2abc9a9b7, type: 2}
     Amount: 1
   CraftingIngredients:
   - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}
