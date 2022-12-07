@@ -57,7 +57,8 @@ public class CraftingStation : Interactable
     {
         MainInventory.Instance.RemoveItems(usedResources);
 
-        craftingRecipy.CraftedItem.Item.SpawnItemPickup(_itemSpawnTransform);
+        GameObject spawnedItem = craftingRecipy.CraftedItem.Item.SpawnItemPickup(_itemSpawnTransform);
+        if(spawnedItem.TryGetComponent<ChipPickup>(out ChipPickup chipPickup)) { chipPickup.Initialize(craftingRecipy.CraftedItem.Item); }
 
         OnCraft?.Invoke();
     }

@@ -86460,22 +86460,6 @@ PrefabInstance:
       propertyPath: _contentTransform
       value: 
       objectReference: {fileID: 1757915095}
-    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
-      propertyPath: _preloadedItems.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
-      propertyPath: _preloadedItems.Array.data[1].Item
-      value: 
-      objectReference: {fileID: 11400000, guid: 8a9e858cbb18a7a4d8f2c987574af77d, type: 2}
-    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
-      propertyPath: _preloadedItems.Array.data[3].Item
-      value: 
-      objectReference: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}
-    - target: {fileID: 5767514670914079287, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
-      propertyPath: _preloadedItems.Array.data[3].Amount
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
       propertyPath: _itemNameText
       value: 
@@ -86496,6 +86480,22 @@ PrefabInstance:
       propertyPath: _ingredientsContentTransform
       value: 
       objectReference: {fileID: 989729091}
+    - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _craftingRecipyList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _craftingRecipyList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: e15e200ffde07b047b932200c62b45ec, type: 2}
+    - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _craftingRecipyList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d319920631389c1479433087dd1f2747, type: 2}
+    - target: {fileID: 8430575401598289310, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _craftingRecipyList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 39912a564482bad46959a99579373935, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
 --- !u!1001 &4526193365548049682
@@ -86572,14 +86572,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 263545343686659338, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.499999
-      objectReference: {fileID: 0}
-    - target: {fileID: 263545343686659338, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.49
-      objectReference: {fileID: 0}
     - target: {fileID: 319713644502076378, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -86636,14 +86628,6 @@ PrefabInstance:
       propertyPath: _contentTransform
       value: 
       objectReference: {fileID: 1757915095}
-    - target: {fileID: 5925056552409260122, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.499999
-      objectReference: {fileID: 0}
-    - target: {fileID: 5925056552409260122, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.49
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
 --- !u!1001 &7428237093010233950

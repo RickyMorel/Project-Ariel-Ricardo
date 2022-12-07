@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5baf3f4db99ad524c98e4d7b749beea6, type: 3}
-  m_Name: BaseChip
+  m_Name: ElectricChip
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: f8910b6d8888e5d4a99d1ab4a75b5e1c, type: 3}
-  DisplayName: Base Chip MK I
+  DisplayName: Electric Chip MK I
   Description: Used for ship upgrades
   Value: 0
-  ItemPrefab: {fileID: 6469215631307970807, guid: c27c532a1e81d3648b8cecc1d4e31c7d, type: 3}
+  ItemPrefab: {fileID: 6469215631307970807, guid: eaf5d6291539fc34ca84149aa17578ff, type: 3}
   ItemPickupPrefab: {fileID: 7517285669250702529, guid: 33c642c6393f4f04d87e7307bb977fc0, type: 3}
   ItemSize: 0
   IsSingleHold: 1
-  ChipType: 1
+  ChipType: 2
   Level: 1

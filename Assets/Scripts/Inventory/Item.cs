@@ -20,4 +20,17 @@ public class Item : ScriptableObject
 
         return itemInstance;
     }
+
+    public string GetItemName()
+    {
+        string name = DisplayName;
+
+        if(this is UpgradeChip)
+        {
+            UpgradeChip chip = (UpgradeChip)this;
+            chip.GetChipName();
+        }
+
+        return name;
+    }
 }

@@ -49,7 +49,7 @@ public class CraftingManager : MonoBehaviour
 
     public void DisplayItemInfo(CraftingRecipy craftingRecipy)
     {
-        _itemNameText.text = craftingRecipy.CraftedItem.Item.DisplayName;
+        _itemNameText.text = craftingRecipy.CraftedItem.Item.GetItemName();
         _itemDescriptionText.text = craftingRecipy.CraftedItem.Item.Description;
 
         LoadIngredients(craftingRecipy);
