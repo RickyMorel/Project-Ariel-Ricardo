@@ -1,4 +1,4 @@
-public enum DamageType
+public enum ResistanceType
 {
     None,
     Base,

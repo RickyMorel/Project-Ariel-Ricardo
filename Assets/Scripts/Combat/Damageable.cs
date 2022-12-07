@@ -10,6 +10,10 @@ public class Damageable : MonoBehaviour
 {
     #region Editor Fields
 
+    [Header("Type Resistances")]
+    [SerializeField] private ResistanceType[] _resistanceType;
+    [SerializeField] private WeaknessType[] _weaknessType;
+
     [Header("Stats")]
     [SerializeField] private int _maxHealth;
 
@@ -18,6 +22,8 @@ public class Damageable : MonoBehaviour
 
     [Header("FX")]
     [SerializeField] private ParticleSystem _damageParticles;
+    [SerializeField] private ParticleSystem _fireParticles;
+    [SerializeField] private ParticleSystem _electricParticles;
 
     #endregion
 
@@ -25,19 +31,19 @@ public class Damageable : MonoBehaviour
 
     private float _currentHealth;
 
+    private Coroutine _lastRoutine = null;
+
     #endregion
 
     #region Getters and Setters
 
-    public float CurrentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
+    public float CurrentHealth => _currentHealth;
 
     #endregion
 
     #region Public Properties
 
     public float MaxHealth => _maxHealth;
-    public ParticleSystem DamageParticles => _damageParticles;
-
 
     public event Action OnUpdateHealth;
     public event Action OnDamaged;
@@ -51,6 +57,8 @@ public class Damageable : MonoBehaviour
     {
         _currentHealth = _maxHealth;
 
+        _lastRoutine = StartCoroutine(Afterburn());
+
         UpdateHealthUI();
     }
 
@@ -63,7 +71,7 @@ public class Damageable : MonoBehaviour
 
         if(other.gameObject.tag == gameObject.tag) { return; }
 
-        Damage(projectile.Damage);
+        Damage(projectile.Damage, projectile.DamageType);
 
         Destroy(projectile.gameObject);
     }
@@ -79,8 +87,32 @@ public class Damageable : MonoBehaviour
         OnUpdateHealth?.Invoke();
     }
 
-    public virtual void Damage(int damage)
+    public virtual void Damage(int damage, DamageType damageType)
     {
+        //0 is none, 1 is resistant, 2 is weak
+        int isFireResistant = 0;
+
+        for (int i = 0; i < _resistanceType.Length; i++)
+        {
+            if (((int)_resistanceType[i] == (int)damageType) && _resistanceType[i] != ResistanceType.None)
+            {
+                damage = damage / 2;
+
+                isFireResistant = 1;
+            }
+        }
+
+        for (int i = 0; i < _weaknessType.Length; i++)
+        {
+            if (((int)_weaknessType[i] == (int)damageType) && _weaknessType[i] != WeaknessType.None)
+            {
+                damage = damage * 2;
+
+                if (isFireResistant == 1) { isFireResistant = 0; }
+
+                else { isFireResistant = 2; }
+            }
+        }
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, _maxHealth);
 
@@ -89,6 +121,16 @@ public class Damageable : MonoBehaviour
         OnDamaged?.Invoke();
 
         if (_damageParticles != null) { _damageParticles.Play(); }
+
+        if (DamageType.Electric == damageType) { _electricParticles.Play(); }
+
+        if (DamageType.Fire == damageType) { _fireParticles.Play(); }
+
+        if (isFireResistant == 0 && damageType == DamageType.Fire) { StopCoroutine(Afterburn(8)); StartCoroutine(Afterburn(8)); }
+
+        if (isFireResistant == 1 && damageType == DamageType.Fire) { StopCoroutine(Afterburn(4)); StartCoroutine(Afterburn(4)); }
+
+        if (isFireResistant == 2 && damageType == DamageType.Fire) { StopCoroutine(Afterburn(12)); StartCoroutine(Afterburn(12)); }
 
         if (_currentHealth == 0)
             Die();
@@ -112,4 +154,19 @@ public class Damageable : MonoBehaviour
     }
 
     #endregion
+
+    private IEnumerator Afterburn(int damage)
+    {
+        yield return new WaitForSeconds(1);
+        Damage(damage, DamageType.None);
+        yield return new WaitForSeconds(1);
+        Damage(damage, DamageType.None);
+        yield return new WaitForSeconds(1);
+        Damage(damage, DamageType.None);
+        yield return new WaitForSeconds(1);
+        Damage(damage, DamageType.None);
+        yield return new WaitForSeconds(1);
+        Damage(damage, DamageType.None);
+        _fireParticles.Stop();
+    }
 }

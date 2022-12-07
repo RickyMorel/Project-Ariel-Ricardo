@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster Plant (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: _weaknessType.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2031407777677293454, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -356,6 +360,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster Plant (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: _weaknessType.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2031407777677293454, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -469,6 +477,18 @@ PrefabInstance:
     - target: {fileID: 2028690528299777028, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_Name
       value: Monster Plant (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: _weaknessType.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: _resistanceType.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: _resistanceType.Array.data[0]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2031407777677293454, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_RootOrder
@@ -814,6 +834,10 @@ PrefabInstance:
     - target: {fileID: 2028690528299777028, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_Name
       value: Monster Plant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: _weaknessType.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2031407777677293454, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_RootOrder
@@ -1327,8 +1351,40 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9111072720589949902, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.2818371
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111072720589949902, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.036005646
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111072720589949902, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111224323315580916, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.041157667
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111224323315580916, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.026920825
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111382018257935785, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.00000024586916
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111382018257935785, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.000000074505806
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111442906653609071, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.4041537
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111442906653609071, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.061366145
       objectReference: {fileID: 0}
     - target: {fileID: 9111442906653609071, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
       propertyPath: m_ConnectedAnchor.z
@@ -1340,11 +1396,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9111562913470613299, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.00000032037497
+      value: 0.00000031292439
       objectReference: {fileID: 0}
     - target: {fileID: 9111562913470613299, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.000000022351742
+      value: 0.00000013411045
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111697725235807826, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.041157667
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111697725235807826, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.026920825
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111742546778631212, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.23371522
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111742546778631212, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.007857025
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111787924655749771, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.001447631
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111787924655749771, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 0.0014363732
       objectReference: {fileID: 0}
     - target: {fileID: 9111798681055399453, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -1352,11 +1432,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9111798681055399453, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.0014490671
+      value: -0.0014490597
       objectReference: {fileID: 0}
     - target: {fileID: 9111798681055399453, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.0014363173
+      value: -0.0014363844
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112002429384527106, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.23371802
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112002429384527106, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.007856593
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3202526019893422270, guid: 3a844cbb603470b44a8f4d37e7d7238d, type: 3}
@@ -1506,6 +1594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster Plant
       objectReference: {fileID: 0}
+    - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: _weaknessType.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2031407777677293454, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1550,6 +1642,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5807305312097066761, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3991de570f6479418e4e1572b99969b, type: 3}
 --- !u!1001 &5925056552242611721
@@ -1559,6 +1655,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1074782143, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 171043901624354920, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.22
+      objectReference: {fileID: 0}
     - target: {fileID: 263545343686659338, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5

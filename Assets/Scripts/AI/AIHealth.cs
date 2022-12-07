@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class AIHealth : PlayerHealth
 {
-    #region Editor Fields
-
-    [SerializeField] private WeaknessType _weaknessType;
-
-    #endregion
-
-    #region Public Properties
-
-    public WeaknessType WeaknessType => _weaknessType;
-
-    #endregion
-
     #region Private Variables
 
     private GAgent _gAgent;
@@ -39,36 +27,8 @@ public class AIHealth : PlayerHealth
     {
         OnDamaged -= Hurt;
     }
-    public override void OnTriggerEnter(Collider other)
-    {
-        if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
-
-        //Turrets can't harm their own ship
-        if (other.gameObject.tag == "Untagged" && gameObject.tag == "MainShip") { return; }
-
-        if (other.gameObject.tag == gameObject.tag) { return; }
-
-        Damage(projectile.Damage);
-
-        Destroy(projectile.gameObject);
-    }
 
     #endregion
-
-    public override void Damage(int damage)
-    {
-
-        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, MaxHealth);
-
-        UpdateHealthUI();
-
-        OnDamaged?.Invoke();
-
-        if (DamageParticles != null) { DamageParticles.Play(); }
-
-        if (CurrentHealth == 0)
-            Die();
-    }
 
     public override void Hurt()
     {
