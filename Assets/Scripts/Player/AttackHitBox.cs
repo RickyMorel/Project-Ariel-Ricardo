@@ -9,7 +9,6 @@ public class AttackHitBox : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private Damageable _ownHealth;
-    [SerializeField] private DamageType _damageType;
 
     #endregion
 
@@ -19,7 +18,7 @@ public class AttackHitBox : MonoBehaviour
 
         if (enemyHealth == _ownHealth) { return; }
 
-        enemyHealth.Damage(20, _damageType);
+        enemyHealth.Damage(20);
 
         if (enemyHealth is PlayerHealth) 
         { 

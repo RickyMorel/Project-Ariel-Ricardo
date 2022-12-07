@@ -12,21 +12,6 @@ public class PickaxeTrigger : MonoBehaviour
 
     #endregion
 
-    #region Private Varaibles
-
-    private DamageType _damageType;
-
-    #endregion
-
-    #region Unity Loops
-
-    private void Start()
-    {
-        _damageType = DamageType.Base;
-    }
-
-    #endregion
-
     private void OnTriggerEnter(Collider other)
     {
         CheckForMinable(other);
@@ -52,7 +37,7 @@ public class PickaxeTrigger : MonoBehaviour
 
         float damage = _pickaxeInteractable.GetHitSpeed();
 
-        damageable.Damage((int)damage, _damageType);
+        damageable.Damage((int)damage);
 
         _pickaxeInteractable.ApplyImpactForce();
     }

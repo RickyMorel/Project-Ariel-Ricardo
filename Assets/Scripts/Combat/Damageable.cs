@@ -11,8 +11,8 @@ public class Damageable : MonoBehaviour
     #region Editor Fields
 
     [Header("Type Resistances")]
-    [SerializeField] private ResistanceType[] _resistanceType;
-    [SerializeField] private WeaknessType[] _weaknessType;
+    [SerializeField] private List<DamageType> _resistanceType = new List<DamageType>();
+    [SerializeField] private List<DamageType> _weaknessType = new List<DamageType>();
 
     [Header("Stats")]
     [SerializeField] private int _maxHealth;
@@ -57,8 +57,6 @@ public class Damageable : MonoBehaviour
     {
         _currentHealth = _maxHealth;
 
-        _lastRoutine = StartCoroutine(Afterburn());
-
         UpdateHealthUI();
     }
 
@@ -87,34 +85,18 @@ public class Damageable : MonoBehaviour
         OnUpdateHealth?.Invoke();
     }
 
-    public virtual void Damage(int damage, DamageType damageType)
+    public virtual void Damage(int damage, DamageType damageType = DamageType.None)
     {
-        //0 is none, 1 is resistant, 2 is weak
-        int isFireResistant = 0;
+        int finalDamage = damage;
 
-        for (int i = 0; i < _resistanceType.Length; i++)
-        {
-            if (((int)_resistanceType[i] == (int)damageType) && _resistanceType[i] != ResistanceType.None)
-            {
-                damage = damage / 2;
+        if (_resistanceType.Contains(damageType)) { finalDamage = finalDamage / 2; }
 
-                isFireResistant = 1;
-            }
-        }
+        if (_weaknessType.Contains(damageType)) { finalDamage = finalDamage * 2; }
 
-        for (int i = 0; i < _weaknessType.Length; i++)
-        {
-            if (((int)_weaknessType[i] == (int)damageType) && _weaknessType[i] != WeaknessType.None)
-            {
-                damage = damage * 2;
+        bool isWeakToFire = _weaknessType.Contains(DamageType.Fire);
+        bool isFireResistant = _resistanceType.Contains(DamageType.Fire);
 
-                if (isFireResistant == 1) { isFireResistant = 0; }
-
-                else { isFireResistant = 2; }
-            }
-        }
-
-        _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, _maxHealth);
+        _currentHealth = Mathf.Clamp(_currentHealth - finalDamage, 0, _maxHealth);
 
         UpdateHealthUI();
 
@@ -126,14 +108,19 @@ public class Damageable : MonoBehaviour
 
         if (DamageType.Fire == damageType) { _fireParticles.Play(); }
 
-        if (isFireResistant == 0 && damageType == DamageType.Fire) { StopCoroutine(Afterburn(8)); StartCoroutine(Afterburn(8)); }
+        if (!isFireResistant && !isWeakToFire) { StopCoroutine(Afterburn(8)); StartCoroutine(Afterburn(8)); }
 
-        if (isFireResistant == 1 && damageType == DamageType.Fire) { StopCoroutine(Afterburn(4)); StartCoroutine(Afterburn(4)); }
+        if (isFireResistant && !isWeakToFire) { StopCoroutine(Afterburn(4)); StartCoroutine(Afterburn(4)); }
 
-        if (isFireResistant == 2 && damageType == DamageType.Fire) { StopCoroutine(Afterburn(12)); StartCoroutine(Afterburn(12)); }
+        if (isWeakToFire && !isFireResistant) { StopCoroutine(Afterburn(12)); StartCoroutine(Afterburn(12)); }
 
         if (_currentHealth == 0)
             Die();
+    }
+
+    private void DamageEffects()
+    {
+
     }
 
     public virtual void Die()
