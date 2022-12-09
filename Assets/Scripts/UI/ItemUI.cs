@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class ItemUI : MonoBehaviour
 {
@@ -17,8 +18,19 @@ public class ItemUI : MonoBehaviour
 
     protected ItemQuantity _itemQuantity;
     protected PlayerInputHandler _currentPlayer;
+    protected bool _gotClicked = false;
 
     #endregion
+
+    private void Awake()
+    {
+        PlayerInputHandler.OnClick += HandleClick;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerInputHandler.OnClick -= HandleClick;
+    }
 
     public virtual void Initialize(ItemQuantity itemQuantity, PlayerInputHandler currentPlayer)
     {
@@ -33,8 +45,17 @@ public class ItemUI : MonoBehaviour
     public virtual void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer) { }
     public virtual void Initialize(CraftingRecipy craftingRecipy, PlayerInputHandler currentPlayer, CraftingStation craftingStation) { }
 
+    private void HandleClick(PlayerInputHandler playerThatClicked)
+    {
+        if (playerThatClicked != _currentPlayer) { return; }
+
+        _gotClicked = true;
+    }
+
     public virtual void OnClick()
     {
+        if (!_gotClicked) { return; }
 
+        _gotClicked = false;
     }
 }

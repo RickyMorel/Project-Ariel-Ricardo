@@ -33,11 +33,7 @@ public class CraftingItemUI : ItemUI, IPointerEnterHandler
 
     private void HandleItemCrafted()
     {
-        Debug.Log("HandleItemCrafted");
-
         if(_craftingRecipy == null || _currentCraftingStation == null) { return; }
-
-        Debug.Log("HandleItemCrafted NOT NULL");
 
         if (_currentCraftingStation.CanCraft(_craftingRecipy)) SetGreyScale(0); else SetGreyScale(1);
     }
@@ -65,6 +61,10 @@ public class CraftingItemUI : ItemUI, IPointerEnterHandler
 
     public override void OnClick()
     {
+        if (!_gotClicked) { return; }
+
+        _gotClicked = false;
+
         _currentCraftingStation.TryCraft(CraftingRecipy);
     }
 
