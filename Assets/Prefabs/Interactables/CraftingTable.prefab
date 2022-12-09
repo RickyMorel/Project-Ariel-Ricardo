@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 499947137159909518}
   - component: {fileID: 5887497823820905295}
   - component: {fileID: 6023362874122077634}
-  - component: {fileID: 311856662802603197}
+  - component: {fileID: 6620114721468063602}
   m_Layer: 0
   m_Name: CraftingTable
   m_TagString: Untagged
@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 4522010693435419579}
   - {fileID: 1163223125802269192}
+  - {fileID: 8537666185488310224}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -49,12 +50,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
+  outlineColor: {r: 0.057505995, g: 0.02264148, b: 1, a: 1}
+  outlineWidth: 5.89
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
-  _meshes: []
+  _meshes:
+  - {fileID: 4527711816600543681}
+  - {fileID: 4527129777009610248}
 --- !u!54 &5887497823820905295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -82,9 +85,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.8877106, y: 1, z: 2.8674755}
-  m_Center: {x: -2.489153, y: 0, z: 2.3037372}
---- !u!114 &311856662802603197
+  m_Size: {x: 4.8877106, y: 1, z: 1.3533876}
+  m_Center: {x: -2.489153, y: 0, z: 1.5466927}
+--- !u!114 &6620114721468063602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2976597300538468935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8046843e808c296429d8184548559900, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ae6ca77deb85e549995e99f26f1c3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interactionType: 8
@@ -101,6 +104,7 @@ MonoBehaviour:
   _isAIOnlyInteractable: 0
   _isSingleUse: 0
   _singleUseTime: 0.5
+  _itemSpawnTransform: {fileID: 8537666185488310224}
 --- !u!1 &4527711816600543681
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,6 +203,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 4.9999995, z: 1.4408348}
   m_Center: {x: -2.5, y: 1.5045592, z: -0.00000023841858}
+--- !u!1 &4973251390169559853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8537666185488310224}
+  m_Layer: 0
+  m_Name: ItemSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8537666185488310224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973251390169559853}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -2.59, y: 1.77, z: 2.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7426793559943787032}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &7929263880693580779
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +245,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerPosition
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -223,7 +257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7929263880693580779}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2.59, y: 0, z: 2.08}
+  m_LocalPosition: {x: -2.59, y: -1.035, z: 2.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7426793559943787032}

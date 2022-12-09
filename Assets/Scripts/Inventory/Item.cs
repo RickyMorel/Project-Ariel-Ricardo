@@ -6,11 +6,31 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public Sprite Icon;
-    public virtual string DisplayName { get; protected set; }
+    public string DisplayName;
     public string Description;
     public int Value;
     public GameObject ItemPrefab;
     public GameObject ItemPickupPrefab;
     public int ItemSize;
     public bool IsSingleHold = false;
+
+    public GameObject SpawnItemPickup(Transform spawnTransform)
+    {
+        GameObject itemInstance = Instantiate(ItemPickupPrefab, spawnTransform.position, spawnTransform.rotation);
+
+        return itemInstance;
+    }
+
+    public string GetItemName()
+    {
+        string name = DisplayName;
+
+        if(this is UpgradeChip)
+        {
+            UpgradeChip chip = (UpgradeChip)this;
+            chip.GetChipName();
+        }
+
+        return name;
+    }
 }

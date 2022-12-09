@@ -75,6 +75,7 @@ public class PlayerCarryController : MonoBehaviour
 
     public void CarrySingle(ItemPickup itemPickup)
     {
+        DropAllItems();
         DropSingle();
 
         _currentSingleItem = itemPickup.ItemSO;
@@ -98,6 +99,9 @@ public class PlayerCarryController : MonoBehaviour
     public void CarryItem(ItemPickup itemObj)
     {
         if (_interactionController.CurrentInteractable != null) { return; }
+
+        if(_currentSingleItem != null) { DropSingle(); }
+
         if (HasCarrySpace(itemObj.ItemSO) == false) { return; }
 
         itemObj.transform.parent = _carryBoxCollider.transform;

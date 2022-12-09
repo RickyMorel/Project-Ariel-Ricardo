@@ -42,6 +42,6 @@ public class ChipPickup : ItemPickup
         chipObj.transform.localPosition = Vector3.zero;
         chipObj.transform.localEulerAngles = Vector3.zero;
 
-        _nameText.text = _itemSO.DisplayName;
+        _nameText.text = chip.GetChipName();
     }
 }

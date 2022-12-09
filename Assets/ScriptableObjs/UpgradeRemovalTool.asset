@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: UpgradeRemovalTool
   m_EditorClassIdentifier: 
   Icon: {fileID: 0}
+  DisplayName: Upgrade Removal Tool
   Description: 
   Value: 0
   ItemPrefab: {fileID: 3719711182075001927, guid: 08cd22f43626af24aa4cf66f0b2115d5, type: 3}

@@ -4,24 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class InventoryItemUI : MonoBehaviour
+public class InventoryItemUI : ItemUI
 {
-    #region Editor Fields
-
-    [SerializeField] private Image _icon;
-    [SerializeField] private TextMeshProUGUI _amountText;
-
-    #endregion
-
     #region Private Variables
 
-    private ItemQuantity _itemQuantity;
     private Chest _chest;
-    private PlayerInputHandler _currentPlayer;
 
     #endregion
 
-    public void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer)
+    public override void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer)
     {
         _icon.sprite = itemQuantity.Item.Icon;
         _amountText.text = $"x{itemQuantity.Amount}";
@@ -31,7 +22,7 @@ public class InventoryItemUI : MonoBehaviour
         _currentPlayer = currentPlayer;
     }
 
-    public void OnClick()
+    public override void OnClick()
     {
         ItemQuantitySliderUI.Instance.Initialize(_itemQuantity, _chest, _currentPlayer, transform.position);
     }
