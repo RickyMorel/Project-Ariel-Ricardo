@@ -89,12 +89,20 @@ public class Damageable : MonoBehaviour
     {
         int finalDamage = damage;
 
-        if (_resistanceType.Contains(damageType)) { finalDamage = finalDamage / 2; }
+        bool isWeak = false;
+        bool isResistant = false;
 
-        if (_weaknessType.Contains(damageType)) { finalDamage = finalDamage * 2; }
+        if (_resistanceType.Contains(damageType)) 
+        { 
+            finalDamage = finalDamage / 2;
+            isResistant = true;
+        }
 
-        bool isWeakToFire = _weaknessType.Contains(DamageType.Fire);
-        bool isFireResistant = _resistanceType.Contains(DamageType.Fire);
+        if (_weaknessType.Contains(damageType)) 
+        { 
+            finalDamage = finalDamage * 2;
+            isWeak = true;
+        }
 
         _currentHealth = Mathf.Clamp(_currentHealth - finalDamage, 0, _maxHealth);
 
@@ -104,23 +112,26 @@ public class Damageable : MonoBehaviour
 
         if (_damageParticles != null) { _damageParticles.Play(); }
 
-        if (DamageType.Electric == damageType) { _electricParticles.Play(); }
-
-        if (DamageType.Fire == damageType) { _fireParticles.Play(); }
-
-        if (!isFireResistant && !isWeakToFire) { StopCoroutine(Afterburn(8)); StartCoroutine(Afterburn(8)); }
-
-        if (isFireResistant && !isWeakToFire) { StopCoroutine(Afterburn(4)); StartCoroutine(Afterburn(4)); }
-
-        if (isWeakToFire && !isFireResistant) { StopCoroutine(Afterburn(12)); StartCoroutine(Afterburn(12)); }
+        DamageEffects(damageType, isResistant, isWeak);
 
         if (_currentHealth == 0)
             Die();
     }
 
-    private void DamageEffects()
+    private void DamageEffects(DamageType damageType, bool isResistant, bool isWeak)
     {
+        if (DamageType.Electric == damageType) { _electricParticles.Play(); }
 
+        if (DamageType.Fire == damageType)
+        {
+            _fireParticles.Play();
+
+            if ((!isResistant && !isWeak) || (isResistant && isWeak)) { StopCoroutine(_lastRoutine); _lastRoutine = StartCoroutine(Afterburn(8)); }
+
+            if (isResistant && !isWeak) { StopCoroutine(_lastRoutine); _lastRoutine = StartCoroutine(Afterburn(4)); }
+
+            if (isWeak && !isResistant) { StopCoroutine(_lastRoutine); _lastRoutine = StartCoroutine(Afterburn(12)); }
+        }
     }
 
     public virtual void Die()
@@ -133,17 +144,9 @@ public class Damageable : MonoBehaviour
         _maxHealth = newMaxHealth;
     }
 
-    #region UI
-
-    public void UpdateHealthUI()
-    {
-        _healthBarImage.fillAmount = CurrentHealth / MaxHealth;
-    }
-
-    #endregion
-
     private IEnumerator Afterburn(int damage)
     {
+        Debug.Log("Hell");
         yield return new WaitForSeconds(1);
         Damage(damage, DamageType.None);
         yield return new WaitForSeconds(1);
@@ -156,4 +159,13 @@ public class Damageable : MonoBehaviour
         Damage(damage, DamageType.None);
         _fireParticles.Stop();
     }
+
+    #region UI
+
+    public void UpdateHealthUI()
+    {
+        _healthBarImage.fillAmount = CurrentHealth / MaxHealth;
+    }
+
+    #endregion
 }
