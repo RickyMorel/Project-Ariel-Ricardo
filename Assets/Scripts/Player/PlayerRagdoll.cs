@@ -57,7 +57,7 @@ public class PlayerRagdoll : MonoBehaviour
 
     private void DisableMovement(bool isEnabled, bool hasRagdoll)
     {
-        _mainRb.useGravity = !isEnabled;
+        //_mainRb.useGravity = !isEnabled;
         _mainCollider.enabled = !isEnabled;
         if (hasRagdoll) { _anim.enabled = !isEnabled; }
         if (_agent != null) { _agent.enabled = !isEnabled; }

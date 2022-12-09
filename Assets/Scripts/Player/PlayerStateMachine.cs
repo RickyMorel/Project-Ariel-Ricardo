@@ -11,6 +11,7 @@ public class PlayerStateMachine : BaseStateMachine
     private PlayerInputHandler _playerInput;
     private float _turnSmoothVelocity;
     private bool _isAttachedToShip;
+    public Vector3 _fallVelocity;
 
     #endregion
 
@@ -18,6 +19,7 @@ public class PlayerStateMachine : BaseStateMachine
 
     public bool IsAttachedToShip => _isAttachedToShip;
     public override bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
+    public Vector3 FallVelocity { get { return _fallVelocity; } set { _fallVelocity = value; } }
 
     #endregion
 
@@ -72,6 +74,7 @@ public class PlayerStateMachine : BaseStateMachine
             Move();
             RotateTowardsMove();
             AnimateMove();
+            ApplyGravity();
         }
 
         CheckIfFellOutOfShip();
@@ -91,6 +94,16 @@ public class PlayerStateMachine : BaseStateMachine
         float cappedSpeed = _currentSpeed / 20;
         _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, _playerInput.MoveDirection.y * cappedSpeed);
         transform.position += _moveDirection;
+    }
+
+    public void ApplyGravity()
+    {
+        if (_isGrounded && !_isJumpPressed) { _fallVelocity = Vector3.zero; return; }
+        else
+        {
+            _fallVelocity += Physics.gravity * Time.deltaTime;
+            transform.position += _fallVelocity * Time.deltaTime;
+        }
     }
 
     public override void RotateTowardsMove()
