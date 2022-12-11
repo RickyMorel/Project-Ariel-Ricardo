@@ -123,8 +123,6 @@ public class PlayerStateMachine : BaseStateMachine
 
         if (Physics.Raycast(RaycastDrawPosition, Vector3.up, out RaycastHit hit2U, height/2f, _collisionLayers))
         {
-            //Debug.DrawRay(RaycastDrawPosition, Vector3.up * hit2U.distance, Color.yellow);
-            //transform.position -= new Vector3(0f, moveVerticalAmount, 0f);
             _fallVelocity = Vector3.zero;
         }
 
