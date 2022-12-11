@@ -20,8 +20,9 @@ public class PlayerStateMachine : BaseStateMachine
     private CapsuleCollider _capsuleCollider;
     private float _turnSmoothVelocity;
     private bool _isAttachedToShip;
-    public Vector3 _fallVelocity;
+    private Vector3 _fallVelocity;
     public bool _applyGravity;
+    private Vector3 _currentBlockedDirection;
 
     #endregion
 
@@ -82,11 +83,11 @@ public class PlayerStateMachine : BaseStateMachine
 
         if (_canMove)
         {
+            CustomCollisionDecection();
             Move();
             RotateTowardsMove();
             AnimateMove();
             ApplyGravity();
-            CustomCollisionDecection();
         }
 
         CheckIfFellOutOfShip();
@@ -105,21 +106,19 @@ public class PlayerStateMachine : BaseStateMachine
     {
         float height = _capsuleCollider.height;
         float width = 0.5f;
-        float moveHortizontalAmount = 3f * _currentSpeed * Time.deltaTime;
         float moveVerticalAmount = 2f * Time.deltaTime;
         float feetClippingHeightRatio = 4f;
         Vector3 RaycastDrawPosition = transform.position + _capsuleCollider.height / 2f * Vector3.up;
+        _currentBlockedDirection = Vector3.zero;
 
         if (Physics.Raycast(RaycastDrawPosition, Vector3.right, out RaycastHit hitR, width, _collisionLayers))
         {
-            Debug.DrawRay(RaycastDrawPosition, Vector3.right * hitR.distance, Color.yellow);
-            transform.position -= new Vector3(moveHortizontalAmount, 0f, 0f);
+            _currentBlockedDirection = Vector3.right;
         }
 
         if (Physics.Raycast(RaycastDrawPosition, Vector3.left, out RaycastHit hitL, width, _collisionLayers))
         {
-            Debug.DrawRay(RaycastDrawPosition, Vector3.left * hitL.distance, Color.yellow);
-            transform.position -= new Vector3(-moveHortizontalAmount, 0f, 0f);
+            _currentBlockedDirection = Vector3.left;
         }
 
         if (Physics.Raycast(RaycastDrawPosition, Vector3.up, out RaycastHit hit2U, height/2f, _collisionLayers))
@@ -145,6 +144,10 @@ public class PlayerStateMachine : BaseStateMachine
 
     public override void Move()
     {
+        Vector3 v3MoveInput = new Vector3(_playerInput.MoveDirection.x, 0f, _playerInput.MoveDirection.y);
+
+        if(_currentBlockedDirection != Vector3.zero && v3MoveInput == _currentBlockedDirection) { return; }
+
         float cappedSpeed = _currentSpeed / 20;
         float zMovement = _isOrthoMode ? 0f : _playerInput.MoveDirection.y * cappedSpeed;
         _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, zMovement);

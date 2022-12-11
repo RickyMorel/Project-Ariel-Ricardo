@@ -16,16 +16,12 @@ public class PlayerGroundCheck : MonoBehaviour
     {
         if(other.gameObject.layer != _floorMask && other.gameObject.layer != _shipFloorMask) { return; }
 
-        Debug.Log("TOUCHING FLOOR");
-
         _playerStateMachine.IsGrounded = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer != _floorMask && other.gameObject.layer != _shipFloorMask) { return; }
-
-        Debug.Log("NOT TOUCHING FLOOR!");
 
         _playerStateMachine.IsGrounded = false;
     }

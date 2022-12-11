@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1074782143}
   - component: {fileID: 1074782145}
   - component: {fileID: 1074782144}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: Front Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 83877855
+    m_Bits: 83873791
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -635,7 +635,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263545343686659337}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.499999, y: 0, z: -5.49}
+  m_LocalPosition: {x: 2.5, y: 0, z: -5.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1962013948}
@@ -665,7 +665,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.79
+  near clip plane: 0.001
   far clip plane: 100
   field of view: 60
   orthographic: 1
@@ -673,7 +673,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2332045312
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2530,7 +2530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5925056552409260121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.499999, y: 0, z: -5.49}
+  m_LocalPosition: {x: 2.5, y: 0, z: -5.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5877842458882995746}
@@ -2560,7 +2560,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 15
-    NearClipPlane: 0.79
+    NearClipPlane: 0.001
     FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
@@ -2794,7 +2794,7 @@ GameObject:
   - component: {fileID: 3524867355477359836}
   - component: {fileID: 6081471011248339205}
   - component: {fileID: 2923710585742024627}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: Back Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
