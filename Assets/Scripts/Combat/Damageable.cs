@@ -10,6 +10,8 @@ public class Damageable : MonoBehaviour
 {
     #region Editor Fields
 
+    [SerializeField] [Range(0f, 1f)] private float _lerpTime;
+
     [Header("Type Resistances")]
     [SerializeField] private List<DamageType> _resistanceType = new List<DamageType>();
     [SerializeField] private List<DamageType> _weaknessType = new List<DamageType>();
@@ -24,6 +26,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private ParticleSystem _damageParticles;
     [SerializeField] private ParticleSystem _fireParticles;
     [SerializeField] private ParticleSystem _electricParticles;
+    [SerializeField] private Renderer _colorChange;
 
     #endregion
 
@@ -31,7 +34,15 @@ public class Damageable : MonoBehaviour
 
     private float _currentHealth;
 
-    private Coroutine _lastRoutine = null;
+    private Color _originalColor;
+
+    private Coroutine _fireRoutine = null;
+    private Coroutine _returnToOriginalColor = null;
+    private Coroutine _laserRoutine = null;
+    private Coroutine _electricRoutine = null;
+
+    private float _laserTimer = 0;
+    private int _laserLevel;
 
     #endregion
 
@@ -58,6 +69,13 @@ public class Damageable : MonoBehaviour
         _currentHealth = _maxHealth;
 
         UpdateHealthUI();
+
+        _originalColor = _colorChange.material.color;
+    }
+
+    private void Update()
+    {
+        _laserTimer = _laserTimer + Time.deltaTime;
     }
 
     public virtual void OnTriggerEnter(Collider other)
@@ -104,6 +122,8 @@ public class Damageable : MonoBehaviour
             isWeak = true;
         }
 
+        finalDamage = DamageEffects(damageType, isResistant, isWeak, finalDamage);
+
         _currentHealth = Mathf.Clamp(_currentHealth - finalDamage, 0, _maxHealth);
 
         UpdateHealthUI();
@@ -112,26 +132,95 @@ public class Damageable : MonoBehaviour
 
         if (_damageParticles != null) { _damageParticles.Play(); }
 
-        DamageEffects(damageType, isResistant, isWeak);
-
         if (_currentHealth == 0)
             Die();
     }
 
-    private void DamageEffects(DamageType damageType, bool isResistant, bool isWeak)
+    private int DamageEffects(DamageType damageType, bool isResistant, bool isWeak, int finalDamage)
     {
         if (DamageType.Electric == damageType) { _electricParticles.Play(); }
 
-        if (DamageType.Fire == damageType)
-        {
-            _fireParticles.Play();
+        if (DamageType.Fire == damageType){ FireEffect(isResistant, isWeak); }
 
-            if ((!isResistant && !isWeak) || (isResistant && isWeak)) { StopCoroutine(_lastRoutine); _lastRoutine = StartCoroutine(Afterburn(8)); }
-
-            if (isResistant && !isWeak) { StopCoroutine(_lastRoutine); _lastRoutine = StartCoroutine(Afterburn(4)); }
-
-            if (isWeak && !isResistant) { StopCoroutine(_lastRoutine); _lastRoutine = StartCoroutine(Afterburn(12)); }
+        if (DamageType.Laser == damageType) 
+        { 
+            finalDamage = LaserEffect(isResistant, isWeak, finalDamage);
         }
+
+        return finalDamage;
+    }
+
+    private int LaserEffect(bool isResistant, bool isWeak, int finalDamage)
+    {
+        int laserDamage = 0;
+
+        if (_laserTimer <= 3)
+        {
+            _laserTimer = 0;
+
+            if (_laserLevel < 5) { _laserLevel -= -1; }
+
+            ColorChangeForLaser();
+
+            if ((!isResistant && !isWeak) || (isResistant && isWeak)) { laserDamage = 8 * _laserLevel; }
+
+            if (isResistant && !isWeak) { laserDamage = 4 * _laserLevel; }
+
+            if (isWeak && !isResistant) { laserDamage = 12 * _laserLevel; }
+
+            if (laserDamage == 0) { return finalDamage; }
+
+            finalDamage = finalDamage + laserDamage;
+        }
+        else
+        {
+            ReturnToOriginalColor();
+            _laserLevel = 1;
+            _laserTimer = 0;
+            ColorChangeForLaser();
+
+            if ((!isResistant && !isWeak) || (isResistant && isWeak)) { laserDamage = 8; }
+
+            if (isResistant && !isWeak) { laserDamage = 4; }
+
+            if (isWeak && !isResistant) { laserDamage = 12; }
+
+            if (laserDamage == 0) { return finalDamage; }
+
+            finalDamage = finalDamage + laserDamage;
+        }
+        return finalDamage;
+    }
+
+    private void ColorChangeForLaser()
+    {
+        _colorChange.material.color = Color.Lerp(_colorChange.material.color, Color.red, 0.1f*_laserTimer);
+
+        if ((_laserLevel/5) <= _laserTimer) { return; }
+    }
+
+    private void ReturnToOriginalColor()
+    {
+        _colorChange.material.color = Color.Lerp(_colorChange.material.color, Color.red, 0);
+    }
+
+    private void FireEffect(bool isResistant, bool isWeak)
+    {
+        _fireParticles.Play();
+
+        int fireDamage = 0;
+
+        if ((!isResistant && !isWeak) || (isResistant && isWeak)) { fireDamage = 8; }
+
+        if (isResistant && !isWeak) { fireDamage = 4; }
+
+        if (isWeak && !isResistant) { fireDamage = 12; }
+
+        if (fireDamage == 0) { return; }
+
+        if (_fireRoutine != null) { StopCoroutine(_fireRoutine); }
+
+        _fireRoutine = StartCoroutine(Afterburn(fireDamage));
     }
 
     public virtual void Die()
@@ -146,7 +235,6 @@ public class Damageable : MonoBehaviour
 
     private IEnumerator Afterburn(int damage)
     {
-        Debug.Log("Hell");
         yield return new WaitForSeconds(1);
         Damage(damage, DamageType.None);
         yield return new WaitForSeconds(1);

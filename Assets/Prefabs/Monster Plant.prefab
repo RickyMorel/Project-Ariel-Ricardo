@@ -58,7 +58,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5807305311703832666}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2027395864498180034
 GameObject:
@@ -149,7 +149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5807305311703832666}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2146405383355819584
 SkinnedMeshRenderer:
@@ -550,7 +550,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5807305311703832666}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2027885475778631200
 GameObject:
@@ -1099,7 +1099,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5807305311703832666}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2028182839795013738
 GameObject:
@@ -1715,12 +1715,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resistanceType: 
-  _weaknessType: 02000000
+  _weaknessType: 
   _maxHealth: 100
   _healthBarImage: {fileID: 5807305312909571157}
   _damageParticles: {fileID: 4330216161463991999}
   _fireParticles: {fileID: 743306268899285337}
   _electricParticles: {fileID: 339255362940662806}
+  _colorChange: {fileID: 2146405383355819584}
   _canKill: 0
   _hurtTime: 5
 --- !u!114 &2028690528299777030
@@ -20951,10 +20952,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2030944073311763972}
   - {fileID: 2031241272181643508}
   - {fileID: 2030763442522838926}
   - {fileID: 2030659733652158350}
+  - {fileID: 2030944073311763972}
   - {fileID: 2031198154499250440}
   - {fileID: 2031230640658768876}
   - {fileID: 2030836437521764258}
@@ -21159,7 +21160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ownHealth: {fileID: 2028690528299777049}
-  _damageType: 0
 --- !u!1 &5807305312909571154
 GameObject:
   m_ObjectHideFlags: 0
