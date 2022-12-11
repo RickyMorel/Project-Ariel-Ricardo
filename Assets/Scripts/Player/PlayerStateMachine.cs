@@ -2,16 +2,26 @@ using Rewired;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Rewired.Controller;
 
 [RequireComponent(typeof(PlayerCarryController))]
 public class PlayerStateMachine : BaseStateMachine
 {
+    #region Editor Fields
+
+    [SerializeField] private LayerMask _collisionLayers;
+    [SerializeField] private bool _isOrthoMode = true; 
+
+    #endregion
+
     #region Private Variables
 
     private PlayerInputHandler _playerInput;
+    private CapsuleCollider _capsuleCollider;
     private float _turnSmoothVelocity;
     private bool _isAttachedToShip;
     public Vector3 _fallVelocity;
+    public bool _applyGravity;
 
     #endregion
 
@@ -41,6 +51,7 @@ public class PlayerStateMachine : BaseStateMachine
         _playerCarryController = GetComponent<PlayerCarryController>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
         //AttachToShip(true);
 
         _playerInput.OnJump += HandleJump;
@@ -75,6 +86,7 @@ public class PlayerStateMachine : BaseStateMachine
             RotateTowardsMove();
             AnimateMove();
             ApplyGravity();
+            CustomCollisionDecection();
         }
 
         CheckIfFellOutOfShip();
@@ -89,16 +101,59 @@ public class PlayerStateMachine : BaseStateMachine
 
     #endregion
 
+    private void CustomCollisionDecection()
+    {
+        float height = _capsuleCollider.height;
+        float width = 0.5f;
+        float moveHortizontalAmount = 3f * _currentSpeed * Time.deltaTime;
+        float moveVerticalAmount = 2f * Time.deltaTime;
+        float feetClippingHeightRatio = 4f;
+        Vector3 RaycastDrawPosition = transform.position + _capsuleCollider.height / 2f * Vector3.up;
+
+        if (Physics.Raycast(RaycastDrawPosition, Vector3.right, out RaycastHit hitR, width, _collisionLayers))
+        {
+            Debug.DrawRay(RaycastDrawPosition, Vector3.right * hitR.distance, Color.yellow);
+            transform.position -= new Vector3(moveHortizontalAmount, 0f, 0f);
+        }
+
+        if (Physics.Raycast(RaycastDrawPosition, Vector3.left, out RaycastHit hitL, width, _collisionLayers))
+        {
+            Debug.DrawRay(RaycastDrawPosition, Vector3.left * hitL.distance, Color.yellow);
+            transform.position -= new Vector3(-moveHortizontalAmount, 0f, 0f);
+        }
+
+        if (Physics.Raycast(RaycastDrawPosition, Vector3.up, out RaycastHit hit2U, height/2f, _collisionLayers))
+        {
+            //Debug.DrawRay(RaycastDrawPosition, Vector3.up * hit2U.distance, Color.yellow);
+            //transform.position -= new Vector3(0f, moveVerticalAmount, 0f);
+            _fallVelocity = Vector3.zero;
+        }
+
+        if (Physics.Raycast(transform.position + _capsuleCollider.height/feetClippingHeightRatio * Vector3.up, Vector3.down, out RaycastHit hit2D, height/feetClippingHeightRatio, _collisionLayers))
+        {
+            if (_fallVelocity != Vector3.zero) { transform.position -= new Vector3(0f, -moveVerticalAmount, 0f); }
+            _applyGravity = false;
+        }
+        else
+        {
+            _applyGravity = true;
+        }
+
+        Debug.DrawRay(RaycastDrawPosition, Vector3.up * height / 2f, Color.red);
+        Debug.DrawRay(transform.position + _capsuleCollider.height/feetClippingHeightRatio * Vector3.up, Vector3.down * height/feetClippingHeightRatio, Color.cyan);
+    }
+
     public override void Move()
     {
         float cappedSpeed = _currentSpeed / 20;
-        _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, _playerInput.MoveDirection.y * cappedSpeed);
+        float zMovement = _isOrthoMode ? 0f : _playerInput.MoveDirection.y * cappedSpeed;
+        _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, zMovement);
         transform.position += _moveDirection;
     }
 
     public void ApplyGravity()
     {
-        if (_isGrounded && !_isJumpPressed) { _fallVelocity = Vector3.zero; return; }
+        if (!_applyGravity && !_isJumpPressed && _isGrounded) { _fallVelocity = Vector3.zero; return; }
         else
         {
             _fallVelocity += Physics.gravity * Time.deltaTime;
