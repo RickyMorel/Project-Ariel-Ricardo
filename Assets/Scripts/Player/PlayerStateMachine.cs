@@ -107,7 +107,7 @@ public class PlayerStateMachine : BaseStateMachine
         float height = _capsuleCollider.height;
         float width = 0.5f;
         float moveVerticalAmount = 2f * Time.deltaTime;
-        float feetClippingHeightRatio = 4f;
+        float feetClippingHeightRatio = 8f;
         Vector3 RaycastDrawPosition = transform.position + _capsuleCollider.height / 2f * Vector3.up;
         _currentBlockedDirection = Vector3.zero;
 
@@ -121,9 +121,9 @@ public class PlayerStateMachine : BaseStateMachine
             _currentBlockedDirection = Vector3.left;
         }
 
-        if (Physics.Raycast(RaycastDrawPosition, Vector3.up, out RaycastHit hit2U, height/2f, _collisionLayers))
+        if (Physics.Raycast(transform.position + _capsuleCollider.height * Vector3.up, Vector3.up, out RaycastHit hit2U, 0.15f, _collisionLayers))
         {
-            _fallVelocity = Vector3.zero;
+            if (_fallVelocity.y > 0f) { _fallVelocity = Vector3.zero; }
         }
 
         if (Physics.Raycast(transform.position + _capsuleCollider.height/feetClippingHeightRatio * Vector3.up, Vector3.down, out RaycastHit hit2D, height/feetClippingHeightRatio, _collisionLayers))
@@ -136,7 +136,7 @@ public class PlayerStateMachine : BaseStateMachine
             _applyGravity = true;
         }
 
-        Debug.DrawRay(RaycastDrawPosition, Vector3.up * height / 2f, Color.red);
+        Debug.DrawRay(transform.position + _capsuleCollider.height * Vector3.up, Vector3.up * 0.15f, Color.red);
         Debug.DrawRay(transform.position + _capsuleCollider.height/feetClippingHeightRatio * Vector3.up, Vector3.down * height/feetClippingHeightRatio, Color.cyan);
     }
 
