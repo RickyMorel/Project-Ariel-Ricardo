@@ -107,7 +107,9 @@ public class PlayerStateMachine : BaseStateMachine
         float height = _capsuleCollider.height;
         float width = 0.5f;
         float feetClippingHeightRatio = 8f;
+        float feetRaycastLength = height / feetClippingHeightRatio;
         Vector3 midPoint = _capsuleCollider.height / 2f * Vector3.up;
+        Vector3 feetMidPoint = transform.position + _capsuleCollider.height / feetClippingHeightRatio * Vector3.up;
         bool bothFeetOnFloor = true;
         _currentBlockedDirection = Vector3.zero;
 
@@ -130,10 +132,10 @@ public class PlayerStateMachine : BaseStateMachine
                 _currentBlockedDirection = Vector3.left;
             }
 
-            Vector3 feetRaycastPos = transform.position + _capsuleCollider.height / feetClippingHeightRatio * Vector3.up + i * Vector3.right * (width/2f);
+            Vector3 feetRaycastPos = feetMidPoint + i * Vector3.right * (width/2f);
 
             //check down
-            if (Physics.Raycast(feetRaycastPos, Vector3.down, out RaycastHit hit2D, height / feetClippingHeightRatio, _collisionLayers))
+            if (Physics.Raycast(feetRaycastPos, Vector3.down, out RaycastHit hit2D, feetRaycastLength, _collisionLayers))
             {
                 bothFeetOnFloor = false;
             }
@@ -146,6 +148,28 @@ public class PlayerStateMachine : BaseStateMachine
         }
 
         _applyGravity = bothFeetOnFloor;
+
+        //Don't do diagonal checks if is not falling
+        if (_applyGravity == false || _fallVelocity == Vector3.zero) { return; }
+
+        float diagonalMoveAmount = _fallVelocity.magnitude * Time.deltaTime * 5f;
+
+        //check diagonal down left
+        if (Physics.Raycast(feetMidPoint, new Vector3(-1f, -1f, 0f), out RaycastHit hitDL, feetRaycastLength * 1.5f, _collisionLayers))
+        {
+            Debug.Log("MOVE DIAGONAL LEFT");
+            transform.position += new Vector3(diagonalMoveAmount, diagonalMoveAmount, 0f);
+        }
+
+        //check diagonal down right
+        if (Physics.Raycast(feetMidPoint, new Vector3(1f, -1f, 0f), out RaycastHit hitDR, feetRaycastLength * 1.5f, _collisionLayers))
+        {
+            Debug.Log("MOVE DIAGONAL RIGHT");
+            transform.position += new Vector3(-diagonalMoveAmount, diagonalMoveAmount, 0f);
+        }
+
+        Debug.DrawRay(feetMidPoint, new Vector3(-1f, -1f, 0f) * feetRaycastLength * 2f, Color.cyan);
+        Debug.DrawRay(feetMidPoint, new Vector3(1f, -1f, 0f) * feetRaycastLength * 2f, Color.cyan);
     }
 
     public override void Move()
