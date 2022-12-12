@@ -17,6 +17,7 @@ TagManager:
   - ShipAttackPoint
   - HealPoint
   - Enemy
+  - RemovalTool
   layers:
   - Default
   - TransparentFX

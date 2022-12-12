@@ -252,6 +252,8 @@ public class Damageable : MonoBehaviour
 
     public void UpdateHealthUI()
     {
+        if(_healthBarImage == null) { return; }
+
         _healthBarImage.fillAmount = CurrentHealth / MaxHealth;
     }
 

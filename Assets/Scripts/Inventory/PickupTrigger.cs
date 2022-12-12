@@ -14,7 +14,8 @@ public class PickupTrigger : MonoBehaviour
 
     #region Private Variables
 
-    private List<ItemPrefab> _currentItems = new List<ItemPrefab>();
+    private List<ItemPickup> _currentItems = new List<ItemPickup>();
+    private ItemPickup _currentSingleItem;
 
     #endregion
 
@@ -34,29 +35,50 @@ public class PickupTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
-
-        itemPrefab.EnableOutline(true);
-
-        _currentItems.Add(itemPrefab);
+        CheckForItem(other, true);
     }
+
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.TryGetComponent<ItemPrefab>(out ItemPrefab itemPrefab)) { return; }
-
-        itemPrefab.EnableOutline(false);
-
-        _currentItems.Remove(itemPrefab);
+        CheckForItem(other, false);
     }
 
     #endregion
 
     private void HandleInteract()
     {
-        if(_currentItems.Count < 1) { return; }
+        PickupItem();
+    }
 
-        if(_currentItems[0] == null) { _currentItems.RemoveAt(0); return; }
+    #region Items
+
+    private void CheckForItem(Collider other, bool isEnter)
+    {
+        if (!other.gameObject.TryGetComponent<ItemPickup>(out ItemPickup itemPrefab)) { return; }
+
+        itemPrefab.EnableOutline(isEnter);
+
+        if (isEnter) 
+        {
+            if (itemPrefab.ItemSO.IsSingleHold) { _currentSingleItem = itemPrefab; }
+            else { _currentItems.Add(itemPrefab); }
+        }
+        else 
+        {
+            if (itemPrefab.ItemSO.IsSingleHold) { _currentSingleItem = null; }
+            else { _currentItems.Remove(itemPrefab); }
+        }
+
+    }
+
+    private void PickupItem()
+    {
+        if (_currentSingleItem != null) { _currentSingleItem.PickUpSingle(_playerCarryController); return; }
+
+        if (_currentItems.Count < 1) { return; }
+
+        if (_currentItems[0] == null) { _currentItems.RemoveAt(0); return; }
 
         if (HasPickedUpItem(_currentItems[0].gameObject)) { _currentItems.RemoveAt(0); return; }
 
@@ -67,7 +89,7 @@ public class PickupTrigger : MonoBehaviour
 
     private bool HasPickedUpItem(GameObject wantedItem)
     {
-        foreach (ItemPrefab carriedItem in _playerCarryController.ItemsCarrying)
+        foreach (ItemPickup carriedItem in _playerCarryController.ItemsCarrying)
         {
             if (carriedItem.gameObject == wantedItem)
                 return true;
@@ -85,4 +107,6 @@ public class PickupTrigger : MonoBehaviour
             _currentItems.RemoveAt(i);
         }
     }
+
+    #endregion
 }

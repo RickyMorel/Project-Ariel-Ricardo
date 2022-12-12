@@ -25,6 +25,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsPlayerActive = false;
 
     public static event Action<PlayerInputHandler, bool> OnSpecialAction;
+    public static event Action<PlayerInputHandler> OnClick;
 
     public event Action OnJump;
     public event Action OnInteract;
@@ -96,6 +97,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (!_player.GetButtonDown("Confirm")) { return; }
 
         OnConfirm?.Invoke();
+        OnClick?.Invoke(this);
     }
 
     public void Cancel()

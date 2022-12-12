@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class AIHealth : PlayerHealth
 {
+    #region Editor Fields
+
+    [SerializeField] private bool _canKill = false;
+
+    #endregion
+
     #region Private Variables
 
     private GAgent _gAgent;
     private AIInteractionController _interactionController;
+
+    #endregion
+
+    #region Public Properties
+
+    public bool CanKill => _canKill;
 
     #endregion
 
