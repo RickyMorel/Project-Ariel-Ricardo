@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 7627081817445622296}
   - component: {fileID: 7627081817445622300}
   - component: {fileID: 1366173165246229612}
+  - component: {fileID: 2622272990365630263}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -930,7 +931,6 @@ MonoBehaviour:
     _socket_1_ChipType: 1
     _socket_2_ChipType: 0
   _chipDropTransform: {fileID: 2389941571288428507}
-  _upgradeParticles: {fileID: 0}
   _projectilePrefab: {fileID: 6835169869500657298, guid: ae5425c51ae307f4bb82602a757b6b25, type: 3}
   _timeBetweenShots: 0.2
   _shootTransform: {fileID: 1912763688}
@@ -950,6 +950,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8572445, z: 1.5523602}
   m_Center: {x: -9.657273e-15, y: -0.8324919, z: -3.3204288}
+--- !u!114 &2622272990365630263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7627081817445622301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2d7aa5aa6a8024490a3fdd67ceebfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 10
+  _healthBarImage: {fileID: 0}
+  _damageParticles: {fileID: 0}
 --- !u!1 &7627081817470800421
 GameObject:
   m_ObjectHideFlags: 0

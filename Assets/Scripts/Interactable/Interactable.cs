@@ -95,5 +95,12 @@ public class Interactable : MonoBehaviour
         OnUninteract?.Invoke();
     }
 
+    public void RemoveCurrentPlayer()
+    {
+        if(_currentPlayer == null) { return; }
+
+        _currentPlayer.CheckExitInteraction();
+    }
+
     #endregion
 }
