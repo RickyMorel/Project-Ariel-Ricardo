@@ -15,12 +15,14 @@ public class CameraManager : MonoBehaviour
     private CinemachineVirtualCamera[] _vCams;
 
     private GameObject _perspectiveCamera;
+    private bool _isInOrthoMode = false;
 
     #endregion
 
     #region Public Properties
 
     public static CameraManager Instance { get { return _instance; } }
+    public bool IsInOrthoMode => _isInOrthoMode;
 
     #endregion
 
@@ -83,6 +85,8 @@ public class CameraManager : MonoBehaviour
             _cameras[i].gameObject.SetActive(!boolean);
             _vCams[i].gameObject.SetActive(!boolean);
         }
+
+        _isInOrthoMode = boolean;
     }
 
     public void SplitScreen(int index)

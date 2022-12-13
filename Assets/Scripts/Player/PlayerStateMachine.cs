@@ -2,15 +2,26 @@ using Rewired;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Rewired.Controller;
 
 [RequireComponent(typeof(PlayerCarryController))]
 public class PlayerStateMachine : BaseStateMachine
 {
+    #region Editor Fields
+
+    [SerializeField] private LayerMask _collisionLayers;
+
+    #endregion
+
     #region Private Variables
 
     private PlayerInputHandler _playerInput;
+    private CapsuleCollider _capsuleCollider;
     private float _turnSmoothVelocity;
     private bool _isAttachedToShip;
+    private Vector3 _fallVelocity;
+    private bool _applyGravity;
+    private Vector3 _currentBlockedDirection;
 
     #endregion
 
@@ -18,6 +29,7 @@ public class PlayerStateMachine : BaseStateMachine
 
     public bool IsAttachedToShip => _isAttachedToShip;
     public override bool IsShooting => _playerInput == null ? false : _playerInput.IsShooting;
+    public Vector3 FallVelocity { get { return _fallVelocity; } set { _fallVelocity = value; } }
 
     #endregion
 
@@ -39,7 +51,7 @@ public class PlayerStateMachine : BaseStateMachine
         _playerCarryController = GetComponent<PlayerCarryController>();
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
-        //AttachToShip(true);
+        _capsuleCollider = GetComponent<CapsuleCollider>();
 
         _playerInput.OnJump += HandleJump;
     }
@@ -69,9 +81,11 @@ public class PlayerStateMachine : BaseStateMachine
 
         if (_canMove)
         {
+            CustomCollisionDecection();
             Move();
             RotateTowardsMove();
             AnimateMove();
+            ApplyGravity();
         }
 
         CheckIfFellOutOfShip();
@@ -86,11 +100,94 @@ public class PlayerStateMachine : BaseStateMachine
 
     #endregion
 
+    private void CustomCollisionDecection()
+    {
+        float height = _capsuleCollider.height;
+        float width = 0.5f;
+        float feetClippingHeightRatio = 8f;
+        float feetRaycastLength = height / feetClippingHeightRatio;
+        Vector3 midPoint = _capsuleCollider.height / 2f * Vector3.up;
+        Vector3 feetMidPoint = transform.position + _capsuleCollider.height / feetClippingHeightRatio * Vector3.up;
+        bool bothFeetOnFloor = true;
+        _currentBlockedDirection = Vector3.zero;
+
+        //draw 2 raycasts per side
+        for (int i = -1; i < 2; i++)
+        {
+            if(i == 0) { continue; }
+
+            Vector3 RaycastDrawPosition = transform.position + midPoint + (i * midPoint / 2f);
+
+            //check right
+            if (Physics.Raycast(RaycastDrawPosition, Vector3.right, out RaycastHit hitR, width, _collisionLayers))
+            {
+                _currentBlockedDirection = Vector3.right;
+            }
+
+            //check left
+            if (Physics.Raycast(RaycastDrawPosition, Vector3.left, out RaycastHit hitL, width, _collisionLayers))
+            {
+                _currentBlockedDirection = Vector3.left;
+            }
+
+            Vector3 feetRaycastPos = feetMidPoint + i * Vector3.right * (width/2f);
+
+            //check down
+            if (Physics.Raycast(feetRaycastPos, Vector3.down, out RaycastHit hit2D, feetRaycastLength, _collisionLayers))
+            {
+                bothFeetOnFloor = false;
+            }
+        }
+
+        //check up
+        if (Physics.Raycast(transform.position + _capsuleCollider.height * Vector3.up, Vector3.up, out RaycastHit hit2U, 0.15f, _collisionLayers))
+        {
+            if (_fallVelocity.y > 0f) { _fallVelocity = Vector3.zero; }
+        }
+
+        _applyGravity = bothFeetOnFloor;
+
+        //Don't do diagonal checks if is not falling
+        if (_applyGravity == false || _fallVelocity == Vector3.zero) { return; }
+
+        float diagonalMoveAmount = _fallVelocity.magnitude * Time.deltaTime * 5f;
+
+        //check diagonal down left
+        if (Physics.Raycast(feetMidPoint, new Vector3(-1f, -1f, 0f), out RaycastHit hitDL, feetRaycastLength * 1.5f, _collisionLayers))
+        {
+            transform.position += new Vector3(diagonalMoveAmount, diagonalMoveAmount, 0f);
+        }
+
+        //check diagonal down right
+        if (Physics.Raycast(feetMidPoint, new Vector3(1f, -1f, 0f), out RaycastHit hitDR, feetRaycastLength * 1.5f, _collisionLayers))
+        {
+            transform.position += new Vector3(-diagonalMoveAmount, diagonalMoveAmount, 0f);
+        }
+
+        Debug.DrawRay(feetMidPoint, new Vector3(-1f, -1f, 0f) * feetRaycastLength * 2f, Color.cyan);
+        Debug.DrawRay(feetMidPoint, new Vector3(1f, -1f, 0f) * feetRaycastLength * 2f, Color.cyan);
+    }
+
     public override void Move()
     {
+        Vector3 v3MoveInput = new Vector3(_playerInput.MoveDirection.x, 0f, _playerInput.MoveDirection.y);
+
+        if(_currentBlockedDirection != Vector3.zero && v3MoveInput == _currentBlockedDirection) { return; }
+
         float cappedSpeed = _currentSpeed / 20;
-        _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, _playerInput.MoveDirection.y * cappedSpeed);
+        float zMovement = CameraManager.Instance.IsInOrthoMode ? 0f : _playerInput.MoveDirection.y * cappedSpeed;
+        _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, zMovement);
         transform.position += _moveDirection;
+    }
+
+    public void ApplyGravity()
+    {
+        if (!_applyGravity && !_isJumpPressed && _isGrounded) { _fallVelocity = Vector3.zero; return; }
+        else
+        {
+            _fallVelocity += Physics.gravity * Time.deltaTime;
+            transform.position += _fallVelocity * Time.deltaTime;
+        }
     }
 
     public override void RotateTowardsMove()

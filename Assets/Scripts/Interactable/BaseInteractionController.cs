@@ -108,7 +108,6 @@ public class BaseInteractionController : MonoBehaviour
     {
         BaseInteractionController interactionController = interactionType == 0 ? null : this;
         if(_agent != null) { _agent.enabled = interactionType == 0; }
-        _rb.isKinematic = interactionType != 0;
 
         _currentInteractable.SetCurrentPlayer(interactionController);
         _currentInteraction = interactionType;
