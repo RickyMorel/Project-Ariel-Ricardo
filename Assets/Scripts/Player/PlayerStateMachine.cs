@@ -10,7 +10,6 @@ public class PlayerStateMachine : BaseStateMachine
     #region Editor Fields
 
     [SerializeField] private LayerMask _collisionLayers;
-    [SerializeField] private bool _isOrthoMode = true; 
 
     #endregion
 
@@ -157,14 +156,12 @@ public class PlayerStateMachine : BaseStateMachine
         //check diagonal down left
         if (Physics.Raycast(feetMidPoint, new Vector3(-1f, -1f, 0f), out RaycastHit hitDL, feetRaycastLength * 1.5f, _collisionLayers))
         {
-            Debug.Log("MOVE DIAGONAL LEFT");
             transform.position += new Vector3(diagonalMoveAmount, diagonalMoveAmount, 0f);
         }
 
         //check diagonal down right
         if (Physics.Raycast(feetMidPoint, new Vector3(1f, -1f, 0f), out RaycastHit hitDR, feetRaycastLength * 1.5f, _collisionLayers))
         {
-            Debug.Log("MOVE DIAGONAL RIGHT");
             transform.position += new Vector3(-diagonalMoveAmount, diagonalMoveAmount, 0f);
         }
 
@@ -179,7 +176,7 @@ public class PlayerStateMachine : BaseStateMachine
         if(_currentBlockedDirection != Vector3.zero && v3MoveInput == _currentBlockedDirection) { return; }
 
         float cappedSpeed = _currentSpeed / 20;
-        float zMovement = _isOrthoMode ? 0f : _playerInput.MoveDirection.y * cappedSpeed;
+        float zMovement = CameraManager.Instance.IsInOrthoMode ? 0f : _playerInput.MoveDirection.y * cappedSpeed;
         _moveDirection = new Vector3(_playerInput.MoveDirection.x * cappedSpeed, 0f, zMovement);
         transform.position += _moveDirection;
     }

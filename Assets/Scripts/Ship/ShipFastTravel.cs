@@ -80,7 +80,6 @@ public class ShipFastTravel : MonoBehaviour
         if (!other.gameObject.TryGetComponent<PlayerInputHandler>(out PlayerInputHandler player)) { return; }
 
         if (_playersInShipList.Contains(player)) { return; }
-        Debug.Log("OnPlayerTriggerEnter: " + other.gameObject.name);
 
         _playersInShipList.Add(player);
         _playersInShip++;
@@ -95,7 +94,6 @@ public class ShipFastTravel : MonoBehaviour
         if (!other.gameObject.TryGetComponent<PlayerInputHandler>(out PlayerInputHandler player)) { return; }
 
         if (_playersInShipList.Contains(player) == false) { return; }
-        Debug.Log("OnPlayerTriggerExit: " + other.gameObject.name);
 
         _cameraManager.ToggleCamera(false);
         _lastRoutine = StartCoroutine(DetachFromShip());
