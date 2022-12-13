@@ -23,7 +23,6 @@ public class PlayerRagdoll : MonoBehaviour
 
     private void Awake()
     {
-        _mainRb = GetComponent<Rigidbody>();
         _mainCollider = GetComponent<Collider>();
         _anim = GetComponent<Animator>();
 
