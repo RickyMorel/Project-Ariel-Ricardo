@@ -27,6 +27,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private ParticleSystem _fireParticles;
     [SerializeField] private ParticleSystem _electricParticles;
     [SerializeField] private Renderer _colorChange;
+    [ColorUsageAttribute(false, true), SerializeField] private Color _redHDR;
 
     #endregion
 
@@ -37,13 +38,13 @@ public class Damageable : MonoBehaviour
     private Color _originalColor;
 
     private Coroutine _fireRoutine = null;
-    private Coroutine _returnToOriginalColor = null;
     private Coroutine _laserRoutine = null;
     private Coroutine _electricRoutine = null;
 
     private float _laserTimer = 0;
+    private float _laserCountdown = 1;
     private int _laserLevel;
-    private bool _isChangingColor = false;
+    private bool _isLerping = false;
 
     #endregion
 
@@ -77,6 +78,7 @@ public class Damageable : MonoBehaviour
     private void Update()
     {
         _laserTimer = _laserTimer + Time.deltaTime;
+        _laserCountdown = _laserTimer - Time.deltaTime;
 
         ColorChangeForLaser();
     }
@@ -163,7 +165,11 @@ public class Damageable : MonoBehaviour
 
             if (_laserLevel < 5) { _laserLevel -= -1; }
 
-            _isChangingColor = true;
+            _isLerping = true;
+
+            if (_laserRoutine != null) { StopCoroutine(_laserRoutine); }
+
+            _laserRoutine = StartCoroutine(ReturnToOriginalColor());
 
             if ((!isResistant && !isWeak) || (isResistant && isWeak)) { laserDamage = 8 * _laserLevel; }
 
@@ -174,18 +180,17 @@ public class Damageable : MonoBehaviour
             if (laserDamage == 0) { return finalDamage; }
 
             finalDamage = finalDamage + laserDamage;
-
-            if (_laserRoutine != null) { StopCoroutine(_laserRoutine); }
-
-            _laserRoutine = StartCoroutine(ReturnToOriginalColor());
         }
         else
         {
             _laserLevel = 1;
             _laserTimer = 0;
 
-            _isChangingColor = true;
+            _isLerping = true;
 
+            if (_laserRoutine != null) { StopCoroutine(_laserRoutine); }
+
+            _laserRoutine = StartCoroutine(ReturnToOriginalColor());
 
             if ((!isResistant && !isWeak) || (isResistant && isWeak)) { laserDamage = 8; }
 
@@ -196,27 +201,24 @@ public class Damageable : MonoBehaviour
             if (laserDamage == 0) { return finalDamage; }
 
             finalDamage = finalDamage + laserDamage;
-
-            if (_laserRoutine != null) { StopCoroutine(_laserRoutine); }
-
-            _laserRoutine = StartCoroutine(ReturnToOriginalColor());
         }
         return finalDamage;
     }
 
     private void ColorChangeForLaser()
     {
-        if (!_isChangingColor) { return; }
+        if (!_isLerping) { return; }
 
-        _colorChange.material.color = Color.Lerp(_colorChange.material.color, Color.red, 0.1f*_laserTimer);
+        _colorChange.material.color = Color.Lerp(_colorChange.material.color, _redHDR, _laserTimer);
 
-        if ((float)_laserLevel/5 <= _laserTimer) { _isChangingColor = false; }
+        if ((float)_laserLevel/5 <= _laserTimer) { _isLerping = false; }
     }
 
     private IEnumerator ReturnToOriginalColor()
     {
-        yield return new WaitForSeconds(2);
-        _colorChange.material.color = Color.Lerp(_colorChange.material.color, _originalColor, 1);
+        yield return new WaitForSeconds(1);
+        _laserCountdown = 1;
+        _colorChange.material.color = Color.Lerp(_colorChange.material.color, _originalColor, -0.1f*_laserCountdown);
     }
 
     private void FireEffect(bool isResistant, bool isWeak)
