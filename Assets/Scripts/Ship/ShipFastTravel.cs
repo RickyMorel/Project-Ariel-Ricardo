@@ -16,7 +16,7 @@ public class ShipFastTravel : MonoBehaviour
 
     #region Private Variables
 
-    public int _playersInShip = 0;
+    private int _playersInShip = 0;
     private int _playersActive = 0;
 
     private bool _wantToTravel = false;

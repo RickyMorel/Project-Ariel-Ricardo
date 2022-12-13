@@ -20,7 +20,7 @@ public class PlayerStateMachine : BaseStateMachine
     private float _turnSmoothVelocity;
     private bool _isAttachedToShip;
     private Vector3 _fallVelocity;
-    public bool _applyGravity;
+    private bool _applyGravity;
     private Vector3 _currentBlockedDirection;
 
     #endregion
@@ -52,7 +52,6 @@ public class PlayerStateMachine : BaseStateMachine
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
-        //AttachToShip(true);
 
         _playerInput.OnJump += HandleJump;
     }
