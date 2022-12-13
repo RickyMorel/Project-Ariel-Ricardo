@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -15,13 +16,14 @@ public class ShipFastTravel : MonoBehaviour
 
     #region Private Variables
 
-    private int _playersInShip = 0;
+    public int _playersInShip = 0;
     private int _playersActive = 0;
 
     private bool _wantToTravel = false;
 
     private ShipDoor _shipDoor;
     private PlayerInputHandler[] _isPlayerActive;
+    private List<PlayerInputHandler> _playersInShipList = new List<PlayerInputHandler>();
 
     private FastTravelNPC _fastTravelNPC;
 
@@ -73,10 +75,14 @@ public class ShipFastTravel : MonoBehaviour
         AttachToShip();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnPlayerTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerInputHandler>() == null) { return; }
+        if (!other.gameObject.TryGetComponent<PlayerInputHandler>(out PlayerInputHandler player)) { return; }
 
+        if (_playersInShipList.Contains(player)) { return; }
+        Debug.Log("OnPlayerTriggerEnter: " + other.gameObject.name);
+
+        _playersInShipList.Add(player);
         _playersInShip++;
 
         StopCoroutine(_lastRoutine);
@@ -84,13 +90,17 @@ public class ShipFastTravel : MonoBehaviour
         CheckPlayersInShip();
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnPlayerTriggerExit(Collider other)
     {
-        if (other.GetComponent<PlayerInputHandler>() == null) { return; }
+        if (!other.gameObject.TryGetComponent<PlayerInputHandler>(out PlayerInputHandler player)) { return; }
+
+        if (_playersInShipList.Contains(player) == false) { return; }
+        Debug.Log("OnPlayerTriggerExit: " + other.gameObject.name);
 
         _cameraManager.ToggleCamera(false);
         _lastRoutine = StartCoroutine(DetachFromShip());
         _playersInShip--;
+        _playersInShipList.Remove(player);
     }
 
     private IEnumerator FastTravelCoroutine()
@@ -117,7 +127,7 @@ public class ShipFastTravel : MonoBehaviour
         {
             if (_isPlayerActive[i].IsPlayerActive == true)
             {
-                _isPlayerActive[i].GetComponentInParent<PlayerStateMachine>().AttachToShip(true);
+               _isPlayerActive[i].GetComponentInParent<PlayerStateMachine>().AttachToShip(true);
             }
         }
     }
