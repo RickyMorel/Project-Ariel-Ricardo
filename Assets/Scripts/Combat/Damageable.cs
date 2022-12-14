@@ -35,16 +35,13 @@ public class Damageable : MonoBehaviour
 
     private float _currentHealth;
 
-    [ColorUsageAttribute(false, true), SerializeField] private Color _originalColor;
+    [ColorUsageAttribute(false, true)] private Color _originalColor;
 
     private Coroutine _fireRoutine = null;
-    private Coroutine _laserRoutine = null;
-    private Coroutine _electricRoutine = null;
 
     private float _timeSinceLastLaserShot = 0;
     private float _timeToResetLaserLevel = 2;
     private float _laserLevel;
-    private bool _isInLaserCooldown = false;
 
     #endregion
 
@@ -128,7 +125,7 @@ public class Damageable : MonoBehaviour
             isWeak = true;
         }
 
-        finalDamage = DamageEffects(damageType, isResistant, isWeak, finalDamage);
+        finalDamage = DamageTypesSelector(damageType, isResistant, isWeak, finalDamage);
 
         _currentHealth = Mathf.Clamp(_currentHealth - finalDamage, 0, _maxHealth);
 
@@ -142,34 +139,25 @@ public class Damageable : MonoBehaviour
             Die();
     }
 
-    private int DamageEffects(DamageType damageType, bool isResistant, bool isWeak, int finalDamage)
+    private int DamageTypesSelector(DamageType damageType, bool isResistant, bool isWeak, int finalDamage)
     {
         if (DamageType.Electric == damageType) { _electricParticles.Play(); }
 
-        if (DamageType.Fire == damageType){ FireEffect(isResistant, isWeak); }
+        if (DamageType.Fire == damageType){ FireDamage(isResistant, isWeak); }
 
         if (DamageType.Laser == damageType) 
         { 
-            finalDamage = LaserEffect(isResistant, isWeak, finalDamage);
+            finalDamage = LaserDamage(isResistant, isWeak, finalDamage);
         }
 
         return finalDamage;
     }
 
-    private int LaserEffect(bool isResistant, bool isWeak, int finalDamage)
+    private int LaserDamage(bool isResistant, bool isWeak, int finalDamage)
     {
         int laserDamage = 0;
 
-        _laserLevel = Mathf.Clamp(_laserLevel + 1, 0, 5);
-
-        if (_timeSinceLastLaserShot <= _timeToResetLaserLevel)
-        {
-            if (_laserLevel < 5) { _laserLevel += 1; }
-        }
-
-        else { _laserLevel = 1; }
-
-        _isInLaserCooldown = true;
+        _laserLevel = Mathf.Clamp(_laserLevel + 0.3f, 0f, 5f);
 
         _timeSinceLastLaserShot = 0;
 
@@ -188,16 +176,18 @@ public class Damageable : MonoBehaviour
 
     private void ColorChangeForLaser()
     {
+        if (_colorChange == null) { return; }
+        
         if (_timeSinceLastLaserShot > _timeToResetLaserLevel)
         {
-            float laserReductionAmount = 0.1f * Time.deltaTime;
+            float laserReductionAmount = 2.5f * Time.deltaTime;
             _laserLevel = Mathf.Clamp(_laserLevel - laserReductionAmount, 0, 5);
         }
 
-        _colorChange.material.SetColor("_EmissionColor", Color.Lerp(_colorChange.material.GetColor("_EmissionColor"), _redHDR, ((float)_laserLevel / 5) + _timeSinceLastLaserShot - 0.2f));
+        _colorChange.material.SetColor("_EmissionColor", Color.Lerp(_originalColor, _redHDR, _laserLevel/5f));
     }
 
-    private void FireEffect(bool isResistant, bool isWeak)
+    private void FireDamage(bool isResistant, bool isWeak)
     {
         _fireParticles.Play();
 
