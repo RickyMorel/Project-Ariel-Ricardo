@@ -35,16 +35,16 @@ public class Damageable : MonoBehaviour
 
     private float _currentHealth;
 
-    private Color _originalColor;
+    [ColorUsageAttribute(false, true), SerializeField] private Color _originalColor;
 
     private Coroutine _fireRoutine = null;
     private Coroutine _laserRoutine = null;
     private Coroutine _electricRoutine = null;
 
-    private float _laserTimer = 0;
-    private float _laserCountdown = 1;
-    private int _laserLevel;
-    private bool _isLerping = false;
+    private float _timeSinceLastLaserShot = 0;
+    private float _timeToResetLaserLevel = 2;
+    private float _laserLevel;
+    private bool _isInLaserCooldown = false;
 
     #endregion
 
@@ -72,13 +72,14 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthUI();
 
-        _originalColor = _colorChange.material.color;
+        _colorChange.material.EnableKeyword("_EMISSION");
+
+        _originalColor = _colorChange.material.GetColor("_EmissionColor");
     }
 
     private void Update()
     {
-        _laserTimer = _laserTimer + Time.deltaTime;
-        _laserCountdown = _laserTimer - Time.deltaTime;
+        _timeSinceLastLaserShot += Time.deltaTime;
 
         ColorChangeForLaser();
     }
@@ -159,66 +160,41 @@ public class Damageable : MonoBehaviour
     {
         int laserDamage = 0;
 
-        if (_laserTimer <= 2)
+        _laserLevel = Mathf.Clamp(_laserLevel + 1, 0, 5);
+
+        if (_timeSinceLastLaserShot <= _timeToResetLaserLevel)
         {
-            _laserTimer = 0;
-
-            if (_laserLevel < 5) { _laserLevel -= -1; }
-
-            _isLerping = true;
-
-            if (_laserRoutine != null) { StopCoroutine(_laserRoutine); }
-
-            _laserRoutine = StartCoroutine(ReturnToOriginalColor());
-
-            if ((!isResistant && !isWeak) || (isResistant && isWeak)) { laserDamage = 8 * _laserLevel; }
-
-            if (isResistant && !isWeak) { laserDamage = 4 * _laserLevel; }
-
-            if (isWeak && !isResistant) { laserDamage = 12 * _laserLevel; }
-
-            if (laserDamage == 0) { return finalDamage; }
-
-            finalDamage = finalDamage + laserDamage;
+            if (_laserLevel < 5) { _laserLevel += 1; }
         }
-        else
-        {
-            _laserLevel = 1;
-            _laserTimer = 0;
 
-            _isLerping = true;
+        else { _laserLevel = 1; }
 
-            if (_laserRoutine != null) { StopCoroutine(_laserRoutine); }
+        _isInLaserCooldown = true;
 
-            _laserRoutine = StartCoroutine(ReturnToOriginalColor());
+        _timeSinceLastLaserShot = 0;
 
-            if ((!isResistant && !isWeak) || (isResistant && isWeak)) { laserDamage = 8; }
+        if ((!isResistant && !isWeak) || (isResistant && isWeak)) { laserDamage = 8 * (int)_laserLevel; }
 
-            if (isResistant && !isWeak) { laserDamage = 4; }
+        if (isResistant && !isWeak) { laserDamage = 4 * (int)_laserLevel; }
 
-            if (isWeak && !isResistant) { laserDamage = 12; }
+        if (isWeak && !isResistant) { laserDamage = 12 * (int)_laserLevel; }
 
-            if (laserDamage == 0) { return finalDamage; }
+        if (laserDamage == 0) { return finalDamage; }
 
-            finalDamage = finalDamage + laserDamage;
-        }
+        finalDamage = finalDamage + laserDamage;
+
         return finalDamage;
     }
 
     private void ColorChangeForLaser()
     {
-        if (!_isLerping) { return; }
+        if (_timeSinceLastLaserShot > _timeToResetLaserLevel)
+        {
+            float laserReductionAmount = 0.1f * Time.deltaTime;
+            _laserLevel = Mathf.Clamp(_laserLevel - laserReductionAmount, 0, 5);
+        }
 
-        _colorChange.material.color = Color.Lerp(_colorChange.material.color, _redHDR, _laserTimer);
-
-        if ((float)_laserLevel/5 <= _laserTimer) { _isLerping = false; }
-    }
-
-    private IEnumerator ReturnToOriginalColor()
-    {
-        yield return new WaitForSeconds(1);
-        _laserCountdown = 1;
-        _colorChange.material.color = Color.Lerp(_colorChange.material.color, _originalColor, -0.1f*_laserCountdown);
+        _colorChange.material.SetColor("_EmissionColor", Color.Lerp(_colorChange.material.GetColor("_EmissionColor"), _redHDR, ((float)_laserLevel / 5) + _timeSinceLastLaserShot - 0.2f));
     }
 
     private void FireEffect(bool isResistant, bool isWeak)

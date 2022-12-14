@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: _redHDR.r
-      value: 1.4980392
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: myColor.b
