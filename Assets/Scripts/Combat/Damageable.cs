@@ -42,6 +42,7 @@ public class Damageable : MonoBehaviour
     private float _timeSinceLastLaserShot = 0;
     private float _timeToResetLaserLevel = 2;
     private float _laserLevel;
+    private bool _isBeingElectrocuted = false;
 
     #endregion
 
@@ -141,14 +142,11 @@ public class Damageable : MonoBehaviour
 
     private int DamageTypesSelector(DamageType damageType, bool isResistant, bool isWeak, int finalDamage)
     {
-        if (DamageType.Electric == damageType) { _electricParticles.Play(); }
+        if (DamageType.Electric == damageType) { ElectricDamage(); }
 
         if (DamageType.Fire == damageType){ FireDamage(isResistant, isWeak); }
 
-        if (DamageType.Laser == damageType) 
-        { 
-            finalDamage = LaserDamage(isResistant, isWeak, finalDamage);
-        }
+        if (DamageType.Laser == damageType) { finalDamage = LaserDamage(isResistant, isWeak, finalDamage); }
 
         return finalDamage;
     }
@@ -204,6 +202,24 @@ public class Damageable : MonoBehaviour
         if (_fireRoutine != null) { StopCoroutine(_fireRoutine); }
 
         _fireRoutine = StartCoroutine(Afterburn(fireDamage));
+    }
+
+    private void ElectricDamage()
+    {
+        if (_isBeingElectrocuted) { return; }
+
+        if (TryGetComponent<BaseStateMachine>(out BaseStateMachine baseStateMachine)) { baseStateMachine.CanMove = false; }
+
+        _electricParticles.Play();
+        _isBeingElectrocuted = true;
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10f);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (!hitCollider.TryGetComponent<Damageable>(out Damageable damageable)) { continue; }
+
+            damageable.Damage(200, DamageType.Electric);
+        }
     }
 
     public virtual void Die()
