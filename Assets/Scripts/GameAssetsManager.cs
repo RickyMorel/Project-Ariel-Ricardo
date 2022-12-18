@@ -7,6 +7,7 @@ public class GameAssetsManager : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private GameObject _damagePopup;
+    [SerializeField] private GameObject _repairPopup;
     [SerializeField] private GameObject _chipPickup;
     [SerializeField] private GameObject _upgradeParticles;
     [SerializeField] private GameObject _interactableFriedParticles;
@@ -24,6 +25,7 @@ public class GameAssetsManager : MonoBehaviour
     #region Public Properties
 
     public GameObject DamagePopup => _damagePopup;
+    public GameObject RepairPopup => _repairPopup;
     public GameObject ChipPickup => _chipPickup;
     public GameObject UpgradeParticles => _upgradeParticles;
     public GameObject InteractableFriedParticles => _interactableFriedParticles;

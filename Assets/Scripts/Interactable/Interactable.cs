@@ -33,12 +33,17 @@ public class Interactable : MonoBehaviour
 
     #endregion
 
+    #region Getters && Setters
+
+    public InteractionType InteractionType { get { return _interactionType; } set { _interactionType = value; } }
+    public bool IsSingleUse { get { return _isSingleUse; } set { _isSingleUse = value; } }
+
+    #endregion
+
     #region Public Properties
 
-    public InteractionType InteractionType => _interactionType;
     public Transform PlayerPositionTransform => _playerPositionTransform;
     public BaseInteractionController CurrentPlayer => _currentPlayer;
-    public bool IsSingleUse => _isSingleUse;
     public bool CanUse { get { return _canUse; } set { _canUse = value; } }
     public float SingleUseTime => _singleUseTime;
 

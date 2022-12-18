@@ -39,7 +39,6 @@ public class Damageable : MonoBehaviour
     private float _timeToResetLaserLevel = 2;
     private float _laserLevel;
     private bool _isBeingElectrocuted = false;
-    private bool _isDead = false;
 
     private ParticleSystem _fireParticles;
     private ParticleSystem _electricParticles;
@@ -144,8 +143,6 @@ public class Damageable : MonoBehaviour
     public virtual void Die()
     {
         OnDie?.Invoke();
-
-        _isDead = true;
     }
 
     public bool IsDead()
@@ -276,7 +273,7 @@ public class Damageable : MonoBehaviour
     {
         _electricParticles.Play();
         yield return new WaitForSeconds(2);
-        if (!_isDead && baseStateMachine != null) { baseStateMachine.CanMove = true; }
+        if (!IsDead() && baseStateMachine != null) { baseStateMachine.CanMove = true; }
         _isBeingElectrocuted = false;
         _electricParticles.Stop();
     }

@@ -10,4 +10,5 @@ public enum InteractionType
     Scared = 7,
     ShopSalesmanIdle = 8,
     Healing = 9,
+    Fixing = 10,
 }
