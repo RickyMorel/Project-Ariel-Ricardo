@@ -46,7 +46,7 @@ public class GAgent : MonoBehaviour
 
     private Vector3 _destination = Vector3.zero;
     private bool _invoked = false;
-    [SerializeField] private bool _isMoving = false;
+    private bool _isMoving = false;
 
     private Rigidbody _rb;
     private AIStateMachine _aiStateMachine;

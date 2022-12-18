@@ -48,7 +48,7 @@ public class BaseStateMachine : MonoBehaviour
 
     protected bool _isJumpPressed;
     protected Vector3 _moveDirection;
-    protected bool _canMove = true;
+    [SerializeField] protected bool _canMove = true;
     protected bool _isShooting;
 
     #endregion

@@ -1713,14 +1713,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lerpTime: 0
-  _parent: {fileID: 2028690528299777028}
   _resistanceType: 
-  _weaknessType: 
+  _weaknessType: 02000000
   _maxHealth: 100
   _healthBarImage: {fileID: 5807305312909571157}
   _damageParticles: {fileID: 4330216161463991999}
   _colorChange: {fileID: 2146405383355819584}
-  _redHDR: {r: 0, g: 0, b: 0, a: 0}
+  _redHDR: {r: 2, g: 0, b: 0, a: 0}
   _hurtTime: 5
   _canKill: 0
 --- !u!114 &2028690528299777030
