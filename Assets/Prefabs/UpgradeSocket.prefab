@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3792222952107375426}
   - component: {fileID: 3808215284820655766}
   - component: {fileID: 3818470027891503540}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: SM_Prop_Battery_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

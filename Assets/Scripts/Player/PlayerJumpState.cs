@@ -53,6 +53,7 @@ public class PlayerJumpState : PlayerBaseState
         float jumpingVelocity = Mathf.Sqrt(-2 * _context.GravityIntensity * _context.JumpHeight);
         Vector3 playerVelocity = _context.MoveDirection;
         playerVelocity.y = jumpingVelocity;
-        _context.Rb.velocity = playerVelocity;
+        PlayerStateMachine stateMachine = _context as PlayerStateMachine;
+        stateMachine.FallVelocity = playerVelocity;
     }
 }
