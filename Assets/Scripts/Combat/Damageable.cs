@@ -23,6 +23,8 @@ public class Damageable : MonoBehaviour
 
     [Header("FX")]
     [SerializeField] private ParticleSystem _damageParticles;
+    [SerializeField] private ParticleSystem _fireParticles;
+    [SerializeField] private ParticleSystem _electricParticles;
     [SerializeField] private Renderer _colorChange;
     [ColorUsageAttribute(false, true), SerializeField] private Color _redHDR;
 
@@ -35,15 +37,11 @@ public class Damageable : MonoBehaviour
     [ColorUsageAttribute(false, true)] private Color _originalColor;
 
     private Coroutine _fireRoutine = null;
-    private Coroutine _electricRoutine = null;
 
     private float _timeSinceLastLaserShot = 0;
     private float _timeToResetLaserLevel = 2;
     private float _laserLevel;
     private bool _isBeingElectrocuted = false;
-
-    private ParticleSystem _fireParticles;
-    private ParticleSystem _electricParticles;
 
     #endregion
 
@@ -74,8 +72,6 @@ public class Damageable : MonoBehaviour
         _colorChange.material.EnableKeyword("_EMISSION");
 
         _originalColor = _colorChange.material.GetColor("_EmissionColor");
-
-        InstantiateDamageTypeParticles();
     }
 
     private void Update()
@@ -101,18 +97,6 @@ public class Damageable : MonoBehaviour
 
     #endregion
 
-    private void InstantiateDamageTypeParticles()
-    {
-        GameObject fireParticlesInstance = Instantiate(GameAssetsManager.Instance.FireParticles, transform);
-        GameObject electricParticleInstance = Instantiate(GameAssetsManager.Instance.ElectricParticles, transform);
-
-        _fireParticles = fireParticlesInstance.GetComponent<ParticleSystem>();
-        _electricParticles = electricParticleInstance.GetComponent<ParticleSystem>();
-
-        _fireParticles.Stop();
-        _electricParticles.Stop();
-    }
-
     public void AddHealth(int amountAdded)
     {
         _currentHealth = Mathf.Clamp(_currentHealth + amountAdded, 0, _maxHealth);
@@ -122,7 +106,7 @@ public class Damageable : MonoBehaviour
         OnUpdateHealth?.Invoke();
     }
 
-    public virtual void Damage(int damage, DamageType damageType = DamageType.None, bool isElectricChain = false)
+    public virtual void Damage(int damage, DamageType damageType = DamageType.None)
     {
         int finalDamage = damage;
 
@@ -141,7 +125,7 @@ public class Damageable : MonoBehaviour
             isWeak = true;
         }
 
-        finalDamage = DamageTypesSelector(damageType, isResistant, isWeak, finalDamage, isElectricChain);
+        finalDamage = DamageTypesSelector(damageType, isResistant, isWeak, finalDamage);
 
         _currentHealth = Mathf.Clamp(_currentHealth - finalDamage, 0, _maxHealth);
 
@@ -155,9 +139,9 @@ public class Damageable : MonoBehaviour
             Die();
     }
 
-    private int DamageTypesSelector(DamageType damageType, bool isResistant, bool isWeak, int finalDamage, bool isElectricChain)
+    private int DamageTypesSelector(DamageType damageType, bool isResistant, bool isWeak, int finalDamage)
     {
-        if (DamageType.Electric == damageType) { ElectricDamage(isElectricChain); }
+        if (DamageType.Electric == damageType) { ElectricDamage(); }
 
         if (DamageType.Fire == damageType){ FireDamage(isResistant, isWeak); }
 
@@ -219,25 +203,22 @@ public class Damageable : MonoBehaviour
         _fireRoutine = StartCoroutine(Afterburn(fireDamage));
     }
 
-    private void ElectricDamage(bool isElectricChain)
+    private void ElectricDamage()
     {
-        if (_isBeingElectrocuted && isElectricChain) { return; }
-
-        _isBeingElectrocuted = true;
+        if (_isBeingElectrocuted) { return; }
 
         if (TryGetComponent<BaseStateMachine>(out BaseStateMachine baseStateMachine)) { baseStateMachine.CanMove = false; }
+
+        _electricParticles.Play();
+        _isBeingElectrocuted = true;
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10f);
         foreach (var hitCollider in hitColliders)
         {
             if (!hitCollider.TryGetComponent<Damageable>(out Damageable damageable)) { continue; }
 
-            damageable.Damage(200, DamageType.Electric, true);
+            damageable.Damage(200, DamageType.Electric);
         }
-
-        if (_electricRoutine != null) { StopCoroutine(_electricRoutine); }
-
-        _electricRoutine = StartCoroutine(ElectricParalysis(baseStateMachine));
     }
 
     public virtual void Die()
@@ -263,15 +244,6 @@ public class Damageable : MonoBehaviour
         yield return new WaitForSeconds(1);
         Damage(damage, DamageType.None);
         _fireParticles.Stop();
-    }
-
-    private IEnumerator ElectricParalysis(BaseStateMachine baseStateMachine)
-    {
-        _electricParticles.Play();
-        yield return new WaitForSeconds(2);
-        baseStateMachine.CanMove = true;
-        _isBeingElectrocuted = false;
-        _electricParticles.Stop();
     }
 
     #region UI

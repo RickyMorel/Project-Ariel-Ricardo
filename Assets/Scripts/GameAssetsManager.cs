@@ -9,8 +9,6 @@ public class GameAssetsManager : MonoBehaviour
     [SerializeField] private GameObject _damagePopup;
     [SerializeField] private GameObject _chipPickup;
     [SerializeField] private GameObject _upgradeParticles;
-    [SerializeField] private GameObject _electricParticles;
-    [SerializeField] private GameObject _fireParticles;
 
     #endregion
 
@@ -25,8 +23,6 @@ public class GameAssetsManager : MonoBehaviour
     public GameObject DamagePopup => _damagePopup;
     public GameObject ChipPickup => _chipPickup;
     public GameObject UpgradeParticles => _upgradeParticles;
-    public GameObject ElectricParticles => _electricParticles;
-    public GameObject FireParticles => _fireParticles;
 
     public static GameAssetsManager Instance { get { return _instance; } }
 
