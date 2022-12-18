@@ -35,7 +35,6 @@ public class BaseStateMachine : MonoBehaviour
     public bool CanMove { get { return _canMove; } set { _canMove = value; } }
     public virtual bool IsShooting { get { return _isShooting; } set { _isShooting = value; } }
 
-
     #endregion
 
     #region Private Variables
@@ -49,7 +48,7 @@ public class BaseStateMachine : MonoBehaviour
 
     protected bool _isJumpPressed;
     protected Vector3 _moveDirection;
-    protected bool _canMove = true;
+    [SerializeField] protected bool _canMove = true;
     protected bool _isShooting;
 
     #endregion
@@ -98,8 +97,8 @@ public class BaseStateMachine : MonoBehaviour
         {
             Move();
             RotateTowardsMove();
-            AnimateMove();
         }
+        AnimateMove();
     }
 
     #endregion
@@ -116,6 +115,8 @@ public class BaseStateMachine : MonoBehaviour
 
     public virtual void AnimateMove()
     {
+        if (!CanMove) { _moveDirection = Vector3.zero; }
+
         _anim.SetFloat("Movement", _moveDirection.magnitude);
     }
 }

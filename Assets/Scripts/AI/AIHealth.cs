@@ -23,6 +23,8 @@ public class AIHealth : PlayerHealth
 
     #endregion
 
+    #region Unity Loops
+
     public override void Start()
     {
         base.Start();
@@ -37,6 +39,8 @@ public class AIHealth : PlayerHealth
     {
         OnDamaged -= Hurt;
     }
+
+    #endregion
 
     public override void Hurt()
     {
