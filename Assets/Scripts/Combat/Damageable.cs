@@ -21,7 +21,7 @@ public class Damageable : MonoBehaviour
 
     [Header("FX")]
     [SerializeField] private ParticleSystem _damageParticles;
-    [SerializeField] private Renderer _colorChange;
+    [SerializeField] private Renderer _colorChangeRenderer;
     [ColorUsageAttribute(false, true), SerializeField] private Color _redHDR;
 
     #endregion
@@ -46,14 +46,9 @@ public class Damageable : MonoBehaviour
 
     #endregion
 
-    #region Getters and Setters
-
-    public float CurrentHealth => _currentHealth;
-
-    #endregion
-
     #region Public Properties
 
+    public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
 
     public event Action OnUpdateHealth;
@@ -70,9 +65,11 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthUI();
 
-        _colorChange.material.EnableKeyword("_EMISSION");
-
-        _originalColor = _colorChange.material.GetColor("_EmissionColor");
+        if(_colorChangeRenderer != null)
+        {
+            _colorChangeRenderer.material.EnableKeyword("_EMISSION");
+            _originalColor = _colorChangeRenderer.material.GetColor("_EmissionColor");
+        }
 
         InstantiateDamageTypeParticles();
     }
@@ -111,6 +108,8 @@ public class Damageable : MonoBehaviour
 
     public virtual void Damage(int damage, DamageType damageType = DamageType.None, bool isDamageChain = false)
     {
+        if (IsDead()) { return; }
+
         int finalDamage = damage;
 
         bool isWeak = false;
@@ -206,7 +205,7 @@ public class Damageable : MonoBehaviour
 
     private void ColorChangeForLaser()
     {
-        if (_colorChange == null) { return; }
+        if (_colorChangeRenderer == null) { return; }
         
         if (_timeSinceLastLaserShot > _timeToResetLaserLevel)
         {
@@ -214,7 +213,7 @@ public class Damageable : MonoBehaviour
             _laserLevel = Mathf.Clamp(_laserLevel - laserReductionAmount, 0, 5);
         }
 
-        _colorChange.material.SetColor("_EmissionColor", Color.Lerp(_originalColor, _redHDR, _laserLevel/5f));
+        _colorChangeRenderer.material.SetColor("_EmissionColor", Color.Lerp(_originalColor, _redHDR, _laserLevel/5f));
     }
 
     private void FireDamage(bool isResistant, bool isWeak)
