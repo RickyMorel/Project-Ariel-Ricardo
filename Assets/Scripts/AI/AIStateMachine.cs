@@ -5,8 +5,18 @@ using UnityEngine.AI;
 
 public class AIStateMachine : BaseStateMachine
 {
+    #region Private Variables
+
     private GAgent _gAgent;
     private NavMeshAgent _agent;
+
+    #endregion
+
+    #region Public Properties
+
+    public NavMeshAgent Agent => _agent;
+
+    #endregion
 
     public override void Start()
     {
@@ -23,6 +33,8 @@ public class AIStateMachine : BaseStateMachine
 
     public void BasicAttack()
     {
+        if (!CanMove) { return; }
+
         StartCoroutine(SetIsShootingCoroutine());
     }
 

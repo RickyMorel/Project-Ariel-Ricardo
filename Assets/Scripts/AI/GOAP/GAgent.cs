@@ -49,6 +49,7 @@ public class GAgent : MonoBehaviour
     private bool _isMoving = false;
 
     private Rigidbody _rb;
+    private AIStateMachine _aiStateMachine;
     private float _goalDistance = 2f;
 
     #endregion
@@ -58,6 +59,7 @@ public class GAgent : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _aiStateMachine = GetComponent<AIStateMachine>();
     }
    
     public virtual void Start()
@@ -78,6 +80,10 @@ public class GAgent : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!_aiStateMachine.CanMove) { _isMoving = false; _aiStateMachine.Agent.enabled = false; }
+
+        else { _aiStateMachine.Agent.enabled = true; }
+
         if (CurrentAction != null && CurrentAction.IsRunning)
         {
             if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.SetDestination(_destination); }
@@ -86,8 +92,6 @@ public class GAgent : MonoBehaviour
             if (distanceToTarget < _goalDistance)
             {
                 if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.ResetPath(); }
-
-                if (CurrentAction.ActionName == "Heal") { Debug.Log($"distanceToTarget: {distanceToTarget} < _goalDistance: {_goalDistance}"); }
 
                 _isMoving = false;
 
@@ -138,7 +142,7 @@ public class GAgent : MonoBehaviour
 
                 CurrentAction.Agent.SetDestination(_destination);
 
-                _isMoving = true;
+                if (_aiStateMachine.CanMove) { _isMoving = true; }
             }
         }
         else

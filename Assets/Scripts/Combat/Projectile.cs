@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private float _speed;
     [SerializeField] private int _damage = 20;
+    [SerializeField] private DamageType _damageType;
 
     #endregion
 
@@ -22,6 +23,8 @@ public class Projectile : MonoBehaviour
     #region Public Properties
 
     public int Damage => _damage;
+
+    public DamageType DamageType => _damageType;
 
     #endregion
 

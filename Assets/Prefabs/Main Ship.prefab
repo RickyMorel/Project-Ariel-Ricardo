@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074782142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4316335, z: -2.5373201}
+  m_LocalPosition: {x: 0, y: -1.4316335, z: -2.71}
   m_LocalScale: {x: 14.062787, y: 14.062787, z: 0.00039137423}
   m_Children: []
   m_Father: {fileID: 4495503735212887621}
@@ -996,9 +996,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d8cfa72b77b5e4c9692e7c482a926b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resistanceType: 
+  _weaknessType: 
   _maxHealth: 1000
   _healthBarImage: {fileID: 0}
   _damageParticles: {fileID: 0}
+  _colorChange: {fileID: 5877842458007388443}
+  _redHDR: {r: 2, g: 0, b: 0, a: 0}
 --- !u!114 &5877842457033602641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2914,7 +2918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8628421990538783332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4316335, z: -0.30372998}
+  m_LocalPosition: {x: 0, y: -1.4316335, z: -0.22}
   m_LocalScale: {x: 14.062787, y: 14.062787, z: 0.00039137423}
   m_Children: []
   m_Father: {fileID: 4495503735212887621}
