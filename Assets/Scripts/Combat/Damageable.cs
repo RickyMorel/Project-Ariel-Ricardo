@@ -46,7 +46,7 @@ public class Damageable : MonoBehaviour
         UpdateHealthUI();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
 
@@ -88,6 +88,11 @@ public class Damageable : MonoBehaviour
     public virtual void Die()
     {
         OnDie?.Invoke();
+    }
+
+    public bool IsDead()
+    {
+        return CurrentHealth <= 0f;
     }
 
     public void SetMaxHealth(int newMaxHealth)

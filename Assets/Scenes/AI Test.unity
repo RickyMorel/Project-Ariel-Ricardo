@@ -1246,6 +1246,10 @@ PrefabInstance:
       propertyPath: _contentTransform
       value: 
       objectReference: {fileID: 1757915095}
+    - target: {fileID: 8587008802359724413, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+      propertyPath: _interactableFriedParticles
+      value: 
+      objectReference: {fileID: 3190417459725645050, guid: fe885f0d9d2133f4bbb54d9fd64b057b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
 --- !u!1001 &3994054409877047726
@@ -1380,6 +1384,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 263545343686659338, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.4900002
+      objectReference: {fileID: 0}
     - target: {fileID: 319713644502076378, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1440,5 +1448,9 @@ PrefabInstance:
       propertyPath: _healthBarImage
       value: 
       objectReference: {fileID: 1444441625}
+    - target: {fileID: 5925056552409260122, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.4900002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}

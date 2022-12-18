@@ -20,7 +20,9 @@ public class InteractableHealth : Damageable
     {
         AddHealth((int)MaxHealth);
 
-        if(_currentParticles != null) { Destroy(_currentParticles); }
+        _interactable.CanUse = true;
+
+        if (_currentParticles != null) { Destroy(_currentParticles); }
     }
 
     public override void Die()
@@ -28,6 +30,13 @@ public class InteractableHealth : Damageable
         base.Die();
 
         _currentParticles = Instantiate(GameAssetsManager.Instance.InteractableFriedParticles, transform);
+        _currentParticles.transform.localPosition = new Vector3(
+            _interactable.PlayerPositionTransform.localPosition.x,
+                                                               0f,
+            _interactable.PlayerPositionTransform.localPosition.z);
+
+        _interactable.CanUse = false;
+
         _interactable.RemoveCurrentPlayer();
     }
 }

@@ -23,6 +23,7 @@ public class Interactable : MonoBehaviour
     #region Private Variables
 
     private Outline _outline;
+    private bool _canUse = true;
 
     #endregion
 
@@ -38,6 +39,7 @@ public class Interactable : MonoBehaviour
     public Transform PlayerPositionTransform => _playerPositionTransform;
     public BaseInteractionController CurrentPlayer => _currentPlayer;
     public bool IsSingleUse => _isSingleUse;
+    public bool CanUse { get { return _canUse; } set { _canUse = value; } }
     public float SingleUseTime => _singleUseTime;
 
     public event Action OnInteract;
