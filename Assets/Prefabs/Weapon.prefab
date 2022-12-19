@@ -1061,6 +1061,8 @@ MonoBehaviour:
   _damageParticles: {fileID: 123179723661260038}
   _colorChangeRenderer: {fileID: 0}
   _redHDR: {r: 0, g: 0, b: 0, a: 0}
+  _fixCost: {fileID: 11400000, guid: d319920631389c1479433087dd1f2747, type: 2}
+  _timeToFix: 8
 --- !u!1 &7627081817470800421
 GameObject:
   m_ObjectHideFlags: 0

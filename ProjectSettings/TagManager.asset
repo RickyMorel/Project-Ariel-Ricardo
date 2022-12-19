@@ -52,6 +52,9 @@ TagManager:
   - Player3Cam
   - Player4Cam
   m_SortingLayers:
+  - name: UI_IMPORTANT
+    uniqueID: 1910072673
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

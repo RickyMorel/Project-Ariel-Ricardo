@@ -7,6 +7,7 @@ public class InteractableHealth : Damageable
 {
     #region Editor Fields
 
+    [SerializeField] private CraftingRecipy _fixCost;
     [SerializeField] private float _timeToFix = 8f;
 
     #endregion
@@ -20,6 +21,8 @@ public class InteractableHealth : Damageable
     private GameObject _currentRepairPopup;
 
     #endregion
+
+    #region Unity Loops
 
     private void Awake()
     {
@@ -46,11 +49,17 @@ public class InteractableHealth : Damageable
         if(_timeSpentFixing > _timeToFix) { FixInteractable(); }
     }
 
+    #endregion
+
     private void TryStartFix()
     {
         if (!IsDead()) { return; }
 
         if(_currentRepairPopup != null) { Destroy(_currentRepairPopup); }
+
+        if (!CraftingManager.CanCraft(_fixCost)) { _interactable.RemoveCurrentPlayer(); return; }
+
+        MainInventory.Instance.RemoveItems(_fixCost.CraftingIngredients);
 
         _timeSpentFixing = 0f;
 

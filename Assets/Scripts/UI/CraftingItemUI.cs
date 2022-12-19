@@ -35,7 +35,7 @@ public class CraftingItemUI : ItemUI, IPointerEnterHandler
     {
         if(_craftingRecipy == null || _currentCraftingStation == null) { return; }
 
-        if (_currentCraftingStation.CanCraft(_craftingRecipy)) SetGreyScale(0); else SetGreyScale(1);
+        if (CraftingManager.CanCraft(_craftingRecipy)) SetGreyScale(0); else SetGreyScale(1);
     }
 
     public override void Initialize(CraftingRecipy craftingRecipy, PlayerInputHandler currentPlayer, CraftingStation craftingStation)
@@ -49,7 +49,7 @@ public class CraftingItemUI : ItemUI, IPointerEnterHandler
         _currentCraftingStation = craftingStation;
         _craftingRecipy = craftingRecipy;
 
-        if (craftingStation.CanCraft(craftingRecipy)) SetGreyScale(0); else SetGreyScale(1);
+        if (CraftingManager.CanCraft(craftingRecipy)) SetGreyScale(0); else SetGreyScale(1);
     }
 
 
