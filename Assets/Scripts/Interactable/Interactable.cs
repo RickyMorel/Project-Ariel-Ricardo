@@ -46,6 +46,7 @@ public class Interactable : MonoBehaviour
     public BaseInteractionController CurrentPlayer => _currentPlayer;
     public bool CanUse { get { return _canUse; } set { _canUse = value; } }
     public float SingleUseTime => _singleUseTime;
+    public Outline Outline => _outline;
 
     public event Action OnInteract;
     public event Action OnUninteract;

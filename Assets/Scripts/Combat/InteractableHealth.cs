@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,12 +17,22 @@ public class InteractableHealth : Damageable
     private GameObject _currentParticles;
     private float _timeSpentFixing = 0f;
     private PrevInteractableState _prevInteractableState;
+    private GameObject _currentRepairPopup;
 
     #endregion
 
     private void Awake()
     {
         _interactable = GetComponent<Interactable>();
+
+        _interactable.OnInteract += TryStartFix;
+        _interactable.OnUninteract += TryStopFix;
+    }
+
+    private void OnDestroy()
+    {
+        _interactable.OnInteract -= TryStartFix;
+        _interactable.OnUninteract -= TryStopFix;
     }
 
     private void Update()
@@ -35,6 +46,22 @@ public class InteractableHealth : Damageable
         if(_timeSpentFixing > _timeToFix) { FixInteractable(); }
     }
 
+    private void TryStartFix()
+    {
+        if (!IsDead()) { return; }
+
+        if(_currentRepairPopup != null) { Destroy(_currentRepairPopup); }
+
+        _timeSpentFixing = 0f;
+
+        _currentRepairPopup = RepairPopup.Create(transform, _interactable.PlayerPositionTransform.localPosition, _timeToFix - _timeSpentFixing).gameObject;
+    }
+
+    private void TryStopFix()
+    {
+        if (_currentRepairPopup != null) { Destroy(_currentRepairPopup); }
+    }
+
     public void FixInteractable()
     {
         AddHealth((int)MaxHealth);
@@ -42,7 +69,9 @@ public class InteractableHealth : Damageable
         _interactable.CanUse = true;
         _interactable.InteractionType = _prevInteractableState.InteractionType;
         _interactable.IsSingleUse = _prevInteractableState.IsSingleUse;
+        _interactable.Outline.OutlineColor = _prevInteractableState.OutlineColor;
         _timeSpentFixing = 0f;
+        _interactable.RemoveCurrentPlayer();
 
         if (_currentParticles != null) { Destroy(_currentParticles); }
     }
@@ -61,23 +90,26 @@ public class InteractableHealth : Damageable
 
         _interactable.RemoveCurrentPlayer();
 
-        _prevInteractableState = new PrevInteractableState(_interactable.InteractionType, _interactable.IsSingleUse);
+        _prevInteractableState = new PrevInteractableState(_interactable.InteractionType, _interactable.IsSingleUse, _interactable.Outline.OutlineColor);
         _interactable.InteractionType = InteractionType.Fixing;
         _interactable.IsSingleUse = false;
+        _interactable.Outline.OutlineColor = Color.red;
     }
 
     #region Helper Classes
 
     private class PrevInteractableState
     {
-        public PrevInteractableState(InteractionType originalInteractionType, bool originalIsSingleUse)
+        public PrevInteractableState(InteractionType originalInteractionType, bool originalIsSingleUse, Color outlineColor)
         {
             InteractionType = originalInteractionType;
             IsSingleUse = originalIsSingleUse;
+            OutlineColor = outlineColor;
         }
 
         public InteractionType InteractionType;
         public bool IsSingleUse;
+        public Color OutlineColor;
     }
 
     #endregion

@@ -80,8 +80,6 @@ public class BaseInteractionController : MonoBehaviour
     {
         if (_currentInteractable == null) { return; }
 
-        if(_currentInteractable.CanUse == false) { return; }
-
         if (_currentInteractable.CurrentPlayer == this) { return; }
 
         SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);

@@ -8,23 +8,23 @@ public class RepairPopup : MonoBehaviour
 {
     #region Editor Fields
 
-    [SerializeField] private Color _normalTextColor;
-    [SerializeField] private Color _criticalTextColor;
+    [SerializeField] private TextMeshPro _timerText;
 
     #endregion
 
     #region Private Variables
 
-    private TextMeshPro _timerText;
     private float _repairTime;
 
     #endregion
 
     #region Public Properties
 
-    public static RepairPopup Create(Vector3 position, float repairDuration)
+    public static RepairPopup Create(Transform interatableTransform, Vector3 localPos, float repairDuration)
     {
-        GameObject repairPopupObj = Instantiate(GameAssetsManager.Instance.RepairPopup, position, Quaternion.identity);
+        GameObject repairPopupObj = Instantiate(GameAssetsManager.Instance.RepairPopup, interatableTransform);
+        repairPopupObj.transform.localPosition = new Vector3(localPos.x, 0f, localPos.z);
+
         RepairPopup repairPopup = repairPopupObj.GetComponent<RepairPopup>();
         repairPopup.Setup(repairDuration);
 
@@ -44,11 +44,11 @@ public class RepairPopup : MonoBehaviour
         int repairTimeInt = (int)_repairTime;
         _timerText.text = repairTimeInt.ToString();
 
-        if(_repairTime <= 0f) { Destroy(gameObject); }
+        if(_repairTime <= 1f) { Destroy(gameObject); }
     }
 
     public void Setup(float repairTime)
     {
-        _repairTime = repairTime;
+        _repairTime = repairTime + 1f;
     }
 }
