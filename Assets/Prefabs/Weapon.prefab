@@ -238,8 +238,9 @@ GameObject:
   - component: {fileID: 5193264706460301601}
   - component: {fileID: 5217825183496876761}
   - component: {fileID: 5210632957281617779}
+  - component: {fileID: 3262291655610223788}
   m_Layer: 0
-  m_Name: SM_Prop_Turret_Base_Double_01
+  m_Name: Normal Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,6 +311,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3262291655610223788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196917001017997861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce79472da175b8d4fbb53c560911e0b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5196958495453686589
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +943,6 @@ MonoBehaviour:
     _socket_1_ChipType: 1
     _socket_2_ChipType: 0
   _chipDropTransform: {fileID: 2389941571288428507}
-  _upgradeParticles: {fileID: 0}
   _projectilePrefab: {fileID: 6835169869500657298, guid: ae5425c51ae307f4bb82602a757b6b25, type: 3}
   _timeBetweenShots: 0.2
   _shootTransform: {fileID: 1912763688}

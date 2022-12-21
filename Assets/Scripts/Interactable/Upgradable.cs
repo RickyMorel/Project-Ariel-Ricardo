@@ -152,6 +152,7 @@ public class Upgradable : Interactable
 public class Upgrade
 {
     public GameObject UpgradeMesh;
+    public GameObject Projectile;
     public ChipType _socket_1_ChipType;
     public ChipType _socket_2_ChipType;
 }
