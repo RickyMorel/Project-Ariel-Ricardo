@@ -345,6 +345,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999a34002b9685644a460948c1968fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &336968550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2421544724887951171, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+  m_PrefabInstance: {fileID: 5925056552242611721}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &367429956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1431,6 +1436,30 @@ PrefabInstance:
     - target: {fileID: 319713644502076378, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.data[2].UpgradeMesh
+      value: 
+      objectReference: {fileID: 336968550}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.data[2]._socket_1_ChipType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.data[2]._socket_2_ChipType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421544724887951171, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_Name
+      value: Base MK 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016909187758646731, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_Name
+      value: Entry Level Gun
       objectReference: {fileID: 0}
     - target: {fileID: 4471484184268937319, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_Name

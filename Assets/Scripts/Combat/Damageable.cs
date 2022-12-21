@@ -96,6 +96,14 @@ public class Damageable : MonoBehaviour
 
     #endregion
 
+    private bool DoesShowDamageParticles()
+    {
+        if(this is InteractableHealth) { return false; }
+        if(this is ShipHealth) { return false; }
+
+        return true;
+    }
+
     public void AddHealth(int amountAdded)
     {
         _currentHealth = Mathf.Clamp(_currentHealth + amountAdded, 0, _maxHealth);
@@ -215,7 +223,7 @@ public class Damageable : MonoBehaviour
 
     private void FireDamage(bool isResistant, bool isWeak)
     {
-        _fireParticles.Play();
+        if (DoesShowDamageParticles()) { _fireParticles.Play(); }
 
         int fireDamage = 0;
 
@@ -271,7 +279,7 @@ public class Damageable : MonoBehaviour
 
     private IEnumerator ElectricParalysis(BaseStateMachine baseStateMachine)
     {
-        _electricParticles.Play();
+        if (DoesShowDamageParticles()) { _electricParticles.Play(); }
         yield return new WaitForSeconds(2);
         if (!IsDead() && baseStateMachine != null) { baseStateMachine.CanMove = true; }
         _isBeingElectrocuted = false;

@@ -8,6 +8,7 @@ public class GameAssetsManager : MonoBehaviour
 
     [SerializeField] private GameObject _damagePopup;
     [SerializeField] private GameObject _repairPopup;
+    [SerializeField] private GameObject _repairCostsCanvas;
     [SerializeField] private GameObject _chipPickup;
     [SerializeField] private GameObject _upgradeParticles;
     [SerializeField] private GameObject _interactableFriedParticles;
@@ -26,6 +27,7 @@ public class GameAssetsManager : MonoBehaviour
 
     public GameObject DamagePopup => _damagePopup;
     public GameObject RepairPopup => _repairPopup;
+    public GameObject RepairCostsCanvas => _repairCostsCanvas;
     public GameObject ChipPickup => _chipPickup;
     public GameObject UpgradeParticles => _upgradeParticles;
     public GameObject InteractableFriedParticles => _interactableFriedParticles;

@@ -19,6 +19,7 @@ public class InteractableHealth : Damageable
     private float _timeSpentFixing = 0f;
     private PrevInteractableState _prevInteractableState;
     private GameObject _currentRepairPopup;
+    private GameObject _currentRepairCanvas;
 
     #endregion
 
@@ -47,6 +48,26 @@ public class InteractableHealth : Damageable
         _timeSpentFixing += Time.deltaTime;
 
         if(_timeSpentFixing > _timeToFix) { FixInteractable(); }
+    }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+
+        if(_interactable.Outline.enabled == false) { return; }
+
+        if(_currentRepairCanvas != null) { return; }
+
+        if (!IsDead()) { return; }
+
+        _currentRepairCanvas = RepairCostUI.Create(transform, _interactable.PlayerPositionTransform.localPosition, _fixCost).gameObject;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (_interactable.Outline.enabled == true) { return; }
+
+        if(_currentRepairCanvas != null) { Destroy(_currentRepairCanvas); }
     }
 
     #endregion

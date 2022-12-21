@@ -14585,13 +14585,13 @@ MonoBehaviour:
   _inventoryItemUIPrefab: {fileID: 6916972730889110830, guid: edccdd73148f84d4d9f411b08aee8310, type: 3}
   _preloadedItems:
   - Item: {fileID: 11400000, guid: d42c6a88dba143a48b378b4936008358, type: 2}
-    Amount: 18
+    Amount: 36
   - Item: {fileID: 11400000, guid: 8a9e858cbb18a7a4d8f2c987574af77d, type: 2}
-    Amount: 18
+    Amount: 36
   - Item: {fileID: 11400000, guid: ce4335bef77e625479e8e30808dd108c, type: 2}
-    Amount: 18
+    Amount: 36
   - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}
-    Amount: 18
+    Amount: 36
 --- !u!114 &1367160790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14632,6 +14632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damagePopup: {fileID: 7110715541120338927, guid: 97cee8c62a0cfc44798df06bb670ed4d, type: 3}
   _repairPopup: {fileID: 837066252047544725, guid: 05e8402112f86ac4a9d0a5518a77113e, type: 3}
+  _repairCostsCanvas: {fileID: 4382223683147480139, guid: 184bf38efa9c6e644abab1c0111d8640, type: 3}
   _chipPickup: {fileID: 7517285669250702529, guid: 33c642c6393f4f04d87e7307bb977fc0, type: 3}
   _upgradeParticles: {fileID: 1553723013007991630, guid: a0664a9d90846d74b84fedda2006069a, type: 3}
   _interactableFriedParticles: {fileID: 3190417459725645050, guid: fe885f0d9d2133f4bbb54d9fd64b057b, type: 3}
@@ -14672,7 +14673,6 @@ MonoBehaviour:
   _craftingPanel: {fileID: 0}
   _contentTransform: {fileID: 0}
   _craftingItemUIPrefab: {fileID: 6916972730889110830, guid: f6665c47c775c8748bf9a3b40055cb00, type: 3}
-  _itemUIPrefab: {fileID: 6916972730889110830, guid: 6e86eaa2a8383af4899828d1cb94a594, type: 3}
   _craftingRecipyList:
   - {fileID: 11400000, guid: e15e200ffde07b047b932200c62b45ec, type: 2}
   - {fileID: 11400000, guid: d319920631389c1479433087dd1f2747, type: 2}
