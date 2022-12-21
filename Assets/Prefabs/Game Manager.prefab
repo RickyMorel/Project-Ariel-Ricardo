@@ -14585,13 +14585,13 @@ MonoBehaviour:
   _inventoryItemUIPrefab: {fileID: 6916972730889110830, guid: edccdd73148f84d4d9f411b08aee8310, type: 3}
   _preloadedItems:
   - Item: {fileID: 11400000, guid: d42c6a88dba143a48b378b4936008358, type: 2}
-    Amount: 36
+    Amount: 10
   - Item: {fileID: 11400000, guid: 8a9e858cbb18a7a4d8f2c987574af77d, type: 2}
-    Amount: 36
+    Amount: 10
   - Item: {fileID: 11400000, guid: ce4335bef77e625479e8e30808dd108c, type: 2}
-    Amount: 36
+    Amount: 10
   - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}
-    Amount: 36
+    Amount: 10
 --- !u!114 &1367160790
 MonoBehaviour:
   m_ObjectHideFlags: 0

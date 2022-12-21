@@ -45,6 +45,8 @@ public class InteractableHealth : Damageable
 
         if (!IsDead()) { return; }
 
+        if (!CraftingManager.CanCraft(_fixCost)) { _interactable.RemoveCurrentPlayer(); return; }
+
         _timeSpentFixing += Time.deltaTime;
 
         if(_timeSpentFixing > _timeToFix) { FixInteractable(); }
@@ -76,11 +78,9 @@ public class InteractableHealth : Damageable
     {
         if (!IsDead()) { return; }
 
-        if(_currentRepairPopup != null) { Destroy(_currentRepairPopup); }
+        if (_currentRepairPopup != null) { Destroy(_currentRepairPopup); }
 
-        if (!CraftingManager.CanCraft(_fixCost)) { _interactable.RemoveCurrentPlayer(); return; }
-
-        MainInventory.Instance.RemoveItems(_fixCost.CraftingIngredients);
+        if (!CraftingManager.CanCraft(_fixCost)) { return; }
 
         _timeSpentFixing = 0f;
 
@@ -102,7 +102,9 @@ public class InteractableHealth : Damageable
         _interactable.Outline.OutlineColor = _prevInteractableState.OutlineColor;
         _timeSpentFixing = 0f;
         _interactable.RemoveCurrentPlayer();
+        MainInventory.Instance.RemoveItems(_fixCost.CraftingIngredients);
 
+        if (_currentRepairCanvas != null) { Destroy(_currentRepairCanvas); }
         if (_currentParticles != null) { Destroy(_currentParticles); }
     }
 

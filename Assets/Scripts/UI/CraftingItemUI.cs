@@ -53,12 +53,6 @@ public class CraftingItemUI : ItemUI, IPointerEnterHandler
     }
 
 
-
-    public void SetGreyScale(float amount)
-    {
-        _icon.material.SetFloat("_GrayscaleAmount", amount);
-    }
-
     public override void OnClick()
     {
         if (!_gotClicked) { return; }

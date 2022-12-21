@@ -100,6 +100,15 @@ public abstract class Inventory : MonoBehaviour
         }
     }
 
+    public bool HasEnoughItem(ItemQuantity wantedAmount)
+    {
+        if(!_inventory.TryGetValue(wantedAmount.Item, out ItemQuantity itemQuantity)) { return false; }
+
+        if(itemQuantity.Amount < wantedAmount.Amount) { return false; }
+
+        return true;
+    }
+
     public void RemoveItem(ItemQuantity itemQuantity)
     {
         if (!_inventory.ContainsKey(itemQuantity.Item)) { Debug.LogError("TRYING TO REMOVE ITEM THAT DOESN'T EXIST: " + itemQuantity.Item); return; }

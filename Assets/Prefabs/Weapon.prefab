@@ -925,9 +925,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7627081817445622297}
   - component: {fileID: 7627081817445622294}
+  - component: {fileID: 1366173165246229612}
   - component: {fileID: 7627081817445622296}
   - component: {fileID: 7627081817445622300}
-  - component: {fileID: 1366173165246229612}
   - component: {fileID: 2622272990365630263}
   m_Layer: 0
   m_Name: Weapon
@@ -973,6 +973,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1366173165246229612
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7627081817445622301}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.8572445, z: 1.5523602}
+  m_Center: {x: -9.657273e-15, y: -0.8324919, z: -3.3204288}
 --- !u!114 &7627081817445622296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,19 +1042,6 @@ MonoBehaviour:
   _turretHead: {fileID: 5191781562417900849}
   _rotationSpeed: 300
   _rotationLimits: {x: -190, y: 10}
---- !u!65 &1366173165246229612
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7627081817445622301}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.8572445, z: 1.5523602}
-  m_Center: {x: -9.657273e-15, y: -0.8324919, z: -3.3204288}
 --- !u!114 &2622272990365630263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   _damageParticles: {fileID: 123179723661260038}
   _colorChangeRenderer: {fileID: 0}
   _redHDR: {r: 0, g: 0, b: 0, a: 0}
-  _fixCost: {fileID: 11400000, guid: d319920631389c1479433087dd1f2747, type: 2}
+  _fixCost: {fileID: 11400000, guid: 56de9e867278d034698076c776c8d4da, type: 2}
   _timeToFix: 8
 --- !u!1 &7627081817470800421
 GameObject:

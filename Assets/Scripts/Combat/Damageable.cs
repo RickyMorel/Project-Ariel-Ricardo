@@ -142,7 +142,7 @@ public class Damageable : MonoBehaviour
 
         OnDamaged?.Invoke();
 
-        if (_damageParticles != null) { _damageParticles.Play(); }
+        if (_damageParticles != null && damageType != DamageType.None) { _damageParticles.Play(); }
 
         if (_currentHealth == 0)
             Die();

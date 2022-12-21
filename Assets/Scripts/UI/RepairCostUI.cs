@@ -8,6 +8,7 @@ public class RepairCostUI : MonoBehaviour
 {
     #region Editor Fields
 
+    [SerializeField] private TextMeshProUGUI _itemNameText;
     [SerializeField] private Transform _contentTransform;
 
     #endregion
@@ -29,6 +30,7 @@ public class RepairCostUI : MonoBehaviour
 
     public void Setup(CraftingRecipy craftingRecipy)
     {
+        _itemNameText.text = $"Repair {craftingRecipy.CraftedItem.Item.DisplayName}";
         CraftingManager.LoadIngredients(craftingRecipy, _contentTransform);
     }
 }
