@@ -48,6 +48,8 @@ public class Weapon : Upgradable
 
         if (_currentPlayer == null) { return; }
 
+        if (CanUse == false) { return; }
+
         CheckShootInput();
         CheckRotationInput();
     }

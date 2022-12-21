@@ -21,7 +21,7 @@ public class Damageable : MonoBehaviour
 
     [Header("FX")]
     [SerializeField] private ParticleSystem _damageParticles;
-    [SerializeField] private Renderer _colorChange;
+    [SerializeField] private Renderer _colorChangeRenderer;
     [ColorUsageAttribute(false, true), SerializeField] private Color _redHDR;
 
     #endregion
@@ -39,21 +39,15 @@ public class Damageable : MonoBehaviour
     private float _timeToResetLaserLevel = 2;
     private float _laserLevel;
     private bool _isBeingElectrocuted = false;
-    private bool _isDead = false;
 
     private ParticleSystem _fireParticles;
     private ParticleSystem _electricParticles;
 
     #endregion
 
-    #region Getters and Setters
-
-    public float CurrentHealth => _currentHealth;
-
-    #endregion
-
     #region Public Properties
 
+    public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
 
     public event Action OnUpdateHealth;
@@ -70,9 +64,11 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthUI();
 
-        _colorChange.material.EnableKeyword("_EMISSION");
-
-        _originalColor = _colorChange.material.GetColor("_EmissionColor");
+        if(_colorChangeRenderer != null)
+        {
+            _colorChangeRenderer.material.EnableKeyword("_EMISSION");
+            _originalColor = _colorChangeRenderer.material.GetColor("_EmissionColor");
+        }
 
         InstantiateDamageTypeParticles();
     }
@@ -100,6 +96,14 @@ public class Damageable : MonoBehaviour
 
     #endregion
 
+    private bool DoesShowDamageParticles()
+    {
+        if(this is InteractableHealth) { return false; }
+        if(this is ShipHealth) { return false; }
+
+        return true;
+    }
+
     public void AddHealth(int amountAdded)
     {
         _currentHealth = Mathf.Clamp(_currentHealth + amountAdded, 0, _maxHealth);
@@ -111,6 +115,8 @@ public class Damageable : MonoBehaviour
 
     public virtual void Damage(int damage, DamageType damageType = DamageType.None, bool isDamageChain = false)
     {
+        if (IsDead()) { return; }
+
         int finalDamage = damage;
 
         bool isWeak = false;
@@ -136,7 +142,7 @@ public class Damageable : MonoBehaviour
 
         OnDamaged?.Invoke();
 
-        if (_damageParticles != null) { _damageParticles.Play(); }
+        if (_damageParticles != null && damageType != DamageType.None) { _damageParticles.Play(); }
 
         if (_currentHealth == 0)
             Die();
@@ -145,8 +151,11 @@ public class Damageable : MonoBehaviour
     public virtual void Die()
     {
         OnDie?.Invoke();
+    }
 
-        _isDead = true;
+    public bool IsDead()
+    {
+        return CurrentHealth <= 0f;
     }
 
     public void SetMaxHealth(int newMaxHealth)
@@ -201,7 +210,7 @@ public class Damageable : MonoBehaviour
 
     private void ColorChangeForLaser()
     {
-        if (_colorChange == null) { return; }
+        if (_colorChangeRenderer == null) { return; }
         
         if (_timeSinceLastLaserShot > _timeToResetLaserLevel)
         {
@@ -209,12 +218,12 @@ public class Damageable : MonoBehaviour
             _laserLevel = Mathf.Clamp(_laserLevel - laserReductionAmount, 0, 5);
         }
 
-        _colorChange.material.SetColor("_EmissionColor", Color.Lerp(_originalColor, _redHDR, _laserLevel/5f));
+        _colorChangeRenderer.material.SetColor("_EmissionColor", Color.Lerp(_originalColor, _redHDR, _laserLevel/5f));
     }
 
     private void FireDamage(bool isResistant, bool isWeak)
     {
-        _fireParticles.Play();
+        if (DoesShowDamageParticles()) { _fireParticles.Play(); }
 
         int fireDamage = 0;
 
@@ -270,9 +279,9 @@ public class Damageable : MonoBehaviour
 
     private IEnumerator ElectricParalysis(BaseStateMachine baseStateMachine)
     {
-        _electricParticles.Play();
+        if (DoesShowDamageParticles()) { _electricParticles.Play(); }
         yield return new WaitForSeconds(2);
-        if (!_isDead && baseStateMachine != null) { baseStateMachine.CanMove = true; }
+        if (!IsDead() && baseStateMachine != null) { baseStateMachine.CanMove = true; }
         _isBeingElectrocuted = false;
         _electricParticles.Stop();
     }

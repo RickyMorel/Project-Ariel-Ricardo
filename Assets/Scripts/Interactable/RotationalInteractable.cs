@@ -37,7 +37,9 @@ public class RotationalInteractable : Upgradable
     public virtual void Update()
     {
         if (_currentPlayer == null) { return; }
-        
+
+        if (CanUse == false) { return; }
+
         Rotate();
     }
 

@@ -33,24 +33,9 @@ public class CraftingStation : Interactable
 
     public void TryCraft(CraftingRecipy craftingRecipy)
     {
-        if (!CanCraft(craftingRecipy)) { return; }
+        if (!CraftingManager.CanCraft(craftingRecipy)) { return; }
 
         Craft(craftingRecipy, craftingRecipy.CraftingIngredients);
-    }
-
-    public bool CanCraft(CraftingRecipy craftingRecipy)
-    {
-        Dictionary<Item, ItemQuantity> ownedItems = MainInventory.Instance.InventoryDictionary;
-        foreach (ItemQuantity itemQuantity in craftingRecipy.CraftingIngredients)
-        {
-            //if has item
-            if (!ownedItems.TryGetValue(itemQuantity.Item, out ItemQuantity ownedItemQuantity)) { return false; }
-
-            //if has correct amount
-            if (ownedItemQuantity.Amount < itemQuantity.Amount) { return false; }
-        }
-
-        return true;
     }
 
     private void Craft(CraftingRecipy craftingRecipy, List<ItemQuantity> usedResources)

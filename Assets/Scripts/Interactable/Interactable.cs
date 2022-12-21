@@ -23,6 +23,7 @@ public class Interactable : MonoBehaviour
     #region Private Variables
 
     private Outline _outline;
+    private bool _canUse = true;
 
     #endregion
 
@@ -32,13 +33,20 @@ public class Interactable : MonoBehaviour
 
     #endregion
 
+    #region Getters && Setters
+
+    public InteractionType InteractionType { get { return _interactionType; } set { _interactionType = value; } }
+    public bool IsSingleUse { get { return _isSingleUse; } set { _isSingleUse = value; } }
+    public bool CanUse { get { return _canUse; } set { _canUse = value; } }
+
+    #endregion
+
     #region Public Properties
 
-    public InteractionType InteractionType => _interactionType;
     public Transform PlayerPositionTransform => _playerPositionTransform;
     public BaseInteractionController CurrentPlayer => _currentPlayer;
-    public bool IsSingleUse => _isSingleUse;
     public float SingleUseTime => _singleUseTime;
+    public Outline Outline => _outline;
 
     public event Action OnInteract;
     public event Action OnUninteract;
@@ -93,6 +101,13 @@ public class Interactable : MonoBehaviour
     public void Uninteract()
     {
         OnUninteract?.Invoke();
+    }
+
+    public void RemoveCurrentPlayer()
+    {
+        if(_currentPlayer == null) { return; }
+
+        _currentPlayer.CheckExitInteraction();
     }
 
     #endregion
