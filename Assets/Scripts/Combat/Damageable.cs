@@ -84,10 +84,7 @@ public class Damageable : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
 
-        //Turrets can't harm their own ship
-        if(other.gameObject.tag == "Untagged" && gameObject.tag == "MainShip") { return; }
-
-        if(other.gameObject.tag == gameObject.tag) { return; }
+        if (IsOwnDamage(other)) { return; }
 
         Damage(projectile.Damage, projectile.DamageType);
 
@@ -95,6 +92,16 @@ public class Damageable : MonoBehaviour
     }
 
     #endregion
+
+    public bool IsOwnDamage(Collider other)
+    {
+        //Turrets can't harm their own ship
+        if (other.gameObject.tag == "Untagged" && gameObject.tag == "MainShip") { return true; }
+
+        if (other.gameObject.tag == gameObject.tag) { return true; }
+
+        return false;
+    }
 
     private bool DoesShowDamageParticles()
     {
