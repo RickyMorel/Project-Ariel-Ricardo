@@ -23,7 +23,7 @@ public class Upgradable : Interactable
 
     #region Public Properties
 
-    public event Action<GameObject> OnUpgradeMesh;
+    public event Action<GameObject, GameObject> OnUpgradeMesh;
 
     #endregion
 
@@ -139,10 +139,11 @@ public class Upgradable : Interactable
         }
 
         GameObject newMesh = _upgrades[upgradeMeshIndex].UpgradeMesh;
+        GameObject newProjectile = _upgrades[upgradeMeshIndex].Projectile;
 
         newMesh.SetActive(true);
 
-        OnUpgradeMesh?.Invoke(newMesh);
+        OnUpgradeMesh?.Invoke(newMesh, newProjectile);
     }
 }
 

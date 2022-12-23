@@ -24,6 +24,8 @@ public class Weapon : Upgradable
     private float _timeSinceLastShot;
     private float _rotationX;
 
+    private WeaponShoot _weaponShoot;
+
     #endregion
 
     #region Public Properties
@@ -55,6 +57,8 @@ public class Weapon : Upgradable
         base.Start();
 
         _rotationX = (_rotationLimits.x + _rotationLimits.y)/2;
+
+        _weaponShoot = GetComponentInChildren<WeaponShoot>();
     }
 
     private void Update()
@@ -63,10 +67,9 @@ public class Weapon : Upgradable
 
         if (_currentPlayer == null) { return; }
 
-        GetComponentInChildren<WeaponShoot>().CheckShootInput();
         if (CanUse == false) { return; }
 
-        CheckShootInput();
+        _weaponShoot.CheckShootInput();
         CheckRotationInput();
     }
 
@@ -82,11 +85,13 @@ public class Weapon : Upgradable
 
     #endregion
 
-    private void HandleUpgrade(GameObject meshObject)
+    private void HandleUpgrade(GameObject meshObject, GameObject projectileObject)
     {
         Transform rotationChild = meshObject.transform.GetChild(0);
 
         _turretHead = rotationChild;
+
+        _projectilePrefab = projectileObject;
     }
 
     private void CheckRotationInput()
