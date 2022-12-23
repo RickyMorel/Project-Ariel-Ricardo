@@ -16,13 +16,13 @@ public class CraftingManager : MonoBehaviour
     [SerializeField] private GameObject _craftingPanel;
     [SerializeField] private Transform _contentTransform;
     [SerializeField] private GameObject _craftingItemUIPrefab;
-    [SerializeField] private GameObject _itemUIPrefab;
     [SerializeField] private List<CraftingRecipy> _craftingRecipyList = new List<CraftingRecipy>();
 
     #endregion
 
     #region Private Variables
 
+    private static GameObject _itemUIPrefab;
     private PlayerInputHandler _currentPlayer;
     private CraftingStation _currentCraftingStation;
     private static CraftingManager _instance;
@@ -45,6 +45,23 @@ public class CraftingManager : MonoBehaviour
         {
             _instance = this;
         }
+
+        _itemUIPrefab = (GameObject)Resources.Load("ItemUIButton");
+    }
+
+    public static bool CanCraft(CraftingRecipy craftingRecipy)
+    {
+        Dictionary<Item, ItemQuantity> ownedItems = MainInventory.Instance.InventoryDictionary;
+        foreach (ItemQuantity itemQuantity in craftingRecipy.CraftingIngredients)
+        {
+            //if has item
+            if (!ownedItems.TryGetValue(itemQuantity.Item, out ItemQuantity ownedItemQuantity)) { return false; }
+
+            //if has correct amount
+            if (ownedItemQuantity.Amount < itemQuantity.Amount) { return false; }
+        }
+
+        return true;
     }
 
     public void DisplayItemInfo(CraftingRecipy craftingRecipy)
@@ -52,7 +69,7 @@ public class CraftingManager : MonoBehaviour
         _itemNameText.text = craftingRecipy.CraftedItem.Item.GetItemName();
         _itemDescriptionText.text = craftingRecipy.CraftedItem.Item.Description;
 
-        LoadIngredients(craftingRecipy);
+        LoadIngredients(craftingRecipy, _ingredientsContentTransform);
     }
 
     public void EnableCanvas(bool isEnabled, PlayerInputHandler currentPlayer, CraftingStation craftingStation)
@@ -67,14 +84,14 @@ public class CraftingManager : MonoBehaviour
             LoadItems();
     }
 
-    private void LoadIngredients(CraftingRecipy craftingRecipy)
+    public static void LoadIngredients(CraftingRecipy craftingRecipy, Transform contentTransform)
     {
-        DestroyItemsUI(_ingredientsContentTransform);
+        DestroyItemsUI(contentTransform);
 
         foreach (ItemQuantity ingredient in craftingRecipy.CraftingIngredients)
         {
-            GameObject itemUI = Instantiate(_itemUIPrefab, _ingredientsContentTransform);
-            itemUI.GetComponent<ItemUI>().Initialize(ingredient, _currentPlayer);
+            GameObject itemUI = Instantiate(_itemUIPrefab, contentTransform);
+            itemUI.GetComponent<ItemUI>().Initialize(ingredient, null);
         }
     }
 
@@ -89,11 +106,11 @@ public class CraftingManager : MonoBehaviour
         }
     }
 
-    private void DestroyItemsUI(Transform contentTransform)
+    public static void DestroyItemsUI(Transform contentTransform)
     {
         foreach (Transform child in contentTransform)
         {
-            if (child == _contentTransform) { continue; }
+            if (child == contentTransform) { continue; }
 
             Destroy(child.gameObject);
         }

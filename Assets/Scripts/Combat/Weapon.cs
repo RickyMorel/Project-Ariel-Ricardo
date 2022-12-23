@@ -64,6 +64,9 @@ public class Weapon : Upgradable
         if (_currentPlayer == null) { return; }
 
         GetComponentInChildren<WeaponShoot>().CheckShootInput();
+        if (CanUse == false) { return; }
+
+        CheckShootInput();
         CheckRotationInput();
     }
 

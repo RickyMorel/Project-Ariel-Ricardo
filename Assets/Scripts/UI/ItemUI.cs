@@ -36,10 +36,16 @@ public class ItemUI : MonoBehaviour
     {
         _icon.sprite = itemQuantity.Item.Icon;
         _amountText.text = $"x{itemQuantity.Amount}";
+        SetGreyScale(0);
 
         _itemQuantity = itemQuantity;
 
         _currentPlayer = currentPlayer;
+
+        if (MainInventory.Instance.HasEnoughItem(itemQuantity)) { return; }
+
+        _amountText.color = Color.red;
+        SetGreyScale(1);
     }
 
     public virtual void Initialize(ItemQuantity itemQuantity, Chest chest, PlayerInputHandler currentPlayer) { }
@@ -50,6 +56,13 @@ public class ItemUI : MonoBehaviour
         if (playerThatClicked != _currentPlayer) { return; }
 
         _gotClicked = true;
+    }
+
+    public void SetGreyScale(float amount)
+    {
+        Material materialInstance = Instantiate(_icon.material);
+        materialInstance.SetFloat("_GrayscaleAmount", amount);
+        _icon.material = materialInstance;
     }
 
     public virtual void OnClick()
