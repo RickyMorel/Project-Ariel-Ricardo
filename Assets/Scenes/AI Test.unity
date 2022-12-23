@@ -1507,22 +1507,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Main Ship '
       objectReference: {fileID: 0}
-    - target: {fileID: 5835035437963118378, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5835078217028611722, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5835127818083576000, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5835246909110282076, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5877842457033602641, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: _inventoryPanel
       value: 
@@ -1535,9 +1519,5 @@ PrefabInstance:
       propertyPath: _healthBarImage
       value: 
       objectReference: {fileID: 1444441625}
-    - target: {fileID: 5924985266012438816, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_Name
-      value: ShipCrashParticles
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}

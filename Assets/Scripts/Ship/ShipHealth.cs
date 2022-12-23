@@ -46,10 +46,15 @@ public class ShipHealth : Damageable
 
         Damage((int)CalculateCrashDamage());
 
+        float currentSpeedPercentage = _rb.velocity.magnitude / Ship.Instance.TopSpeed;
+        float crashImpactPercentageRatio = 4 * currentSpeedPercentage;
+        float impactAmplitude = 5f * crashImpactPercentageRatio;
+        ShipCamera.Instance.ShakeCamera(impactAmplitude, 50f, 0.2f);
+
+
         Vector3 hitPos = other.ClosestPointOnBounds(transform.position);
         _shipCrashParticles.transform.position = hitPos;
         _shipCrashParticles.Play();
-        ShipCamera.Instance.ShakeCamera(5f, 50f, 0.2f);
     }
 
     private float CalculateCrashDamage()
