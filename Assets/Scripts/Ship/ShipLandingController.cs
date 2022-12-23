@@ -6,6 +6,7 @@ public class ShipLandingController : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private Booster _booster;
+    [SerializeField] private Collider[] _landingGearColliders;
 
     [Header("Landing Gear")]
     [SerializeField] private Transform _landingGearTransform;
@@ -32,6 +33,8 @@ public class ShipLandingController : MonoBehaviour
     private void Start()
     {
         PlayerInputHandler.OnSpecialAction += HandleSpecialAction;
+
+        EnableLandingGearColliders(_isWantedDeployed);
     }
 
     private void FixedUpdate()
@@ -54,6 +57,14 @@ public class ShipLandingController : MonoBehaviour
 
     #endregion
 
+    private void EnableLandingGearColliders(bool isEnabled)
+    {
+        foreach (Collider collider in _landingGearColliders)
+        {
+            collider.isTrigger = !isEnabled;
+        }
+    }
+
     private void HandleSpecialAction(PlayerInputHandler player, bool isPressed)
     {
         if(_isWantedDeployed != _isLandingGearDeployed) { return; }
@@ -66,5 +77,6 @@ public class ShipLandingController : MonoBehaviour
         if (!isPressed) { return; }
 
         _isWantedDeployed = !_isWantedDeployed;
+        EnableLandingGearColliders(_isWantedDeployed);
     }
 }

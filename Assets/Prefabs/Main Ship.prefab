@@ -635,7 +635,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263545343686659337}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: -5.4900002}
+  m_LocalPosition: {x: 2.5, y: 0, z: -5.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1962013948}
@@ -971,7 +971,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7.5
+  m_Radius: 8
   m_Center: {x: 2.499998, y: 0, z: 1.1235485}
 --- !u!95 &5877842457033602664
 Animator:
@@ -1059,6 +1059,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _booster: {fileID: 9069357054160412226}
+  _landingGearColliders:
+  - {fileID: 5877842456878155303}
+  - {fileID: 5925056553171457390}
   _landingGearTransform: {fileID: 5877842458093419634}
   _landingGearStoredYPos: 3
   _landingGearDeployedYPos: -5
@@ -2543,7 +2546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5925056552409260121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: -5.4900002}
+  m_LocalPosition: {x: 2.5, y: 0, z: -5.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5877842458882995746}
