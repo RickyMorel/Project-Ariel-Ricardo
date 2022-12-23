@@ -91,6 +91,8 @@ public class Weapon : Upgradable
 
         _turretHead = rotationChild;
 
+        _shootTransform.transform.SetParent(_turretHead);
+
         _projectilePrefab = projectileObject;
     }
 
