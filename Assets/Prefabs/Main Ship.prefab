@@ -1024,6 +1024,7 @@ MonoBehaviour:
   _damageParticles: {fileID: 0}
   _colorChangeRenderer: {fileID: 0}
   _redHDR: {r: 2, g: 0, b: 0, a: 0}
+  _currentHealth: 0
   _boosterHealth: {fileID: 3161358064882640088}
   _crashLayers:
     serializedVersion: 2
@@ -3070,6 +3071,10 @@ PrefabInstance:
     - target: {fileID: 2772327251301095979, guid: 581c7f4916d4ee34ea8aad735c61ff19, type: 3}
       propertyPath: m_Layer
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3031896794887204772, guid: 581c7f4916d4ee34ea8aad735c61ff19, type: 3}
+      propertyPath: _timeToFix
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3496322072502369888, guid: 581c7f4916d4ee34ea8aad735c61ff19, type: 3}
       propertyPath: m_Name
