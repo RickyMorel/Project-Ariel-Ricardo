@@ -89,7 +89,7 @@ public class Damageable : MonoBehaviour
 
         if(other.gameObject.tag == gameObject.tag) { return; }
 
-        Damage(projectile.Damage, projectile.DamageType);
+        Damage(projectile.Damage, projectile.DamageType, false);
 
         Destroy(projectile.gameObject);
     }
@@ -164,6 +164,7 @@ public class Damageable : MonoBehaviour
     }
 
     #region Damage Type Functions
+
     private void InstantiateDamageTypeParticles()
     {
         GameObject fireParticlesInstance = Instantiate(GameAssetsManager.Instance.FireParticles, transform);
