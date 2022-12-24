@@ -23,7 +23,7 @@ public class Upgradable : Interactable
 
     #region Public Properties
 
-    public event Action<Upgrade[], int> OnUpgradeMesh;
+    public event Action<Upgrade> OnUpgradeMesh;
 
     #endregion
 
@@ -144,7 +144,7 @@ public class Upgradable : Interactable
 
         newMesh.SetActive(true);
 
-        OnUpgradeMesh?.Invoke(_upgrades, upgradeMeshIndex);
+        OnUpgradeMesh?.Invoke(_upgrades[upgradeMeshIndex]);
     }
 }
 
