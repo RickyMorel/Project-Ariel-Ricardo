@@ -8,8 +8,8 @@ public class Weapon : Upgradable
     #region Editor Fields
 
     [Header("Shooting Variables")]
-    [SerializeField] protected GameObject _projectilePrefab;
-    [SerializeField] protected float _timeBetweenShots = 0.2f;
+    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private float _timeBetweenShots = 0.2f;
     [SerializeField] private Transform _shootTransform;
 
     [Header("Rotation Variables")]
@@ -23,6 +23,23 @@ public class Weapon : Upgradable
 
     private float _timeSinceLastShot;
     private float _rotationX;
+
+    private WeaponShoot _weaponShoot;
+
+    #endregion
+
+    #region Public Properties
+
+    public GameObject ProjectilePrefab => _projectilePrefab;
+    public float TimeBetweenShots => _timeBetweenShots;
+    public Transform ShootTransform => _shootTransform;
+    public Transform TurretHead => _turretHead;
+
+    #endregion
+
+    #region Getters and Setters
+
+    public float TimeSinceLastShot { get { return _timeSinceLastShot; } set { _timeSinceLastShot = value; } }
 
     #endregion
 
@@ -40,6 +57,8 @@ public class Weapon : Upgradable
         base.Start();
 
         _rotationX = (_rotationLimits.x + _rotationLimits.y)/2;
+
+        _weaponShoot = GetComponentInChildren<WeaponShoot>();
     }
 
     private void Update()
@@ -50,7 +69,7 @@ public class Weapon : Upgradable
 
         if (CanUse == false) { return; }
 
-        CheckShootInput();
+        _weaponShoot.CheckShootInput();
         CheckRotationInput();
     }
 
@@ -66,11 +85,17 @@ public class Weapon : Upgradable
 
     #endregion
 
-    private void HandleUpgrade(GameObject meshObject)
+    private void HandleUpgrade(Upgrade upgrade)
     {
-        Transform rotationChild = meshObject.transform.GetChild(0);
+        Transform rotationChild = upgrade.UpgradeMesh.transform.GetChild(0);
 
         _turretHead = rotationChild;
+
+        _projectilePrefab = upgrade.Projectile;
+
+        _shootTransform = upgrade.ShootTransform.transform;
+
+        _weaponShoot = upgrade.UpgradeMesh.GetComponent<WeaponShoot>();
     }
 
     private void CheckRotationInput()
@@ -80,22 +105,5 @@ public class Weapon : Upgradable
         _rotationX += _rotationSpeed * _currentPlayer.MoveDirection.x * Time.deltaTime;
         _rotationX = Mathf.Clamp(_rotationX, _rotationLimits.x, _rotationLimits.y);
         _turretHead.localEulerAngles = new Vector3(_rotationX, 0f, 0f);
-    }
-
-    private void CheckShootInput()
-    {
-        if (_currentPlayer.IsUsing)
-        {
-            Shoot();
-        }
-    }
-
-    private void Shoot()
-    {
-        if(_timeBetweenShots > _timeSinceLastShot) { return; }
-
-        _timeSinceLastShot = 0f;
-
-        Instantiate(_projectilePrefab, _shootTransform.position, _turretHead.rotation);
     }
 }
