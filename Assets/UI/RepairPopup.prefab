@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9017156529556843260}
   - component: {fileID: 911950444258305314}
   - component: {fileID: 837066252047544724}
+  - component: {fileID: -2883223508972789818}
   m_Layer: 5
   m_Name: RepairPopup
   m_TagString: Untagged
@@ -185,3 +186,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timerText: {fileID: 911950444258305314}
+--- !u!114 &-2883223508972789818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837066252047544725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5345d6f50a91b4b9f7f548efd6d50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

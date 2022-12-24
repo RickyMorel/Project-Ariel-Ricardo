@@ -9,6 +9,7 @@ public class InteractableHealth : Damageable
 
     [SerializeField] private CraftingRecipy _fixCost;
     [SerializeField] private float _timeToFix = 8f;
+    [SerializeField] private Transform _particleSpawnTransform;
 
     #endregion
 
@@ -84,7 +85,7 @@ public class InteractableHealth : Damageable
 
         _timeSpentFixing = 0f;
 
-        _currentRepairPopup = RepairPopup.Create(transform, _interactable.PlayerPositionTransform.localPosition, _timeToFix - _timeSpentFixing).gameObject;
+        _currentRepairPopup = RepairPopup.Create(transform, _particleSpawnTransform.localPosition, _timeToFix - _timeSpentFixing).gameObject;
     }
 
     private void TryStopFix()
@@ -114,9 +115,9 @@ public class InteractableHealth : Damageable
 
         _currentParticles = Instantiate(GameAssetsManager.Instance.InteractableFriedParticles, transform);
         _currentParticles.transform.localPosition = new Vector3(
-            _interactable.PlayerPositionTransform.localPosition.x,
-                                                               0f,
-            _interactable.PlayerPositionTransform.localPosition.z);
+            _particleSpawnTransform.localPosition.x,
+            _particleSpawnTransform.localPosition.y,
+            _particleSpawnTransform.localPosition.z);
 
         _interactable.CanUse = false;
 

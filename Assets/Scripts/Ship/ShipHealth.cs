@@ -8,6 +8,7 @@ public class ShipHealth : Damageable
 {
     #region Editor Fields
 
+    [SerializeField] private InteractableHealth _boosterHealth;
     [SerializeField] private LayerMask _crashLayers;
     [SerializeField] private float _minCrashSpeed = 20f;
     [SerializeField] private float _crashDamageMultiplier = 10f;
@@ -17,14 +18,20 @@ public class ShipHealth : Damageable
     #region Private Varaibles
 
     private Rigidbody _rb;
+    private float _currentDamage;
 
     #endregion
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+
+        _boosterHealth.SetMaxHealth((int)MaxHealth);
+    }
 
     public override void Start()
     {
         base.Start();
-
-        _rb = GetComponent<Rigidbody>();
 
         OnUpdateHealth += HandleUpdateHealth;
         OnDamaged += HandleDamaged;
@@ -44,7 +51,9 @@ public class ShipHealth : Damageable
         if(other.gameObject.GetComponent<Projectile>() != null) { return; }
         if(_rb.velocity.magnitude < _minCrashSpeed) { return; }
 
-        Damage((int)CalculateCrashDamage());
+        _currentDamage = (int)CalculateCrashDamage();
+        Damage((int)_currentDamage);
+        if (other.TryGetComponent<AIHealth>(out AIHealth enemyHealth)) { enemyHealth.Damage((int)_currentDamage); }
 
         float currentSpeedPercentage = _rb.velocity.magnitude / Ship.Instance.TopSpeed;
         float crashImpactPercentageRatio = 4 * currentSpeedPercentage;
@@ -71,6 +80,6 @@ public class ShipHealth : Damageable
 
     private void HandleDamaged()
     {
-
+        _boosterHealth.Damage((int)_currentDamage);
     }
 }
