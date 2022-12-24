@@ -9,7 +9,6 @@ public class Weapon : Upgradable
 
     [Header("Shooting Variables")]
     [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private float _timeBetweenShots = 0.2f;
     [SerializeField] private Transform _shootTransform;
 
     [Header("Rotation Variables")]
@@ -21,7 +20,6 @@ public class Weapon : Upgradable
 
     #region Private Variables
 
-    private float _timeSinceLastShot;
     private float _rotationX;
 
     private WeaponShoot _weaponShoot;
@@ -31,15 +29,8 @@ public class Weapon : Upgradable
     #region Public Properties
 
     public GameObject ProjectilePrefab => _projectilePrefab;
-    public float TimeBetweenShots => _timeBetweenShots;
     public Transform ShootTransform => _shootTransform;
     public Transform TurretHead => _turretHead;
-
-    #endregion
-
-    #region Getters and Setters
-
-    public float TimeSinceLastShot { get { return _timeSinceLastShot; } set { _timeSinceLastShot = value; } }
 
     #endregion
 
@@ -63,8 +54,6 @@ public class Weapon : Upgradable
 
     private void Update()
     {
-        UpdateTime();
-
         if (_currentPlayer == null) { return; }
 
         if (CanUse == false) { return; }
@@ -76,11 +65,6 @@ public class Weapon : Upgradable
     private void OnDestroy()
     {
         OnUpgradeMesh -= HandleUpgrade;
-    }
-
-    private void UpdateTime()
-    {
-        _timeSinceLastShot += Time.deltaTime;
     }
 
     #endregion

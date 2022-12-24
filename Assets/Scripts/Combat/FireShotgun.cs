@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SemiautoElectricRifle : WeaponShoot
+public class FireShotgun : WeaponShoot
 {
     #region Private Variable
 
@@ -13,7 +13,7 @@ public class SemiautoElectricRifle : WeaponShoot
     public override void Start()
     {
         _weapon = GetComponentInParent<Weapon>();
-        _timeBetweenShots = 1.2f;
+        _timeBetweenShots = 0.7f;
     }
 
     public override void CheckShootInput()

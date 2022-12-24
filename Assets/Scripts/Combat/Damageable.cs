@@ -91,6 +91,7 @@ public class Damageable : MonoBehaviour
 
         Damage(projectile.Damage, projectile.DamageType, false);
 
+        if (projectile.ProjectileParticles != null) { projectile.ProjectileParticles.transform.SetParent(null); }
         Destroy(projectile.gameObject);
     }
 

@@ -7,14 +7,21 @@ public class WeaponShoot : MonoBehaviour
     #region Private Variable
 
     protected Weapon _weapon;
+    protected float _timeBetweenShots = 0.2f;
+    protected float _timeSinceLastShot;
 
     #endregion
 
     #region Unity Loops
 
-    private void Start()
+    public virtual void Start()
     {
         _weapon = GetComponentInParent<Weapon>();
+    }
+
+    private void Update()
+    {
+        UpdateTime();
     }
 
     #endregion
@@ -29,10 +36,15 @@ public class WeaponShoot : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (_weapon.TimeBetweenShots > _weapon.TimeSinceLastShot) { return; }
+        if (_timeBetweenShots > _timeSinceLastShot) { return; }
 
-        _weapon.TimeSinceLastShot = 0f;
+        _timeSinceLastShot = 0f;
 
         Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransform.position, _weapon.TurretHead.rotation);
+    }
+
+    private void UpdateTime()
+    {
+        _timeSinceLastShot += Time.deltaTime;
     }
 }
