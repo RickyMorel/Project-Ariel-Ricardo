@@ -22,6 +22,8 @@ public class ShipHealth : Damageable
 
     #endregion
 
+    #region Unity Loops
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -35,12 +37,14 @@ public class ShipHealth : Damageable
 
         OnUpdateHealth += HandleUpdateHealth;
         OnDamaged += HandleDamaged;
+        _boosterHealth.OnFix += HandleFix;
     }
 
     private void OnDestroy()
     {
         OnUpdateHealth -= HandleUpdateHealth;
         OnDamaged -= HandleDamaged;
+        _boosterHealth.OnFix -= HandleFix;
     }
 
     public override void OnTriggerEnter(Collider other)
@@ -52,7 +56,7 @@ public class ShipHealth : Damageable
         if(_rb.velocity.magnitude < _minCrashSpeed) { return; }
 
         _currentDamage = (int)CalculateCrashDamage();
-        Damage((int)_currentDamage);
+        Damage((int)_currentDamage, DamageType.Base);
         if (other.TryGetComponent<AIHealth>(out AIHealth enemyHealth)) { enemyHealth.Damage((int)_currentDamage); }
 
         float currentSpeedPercentage = _rb.velocity.magnitude / Ship.Instance.TopSpeed;
@@ -66,6 +70,13 @@ public class ShipHealth : Damageable
         _shipCrashParticles.Play();
     }
 
+    #endregion
+
+    private void HandleFix()
+    {
+        AddHealth((int)MaxHealth);
+    }
+
     private float CalculateCrashDamage()
     {
         float finalDamage = _rb.velocity.magnitude* _crashDamageMultiplier;
@@ -73,13 +84,15 @@ public class ShipHealth : Damageable
         return finalDamage;
     }
 
-    private void HandleUpdateHealth()
+    private void HandleUpdateHealth(int healthAdded)
     {
-
+        Debug.Log("CurrentHealth: " + CurrentHealth);
+        _boosterHealth.SetHealth((int)CurrentHealth);
     }
 
-    private void HandleDamaged()
+    private void HandleDamaged(DamageType damageType)
     {
-        _boosterHealth.Damage((int)_currentDamage);
+        Debug.Log("CurrentHealth: " + CurrentHealth);
+        _boosterHealth.SetHealth((int)CurrentHealth);
     }
 }

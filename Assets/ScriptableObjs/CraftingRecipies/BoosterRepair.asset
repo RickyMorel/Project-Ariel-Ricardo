@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BoosterRepair
   m_EditorClassIdentifier: 
   CraftedItem:
-    Item: {fileID: 11400000, guid: 1fe111563e30ae14db4b42a1f499091a, type: 2}
+    Item: {fileID: 11400000, guid: 7ccd1aecde1c2524bbda003e7299af3f, type: 2}
     Amount: 1
   CraftingIngredients:
   - Item: {fileID: 11400000, guid: eaf9e825efe3fd24cb87f137caef8671, type: 2}

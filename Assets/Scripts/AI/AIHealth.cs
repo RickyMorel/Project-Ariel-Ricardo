@@ -42,7 +42,7 @@ public class AIHealth : PlayerHealth
 
     #endregion
 
-    public override void Hurt()
+    public override void Hurt(DamageType damageType)
     {
         if (CurrentHealth <= 0) { IsHurt = true; }
 

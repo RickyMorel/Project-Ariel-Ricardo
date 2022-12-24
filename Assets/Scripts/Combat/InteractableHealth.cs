@@ -13,6 +13,12 @@ public class InteractableHealth : Damageable
 
     #endregion
 
+    #region Public Properties
+
+    public event Action OnFix;
+
+    #endregion
+
     #region Private Variables
 
     private Interactable _interactable;
@@ -104,6 +110,7 @@ public class InteractableHealth : Damageable
         _timeSpentFixing = 0f;
         _interactable.RemoveCurrentPlayer();
         MainInventory.Instance.RemoveItems(_fixCost.CraftingIngredients);
+        OnFix?.Invoke();
 
         if (_currentRepairCanvas != null) { Destroy(_currentRepairCanvas); }
         if (_currentParticles != null) { Destroy(_currentParticles); }

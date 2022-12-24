@@ -28,7 +28,7 @@ public class Damageable : MonoBehaviour
 
     #region Private Variables
 
-    private float _currentHealth;
+    [SerializeField] private float _currentHealth;
 
     [ColorUsageAttribute(false, true)] private Color _originalColor;
 
@@ -45,13 +45,17 @@ public class Damageable : MonoBehaviour
 
     #endregion
 
-    #region Public Properties
+    #region Getters & Setters
 
-    public float CurrentHealth => _currentHealth;
+    public float CurrentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
+
+    #endregion
+
+    #region Public Properties
     public float MaxHealth => _maxHealth;
 
-    public event Action OnUpdateHealth;
-    public event Action OnDamaged;
+    public event Action<int> OnUpdateHealth;
+    public event Action<DamageType> OnDamaged;
     public event Action OnDie;
 
     #endregion
@@ -117,12 +121,24 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthUI();
 
-        OnUpdateHealth?.Invoke();
+        OnUpdateHealth?.Invoke(amountAdded);
+    }
+
+    public void SetHealth(int newHealth)
+    {
+        _currentHealth = newHealth;
+
+        UpdateHealthUI();
+
+        if (IsDead())
+            Die();
     }
 
     public virtual void Damage(int damage, DamageType damageType = DamageType.None, bool isDamageChain = false)
     {
         if (IsDead()) { return; }
+
+        Debug.Log("Got Damaged: " + gameObject.name);
 
         int finalDamage = damage;
 
@@ -147,7 +163,7 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthUI();
 
-        OnDamaged?.Invoke();
+        OnDamaged?.Invoke(damageType);
 
         if (_damageParticles != null && damageType != DamageType.None) { _damageParticles.Play(); }
 
