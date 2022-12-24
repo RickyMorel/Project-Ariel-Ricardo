@@ -85,17 +85,17 @@ public class Weapon : Upgradable
 
     #endregion
 
-    private void HandleUpgrade(GameObject meshObject, GameObject projectileObject, GameObject newShootTransform)
+    private void HandleUpgrade(Upgrade[] upgrades, int upgradeIndex)
     {
-        Transform rotationChild = meshObject.transform.GetChild(0);
+        Transform rotationChild = upgrades[upgradeIndex].UpgradeMesh.transform.GetChild(0);
 
         _turretHead = rotationChild;
 
-        _projectilePrefab = projectileObject;
+        _projectilePrefab = upgrades[upgradeIndex].Projectile;
 
-        _shootTransform = newShootTransform.transform;
+        _shootTransform = upgrades[upgradeIndex].ShootTransform.transform;
 
-        _weaponShoot = meshObject.GetComponent<WeaponShoot>();
+        _weaponShoot = upgrades[upgradeIndex].UpgradeMesh.GetComponent<WeaponShoot>();
     }
 
     private void CheckRotationInput()
