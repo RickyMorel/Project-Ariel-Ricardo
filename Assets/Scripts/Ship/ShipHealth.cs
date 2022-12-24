@@ -86,13 +86,11 @@ public class ShipHealth : Damageable
 
     private void HandleUpdateHealth(int healthAdded)
     {
-        Debug.Log("CurrentHealth: " + CurrentHealth);
         _boosterHealth.SetHealth((int)CurrentHealth);
     }
 
     private void HandleDamaged(DamageType damageType)
     {
-        Debug.Log("CurrentHealth: " + CurrentHealth);
         _boosterHealth.SetHealth((int)CurrentHealth);
     }
 }

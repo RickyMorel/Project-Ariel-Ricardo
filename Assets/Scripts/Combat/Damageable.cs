@@ -138,8 +138,6 @@ public class Damageable : MonoBehaviour
     {
         if (IsDead()) { return; }
 
-        Debug.Log("Got Damaged: " + gameObject.name);
-
         int finalDamage = damage;
 
         bool isWeak = false;
