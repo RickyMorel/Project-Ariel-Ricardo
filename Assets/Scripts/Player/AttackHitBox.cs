@@ -22,14 +22,14 @@ public class AttackHitBox : MonoBehaviour
         {
             AIHealth aiHealth = (AIHealth)enemyHealth;
             if (aiHealth.CanKill) { enemyHealth.Damage(20); }
-            else { aiHealth.Hurt(); }
+            else { aiHealth.Hurt(DamageType.Base); }
         }
         
 
         if (enemyHealth is PlayerHealth) 
         { 
             PlayerHealth playerHealth = enemyHealth as PlayerHealth;
-            playerHealth.Hurt(); 
+            playerHealth.Hurt(DamageType.Base); 
         }
     }
 }

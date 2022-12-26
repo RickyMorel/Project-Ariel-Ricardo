@@ -3,6 +3,12 @@ using UnityEngine;
 //This is an empty class used to locate the ship in the Hierarchy
 public class Ship : MonoBehaviour
 {
+    #region Editor Fields
+
+    [SerializeField] private float _topSpeed = 60f;
+
+    #endregion
+
     #region Private Variables
 
     private static Ship _instance;
@@ -12,6 +18,7 @@ public class Ship : MonoBehaviour
     #region Public Properties
 
     public static Ship Instance { get { return _instance; } }
+    public float TopSpeed => _topSpeed;
 
     #endregion
 

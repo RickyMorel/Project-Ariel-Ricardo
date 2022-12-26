@@ -31,7 +31,7 @@ public class PlayerHealth : Damageable
         base.Start();
     }
 
-    public virtual void Hurt()
+    public virtual void Hurt(DamageType damageType)
     {
         OnHurt?.Invoke();
 
