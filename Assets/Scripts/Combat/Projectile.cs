@@ -45,6 +45,9 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         _rb.AddForce(transform.forward * _speed, ForceMode.Impulse);
+
+        if (GetComponentInChildren<ParticleSystem>() == null) { return; }
+
         _particles = GetComponentInChildren<ParticleSystem>();
     }
 

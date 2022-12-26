@@ -9,6 +9,8 @@ public class WeaponShoot : MonoBehaviour
     protected Weapon _weapon;
     protected float _timeBetweenShots = 0.2f;
     protected float _timeSinceLastShot;
+    protected float _shootAngleCone = 90;
+    protected int _amountOfProjectiles = 1;
 
     #endregion
 
@@ -40,6 +42,14 @@ public class WeaponShoot : MonoBehaviour
 
         _timeSinceLastShot = 0f;
 
+        for (int i = 0; i < _amountOfProjectiles; i += 1)
+        {
+            ProjectileInstantiate();
+        }
+    }
+
+    private void ProjectileInstantiate()
+    {
         Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransform.position, _weapon.TurretHead.rotation);
     }
 
