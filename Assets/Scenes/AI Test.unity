@@ -610,7 +610,7 @@ Transform:
   m_LocalScale: {x: 60, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &780806985
 GameObject:
@@ -1066,11 +1066,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7347014765854381982, guid: b941ab1081bd78e4bb2e71bc79d0965a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b941ab1081bd78e4bb2e71bc79d0965a, type: 3}
---- !u!1 &1363690225 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2595619020458569918, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-  m_PrefabInstance: {fileID: 5925056552242611721}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1444441625 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7356807009704111366, guid: cfab57151a7cda643b55453339523b08, type: 3}
@@ -1525,14 +1520,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 263545343686659338, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 263545343686659338, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.4900002
-      objectReference: {fileID: 0}
     - target: {fileID: 319713644502076378, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1577,26 +1564,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 736042531278265527, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1619346866370592246, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: _meshes.Array.data[2]
-      value: 
-      objectReference: {fileID: 1363690225}
-    - target: {fileID: 1841236574618962370, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595619020458569918, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4016909187758646731, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4471484184268937319, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_Name
       value: 'Main Ship '
@@ -1613,9 +1580,5 @@ PrefabInstance:
       propertyPath: _healthBarImage
       value: 
       objectReference: {fileID: 1444441625}
-    m_RemovedComponents:
-    - {fileID: 6612949471349104857, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-    - {fileID: 8500093457092267216, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-    - {fileID: 8500093457050602076, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-    - {fileID: 8500093457303598513, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
