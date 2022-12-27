@@ -13,8 +13,6 @@ public class FireShotgun : WeaponShoot
     public override void Start()
     {
         _weapon = GetComponentInParent<Weapon>();
-        _timeBetweenShots = 0.7f;
-        _amountOfProjectiles = 5;
     }
 
     public override void CheckShootInput()

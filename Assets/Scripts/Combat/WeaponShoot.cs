@@ -7,10 +7,15 @@ public class WeaponShoot : MonoBehaviour
     #region Private Variable
 
     protected Weapon _weapon;
-    protected float _timeBetweenShots = 0.2f;
     protected float _timeSinceLastShot;
-    protected int _amountOfProjectiles = 1;
-    protected float _shootSpreadSeparationAngle = 5;
+
+    #endregion
+
+    #region Editor Fields
+
+    [SerializeField] protected float _timeBetweenShots = 0.2f;
+    [SerializeField] protected int _amountOfProjectiles = 1;
+    [SerializeField] protected float _shootSpreadSeparationAngle = 5;
 
     #endregion
 

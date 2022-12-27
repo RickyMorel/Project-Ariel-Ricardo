@@ -13,7 +13,6 @@ public class SemiautoElectricRifle : WeaponShoot
     public override void Start()
     {
         _weapon = GetComponentInParent<Weapon>();
-        _timeBetweenShots = 1.2f;
     }
 
     public override void CheckShootInput()
@@ -27,14 +26,5 @@ public class SemiautoElectricRifle : WeaponShoot
         {
             _hasAlreadyShot = false;
         }
-    }
-
-    public override void Shoot()
-    {
-        if (_timeBetweenShots > _timeSinceLastShot) { return; }
-
-        _timeSinceLastShot = 0f;
-
-        Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransform.position, _weapon.TurretHead.rotation);
     }
 }
