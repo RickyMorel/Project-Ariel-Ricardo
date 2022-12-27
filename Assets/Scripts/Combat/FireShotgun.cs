@@ -14,6 +14,7 @@ public class FireShotgun : WeaponShoot
     {
         _weapon = GetComponentInParent<Weapon>();
         _timeBetweenShots = 0.7f;
+        _amountOfProjectiles = 5;
     }
 
     public override void CheckShootInput()
@@ -35,6 +36,6 @@ public class FireShotgun : WeaponShoot
 
         _timeSinceLastShot = 0f;
 
-        Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransform.position, _weapon.TurretHead.rotation);
+        ProjectileShootAngle();
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6762442594866772561}
   - component: {fileID: 622053150710536118}
   - component: {fileID: 7125495355112793594}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4331661380735328444}
   - component: {fileID: 1897079429145697354}
   - component: {fileID: 6421736673352849636}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: TurretProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
