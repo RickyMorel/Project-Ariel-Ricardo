@@ -45,13 +45,17 @@ public class Damageable : MonoBehaviour
 
     #endregion
 
-    #region Public Properties
+    #region Getters & Setters
 
-    public float CurrentHealth => _currentHealth;
+    public float CurrentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
+
+    #endregion
+
+    #region Public Properties
     public float MaxHealth => _maxHealth;
 
-    public event Action OnUpdateHealth;
-    public event Action OnDamaged;
+    public event Action<int> OnUpdateHealth;
+    public event Action<DamageType> OnDamaged;
     public event Action OnDie;
 
     #endregion
@@ -84,10 +88,7 @@ public class Damageable : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent<Projectile>(out Projectile projectile)) { return; }
 
-        //Turrets can't harm their own ship
-        if(other.gameObject.tag == "Untagged" && gameObject.tag == "MainShip") { return; }
-
-        if(other.gameObject.tag == gameObject.tag) { return; }
+        if (IsOwnDamage(other)) { return; }
 
         Damage(projectile.Damage, projectile.DamageType, false);
 
@@ -97,6 +98,16 @@ public class Damageable : MonoBehaviour
     }
 
     #endregion
+
+    public bool IsOwnDamage(Collider other)
+    {
+        //Turrets can't harm their own ship
+        if (other.gameObject.tag == "Untagged" && gameObject.tag == "MainShip") { return true; }
+
+        if (other.gameObject.tag == gameObject.tag) { return true; }
+
+        return false;
+    }
 
     private bool DoesShowDamageParticles()
     {
@@ -112,7 +123,17 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthUI();
 
-        OnUpdateHealth?.Invoke();
+        OnUpdateHealth?.Invoke(amountAdded);
+    }
+
+    public void SetHealth(int newHealth)
+    {
+        _currentHealth = newHealth;
+
+        UpdateHealthUI();
+
+        if (IsDead())
+            Die();
     }
 
     public virtual void Damage(int damage, DamageType damageType = DamageType.None, bool isDamageChain = false)
@@ -142,7 +163,7 @@ public class Damageable : MonoBehaviour
 
         UpdateHealthUI();
 
-        OnDamaged?.Invoke();
+        OnDamaged?.Invoke(damageType);
 
         if (_damageParticles != null && damageType != DamageType.None) { _damageParticles.Play(); }
 

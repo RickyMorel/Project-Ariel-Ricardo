@@ -11,7 +11,6 @@ public class Booster : RotationalInteractable
     [Header("Booster Stats")]
     [SerializeField] private float _acceleration = 1.0f;
     [SerializeField] private float _boostImpulseForce = 50f;
-    [SerializeField] private float _topSpeed = 200f;
     [SerializeField] private float _shipDrag = 0.1f;
     [SerializeField] private List<Gear> _gears = new List<Gear>();
     [SerializeField] private float _speedReductionTolerance = 8f;
@@ -137,7 +136,7 @@ public class Booster : RotationalInteractable
 
         _rb.AddForce(-(RotatorTransform.transform.up * _acceleration * _rb.mass));
 
-        _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _topSpeed);
+        _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, Ship.Instance.TopSpeed);
     }
 }
 

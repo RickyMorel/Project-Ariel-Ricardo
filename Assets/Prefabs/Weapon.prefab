@@ -486,8 +486,8 @@ MonoBehaviour:
   OnTriggerEnterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Damageable, Assembly-CSharp
+      - m_Target: {fileID: 2835829445178600864}
+        m_TargetAssemblyTypeName: InteractableHealth, Assembly-CSharp
         m_MethodName: OnTriggerEnter
         m_Mode: 0
         m_Arguments:
@@ -530,6 +530,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &6253536961031130645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6567959656405035337}
+  m_Layer: 25
+  m_Name: ParticleSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6567959656405035337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6253536961031130645}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.02, y: 0.393, z: -3.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7627081817445622297}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &6603226165107517176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,6 +1203,7 @@ GameObject:
   - component: {fileID: 1366173165246229612}
   - component: {fileID: 7627081817445622296}
   - component: {fileID: 7627081817445622300}
+  - component: {fileID: 2835829445178600864}
   m_Layer: 25
   m_Name: Weapon
   m_TagString: Untagged
@@ -1198,6 +1229,7 @@ Transform:
   - {fileID: 4783918040801611401}
   - {fileID: 8187123114101457294}
   - {fileID: 2389941571288428507}
+  - {fileID: 6567959656405035337}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -1295,6 +1327,29 @@ MonoBehaviour:
   _turretHead: {fileID: 5191781562417900849}
   _rotationSpeed: 300
   _rotationLimits: {x: -190, y: 10}
+--- !u!114 &2835829445178600864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7627081817445622301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2d7aa5aa6a8024490a3fdd67ceebfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resistanceType: 
+  _weaknessType: 
+  _maxHealth: 100
+  _healthBarImage: {fileID: 0}
+  _damageParticles: {fileID: 0}
+  _colorChangeRenderer: {fileID: 0}
+  _redHDR: {r: 0, g: 0, b: 0, a: 0}
+  _currentHealth: 0
+  _fixCost: {fileID: 11400000, guid: 56de9e867278d034698076c776c8d4da, type: 2}
+  _timeToFix: 8
+  _particleSpawnTransform: {fileID: 6567959656405035337}
 --- !u!1 &7627081817470800421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,14 +1644,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
---- !u!1 &5875497789064163618 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8692119889668167863, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
-  m_PrefabInstance: {fileID: 2966019342640376213}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8187123114101457294 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6392837650611185691, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
+  m_PrefabInstance: {fileID: 2966019342640376213}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5875497789064163618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8692119889668167863, guid: a23ba17f6da30c04da71efdb2830272f, type: 3}
   m_PrefabInstance: {fileID: 2966019342640376213}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6501834993710484831
