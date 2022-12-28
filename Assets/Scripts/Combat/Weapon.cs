@@ -100,10 +100,10 @@ public class Weapon : Upgradable
 
     private void CheckRotationInput()
     {
-         if(_currentPlayer.MoveDirection.x == 0) { return; }
+        // if(_currentPlayer.MoveDirection.x == 0) { return; }
 
-        _rotationX += _rotationSpeed * _currentPlayer.MoveDirection.x * Time.deltaTime;
-        _rotationX = Mathf.Clamp(_rotationX, _rotationLimits.x, _rotationLimits.y);
-        _turretHead.localEulerAngles = new Vector3(_rotationX, 0f, 0f);
+        //_rotationX += _rotationSpeed * _currentPlayer.MoveDirection.x * Time.deltaTime;
+        //_rotationX = Mathf.Clamp(_rotationX, _rotationLimits.x, _rotationLimits.y);
+        //_turretHead.localEulerAngles = new Vector3(_rotationX, 0f, 0f);
     }
 }

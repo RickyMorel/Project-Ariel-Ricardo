@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,14 +16,22 @@ public class Mace : WeaponShoot
 
     #region Private Variable
 
-    private bool _isCurrentlyShooting = false;
     private Rigidbody _rb;
+    private AttackHitBox _attackHitBox;
 
     #endregion
 
     private void Awake()
     {
         _rb = _maceHead.GetComponent<Rigidbody>();
+        _attackHitBox = _maceHead.GetComponent<AttackHitBox>();
+
+        _attackHitBox.OnHit += HandleHitParticles;
+    }
+
+    private void OnDestroy()
+    {
+        _attackHitBox.OnHit -= HandleHitParticles;
     }
 
     private void OnEnable()
@@ -32,6 +41,8 @@ public class Mace : WeaponShoot
 
     private void OnDisable()
     {
+        if(_parentTransform == null) { return; }
+
         _maceHead.transform.parent = _parentTransform;
     }
 
@@ -41,24 +52,22 @@ public class Mace : WeaponShoot
 
         _rb.AddForce(_weapon.CurrentPlayer.MoveDirection * 50);
 
-        //float wantedPos = _minAndMaxPositions.x;
-
-        //if (_isCurrentlyShooting) { wantedPos = _minAndMaxPositions.y; }
-
-        //if (_maceHead.transform.localPosition.y == wantedPos) { return; }
-
-        //float moveTo = _maceHead.transform.localPosition.y + _extensionSpeed * Time.deltaTime;
-        //float yMovePos = Mathf.Clamp(moveTo, _minAndMaxPositions.x, _minAndMaxPositions.y);
-        //_maceHead.transform.localPosition = new Vector3(_maceHead.transform.localPosition.x, wantedPos, _maceHead.transform.localPosition.z);
+        //if(Vector3.Distance(transform.position, _maceHead.transform.position) < )
     }
 
     public override void CheckShootInput()
     {
-        _isCurrentlyShooting = _weapon.CurrentPlayer.IsUsing;
+
     }
 
     public override void Shoot()
     {
         //do nothing
+    }
+
+    private void HandleHitParticles(GameObject obj)
+    {
+        Instantiate(GameAssetsManager.Instance.MeleeFloorHitParticles, _maceHead.transform.position, Quaternion.identity);
+        ShipCamera.Instance.ShakeCamera(5f, 50f, 0.2f);
     }
 }

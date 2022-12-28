@@ -6483,6 +6483,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8971422279285128808, guid: 178e162f377a35d4a8819f114c5a1254, type: 3}
   m_PrefabInstance: {fileID: 307201062}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &307332604 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3118540202460636376, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+  m_PrefabInstance: {fileID: 2040416068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &308348005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36779,8 +36784,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9128611959451358347, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
   m_PrefabInstance: {fileID: 2040416068}
   m_PrefabAsset: {fileID: 0}
---- !u!59 &1643321292
-HingeJoint:
+--- !u!144 &1643321292
+CharacterJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -36789,26 +36794,36 @@ HingeJoint:
   m_ConnectedBody: {fileID: 112036621}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: -1, y: 0, z: 0}
+  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: -0.000000015871223, y: -0.7000112, z: 0.20000625}
-  m_UseSpring: 1
-  m_Spring:
-    spring: 10
+  serializedVersion: 2
+  m_SwingAxis: {x: 0, y: 1, z: 0}
+  m_TwistLimitSpring:
+    spring: 0
     damper: 0
-    targetPosition: 0
-  m_UseMotor: 0
-  m_Motor:
-    targetVelocity: 0
-    force: 0
-    freeSpin: 0
-  m_UseLimits: 1
-  m_Limits:
-    min: 10
-    max: 160
+  m_LowTwistLimit:
+    limit: -4.6147337
     bounciness: 0
-    bounceMinVelocity: 0.2
     contactDistance: 0
+  m_HighTwistLimit:
+    limit: 177
+    bounciness: 0
+    contactDistance: 0
+  m_SwingLimitSpring:
+    spring: 0
+    damper: 0
+  m_Swing1Limit:
+    limit: 40
+    bounciness: 0
+    contactDistance: 0
+  m_Swing2Limit:
+    limit: 40
+    bounciness: 0
+    contactDistance: 0
+  m_EnableProjection: 0
+  m_ProjectionDistance: 22.28
+  m_ProjectionAngle: 180
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
@@ -42923,6 +42938,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 265253644078170394, guid: f73d81fb6d5869f48bfba58f808009b4, type: 3}
   m_PrefabInstance: {fileID: 1978579410}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1980593987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7171987699053471761, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+  m_PrefabInstance: {fileID: 2040416068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1983379823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44398,6 +44418,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.992
       objectReference: {fileID: 0}
+    - target: {fileID: 668923641057353803, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.data[2].Projectile
+      value: 
+      objectReference: {fileID: 1744927134643125421, guid: b383ac65b14b99e4dab78e444933eb59, type: 3}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.data[2].UpgradeMesh
+      value: 
+      objectReference: {fileID: 307332604}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.data[2].ShootTransform
+      value: 
+      objectReference: {fileID: 1980593987}
+    - target: {fileID: 1619346866370592242, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _upgrades.Array.data[2]._socket_1_ChipType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1947831616600298533, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -44438,6 +44482,14 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -0.0600024
       objectReference: {fileID: 0}
+    - target: {fileID: 5797509212352144055, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 5797509212352144055, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7768310496969267732, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: -0.00000006521517
@@ -44461,6 +44513,10 @@ PrefabInstance:
     - target: {fileID: 7768310498330076665, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.059991337
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827089193455203014, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: m_Constraints
+      value: 72
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7768310496994679960, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
