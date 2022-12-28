@@ -16,16 +16,17 @@ public class AttackHitBox : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private Damageable _ownHealth;
+    [SerializeField] private bool _isFriendlyToPlayers = true;
 
     #endregion
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag == "Floor") { OnHit?.Invoke(other.gameObject); }
+
         if (!other.gameObject.TryGetComponent<Damageable>(out Damageable enemyHealth)) { return; }
 
         if (_ownHealth != null && enemyHealth == _ownHealth) { return; }
-
-        if(gameObject.tag == enemyHealth.tag) { return; }
 
         Debug.Log("Damage enemy");
 
@@ -37,7 +38,9 @@ public class AttackHitBox : MonoBehaviour
             if (aiHealth.CanKill) { enemyHealth.Damage(20, DamageType.Base); }
             else { aiHealth.Hurt(DamageType.Base); }
         }
-        
+
+
+        if (_isFriendlyToPlayers) { return; }
 
         if (enemyHealth is PlayerHealth) 
         { 

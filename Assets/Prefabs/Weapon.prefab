@@ -142,7 +142,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 72
   m_CollisionDetection: 0
 --- !u!65 &3434382777919271015
 BoxCollider:
@@ -155,8 +155,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.54, y: 0.6188962, z: 0.5195202}
-  m_Center: {x: 0.0000003768844, y: 1.9025433, z: -0.24023943}
+  m_Size: {x: 0.54, y: 1.4592247, z: 0.5195202}
+  m_Center: {x: 0.00000030630147, y: 1.4823788, z: -0.24023956}
 --- !u!145 &4205482097102368639
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ownHealth: {fileID: 0}
+  _isFriendlyToPlayers: 1
 --- !u!1 &3843574088574756828
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,8 +955,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maceHead: {fileID: 3403897392070158188}
   _parentTransform: {fileID: 5375710378686621634}
-  _extensionSpeed: 0.2
-  _minAndMaxPositions: {x: -1.5, y: -0.7}
+  maxDistance: 10
+  _maxMovementSpeed: 30
 --- !u!1 &6253536961031130645
 GameObject:
   m_ObjectHideFlags: 0
