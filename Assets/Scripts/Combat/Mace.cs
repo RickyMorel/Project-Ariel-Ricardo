@@ -64,7 +64,7 @@ public class Mace : WeaponShoot
 
     public override void CheckShootInput()
     {
-
+        //do nothing
     }
 
     public override void Shoot()
@@ -74,7 +74,6 @@ public class Mace : WeaponShoot
 
     private void HandleHitParticles(GameObject obj)
     {
-        Debug.Log("HandleHitParticles: " + obj.tag);
         if(obj.tag == "MainShip") { return; }
 
         Instantiate(GameAssetsManager.Instance.MeleeFloorHitParticles, _maceHead.transform.position, Quaternion.identity);

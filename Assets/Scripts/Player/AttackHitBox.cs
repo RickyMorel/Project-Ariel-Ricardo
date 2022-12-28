@@ -22,13 +22,11 @@ public class AttackHitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Floor") { OnHit?.Invoke(other.gameObject); }
+        if(other.gameObject.layer == 6) { OnHit?.Invoke(other.gameObject); }
 
         if (!other.gameObject.TryGetComponent<Damageable>(out Damageable enemyHealth)) { return; }
 
         if (_ownHealth != null && enemyHealth == _ownHealth) { return; }
-
-        Debug.Log("Damage enemy");
 
         OnHit?.Invoke(other.gameObject);
 
