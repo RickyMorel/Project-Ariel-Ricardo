@@ -9,7 +9,7 @@ public class Weapon : Upgradable
 
     [Header("Shooting Variables")]
     [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private Transform _shootTransform;
+    [SerializeField] private Transform[] _shootTransform;
 
     [Header("Rotation Variables")]
     [SerializeField] private Transform _turretHead;
@@ -29,7 +29,7 @@ public class Weapon : Upgradable
     #region Public Properties
 
     public GameObject ProjectilePrefab => _projectilePrefab;
-    public Transform ShootTransform => _shootTransform;
+    public Transform[] ShootTransform => _shootTransform;
     public Transform TurretHead => _turretHead;
 
     #endregion
@@ -77,7 +77,10 @@ public class Weapon : Upgradable
 
         _projectilePrefab = upgrade.Projectile;
 
-        _shootTransform = upgrade.ShootTransform.transform;
+        for (int i = 0; i < upgrade.ShootTransform.Length; i++)
+        {
+            _shootTransform[i] = upgrade.ShootTransform[i].transform;
+        }
 
         _weaponShoot = upgrade.UpgradeMesh.GetComponent<WeaponShoot>();
     }
