@@ -74,11 +74,6 @@ public class LaserMinigun : WeaponShoot
         else { _shootNumber = -1; }
     }
 
-    private void ProjectileShootFromOtherBarrels(int shootNumber)
-    {
-        Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransforms[shootNumber].position, _weapon.TurretHead.rotation);
-    }
-
     private void WeaponBarrelRoll(float rotationSpeed)
     {
         _barrel.Rotate(new Vector3(0f, 0f, rotationSpeed * Time.deltaTime));

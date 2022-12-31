@@ -48,6 +48,11 @@ public class WeaponShoot : MonoBehaviour
         Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransforms[0].position, _weapon.TurretHead.rotation);
     }
 
+    public void ProjectileShootFromOtherBarrels(int shootNumber)
+    {
+        Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransforms[shootNumber].position, _weapon.TurretHead.rotation);
+    }
+
     public void UpdateTime()
     {
         _timeSinceLastShot += Time.deltaTime;
