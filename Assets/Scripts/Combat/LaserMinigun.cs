@@ -49,7 +49,7 @@ public class LaserMinigun : WeaponShoot
 
         _isShooting = true;
 
-        if (_shootNumber < _weapon.ShootTransform.Length - 1) 
+        if (_shootNumber < _weapon.ShootTransforms.Count - 1) 
         { 
             _shootNumber++; 
             ProjectileShootFromOtherBarrels(_shootNumber);

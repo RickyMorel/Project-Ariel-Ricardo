@@ -185,9 +185,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458250032658626900}
-  m_LocalRotation: {x: -0.70710605, y: 0.0000084042495, z: -4.5474735e-12, w: 0.7071076}
-  m_LocalPosition: {x: 0, y: 1.82, z: -0.09}
-  m_LocalScale: {x: 3, y: 3, z: 1.4436669}
+  m_LocalRotation: {x: -0.7198003, y: 0, z: 0, w: 0.6941812}
+  m_LocalPosition: {x: 0, y: 1.52, z: -0.09}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 456442624561829434}
   - {fileID: 900820911209966960}
@@ -1666,10 +1666,7 @@ MonoBehaviour:
     _socket_2_ChipType: 0
   _chipDropTransform: {fileID: 2389941571288428507}
   _projectilePrefab: {fileID: 6835169869500657298, guid: ae5425c51ae307f4bb82602a757b6b25, type: 3}
-  _shootTransform:
-  - {fileID: 1912763688}
-  - {fileID: 1912763688}
-  - {fileID: 1912763688}
+  _shootTransforms: []
   _turretHead: {fileID: 5191781562417900849}
   _rotationSpeed: 300
   _rotationLimits: {x: -190, y: 10}
