@@ -7,10 +7,25 @@ public class LaserMinigun : WeaponShoot
     #region Private Variables
 
     private int _shootNumber = -1;
+    private Transform _barrel;
+    private float _rotationSpeed = 0;
+    private bool _isShooting;
+
+    #endregion
+
+    #region Editor Fields
+
+    [SerializeField] private float _maxRotationSpeed = 500;
 
     #endregion
 
     #region Unity Loops
+
+    public override void Start()
+    {
+        _weapon = GetComponentInParent<Weapon>();
+        _barrel = _weapon.TurretHead.GetChild(0);
+    }
 
     public override void Update()
     {
@@ -57,5 +72,15 @@ public class LaserMinigun : WeaponShoot
         }
 
         else { _shootNumber = -1; }
+    }
+
+    private void ProjectileShootFromOtherBarrels(int shootNumber)
+    {
+        Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransforms[shootNumber].position, _weapon.TurretHead.rotation);
+    }
+
+    private void WeaponBarrelRoll(float rotationSpeed)
+    {
+        _barrel.Rotate(new Vector3(0f, 0f, rotationSpeed * Time.deltaTime));
     }
 }
