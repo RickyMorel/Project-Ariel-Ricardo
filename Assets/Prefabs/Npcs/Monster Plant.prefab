@@ -1721,7 +1721,7 @@ MonoBehaviour:
   _colorChangeRenderer: {fileID: 2146405383355819584}
   _redHDR: {r: 2, g: 0, b: 0, a: 0}
   _hurtTime: 5
-  _canKill: 0
+  _canKill: 1
 --- !u!114 &2028690528299777030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21157,6 +21157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ownHealth: {fileID: 2028690528299777049}
+  _isFriendlyToPlayers: 1
 --- !u!1 &5807305312909571154
 GameObject:
   m_ObjectHideFlags: 0

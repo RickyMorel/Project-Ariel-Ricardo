@@ -26,6 +26,8 @@ public class AttackHitBox : MonoBehaviour
 
         if (!other.gameObject.TryGetComponent<Damageable>(out Damageable enemyHealth)) { return; }
 
+        Debug.Log(gameObject.name + " hit: " + enemyHealth.name);
+
         if (_ownHealth != null && enemyHealth == _ownHealth) { return; }
 
         OnHit?.Invoke(other.gameObject);

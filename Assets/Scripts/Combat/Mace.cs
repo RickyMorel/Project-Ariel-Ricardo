@@ -50,6 +50,7 @@ public class Mace : WeaponShoot
     private void FixedUpdate()
     {
         if (_weapon.CurrentPlayer == null) { return; }
+        if(_weapon.CanUse == false) { return; }
 
         _rb.AddForce(_weapon.CurrentPlayer.MoveDirection * _moveForce);
         _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _maxMovementSpeed);
