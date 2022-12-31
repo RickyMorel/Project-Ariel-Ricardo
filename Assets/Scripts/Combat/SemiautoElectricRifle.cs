@@ -10,6 +10,11 @@ public class SemiautoElectricRifle : WeaponShoot
 
     #endregion
 
+    public override void Start()
+    {
+        _weapon = GetComponentInParent<Weapon>();
+    }
+
     public override void CheckShootInput()
     {
         if (_weapon.CurrentPlayer.IsUsing && !_hasAlreadyShot)
@@ -21,14 +26,5 @@ public class SemiautoElectricRifle : WeaponShoot
         {
             _hasAlreadyShot = false;
         }
-    }
-
-    public override void Shoot()
-    {
-        if (_weapon.TimeBetweenShots > _weapon.TimeSinceLastShot) { return; }
-
-        _weapon.TimeSinceLastShot = 0f;
-
-        Instantiate(_weapon.ProjectilePrefab, _weapon.ShootTransform.position, _weapon.TurretHead.rotation);
     }
 }

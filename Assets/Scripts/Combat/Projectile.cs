@@ -17,6 +17,7 @@ public class Projectile : MonoBehaviour
     #region Private Varaibles
 
     private Rigidbody _rb;
+    private ParticleSystem _particles;
 
     #endregion
 
@@ -25,6 +26,12 @@ public class Projectile : MonoBehaviour
     public int Damage => _damage;
 
     public DamageType DamageType => _damageType;
+
+    #endregion
+
+    #region Getters and Setters
+
+    public ParticleSystem ProjectileParticles { get { return _particles; } set { _particles = value; } }
 
     #endregion
 
@@ -38,6 +45,10 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         _rb.AddForce(transform.forward * _speed, ForceMode.Impulse);
+
+        if (GetComponentInChildren<ParticleSystem>() == null) { return; }
+
+        _particles = GetComponentInChildren<ParticleSystem>();
     }
 
     public void Initialize(string ownerTag)

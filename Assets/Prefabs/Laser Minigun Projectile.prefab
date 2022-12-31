@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 874173432442515864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0043, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.4}
+  m_LocalScale: {x: 0.06, y: 0.06, z: 0.3}
   m_Children: []
   m_Father: {fileID: 7837682231542152147}
   m_RootOrder: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1897079429145697354}
   - component: {fileID: 6421736673352849636}
   m_Layer: 25
-  m_Name: TurretProjectile
+  m_Name: Laser Minigun Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 6835169869500657298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.38, y: 1.082, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 3.8635998, y: 3.8635998, z: 3.8635998}
   m_Children:
   - {fileID: 6762442594866772561}
   m_Father: {fileID: 0}
@@ -159,4 +159,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 50
   _damage: 12
-  _damageType: 2
+  _damageType: 3

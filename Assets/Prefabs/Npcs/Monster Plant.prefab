@@ -1718,10 +1718,10 @@ MonoBehaviour:
   _maxHealth: 100
   _healthBarImage: {fileID: 5807305312909571157}
   _damageParticles: {fileID: 4330216161463991999}
-  _colorChangeRenderer: {fileID: 0}
+  _colorChangeRenderer: {fileID: 2146405383355819584}
   _redHDR: {r: 2, g: 0, b: 0, a: 0}
   _hurtTime: 5
-  _canKill: 1
+  _canKill: 0
 --- !u!114 &2028690528299777030
 MonoBehaviour:
   m_ObjectHideFlags: 0

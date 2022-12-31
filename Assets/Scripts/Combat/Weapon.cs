@@ -9,8 +9,7 @@ public class Weapon : Upgradable
 
     [Header("Shooting Variables")]
     [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private float _timeBetweenShots = 0.2f;
-    [SerializeField] private Transform _shootTransform;
+    [SerializeField] private List<Transform> _shootTransforms = new List<Transform>();
 
     [Header("Rotation Variables")]
     [SerializeField] private Transform _turretHead;
@@ -21,7 +20,6 @@ public class Weapon : Upgradable
 
     #region Private Variables
 
-    private float _timeSinceLastShot;
     private float _rotationX;
 
     private WeaponShoot _weaponShoot;
@@ -31,15 +29,8 @@ public class Weapon : Upgradable
     #region Public Properties
 
     public GameObject ProjectilePrefab => _projectilePrefab;
-    public float TimeBetweenShots => _timeBetweenShots;
-    public Transform ShootTransform => _shootTransform;
+    public List<Transform> ShootTransforms => _shootTransforms;
     public Transform TurretHead => _turretHead;
-
-    #endregion
-
-    #region Getters and Setters
-
-    public float TimeSinceLastShot { get { return _timeSinceLastShot; } set { _timeSinceLastShot = value; } }
 
     #endregion
 
@@ -63,8 +54,6 @@ public class Weapon : Upgradable
 
     private void Update()
     {
-        UpdateTime();
-
         if (_currentPlayer == null) { return; }
 
         if (CanUse == false) { return; }
@@ -78,11 +67,6 @@ public class Weapon : Upgradable
         OnUpgradeMesh -= HandleUpgrade;
     }
 
-    private void UpdateTime()
-    {
-        _timeSinceLastShot += Time.deltaTime;
-    }
-
     #endregion
 
     private void HandleUpgrade(Upgrade upgrade)
@@ -93,7 +77,12 @@ public class Weapon : Upgradable
 
         _projectilePrefab = upgrade.Projectile;
 
-        _shootTransform = upgrade.ShootTransform.transform;
+        _shootTransforms.Clear();
+
+        for (int i = 0; i < upgrade.ShootTransform.Length; i++)
+        {
+            _shootTransforms.Add(upgrade.ShootTransform[i].transform);
+        }
 
         _weaponShoot = upgrade.UpgradeMesh.GetComponent<WeaponShoot>();
     }
