@@ -10,6 +10,7 @@ public class Mace : WeaponShoot
     [SerializeField] private GameObject _maceHead;
     [SerializeField] private Transform _parentTransform;
     [SerializeField] private float maxDistance = 10f;
+    [SerializeField] private float _moveForce = 50f;
     [SerializeField] private float _maxMovementSpeed = 20f;
 
     #endregion
@@ -48,17 +49,9 @@ public class Mace : WeaponShoot
 
     private void FixedUpdate()
     {
-        //Stop mace from flying too far
-        if(Vector3.Distance(_maceHead.transform.position, transform.position) > maxDistance)
-        {
-            Vector3 bringCloserForce = transform.position - _maceHead.transform.position;
-            _rb.AddForce(bringCloserForce.normalized * 5);
-            return;
-        }
-
         if (_weapon.CurrentPlayer == null) { return; }
 
-        _rb.AddForce(_weapon.CurrentPlayer.MoveDirection * 50);
+        _rb.AddForce(_weapon.CurrentPlayer.MoveDirection * _moveForce);
         _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _maxMovementSpeed);
     }
 
