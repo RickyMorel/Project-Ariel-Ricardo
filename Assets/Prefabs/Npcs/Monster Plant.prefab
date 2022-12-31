@@ -1700,6 +1700,7 @@ MonoBehaviour:
   _jumpHeight: 3
   _gravityIntensity: -15
   _isGrounded: 1
+  _canMove: 1
 --- !u!114 &2028690528299777049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,13 +1713,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b9769e31b8eda4ab805046f44e6de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lerpTime: 0
   _resistanceType: 
   _weaknessType: 02000000
   _maxHealth: 100
   _healthBarImage: {fileID: 5807305312909571157}
   _damageParticles: {fileID: 4330216161463991999}
-  _colorChange: {fileID: 2146405383355819584}
+  _colorChangeRenderer: {fileID: 2146405383355819584}
   _redHDR: {r: 2, g: 0, b: 0, a: 0}
   _hurtTime: 5
   _canKill: 0
@@ -1748,7 +1748,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentInteraction: 0
-  _currentInteractable: {fileID: 0}
 --- !u!114 &2028690528299777052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1779,7 +1778,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Actions: []
   CurrentAction: {fileID: 0}
-  _isMoving: 0
 --- !u!114 &2028690528299777041
 MonoBehaviour:
   m_ObjectHideFlags: 0
