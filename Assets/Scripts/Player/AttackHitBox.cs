@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,25 +7,38 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class AttackHitBox : MonoBehaviour
 {
+    #region Public Properties
+
+    public event Action<GameObject> OnHit;
+
+    #endregion
+
     #region Editor Fields
 
     [SerializeField] private Damageable _ownHealth;
+    [SerializeField] private bool _isFriendlyToPlayers = true;
 
     #endregion
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!other.gameObject.TryGetComponent<Damageable>(out Damageable enemyHealth)) { return; }
+        if(other.gameObject.layer == 6) { OnHit?.Invoke(other.gameObject); }
 
-        if (enemyHealth == _ownHealth) { return; }
+        if (!other.gameObject.TryGetComponent<Damageable>(out Damageable enemyHealth)) { return; }
 
-        if(enemyHealth is AIHealth)
+        if (_ownHealth != null && enemyHealth == _ownHealth) { return; }
+
+        OnHit?.Invoke(other.gameObject);
+
+        if (enemyHealth is AIHealth)
         {
             AIHealth aiHealth = (AIHealth)enemyHealth;
-            if (aiHealth.CanKill) { enemyHealth.Damage(20); }
+            if (aiHealth.CanKill) { enemyHealth.Damage(20, DamageType.Base); }
             else { aiHealth.Hurt(DamageType.Base); }
         }
-        
+
+
+        if (_isFriendlyToPlayers) { return; }
 
         if (enemyHealth is PlayerHealth) 
         { 

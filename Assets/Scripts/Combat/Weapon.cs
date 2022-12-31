@@ -89,10 +89,24 @@ public class Weapon : Upgradable
 
     private void CheckRotationInput()
     {
-         if(_currentPlayer.MoveDirection.x == 0) { return; }
+        if(!DoesRotate()) { return; }
+
+        if (_currentPlayer.MoveDirection.x == 0) { return; }
 
         _rotationX += _rotationSpeed * _currentPlayer.MoveDirection.x * Time.deltaTime;
         _rotationX = Mathf.Clamp(_rotationX, _rotationLimits.x, _rotationLimits.y);
         _turretHead.localEulerAngles = new Vector3(_rotationX, 0f, 0f);
+    }
+
+    private bool DoesRotate()
+    {
+        //if is harpoon gun
+        if (_selectedUpgrade._socket_1_ChipType == ChipType.Base && _selectedUpgrade._socket_1_ChipType == ChipType.Electric) { return true; }
+        if (_selectedUpgrade._socket_1_ChipType == ChipType.Electric && _selectedUpgrade._socket_1_ChipType == ChipType.Base) { return true; }
+
+        //if is any other base weapon
+        if (_selectedUpgrade._socket_1_ChipType == ChipType.Base || _selectedUpgrade._socket_2_ChipType == ChipType.Base) { return false; }
+
+        return true;
     }
 }

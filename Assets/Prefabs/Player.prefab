@@ -4829,6 +4829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ownHealth: {fileID: 8900917374660638782}
+  _isFriendlyToPlayers: 0
 --- !u!1 &4936333524319843810
 GameObject:
   m_ObjectHideFlags: 0
@@ -5141,7 +5142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentInteraction: 0
-  _currentInteractable: {fileID: 0}
 --- !u!114 &5054758916227006428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5160,11 +5160,10 @@ MonoBehaviour:
   _jumpHeight: 3
   _gravityIntensity: -15
   _isGrounded: 0
+  _canMove: 1
   _collisionLayers:
     serializedVersion: 2
     m_Bits: 16777280
-  _isOrthoMode: 1
-  _applyGravity: 0
 --- !u!114 &8900917374660638783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5201,9 +5200,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d743288922da146b8cbe084bc15c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resistanceType: 
+  _weaknessType: 
   _maxHealth: 0
   _healthBarImage: {fileID: 0}
   _damageParticles: {fileID: 0}
+  _colorChangeRenderer: {fileID: 0}
+  _redHDR: {r: 0, g: 0, b: 0, a: 0}
   _hurtTime: 5
 --- !u!114 &8683001855490978692
 MonoBehaviour:

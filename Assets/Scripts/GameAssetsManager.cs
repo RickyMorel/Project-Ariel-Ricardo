@@ -14,6 +14,7 @@ public class GameAssetsManager : MonoBehaviour
     [SerializeField] private GameObject _interactableFriedParticles;
     [SerializeField] private GameObject _electricParticles;
     [SerializeField] private GameObject _fireParticles;
+    [SerializeField] private GameObject _meleeFloorHitParticles;
 
     #endregion
 
@@ -33,6 +34,7 @@ public class GameAssetsManager : MonoBehaviour
     public GameObject InteractableFriedParticles => _interactableFriedParticles;
     public GameObject ElectricParticles => _electricParticles;
     public GameObject FireParticles => _fireParticles;
+    public GameObject MeleeFloorHitParticles => _meleeFloorHitParticles;
 
     public static GameAssetsManager Instance { get { return _instance; } }
 

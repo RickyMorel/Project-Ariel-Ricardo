@@ -18,6 +18,7 @@ public class Upgradable : Interactable
 
     private UpgradeChip[] _upgradeSockets = { null, null };
     private List<GameObject> _chipInstances = new List<GameObject>();
+    protected Upgrade _selectedUpgrade;
 
     #endregion
 
@@ -138,6 +139,7 @@ public class Upgradable : Interactable
             }
         }
 
+        _selectedUpgrade = _upgrades[upgradeMeshIndex];
         GameObject newMesh = _upgrades[upgradeMeshIndex].UpgradeMesh;
         GameObject newProjectile = _upgrades[upgradeMeshIndex].Projectile;
         GameObject[] newShootTransform = _upgrades[upgradeMeshIndex].ShootTransform;
