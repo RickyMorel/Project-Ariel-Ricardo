@@ -160,7 +160,6 @@ MonoBehaviour:
   _amountOfProjectiles: 1
   _shootSpreadSeparationAngle: 5
   _maxRotationSpeed: 500
-  _rotationSpeed: 0
 --- !u!1 &458250032658626900
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 458250032658626900}
   m_LocalRotation: {x: -0.70710605, y: 0.0000084042495, z: -4.5474735e-12, w: 0.7071076}
   m_LocalPosition: {x: 0, y: 1.82, z: -0.09}
-  m_LocalScale: {x: 1.4436669, y: 1.4436669, z: 1.4436669}
+  m_LocalScale: {x: 3, y: 3, z: 1.4436669}
   m_Children:
   - {fileID: 456442624561829434}
   - {fileID: 900820911209966960}
@@ -686,7 +685,6 @@ MonoBehaviour:
   _amountOfProjectiles: 1
   _shootSpreadSeparationAngle: 5
   _maxRotationSpeed: 2
-  _rotationSpeed: 0
 --- !u!1 &5196958495453686589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1155,6 @@ MonoBehaviour:
   _amountOfProjectiles: 1
   _shootSpreadSeparationAngle: 5
   _maxRotationSpeed: 2
-  _rotationSpeed: 0
 --- !u!1 &7429366894016704111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1339,6 @@ MonoBehaviour:
   _amountOfProjectiles: 5
   _shootSpreadSeparationAngle: 5
   _maxRotationSpeed: 2
-  _rotationSpeed: 0
 --- !u!1 &7430814596964335871
 GameObject:
   m_ObjectHideFlags: 0
