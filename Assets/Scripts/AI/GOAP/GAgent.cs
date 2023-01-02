@@ -86,6 +86,10 @@ public class GAgent : MonoBehaviour
 
         if (CurrentAction != null && CurrentAction.IsRunning)
         {
+            //if target moved, update desitination
+            if(CurrentAction.Target != null && CurrentAction.Target.transform.position != _destination) 
+            { _destination = CurrentAction.Target.transform.position; }
+
             if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.SetDestination(_destination); }
 
             float distanceToTarget = Vector3.Distance(_destination, transform.position);

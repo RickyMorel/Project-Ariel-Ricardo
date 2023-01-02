@@ -51,6 +51,7 @@ public sealed class GWorld
     private static ResourceQueue _hideLocations;
     private static ResourceQueue _restLocations;
     private static ResourceQueue _shipAttackPoints;
+    private static ResourceQueue _shipTurretAttackPoints;
     private static ResourceQueue _healPoints;
     private static Dictionary<string, ResourceQueue> _resources = new Dictionary<string, ResourceQueue>();
 
@@ -65,6 +66,7 @@ public sealed class GWorld
     public static string FREE_HIDE_LOCATIONS = "FreeHideLocation";
     public static string FREE_REST_LOCATIONS = "FreeRestLocation";
     public static string FREE_SHIP_ATTACK_POINTS = "FreeShipAttackPoint";
+    public static string FREE_SHIP_TURRET_ATTACK_POINTS = "FreeShipTurretAttackPoint";
     public static string FREE_HEAL_POINTS = "FreeHealPoint";
 
     public static string EATINGCHAIRS = "eatingChairs";
@@ -72,6 +74,7 @@ public sealed class GWorld
     public static string HIDE_LOCATIONS = "hideLocations";
     public static string REST_LOCATIONS = "restLocations";
     public static string SHIP_ATTACK_POINTS = "shipAttackPoints";
+    public static string SHIP_TURRET_ATTACK_POINTS = "shipTurretAttackPoints";
     public static string HEAL_POINTS = "healPoints";
 
     #endregion
@@ -84,6 +87,7 @@ public sealed class GWorld
         _hideLocations = new ResourceQueue("HideLocation", FREE_HIDE_LOCATIONS, _world);
         _restLocations = new ResourceQueue("RestLocation", FREE_REST_LOCATIONS, _world);
         _shipAttackPoints = new ResourceQueue("ShipAttackPoint", FREE_SHIP_ATTACK_POINTS, _world);
+        _shipTurretAttackPoints = new ResourceQueue("ShipTurretAttackPoint", FREE_SHIP_TURRET_ATTACK_POINTS, _world);
         _healPoints = new ResourceQueue("HealPoint", FREE_HEAL_POINTS, _world);
 
         _resources.Add(EATINGCHAIRS, _eatingChairs);
@@ -91,6 +95,7 @@ public sealed class GWorld
         _resources.Add(HIDE_LOCATIONS, _hideLocations);
         _resources.Add(REST_LOCATIONS, _restLocations);
         _resources.Add(SHIP_ATTACK_POINTS, _shipAttackPoints);
+        _resources.Add(SHIP_TURRET_ATTACK_POINTS, _shipTurretAttackPoints);
         _resources.Add(HEAL_POINTS, _healPoints);
 
         //Leave this here for future testing
