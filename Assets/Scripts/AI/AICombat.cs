@@ -27,7 +27,6 @@ public class AICombat : PlayerCombat
     public override void Shoot()
     {
         Transform enemyTransform = _gAgent.CurrentAction.Target.transform;
-        Debug.Log("Target Transform: " + enemyTransform.name);
         GameObject newProjectile = Instantiate(_projectilePrefab, _shootTransform.position, _shootTransform.rotation);
         newProjectile.transform.LookAt(enemyTransform);
         newProjectile.GetComponent<Projectile>().Initialize(tag);
