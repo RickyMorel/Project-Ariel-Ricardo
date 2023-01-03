@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackShip : GAction
+public class AttachAttack : GAction
 {
     #region Editor Fields
 
@@ -10,21 +10,6 @@ public class AttackShip : GAction
     [SerializeField] private GWorld.AttackFreeTags _attackFreeItemName;
 
     #endregion
-
-    #region Private Variables
-
-    private AIStateMachine _stateMachine;
-    private GAgent _gAgent;
-    private AICombat _aiCombat;
-
-    #endregion
-
-    private void Start()
-    {
-        _gAgent = Agent.GetComponent<GAgent>();
-        _stateMachine = Agent.GetComponent<AIStateMachine>();
-        _aiCombat = Agent.GetComponent<AICombat>();
-    }
 
     public override bool PrePerform()
     {
@@ -36,26 +21,18 @@ public class AttackShip : GAction
 
         GWorld.Instance.GetWorld().ModifyState(_attackFreeItemName.ToString(), -1);
 
-        _gAgent.SetGoalDistance(_aiCombat.AttackRange);
-
         return true;
     }
 
     public override bool PostPeform()
     {
-        Debug.Log("PostPerform Attack");
-
         GWorld.Instance.GetQueue(_attackItemTag.ToString()).AddResource(Target);
 
         Inventory.RemoveItem(Target);
 
         GWorld.Instance.GetWorld().ModifyState(_attackFreeItemName.ToString(), 1);
 
-        _stateMachine.BasicAttack();
-
-        Debug.Log("Basic Attack");
-
-        _gAgent.ResetGoalDistance();
+        Beliefs.RemoveState("hurt");
 
         return true;
     }

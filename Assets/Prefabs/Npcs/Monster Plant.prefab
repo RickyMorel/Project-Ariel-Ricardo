@@ -1791,7 +1791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _preConditionsInspector:
-  - key: FreeShipAttackPoint
+  - key: FreeShipTurretAttackPoint
     value: 0
   - key: aggro
     value: 0
@@ -1804,6 +1804,8 @@ MonoBehaviour:
   TargetTag: MainShip
   Duration: 4
   IsRunning: 0
+  _attackItemTag: 1
+  _attackFreeItemName: 2
 --- !u!114 &2028690528299777040
 MonoBehaviour:
   m_ObjectHideFlags: 0

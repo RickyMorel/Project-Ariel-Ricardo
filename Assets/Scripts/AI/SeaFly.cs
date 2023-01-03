@@ -11,10 +11,10 @@ public class SeaFly : GAgent
         SubGoal s1 = new SubGoal("destroyShip", 1, false);
         Goals.Add(s1, 1);
 
-        SubGoal s2 = new SubGoal("hasFlewAway", 1, false);
-        Goals.Add(s2, 3);
+        //SubGoal s2 = new SubGoal("hasFlewAway", 1, false);
+        //Goals.Add(s2, 3);
 
-        Invoke(nameof(FlyAway), Random.Range(5, 10));
+        //Invoke(nameof(FlyAway), Random.Range(5, 10));
     }
 
     void FlyAway()

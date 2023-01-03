@@ -37,6 +37,8 @@ public class AIInteractionController : BaseInteractionController
         if(interactable == wantedInteractable)
         {
             HandleInteraction();
+
+            Debug.Log("Interact with: " + interactable.name);
         }
     }
 }

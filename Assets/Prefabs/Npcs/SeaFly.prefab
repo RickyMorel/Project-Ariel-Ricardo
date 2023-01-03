@@ -21561,8 +21561,9 @@ GameObject:
   - component: {fileID: 7153336119383687666}
   - component: {fileID: 7153336119383687657}
   - component: {fileID: 7153336119383687664}
-  - component: {fileID: 7153336119383687652}
   - component: {fileID: 7153336119383687659}
+  - component: {fileID: 1788001473}
+  - component: {fileID: 1788001484}
   m_Layer: 0
   m_Name: SeaFly
   m_TagString: Enemy
@@ -21739,7 +21740,7 @@ MonoBehaviour:
   _attackHitbox: {fileID: 3455716032967025404}
   _projectilePrefab: {fileID: 6835169869500657298, guid: ae5425c51ae307f4bb82602a757b6b25, type: 3}
   _shootTransform: {fileID: 0}
-  _attackRange: 5
+  _attackRange: 2
 --- !u!114 &7153336119383687664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21754,32 +21755,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Actions: []
   CurrentAction: {fileID: 0}
---- !u!114 &7153336119383687652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7153336119383687665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ed3b9f9534a374d845760d43e57977, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _preConditionsInspector:
-  - key: FreeShipTurretAttackPoint
-    value: 0
-  - key: aggro
-    value: 0
-  _effectsInspector:
-  - key: destroyShip
-    value: 0
-  ActionName: Attack Ship
-  Cost: 1
-  Target: {fileID: 0}
-  TargetTag: MainShip
-  Duration: 4
-  IsRunning: 0
 --- !u!114 &7153336119383687659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21793,3 +21768,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisAgent: {fileID: 7153336119383687664}
+--- !u!114 &1788001473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153336119383687665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e97e9d19b7c8d7845b506d098f969f4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preConditionsInspector:
+  - key: FreeShipAttackPoint
+    value: 0
+  - key: aggro
+    value: 0
+  _effectsInspector:
+  - key: destroyShip
+    value: 0
+  ActionName: Attach Attack
+  Cost: 1
+  Target: {fileID: 0}
+  TargetTag: 
+  Duration: 0
+  IsRunning: 0
+  _attackItemTag: 1
+  _attackFreeItemName: 1
+--- !u!114 &1788001484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153336119383687665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f129f883cb6d1c74f9a307cd07789176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preConditionsInspector:
+  - key: needToFly
+    value: 0
+  _effectsInspector:
+  - key: hasFlewAway
+    value: 0
+  ActionName: Fly Away
+  Cost: 1
+  Target: {fileID: 0}
+  TargetTag: 
+  Duration: 1
+  IsRunning: 0
+  _maxDistance: 40
