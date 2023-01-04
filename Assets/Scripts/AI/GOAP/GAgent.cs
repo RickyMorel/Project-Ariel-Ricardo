@@ -21,6 +21,8 @@ public class SubGoal
 
 #endregion
 
+[RequireComponent(typeof(AIInteractionController))]
+[RequireComponent(typeof(AIStateMachine))]
 public class GAgent : MonoBehaviour
 {
     #region Public Properties
@@ -50,6 +52,7 @@ public class GAgent : MonoBehaviour
 
     private Rigidbody _rb;
     private AIStateMachine _aiStateMachine;
+    private AIInteractionController _interactionController;
     private float _goalDistance = 2f;
 
     #endregion
@@ -60,6 +63,7 @@ public class GAgent : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _aiStateMachine = GetComponent<AIStateMachine>();
+        _interactionController = GetComponent<AIInteractionController>();
     }
    
     public virtual void Start()
@@ -82,7 +86,7 @@ public class GAgent : MonoBehaviour
     {
         if (!_aiStateMachine.CanMove) { _isMoving = false; _aiStateMachine.Agent.enabled = false; }
 
-        else { _aiStateMachine.Agent.enabled = true; }
+        else if(!_interactionController.IsInteracting()) { _aiStateMachine.Agent.enabled = true; }
 
         if (CurrentAction != null && CurrentAction.IsRunning)
         {

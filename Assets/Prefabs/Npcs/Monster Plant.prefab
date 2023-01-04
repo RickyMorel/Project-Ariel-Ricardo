@@ -1804,7 +1804,7 @@ MonoBehaviour:
   TargetTag: MainShip
   Duration: 4
   IsRunning: 0
-  _attackItemTag: 1
+  _attackItemTag: 2
   _attackFreeItemName: 2
 --- !u!114 &2028690528299777040
 MonoBehaviour:

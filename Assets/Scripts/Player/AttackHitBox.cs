@@ -37,13 +37,17 @@ public class AttackHitBox : MonoBehaviour
             else { aiHealth.Hurt(DamageType.Base); }
         }
 
-
         if (_isFriendlyToPlayers) { return; }
 
         if (enemyHealth is PlayerHealth) 
         { 
             PlayerHealth playerHealth = enemyHealth as PlayerHealth;
             playerHealth.Hurt(DamageType.Base); 
+        }
+
+        if (enemyHealth is ShipHealth)
+        {
+            enemyHealth.Damage(20, DamageType.Base);
         }
     }
 }
