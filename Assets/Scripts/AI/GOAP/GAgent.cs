@@ -1,4 +1,5 @@
-using System.Collections;
+//#define DISTANCE_DEBUGS
+
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -40,6 +41,12 @@ public class GAgent : MonoBehaviour
 
     #endregion
 
+    #region Editor Fields
+
+    [SerializeField] private float _goalDistance = 2f;
+
+    #endregion
+
     #region Private Variables
 
     private GPlanner _planner;
@@ -53,7 +60,7 @@ public class GAgent : MonoBehaviour
     private Rigidbody _rb;
     private AIStateMachine _aiStateMachine;
     private AIInteractionController _interactionController;
-    private float _goalDistance = 2f;
+    private float _initialGoalDistance;
 
     #endregion
 
@@ -64,6 +71,8 @@ public class GAgent : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _aiStateMachine = GetComponent<AIStateMachine>();
         _interactionController = GetComponent<AIInteractionController>();
+
+        _initialGoalDistance = _goalDistance;
     }
    
     public virtual void Start()
@@ -90,13 +99,19 @@ public class GAgent : MonoBehaviour
 
         if (CurrentAction != null && CurrentAction.IsRunning)
         {
+#if DISTANCE_DEBUGS
+            Debug.Log(CurrentAction.ActionName + " is Running");
+#endif
             //if target moved, update desitination
-            if(CurrentAction.Target != null && CurrentAction.Target.transform.position != _destination) 
+            if (CurrentAction.Target != null && CurrentAction.Target.transform.position != _destination) 
             { _destination = CurrentAction.Target.transform.position; }
 
             if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.SetDestination(_destination); }
 
             float distanceToTarget = Vector3.Distance(_destination, transform.position);
+#if DISTANCE_DEBUGS
+            Debug.Log(CurrentAction.ActionName + $"{distanceToTarget} < {_goalDistance}?");
+#endif
             if (distanceToTarget < _goalDistance)
             {
                 if (CurrentAction.Agent.isOnNavMesh) { CurrentAction.Agent.ResetPath(); }
@@ -127,7 +142,7 @@ public class GAgent : MonoBehaviour
 
     public void ResetGoalDistance()
     {
-        _goalDistance = 2f;
+        _goalDistance = _initialGoalDistance;
     }
 
     private void TryPerformGoal()

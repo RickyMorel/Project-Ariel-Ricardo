@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 3455716032967025405}
   - component: {fileID: 3455716032967025404}
   - component: {fileID: 3455716032967025347}
-  m_Layer: 17
+  m_Layer: 13
   m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19394,8 +19394,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5051008131167906163}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5048273733580950983}
@@ -19439,7 +19439,7 @@ Transform:
   - {fileID: 5049010027181235923}
   m_Father: {fileID: 7157232019716196987}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5051044020037532547
 GameObject:
   m_ObjectHideFlags: 0
@@ -21561,9 +21561,9 @@ GameObject:
   - component: {fileID: 7153336119383687666}
   - component: {fileID: 7153336119383687657}
   - component: {fileID: 7153336119383687664}
-  - component: {fileID: 7153336119383687659}
   - component: {fileID: 1788001473}
   - component: {fileID: 1788001484}
+  - component: {fileID: 7153336119383687659}
   m_Layer: 13
   m_Name: SeaFly
   m_TagString: Enemy
@@ -21755,19 +21755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Actions: []
   CurrentAction: {fileID: 0}
---- !u!114 &7153336119383687659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7153336119383687665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f90deb7d9631c841815798e74a8fc06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisAgent: {fileID: 7153336119383687664}
+  _goalDistance: 6
 --- !u!114 &1788001473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21792,7 +21780,7 @@ MonoBehaviour:
   Cost: 1
   Target: {fileID: 0}
   TargetTag: 
-  Duration: 20
+  Duration: 2
   IsRunning: 0
   _attackItemTag: 1
   _attackFreeItemName: 1
@@ -21809,7 +21797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _preConditionsInspector:
-  - key: needToFly
+  - key: hurt
     value: 0
   _effectsInspector:
   - key: hasFlewAway
@@ -21820,4 +21808,18 @@ MonoBehaviour:
   TargetTag: 
   Duration: 1
   IsRunning: 0
-  _maxDistance: 40
+  _minDistance: 40
+  _maxDistance: 60
+--- !u!114 &7153336119383687659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153336119383687665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f90deb7d9631c841815798e74a8fc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisAgent: {fileID: 7153336119383687664}

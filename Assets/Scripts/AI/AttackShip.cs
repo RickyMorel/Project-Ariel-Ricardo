@@ -43,8 +43,6 @@ public class AttackShip : GAction
 
     public override bool PostPeform()
     {
-        Debug.Log("PostPerform Attack");
-
         GWorld.Instance.GetQueue(_attackItemTag.ToString()).AddResource(Target);
 
         Inventory.RemoveItem(Target);
@@ -52,8 +50,6 @@ public class AttackShip : GAction
         GWorld.Instance.GetWorld().ModifyState(_attackFreeItemName.ToString(), 1);
 
         _stateMachine.BasicAttack();
-
-        Debug.Log("Basic Attack");
 
         _gAgent.ResetGoalDistance();
 

@@ -46,9 +46,12 @@ public class AIInteractionController : BaseInteractionController
 
         if(interactable == wantedInteractable)
         {
-            HandleInteraction();
-
-            Debug.Log("Interact with: " + interactable.name);
+            HandleInteraction(_gAgent.CurrentAction.Duration);
         }
+    }
+
+    public override void CheckExitInteraction()
+    {
+        base.CheckExitInteraction();
     }
 }

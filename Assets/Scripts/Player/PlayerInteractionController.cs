@@ -23,7 +23,7 @@ public class PlayerInteractionController : BaseInteractionController
 
         _playerInput = GetComponent<PlayerInputHandler>();
 
-        _playerInput.OnInteract += HandleInteraction;
+        _playerInput.OnInteract += PlayerHandleInteraction;
         _playerInput.OnJump += HandleJump;
         _playerHealth.OnHurt += HandleHurt;
     }
@@ -38,9 +38,14 @@ public class PlayerInteractionController : BaseInteractionController
 
     private void OnDestroy()
     {
-        _playerInput.OnInteract -= HandleInteraction;
+        _playerInput.OnInteract -= PlayerHandleInteraction;
         _playerInput.OnJump -= HandleJump;
         _playerHealth.OnHurt -= HandleHurt;
+    }
+
+    public void PlayerHandleInteraction()
+    {
+        HandleInteraction();
     }
 
     #endregion

@@ -8,7 +8,8 @@ public class RunAway : GAction
     #region Editor Fields
 
     [Header("Action Specific Variables")]
-    [SerializeField] private float _maxDistance = 40f;
+    [SerializeField] private float _minDistance = 30f;
+    [SerializeField] private float _maxDistance = 60f;
 
     #endregion
 
@@ -32,16 +33,12 @@ public class RunAway : GAction
 
         if (Target == null) { return false; }
 
-        Debug.Log("Will Run: " + Target);
-
         return true;
     }
 
     public override bool PostPeform()
     {
         if(_currentRunAwayObj != null) { Destroy(_currentRunAwayObj); }
-
-        Debug.Log("PostPeform Run");
 
         return true;
     }
@@ -63,10 +60,17 @@ public class RunAway : GAction
         {
             if (NavMesh.SamplePosition(randomDirection, out hit, radius, NavMesh.AllAreas))
             {
-                Debug.Log("Sample mask: " + hit.mask);
-                Debug.Log("Current mask: " + navMeshHit.mask);
                 finalPosition = hit.position;
                 foundNavmeshMask = hit.mask;
+
+                //If random point is closer than min distance, project point further out
+                float remainingMinDistance = Vector3.Distance(transform.position, finalPosition);
+                if (remainingMinDistance < _minDistance)
+                    if (NavMesh.SamplePosition(finalPosition + (randomDirection.normalized * remainingMinDistance), out hit, _maxDistance, NavMesh.AllAreas))
+                    {
+                        finalPosition = hit.position;
+                        Debug.Log("Got Updated Min Random pos");
+                    }
             }
 
             crashPreventionCounter++;
