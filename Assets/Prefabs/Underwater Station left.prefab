@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4735074182538119605}
   m_Layer: 0
-  m_Name: Underwater Station
+  m_Name: Underwater Station left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4095,8 +4095,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5206465417728433169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.4, y: 0, z: 0}
-  m_LocalScale: {x: 1.1404787, y: 1, z: 1}
+  m_LocalPosition: {x: -19.4, y: -0.3, z: 0}
+  m_LocalScale: {x: 1.1404787, y: 0.87184, z: 1}
   m_Children: []
   m_Father: {fileID: 5206465417051587741}
   m_RootOrder: 7
