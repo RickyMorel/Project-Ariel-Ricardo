@@ -53,14 +53,12 @@ public class CameraManager : MonoBehaviour
         if (boolean)
         {
             _cameras[_cameras.Length - 1].OutputCamera.cullingMask = -1;
-            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Skybox;
-            _perspectiveCamera.SetActive(false);
+            _cameras[_cameras.Length - 1].gameObject.GetComponentInChildren<CinemachineBrain>().OutputCamera.cullingMask = LayerMask.GetMask("Floor");
         }
         else
         {
             _cameras[_cameras.Length - 1].OutputCamera.cullingMask = LayerMask.GetMask("Ragdoll", "ShipFloor", "Orthographic", "UI");
-            _cameras[_cameras.Length - 1].gameObject.GetComponent<Camera>().clearFlags = CameraClearFlags.Nothing;
-            _perspectiveCamera.SetActive(true);
+            _cameras[_cameras.Length - 1].gameObject.GetComponentInChildren<CinemachineBrain>().OutputCamera.cullingMask = LayerMask.GetMask("Floor", "Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "LootLayer", "Cylinder", "ItemLayer", "ItemBox", "NPC", "EnemyHitBox");
         }
     }
 

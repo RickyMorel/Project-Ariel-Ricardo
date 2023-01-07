@@ -7,6 +7,7 @@ public class PerspectiveToggle : MonoBehaviour
     #region Editor Fields
 
     [SerializeField] private GameObject _collosal = null;
+    [SerializeField] private GameObject[] _everythingElse = null;
 
     #endregion
 
@@ -46,6 +47,12 @@ public class PerspectiveToggle : MonoBehaviour
     {
         TimelinesManager.Instance.CameraFadeTimeline.Play();
         yield return new WaitForSeconds(0.5f);
+
+        for (int i = 0; i < _everythingElse.Length; i++)
+        {
+            _everythingElse[i].SetActive(boolean);
+        }
+
         _collosal.SetActive(!boolean);
         _cameraManager.CullingMaskToggle(boolean);
     }
