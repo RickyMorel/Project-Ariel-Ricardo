@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class AIHealth : PlayerHealth
 {
     #region Editor Fields
@@ -14,6 +16,7 @@ public class AIHealth : PlayerHealth
 
     private GAgent _gAgent;
     private AIInteractionController _interactionController;
+    private Rigidbody _rb;
 
     #endregion
 
@@ -31,16 +34,28 @@ public class AIHealth : PlayerHealth
 
         _gAgent = GetComponent<GAgent>();
         _interactionController = GetComponent<AIInteractionController>();
+        _rb = GetComponent<Rigidbody>();
 
         OnDamaged += Hurt;
+        OnDie += HandleDead;
     }
 
     private void OnDestroy()
     {
         OnDamaged -= Hurt;
+        OnDie -= HandleDead;
     }
 
     #endregion
+
+    private void HandleDead()
+    {
+        _gAgent.enabled = false;
+        _rb.isKinematic = false;
+        _rb.useGravity = true;
+
+        Invoke(nameof(DestroySelf), 10f);
+    }
 
     public override void Hurt(DamageType damageType)
     {
@@ -75,5 +90,10 @@ public class AIHealth : PlayerHealth
     {
         _gAgent.CancelPreviousActions();
         _interactionController.CheckExitInteraction();
+    }
+
+    private void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

@@ -49,11 +49,18 @@ public class Projectile : MonoBehaviour
         if (GetComponentInChildren<ParticleSystem>() == null) { return; }
 
         _particles = GetComponentInChildren<ParticleSystem>();
+
+        Invoke(nameof(DestroySelf), 4f);
     }
 
     public void Initialize(string ownerTag)
     {
         gameObject.tag = ownerTag;
+    }
+
+    private void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 
     #endregion

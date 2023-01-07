@@ -65,7 +65,7 @@ public class BaseInteractionController : MonoBehaviour
         CheckExitInteraction();
     }
 
-    public void CheckExitInteraction()
+    public virtual void CheckExitInteraction()
     {
         //if is not doing interaction, return
         if (!IsInteracting()) { return; }
@@ -76,17 +76,19 @@ public class BaseInteractionController : MonoBehaviour
     }
 
     //This calls when the player presses the interact button
-    public void HandleInteraction()
+    public void HandleInteraction(float customDuration = -1)
     {
         if (_currentInteractable == null) { return; }
 
         if (_currentInteractable.CurrentPlayer == this) { return; }
 
+        float singleUseDuration = customDuration == -1 ? _currentInteractable.SingleUseTime : customDuration;
+
         SetInteraction((int)_currentInteractable.InteractionType, _currentInteractable.PlayerPositionTransform);
 
         if (_playerCarryController != null) { _playerCarryController.DropAllItems(); }
 
-        if (_currentInteractable.IsSingleUse) { Invoke(nameof(CheckExitInteraction), _currentInteractable.SingleUseTime); }
+        if (_currentInteractable.IsSingleUse) { Invoke(nameof(CheckExitInteraction), singleUseDuration); }
     }
 
     public virtual void SetCurrentInteractable(Interactable interactable)

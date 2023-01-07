@@ -136,7 +136,7 @@ public class Damageable : MonoBehaviour
             Die();
     }
 
-    public virtual void Damage(int damage, DamageType damageType = DamageType.None, bool isDamageChain = false)
+    public virtual void Damage(int damage, DamageType damageType = DamageType.None, bool isDamageChain = false, Collider instigatorCollider = null)
     {
         if (IsDead()) { return; }
 
