@@ -14,14 +14,11 @@ public class Heal : GAction
 
         GWorld.Instance.GetWorld().ModifyState(GWorld.FREE_HEAL_POINTS, -1);
 
-        Debug.Log("PrePerform Heal");
-
         return true;
     }
 
     public override bool PostPeform()
     {
-        Debug.Log("PostPeform Heal");
         GWorld.Instance.GetQueue(GWorld.HEAL_POINTS).AddResource(Target);
 
         Inventory.RemoveItem(Target);
