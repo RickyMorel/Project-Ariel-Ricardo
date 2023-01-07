@@ -284,14 +284,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1788001484, guid: 6cdedb83da44b4a4d845727f0034c46b, type: 3}
-      propertyPath: _maxDistance
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1788001484, guid: 6cdedb83da44b4a4d845727f0034c46b, type: 3}
-      propertyPath: _minDistance
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7153336119383687665, guid: 6cdedb83da44b4a4d845727f0034c46b, type: 3}
       propertyPath: m_Name
       value: SeaFly

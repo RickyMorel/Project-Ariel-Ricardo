@@ -40,6 +40,8 @@ public class RunAway : GAction
     {
         if(_currentRunAwayObj != null) { Destroy(_currentRunAwayObj); }
 
+        Beliefs.RemoveState("hurt");
+
         return true;
     }
 
@@ -69,7 +71,6 @@ public class RunAway : GAction
                     if (NavMesh.SamplePosition(finalPosition + (randomDirection.normalized * remainingMinDistance), out hit, _maxDistance, NavMesh.AllAreas))
                     {
                         finalPosition = hit.position;
-                        Debug.Log("Got Updated Min Random pos");
                     }
             }
 

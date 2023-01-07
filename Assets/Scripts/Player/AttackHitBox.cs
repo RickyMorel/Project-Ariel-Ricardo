@@ -10,6 +10,7 @@ public class AttackHitBox : MonoBehaviour
     #region Public Properties
 
     public event Action<GameObject> OnHit;
+    private Collider _hitBox;
 
     #endregion
 
@@ -19,6 +20,11 @@ public class AttackHitBox : MonoBehaviour
     [SerializeField] private bool _isFriendlyToPlayers = true;
 
     #endregion
+
+    private void Start()
+    {
+        _hitBox = GetComponent<Collider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -47,7 +53,7 @@ public class AttackHitBox : MonoBehaviour
 
         if (enemyHealth is ShipHealth)
         {
-            enemyHealth.Damage(20, DamageType.Base);
+            enemyHealth.Damage(20, DamageType.Base, false, _hitBox);
         }
     }
 }
