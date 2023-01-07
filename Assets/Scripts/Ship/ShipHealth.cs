@@ -78,6 +78,9 @@ public class ShipHealth : Damageable
         base.Damage(damage, damageType, isDamageChain);
 
         ShipCamera.Instance.ShakeCamera(2f, 50f, 0.2f);
+
+        if(instigatorCollider == null) { return; }
+
         _shipEnemyDamageParticles.transform.position = instigatorCollider.ClosestPointOnBounds(transform.position);
         _shipEnemyDamageParticles.Play();
     }
