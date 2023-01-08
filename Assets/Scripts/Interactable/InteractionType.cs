@@ -11,4 +11,5 @@ public enum InteractionType
     ShopSalesmanIdle = 8,
     Healing = 9,
     Fixing = 10,
+    AttachedAttacking = 11,
 }

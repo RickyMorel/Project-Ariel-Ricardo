@@ -19,6 +19,16 @@ public class AIInteractionController : BaseInteractionController
         _gAgent.OnExitAction += CheckExitInteraction;
     }
 
+    private void FixedUpdate()
+    {
+        if(CurrentInteractable == null) { return; }
+
+        if(_currentInteraction == 0) { return; }
+
+        transform.position = CurrentInteractable.PlayerPositionTransform.position;
+        transform.rotation = CurrentInteractable.PlayerPositionTransform.rotation;
+    }
+
     private void OnDestroy()
     {
         _gAgent.OnExitAction -= CheckExitInteraction;
@@ -36,7 +46,12 @@ public class AIInteractionController : BaseInteractionController
 
         if(interactable == wantedInteractable)
         {
-            HandleInteraction();
+            HandleInteraction(_gAgent.CurrentAction.Duration);
         }
+    }
+
+    public override void CheckExitInteraction()
+    {
+        base.CheckExitInteraction();
     }
 }

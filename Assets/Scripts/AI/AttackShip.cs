@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AttackShip : GAction
 {
+    #region Editor Fields
+
+    [SerializeField] private GWorld.AttackTags _attackItemTag;
+    [SerializeField] private GWorld.AttackFreeTags _attackFreeItemName;
+
+    #endregion
+
     #region Private Variables
 
     private AIStateMachine _stateMachine;
@@ -21,13 +28,13 @@ public class AttackShip : GAction
 
     public override bool PrePerform()
     {
-        Target = GWorld.Instance.GetQueue(GWorld.SHIP_ATTACK_POINTS).RemoveResource();
+        Target = GWorld.Instance.GetQueue(_attackItemTag.ToString()).RemoveResource();
 
         if (Target == null) { return false; }
 
         Inventory.AddItem(Target);
 
-        GWorld.Instance.GetWorld().ModifyState(GWorld.FREE_SHIP_ATTACK_POINTS, -1);
+        GWorld.Instance.GetWorld().ModifyState(_attackFreeItemName.ToString(), -1);
 
         _gAgent.SetGoalDistance(_aiCombat.AttackRange);
 
@@ -36,11 +43,11 @@ public class AttackShip : GAction
 
     public override bool PostPeform()
     {
-        GWorld.Instance.GetQueue(GWorld.SHIP_ATTACK_POINTS).AddResource(Target);
+        GWorld.Instance.GetQueue(_attackItemTag.ToString()).AddResource(Target);
 
         Inventory.RemoveItem(Target);
 
-        GWorld.Instance.GetWorld().ModifyState(GWorld.FREE_SHIP_ATTACK_POINTS, 1);
+        GWorld.Instance.GetWorld().ModifyState(_attackFreeItemName.ToString(), 1);
 
         _stateMachine.BasicAttack();
 

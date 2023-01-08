@@ -13,6 +13,7 @@ public class ShipHealth : Damageable
     [SerializeField] private float _minCrashSpeed = 20f;
     [SerializeField] private float _crashDamageMultiplier = 10f;
     [SerializeField] private ParticleSystem _shipCrashParticles;
+    [SerializeField] private ParticleSystem _shipEnemyDamageParticles;
     #endregion
 
     #region Private Varaibles
@@ -71,6 +72,18 @@ public class ShipHealth : Damageable
     }
 
     #endregion
+
+    public override void Damage(int damage, DamageType damageType = DamageType.None, bool isDamageChain = false, Collider instigatorCollider = null)
+    {
+        base.Damage(damage, damageType, isDamageChain);
+
+        ShipCamera.Instance.ShakeCamera(2f, 50f, 0.2f);
+
+        if(instigatorCollider == null) { return; }
+
+        _shipEnemyDamageParticles.transform.position = instigatorCollider.ClosestPointOnBounds(transform.position);
+        _shipEnemyDamageParticles.Play();
+    }
 
     private void HandleFix()
     {
