@@ -11,13 +11,9 @@ public class ShipHealth : Damageable
     [Header("Crash Parameters")]
     [SerializeField] private InteractableHealth _boosterHealth;
     [SerializeField] private LayerMask _crashLayers;
-    [SerializeField] private float _minCrashSpeed = 20f;
-    [SerializeField] private float _crashDamageMultiplier = 10f;
 
     [Header("FX")]
     [SerializeField] private GameObject _redLights;
-    [SerializeField] private ParticleSystem _shipCrashParticles;
-    [SerializeField] private ParticleSystem _shipEnemyDamageParticles;
 
     #endregion
 
@@ -25,6 +21,15 @@ public class ShipHealth : Damageable
 
     private Rigidbody _rb;
     private float _currentDamage;
+    private float _minCrashSpeed;
+    private float _crashDamageMultiplier;
+
+    #endregion
+
+    #region Getters & Setters
+
+    public float MinCrashSpeed { get { return _minCrashSpeed; } set { _minCrashSpeed = value; } }
+    public float CrashDamageMultiplier { get { return _crashDamageMultiplier; } set { _crashDamageMultiplier = value; } }
 
     #endregion
 
@@ -72,8 +77,7 @@ public class ShipHealth : Damageable
 
 
         Vector3 hitPos = other.ClosestPointOnBounds(transform.position);
-        _shipCrashParticles.transform.position = hitPos;
-        _shipCrashParticles.Play();
+        GameObject shipCrashParticles = Instantiate(Ship.Instance.ShipStatsSO.ShipCrashParticles.gameObject, hitPos, Quaternion.identity);
     }
 
     #endregion
@@ -86,8 +90,8 @@ public class ShipHealth : Damageable
 
         if(instigatorCollider == null) { return; }
 
-        _shipEnemyDamageParticles.transform.position = instigatorCollider.ClosestPointOnBounds(transform.position);
-        _shipEnemyDamageParticles.Play();
+        Vector3 hitPos = instigatorCollider.ClosestPointOnBounds(transform.position);
+        GameObject shipEnemyDamageParticles = Instantiate(Ship.Instance.ShipStatsSO.ShipEnemyDamageParticles.gameObject, hitPos, Quaternion.identity);
     }
 
     private void HandleFix()

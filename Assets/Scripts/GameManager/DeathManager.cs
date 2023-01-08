@@ -5,12 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class DeathManager : MonoBehaviour
 {
-    #region Editor Fields
-
-    [SerializeField] private float _timeTillDeath = 20f;
-
-    #endregion
-
     #region Private Variables
 
     private ShipHealth _shipHealth;
@@ -29,7 +23,7 @@ public class DeathManager : MonoBehaviour
 
         _timeSinceDeath += Time.deltaTime;
 
-        if(_timeSinceDeath < _timeTillDeath) { return; }
+        if(_timeSinceDeath < Ship.Instance.TimeTillDeath) { return; }
 
         StartCoroutine(DeathCoroutine());
     }
