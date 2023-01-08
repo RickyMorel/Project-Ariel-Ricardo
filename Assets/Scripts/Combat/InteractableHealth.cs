@@ -120,7 +120,7 @@ public class InteractableHealth : Damageable
     {
         base.Die();
 
-        _currentParticles = Instantiate(GameAssetsManager.Instance.InteractableFriedParticles, transform);
+        _currentParticles = Instantiate(Ship.Instance.ShipStatsSO.InteractableFriedParticles.gameObject, transform);
         _currentParticles.transform.localPosition = new Vector3(
             _particleSpawnTransform.localPosition.x,
             _particleSpawnTransform.localPosition.y,
