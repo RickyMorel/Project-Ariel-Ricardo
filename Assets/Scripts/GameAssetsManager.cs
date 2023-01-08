@@ -11,10 +11,10 @@ public class GameAssetsManager : MonoBehaviour
     [SerializeField] private GameObject _repairCostsCanvas;
     [SerializeField] private GameObject _chipPickup;
     [SerializeField] private GameObject _upgradeParticles;
-
     [SerializeField] private GameObject _electricParticles;
     [SerializeField] private GameObject _fireParticles;
     [SerializeField] private GameObject _meleeFloorHitParticles;
+    [ColorUsageAttribute(false, true), SerializeField] private Color _laserHeatColor;
 
     #endregion
 
@@ -34,6 +34,7 @@ public class GameAssetsManager : MonoBehaviour
     public GameObject ElectricParticles => _electricParticles;
     public GameObject FireParticles => _fireParticles;
     public GameObject MeleeFloorHitParticles => _meleeFloorHitParticles;
+    public Color LaserHeatColor => _laserHeatColor;
 
     public static GameAssetsManager Instance { get { return _instance; } }
 
