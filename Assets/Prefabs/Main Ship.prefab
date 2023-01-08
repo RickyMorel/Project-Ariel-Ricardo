@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resistanceType: 
   _weaknessType: 
-  _maxHealth: 1000
+  _maxHealth: 500
   _healthBarImage: {fileID: 0}
   _damageParticles: {fileID: 0}
   _colorChangeRenderer: {fileID: 0}

@@ -4483,7 +4483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3994054410171757213, guid: 356d273ce70c7e74fba212f4826c4b18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.62
+      value: -8.44
       objectReference: {fileID: 0}
     - target: {fileID: 3994054410171757213, guid: 356d273ce70c7e74fba212f4826c4b18, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4578,6 +4578,10 @@ PrefabInstance:
       propertyPath: _contentTransform
       value: 
       objectReference: {fileID: 1757915095}
+    - target: {fileID: 5877842457033602642, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _maxHealth
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 5877842457033602642, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: _healthBarImage
       value: 
