@@ -8,12 +8,17 @@ public class ShipHealth : Damageable
 {
     #region Editor Fields
 
+    [Header("Crash Parameters")]
     [SerializeField] private InteractableHealth _boosterHealth;
     [SerializeField] private LayerMask _crashLayers;
     [SerializeField] private float _minCrashSpeed = 20f;
     [SerializeField] private float _crashDamageMultiplier = 10f;
+
+    [Header("FX")]
+    [SerializeField] private GameObject _redLights;
     [SerializeField] private ParticleSystem _shipCrashParticles;
     [SerializeField] private ParticleSystem _shipEnemyDamageParticles;
+
     #endregion
 
     #region Private Varaibles
@@ -105,5 +110,28 @@ public class ShipHealth : Damageable
     private void HandleDamaged(DamageType damageType)
     {
         _boosterHealth.SetHealth((int)CurrentHealth);
+
+        CheckFlickerRedLights();
+    }
+
+    private void CheckFlickerRedLights()
+    {
+        if (!IsDead()) { return; }
+
+        StartCoroutine(FlickerRedLights());
+    }
+
+    private IEnumerator FlickerRedLights()
+    {
+        _redLights.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        _redLights.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (!IsDead()) { yield return null; }
+        else { StartCoroutine(FlickerRedLights()); }
     }
 }

@@ -1349,7 +1349,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.18519042, g: 0.55396354, b: 0.9622642, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1496,6 +1496,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2109797434 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3852162812249718933, guid: 3ca6a68da565ad540b85293521b91cd1, type: 3}
+  m_PrefabInstance: {fileID: 3852162812951333812}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2109797443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109797434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9db1b78c27703544a4ef506d121a77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeTillDeath: 5
 --- !u!1001 &3202526020659381094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1774,6 +1792,10 @@ PrefabInstance:
       propertyPath: _contentTransform
       value: 
       objectReference: {fileID: 1757915095}
+    - target: {fileID: 5877842457033602642, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+      propertyPath: _maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5877842457033602642, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: _healthBarImage
       value: 
