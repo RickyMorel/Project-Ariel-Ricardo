@@ -42,7 +42,7 @@ public class DeathManager : MonoBehaviour
 
         ShowDeathScreen();
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds((float)DeathPanelUI.Instance.DeathPanelTimeLine.duration);
 
         ReloadScene();
     }

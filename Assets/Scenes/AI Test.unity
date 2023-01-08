@@ -3198,6 +3198,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356d273ce70c7e74fba212f4826c4b18, type: 3}
+--- !u!114 &456363755 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2028690528299777052, guid: b3991de570f6479418e4e1572b99969b, type: 3}
+  m_PrefabInstance: {fileID: 1091448593}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999a34002b9685644a460948c1968fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &738595858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3594,7 +3605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2028690528299777028, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2028690528299777049, guid: b3991de570f6479418e4e1572b99969b, type: 3}
       propertyPath: _weaknessType.Array.size
@@ -4223,7 +4234,7 @@ GameObject:
   - component: {fileID: 2020307025}
   - component: {fileID: 2020307024}
   - component: {fileID: 2020307023}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: EnemyFovZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4245,6 +4256,7 @@ MonoBehaviour:
   _enemyAiList:
   - {fileID: 166658838}
   - {fileID: 1475310523}
+  - {fileID: 456363755}
 --- !u!65 &2020307024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4554,10 +4566,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2923710585742024627, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4471484184268937319, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: m_Name
       value: 'Main Ship '
@@ -4571,14 +4579,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1757915095}
     - target: {fileID: 5877842457033602642, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-      propertyPath: _maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5877842457033602642, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
       propertyPath: _healthBarImage
       value: 
       objectReference: {fileID: 1444441625}
-    m_RemovedComponents:
-    - {fileID: 2923710585742024627, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
-    - {fileID: 1074782144, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c2f4a2fd99211d439267619217db38a, type: 3}

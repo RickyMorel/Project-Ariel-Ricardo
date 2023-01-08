@@ -20,6 +20,8 @@ public class DeathPanelUI : MonoBehaviour
     #region Public Properties
     public static DeathPanelUI Instance { get { return _instance; } }
 
+    public PlayableDirector DeathPanelTimeLine => _deathPanelTimeline;
+
     #endregion
 
     #region Unity Loops
