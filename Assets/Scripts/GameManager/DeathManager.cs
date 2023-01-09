@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class DeathManager : MonoBehaviour
 {
+    #region Editor Fields
+
+    [SerializeField] private Volume _postProcessing;
+
+    #endregion
+
     #region Private Variables
 
     private ShipHealth _shipHealth;
@@ -61,5 +68,10 @@ public class DeathManager : MonoBehaviour
         {
             player.Hurt(DamageType.Base);
         }
+    }
+
+    private void AddEyeClosingFX()
+    {
+        VolumeInterface.Instance.ChangeVignetteByPercentage(_timeSinceDeath / Ship.Instance.TimeTillDeath);
     }
 }
