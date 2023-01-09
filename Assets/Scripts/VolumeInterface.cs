@@ -39,7 +39,7 @@ public class VolumeInterface : MonoBehaviour
     {
         _volume = GetComponent<Volume>();
         
-        if(_volume.TryGetComponent<Vignette>(out Vignette vignette)) { _vignette = vignette; }
+        if(_volume.profile.TryGet<Vignette>(out Vignette vignette)) { _vignette = vignette; }
 
 
 
@@ -48,11 +48,11 @@ public class VolumeInterface : MonoBehaviour
 
     public void ChangeVignetteByPercentage(float newIntensityPercentage)
     {
-        _vignette.intensity.value = newIntensityPercentage;
+        _vignette.intensity.Override(newIntensityPercentage);
     }
 
     public void ResetVignette()
     {
-        _vignette.intensity.value = _originalVignetteIntensity;
+        _vignette.intensity.Override(_originalVignetteIntensity);
     }
 }

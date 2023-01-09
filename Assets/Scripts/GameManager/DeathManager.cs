@@ -6,18 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class DeathManager : MonoBehaviour
 {
-    #region Editor Fields
-
-    [SerializeField] private Volume _postProcessing;
-
-    #endregion
-
     #region Private Variables
 
     private ShipHealth _shipHealth;
     private float _timeSinceDeath;
 
     #endregion
+
+    #region Unity Loops
 
     private void Start()
     {
@@ -26,13 +22,21 @@ public class DeathManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_shipHealth.IsDead()) { _timeSinceDeath = 0f; return; }
+        if (!_shipHealth.IsDead()) { UpdateDeathTime(-1f); return; }
 
-        _timeSinceDeath += Time.deltaTime;
+        UpdateDeathTime(1f);
 
-        if(_timeSinceDeath < Ship.Instance.TimeTillDeath) { return; }
+        if (_timeSinceDeath < Ship.Instance.TimeTillDeath) { return; }
 
         StartCoroutine(DeathCoroutine());
+    }
+
+    #endregion
+
+    private void UpdateDeathTime(float multiplier)
+    {
+        _timeSinceDeath = Mathf.Clamp(_timeSinceDeath + (Time.deltaTime * multiplier), 0f, Ship.Instance.TimeTillDeath);
+        AddEyeClosingFX();
     }
 
     private IEnumerator DeathCoroutine()
@@ -60,8 +64,6 @@ public class DeathManager : MonoBehaviour
 
     private void KillAllPlayers()
     {
-        _timeSinceDeath = 0f;
-
         PlayerHealth[] allPlayers = FindObjectsOfType<PlayerHealth>();
 
         foreach(PlayerHealth player in allPlayers)
@@ -72,6 +74,6 @@ public class DeathManager : MonoBehaviour
 
     private void AddEyeClosingFX()
     {
-        VolumeInterface.Instance.ChangeVignetteByPercentage(_timeSinceDeath / Ship.Instance.TimeTillDeath);
+        VolumeInterface.Instance.ChangeVignetteByPercentage((_timeSinceDeath / Ship.Instance.TimeTillDeath) * 0.6f);
     }
 }
